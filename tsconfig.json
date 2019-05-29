@@ -17,6 +17,44 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@ng-maps/core": [
+        "dist/core"
+      ],
+      "@ng-maps/core/*": [
+        "dist/core/*"
+      ],
+      "@ng-maps/js-marker-clusterer": [
+        "dist/js-marker-clusterer"
+      ],
+      "@ng-maps/js-marker-clusterer/*": [
+        "dist/js-marker-clusterer/*"
+      ],
+      "@ng-maps/snazzy-info-window": [
+        "dist/snazzy-info-window"
+      ],
+      "@ng-maps/snazzy-info-window/*": [
+        "dist/snazzy-info-window/*"
+      ],
+      "@ng-maps/data-layer": [
+        "dist/data-layer"
+      ],
+      "@ng-maps/data-layer/*": [
+        "dist/data-layer/*"
+      ],
+      "@ng-maps/kml-layer": [
+        "dist/kml-layer"
+      ],
+      "@ng-maps/kml-layer/*": [
+        "dist/kml-layer/*"
+      ],
+      "@ng-maps/shapes": [
+        "dist/shapes"
+      ],
+      "@ng-maps/shapes/*": [
+        "dist/shapes/*"
+      ]
+    }
   }
 }
