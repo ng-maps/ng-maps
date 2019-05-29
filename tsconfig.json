@@ -25,11 +25,11 @@
       "@ng-maps/core/*": [
         "dist/core/*"
       ],
-      "@ng-maps/js-marker-clusterer": [
-        "dist/js-marker-clusterer"
+      "@ng-maps/marker-clusterer": [
+        "dist/marker-clusterer"
       ],
-      "@ng-maps/js-marker-clusterer/*": [
-        "dist/js-marker-clusterer/*"
+      "@ng-maps/marker-clusterer/*": [
+        "dist/marker-clusterer/*"
       ],
       "@ng-maps/snazzy-info-window": [
         "dist/snazzy-info-window"
@@ -54,6 +54,12 @@
       ],
       "@ng-maps/shapes/*": [
         "dist/shapes/*"
+      ],
+      "@ng-maps/places": [
+        "dist/places"
+      ],
+      "@ng-maps/places/*": [
+        "dist/places/*"
       ]
     }
   }

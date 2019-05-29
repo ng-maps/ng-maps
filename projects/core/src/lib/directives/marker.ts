@@ -43,7 +43,7 @@ let markerId = 0;
  * ```
  */
 @Component({
-  selector: 'map-marker',
+  selector: 'agm-marker, map-marker',
   providers: [
     {provide: FitBoundsAccessor, useExisting: forwardRef(() => AgmMarker)}
   ],

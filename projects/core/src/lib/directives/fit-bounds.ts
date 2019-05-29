@@ -10,7 +10,7 @@ import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
  * <agm-marker [agmFitBounds]="true"></agm-marker>
  */
 @Directive({
-  selector: '[agmFitBounds]'
+  selector: '[agmFitBounds], [mapFitBounds]'
 })
 export class AgmFitBounds implements OnInit, OnDestroy, OnChanges {
   /**
