@@ -20,34 +20,33 @@ export class GoogleMapsAPIWrapper {
   }
 
   createMap(el: HTMLElement, mapOptions: google.maps.MapOptions): Promise<void> {
-    return this._zone.runOutsideAngular( () => {
-      return this._loader.load().then(() => {
-        const map = new google.maps.Map(el, mapOptions);
-        this._mapResolver(map as google.maps.Map);
-        return;
-      });
+    return this._zone.runOutsideAngular( async () => {
+      await this._loader.load();
+      this._mapResolver(new google.maps.Map(el, mapOptions));
+      return;
     });
   }
 
-  setMapOptions(options: google.maps.MapOptions) {
-    this._map.then((m: google.maps.Map) => { m.setOptions(options); });
+  async setMapOptions(options: google.maps.MapOptions) {
+    const map = await this._map;
+    map.setOptions(options);
   }
 
   /**
    * Creates a google map marker with the map context
    */
-  createMarker(options: google.maps.MarkerOptions = {} as google.maps.MarkerOptions, addToMap: boolean = true):
+  async createMarker(options: google.maps.MarkerOptions = {}, addToMap: boolean = true):
       Promise<google.maps.Marker> {
-    return this._map.then((map: google.maps.Map) => {
-      if (addToMap) {
-        options.map = map;
-      }
-      return new google.maps.Marker(options);
-    });
+    const map = await this._map;
+    if (addToMap) {
+      options.map = map;
+    }
+    return new google.maps.Marker(options);
   }
 
-  createInfoWindow(options?: google.maps.InfoWindowOptions): Promise<google.maps.InfoWindow> {
-    return this._map.then(() => new google.maps.InfoWindow(options));
+  async createInfoWindow(options?: google.maps.InfoWindowOptions): Promise<google.maps.InfoWindow> {
+    await this._map;
+    return new google.maps.InfoWindow(options);
   }
 
   /**

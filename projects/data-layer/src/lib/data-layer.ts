@@ -11,12 +11,12 @@ let layerId = 0;
  * ### Example
  * ```typescript
  * import { Component } from 'angular2/core';
- * import { AgmMap, AgmDataLayer } from
+ * import { NgMapsViewComponent, AgmDataLayer } from
  * 'angular-google-maps/core';
  *
  * @Component({
  *  selector: 'my-map-cmp',
- *  directives: [AgmMap, AgmDataLayer],
+ *  directives: [NgMapsViewComponent, AgmDataLayer],
  *  styles: [`
  *    .agm-container {
  *      height: 300px;

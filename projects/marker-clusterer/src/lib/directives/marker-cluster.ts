@@ -1,9 +1,10 @@
-import { Directive, Input, OnDestroy, OnChanges, OnInit, SimpleChange, Component } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChange } from '@angular/core';
+import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
+import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from '../config';
 
-import {ClusterManager} from '../services/managers/cluster-manager';
-import {MarkerManager, InfoWindowManager} from '@ng-maps/core';
+import { ClusterManager } from '../services/managers/cluster-manager';
 
-import {ClusterOptions, ClusterStyle} from '../types';
+import { ClusterOptions, ClusterStyle } from '../types';
 
 /**
  * MarkerClusterComponent clusters map marker if they are near together
@@ -75,7 +76,8 @@ export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit, Clu
   @Input() imagePath: string;
   @Input() imageExtension: string;
 
-  constructor(private _clusterManager: ClusterManager) {}
+  constructor(@Optional() @Inject(MARKER_CLUSTER_CONFIG) private _config: MarkerClusterConfig = null, private _clusterManager: ClusterManager) {
+  }
 
   /** @internal */
   ngOnDestroy() {
@@ -83,7 +85,7 @@ export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit, Clu
   }
 
   /** @internal */
-  ngOnChanges(changes: {[key: string]: SimpleChange }) {
+  ngOnChanges(changes: { [key: string]: SimpleChange }) {
     if (changes.gridSize) {
       this._clusterManager.setGridSize(this);
     }
@@ -122,7 +124,7 @@ export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit, Clu
       averageCenter: this.averageCenter,
       minimumClusterSize: this.minimumClusterSize,
       styles: this.styles,
-      imagePath: this.imagePath,
+      imagePath: this.imagePath == null && this._config != null ? this._config.imagePath : this.imagePath,
       imageExtension: this.imageExtension,
     });
   }

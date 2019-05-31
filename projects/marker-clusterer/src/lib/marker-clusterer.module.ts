@@ -1,10 +1,23 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from './config';
 import { MarkerClusterComponent } from './directives/marker-cluster';
+import { ClusterManager } from './services/managers/cluster-manager';
 
 @NgModule({
   declarations: [MarkerClusterComponent],
-  imports: [
-  ],
+  providers: [ClusterManager],
   exports: [MarkerClusterComponent]
 })
-export class MarkerClustererModule { }
+export class NgMapsMarkerClustererModule {
+  /**
+   * Please use this method when you register the module at the root level.
+   */
+  static forRoot(markerClusterConfig?: MarkerClusterConfig): ModuleWithProviders {
+    return {
+      ngModule: NgMapsMarkerClustererModule,
+      providers: [
+        {provide: MARKER_CLUSTER_CONFIG, useValue: markerClusterConfig}
+      ],
+    };
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FitBoundsService } from '../services/fit-bounds';
 
@@ -6,12 +6,10 @@ import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
 import { InfoWindowManager } from '../services/managers/info-window-manager';
 import { MarkerManager } from '../services/managers/marker-manager';
 
-declare var google: any;
-
 /**
- * AgmMap renders a Google Map.
+ * NgMapsViewComponent renders a Google Map.
  * **Important note**: To be able see a map in the browser, you have to define a height for the
- * element `agm-map`.
+ * element `map-view`.
  *
  * ### Example
  * ```typescript
@@ -20,13 +18,13 @@ declare var google: any;
  * @Component({
  *  selector: 'my-map-cmp',
  *  styles: [`
- *    agm-map {
+ *    map-view {
  *      height: 300px;
  *    }
  * `],
  *  template: `
- *    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
- *    </agm-map>
+ *    <map-view [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+ *    </map-view>
  *  `
  * })
  * ```
@@ -34,7 +32,9 @@ declare var google: any;
 @Component({
   selector: 'agm-map, map-view',
   providers: [
-    MarkerManager, InfoWindowManager, FitBoundsService
+    MarkerManager,
+    InfoWindowManager,
+    FitBoundsService
   ],
   styles: [`
     .map-container-inner {
@@ -47,15 +47,15 @@ declare var google: any;
     }
   `],
   template: `
-    <div class='map-container-inner'></div>
+    <div class='map-container-inner' #container></div>
     <div class='map-content'>
       <ng-content></ng-content>
     </div>
   `
 })
-export class AgmMap implements OnChanges, OnInit, OnDestroy {
+export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
 
-  constructor(private _elem: ElementRef, private _mapsWrapper: GoogleMapsAPIWrapper, protected _fitBoundsService: FitBoundsService) {
+  constructor(private elementRef: ElementRef, private _mapsWrapper: GoogleMapsAPIWrapper, protected _fitBoundsService: FitBoundsService) {
   }
 
   /**
@@ -310,15 +310,15 @@ export class AgmMap implements OnChanges, OnInit, OnDestroy {
    */
   @Output() mapReady: EventEmitter<any> = new EventEmitter<any>();
 
+  @ViewChild('container', {static: true}) container: ElementRef;
+
   /** @internal */
   ngOnInit() {
-    // todo: this should be solved with a new component and a viewChild decorator
-    const container = this._elem.nativeElement.querySelector('.agm-map-container-inner');
-    this._initMapInstance(container);
+    this._initMapInstance(this.container.nativeElement);
   }
 
-  private _initMapInstance(el: HTMLElement) {
-    this._mapsWrapper.createMap(el, {
+  private async _initMapInstance(el: HTMLElement) {
+    await this._mapsWrapper.createMap(el, {
       center: {lat: this.latitude || 0, lng: this.longitude || 0},
       zoom: this.zoom,
       minZoom: this.minZoom,
@@ -350,9 +350,9 @@ export class AgmMap implements OnChanges, OnInit, OnDestroy {
       mapTypeId: this.mapTypeId,
       clickableIcons: this.clickableIcons,
       gestureHandling: this.gestureHandling
-    })
-      .then(() => this._mapsWrapper.getNativeMap())
-      .then(map => this.mapReady.emit(map));
+    });
+    const map = await this._mapsWrapper.getNativeMap();
+    this.mapReady.emit(map);
 
     // register event listeners
     this._handleMapCenterChange();
@@ -384,7 +384,7 @@ export class AgmMap implements OnChanges, OnInit, OnDestroy {
   private _updateMapOptionsChanges(changes: SimpleChanges) {
     const options: { [propName: string]: any } = {};
     const optionKeys =
-      Object.keys(changes).filter(k => AgmMap._mapOptionsAttributes.indexOf(k) !== -1);
+      Object.keys(changes).filter(k => NgMapsViewComponent._mapOptionsAttributes.indexOf(k) !== -1);
     optionKeys.forEach((k) => {
       options[k] = changes[k].currentValue;
     });
@@ -534,8 +534,8 @@ export class AgmMap implements OnChanges, OnInit, OnDestroy {
     }
 
     interface Event {
-      name: string,
-      emitter: Emitter
+      name: string;
+      emitter: Emitter;
     }
 
     const events: Event[] = [

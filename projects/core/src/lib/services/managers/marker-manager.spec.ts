@@ -1,7 +1,7 @@
 import {NgZone} from '@angular/core';
 import {TestBed, async, inject} from '@angular/core/testing';
 
-import {AgmMarker} from '../../directives/marker';
+import {NgMapsMarkerComponent} from '../../directives/marker';
 import {GoogleMapsAPIWrapper} from '../google-maps-api-wrapper';
 import {MarkerManager} from './marker-manager';
 
@@ -25,7 +25,7 @@ describe('MarkerManager', () => {
        inject(
            [MarkerManager, GoogleMapsAPIWrapper],
            (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(markerManager);
+             const newMarker = new NgMapsMarkerComponent(markerManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
@@ -51,7 +51,7 @@ describe('MarkerManager', () => {
        inject(
            [MarkerManager, GoogleMapsAPIWrapper],
            (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(markerManager);
+             const newMarker = new NgMapsMarkerComponent(markerManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
@@ -72,7 +72,7 @@ describe('MarkerManager', () => {
        async(inject(
            [MarkerManager, GoogleMapsAPIWrapper],
            (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(markerManager);
+             const newMarker = new NgMapsMarkerComponent(markerManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
@@ -108,7 +108,7 @@ describe('MarkerManager', () => {
        async(inject(
            [MarkerManager, GoogleMapsAPIWrapper],
            (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(markerManager);
+             const newMarker = new NgMapsMarkerComponent(markerManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
@@ -146,7 +146,7 @@ describe('MarkerManager', () => {
        async(inject(
            [MarkerManager, GoogleMapsAPIWrapper],
            (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(markerManager);
+             const newMarker = new NgMapsMarkerComponent(markerManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
@@ -182,7 +182,7 @@ describe('MarkerManager', () => {
        async(inject(
            [MarkerManager, GoogleMapsAPIWrapper],
            (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(markerManager);
+             const newMarker = new NgMapsMarkerComponent(markerManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';

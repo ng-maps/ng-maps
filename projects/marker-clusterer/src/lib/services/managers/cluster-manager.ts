@@ -1,14 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 
-import '@google/markerclusterer';
-
-import { AgmMarker, GoogleMapsAPIWrapper, MarkerManager } from '@ng-maps/core';
+import { NgMapsMarkerComponent, GoogleMapsAPIWrapper, MarkerManager, NgMapsViewComponent } from '@ng-maps/core';
 import { MarkerClusterComponent } from '../../directives/marker-cluster';
 import { ClusterOptions, MarkerClustererInstance } from '../../types';
 
-declare var MarkerClusterer: any;
+import * as MarkerClusterer from '@google/markerclusterer';
 
-@Injectable()
+@Injectable({
+  providedIn: NgMapsViewComponent
+})
 export class ClusterManager extends MarkerManager {
   private _clustererInstance: Promise<MarkerClustererInstance>;
   private _resolver: Function;
@@ -27,7 +27,7 @@ export class ClusterManager extends MarkerManager {
     });
   }
 
-  addMarker(marker: AgmMarker): void {
+  addMarker(marker: NgMapsMarkerComponent): void {
     const clusterPromise: Promise<MarkerClustererInstance> = this._clustererInstance;
     const markerPromise = this._mapsWrapper
       .createMarker({
@@ -53,7 +53,7 @@ export class ClusterManager extends MarkerManager {
     this._markers.set(marker, markerPromise);
   }
 
-  deleteMarker(marker: AgmMarker): Promise<void> {
+  deleteMarker(marker: NgMapsMarkerComponent): Promise<void> {
     const m = this._markers.get(marker);
     if (m == null) {
       // marker already deleted

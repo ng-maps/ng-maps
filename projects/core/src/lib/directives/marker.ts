@@ -15,12 +15,12 @@ import {
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { FitBoundsAccessor, FitBoundsDetails } from '../services/fit-bounds';
 import { MarkerManager } from '../services/managers/marker-manager';
-import { AgmInfoWindow } from './info-window';
+import { NgMapsInfoWindowComponent } from './info-window';
 
 let markerId = 0;
 
 /**
- * AgmMarker renders a map marker inside a {@link AgmMap}.
+ * NgMapsMarkerComponent renders a map marker inside a {@link NgMapsViewComponent}.
  *
  * ### Example
  * ```typescript
@@ -45,7 +45,7 @@ let markerId = 0;
 @Component({
   selector: 'agm-marker, map-marker',
   providers: [
-    {provide: FitBoundsAccessor, useExisting: forwardRef(() => AgmMarker)}
+    {provide: FitBoundsAccessor, useExisting: forwardRef(() => NgMapsMarkerComponent)}
   ],
   inputs: [
     'latitude', 'longitude', 'title', 'label', 'draggable: markerDraggable', 'iconUrl',
@@ -54,7 +54,7 @@ let markerId = 0;
   outputs: ['markerClick', 'dragEnd', 'mouseOver', 'mouseOut'],
   template: '<ng-content></ng-content>'
 })
-export class AgmMarker implements OnDestroy, OnChanges, AfterContentInit, FitBoundsAccessor {
+export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContentInit, FitBoundsAccessor {
   /**
    * The latitude position of the marker.
    */
@@ -124,7 +124,7 @@ export class AgmMarker implements OnDestroy, OnChanges, AfterContentInit, FitBou
   /**
    * This event emitter gets emitted when the user clicks on the marker.
    */
-  @Output() markerClick: EventEmitter<AgmMarker> = new EventEmitter<AgmMarker>();
+  @Output() markerClick: EventEmitter<NgMapsMarkerComponent> = new EventEmitter<NgMapsMarkerComponent>();
 
   /**
    * This event is fired when the user rightclicks on the marker.
@@ -159,7 +159,7 @@ export class AgmMarker implements OnDestroy, OnChanges, AfterContentInit, FitBou
   /**
    * @internal
    */
-  @ContentChildren(AgmInfoWindow) infoWindow: QueryList<AgmInfoWindow> = new QueryList<AgmInfoWindow>();
+  @ContentChildren(NgMapsInfoWindowComponent) infoWindow: QueryList<NgMapsInfoWindowComponent> = new QueryList<NgMapsInfoWindowComponent>();
 
   private _markerAddedToManger: boolean = false;
   private _id: string;

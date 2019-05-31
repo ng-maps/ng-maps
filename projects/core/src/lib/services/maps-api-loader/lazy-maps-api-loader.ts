@@ -1,17 +1,16 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { GoogleMapsScriptProtocol, LAZY_MAPS_API_CONFIG, LazyMapsAPILoaderConfigLiteral } from './lazy-maps-api-loader-config';
 
 import { MapsAPILoader } from './maps-api-loader';
-
 
 @Injectable()
 export class LazyMapsAPILoader extends MapsAPILoader {
   protected _scriptLoadingPromise: Promise<void>;
   protected _config: LazyMapsAPILoaderConfigLiteral;
   protected _document: Document;
-  protected readonly _SCRIPT_ID: string = 'agmGoogleMapsApiScript';
-  protected readonly callbackName: string = `agmLazyMapsAPILoader`;
+  protected readonly _SCRIPT_ID: string = 'GoogleMapsApiScript';
+  protected readonly callbackName: string = `LazyMapsAPILoader`;
 
   constructor(@Optional() @Inject(LAZY_MAPS_API_CONFIG) config: LazyMapsAPILoaderConfigLiteral = null, @Inject(DOCUMENT) document: any) {
     super();
@@ -20,7 +19,7 @@ export class LazyMapsAPILoader extends MapsAPILoader {
   }
 
   load(): Promise<void> {
-    if (google && google.maps) {
+    if ((window as any).google && (window as any).google.maps) {
       // Google maps already loaded on the page.
       return Promise.resolve();
     }
@@ -61,7 +60,7 @@ export class LazyMapsAPILoader extends MapsAPILoader {
 
   protected _getScriptSrc(callbackName: string): string {
     const protocolType: GoogleMapsScriptProtocol =
-        (this._config && this._config.protocol) || GoogleMapsScriptProtocol.HTTPS;
+      (this._config && this._config.protocol) || GoogleMapsScriptProtocol.HTTPS;
     let protocol: string;
 
     switch (protocolType) {
@@ -77,7 +76,7 @@ export class LazyMapsAPILoader extends MapsAPILoader {
     }
 
     const hostAndPath: string = this._config.hostAndPath || 'maps.googleapis.com/maps/api/js';
-    const queryParams: {[key: string]: string | Array<string>} = {
+    const queryParams: { [key: string]: string | Array<string> } = {
       v: this._config.apiVersion || 'quarterly',
       callback: callbackName,
       key: this._config.apiKey,
@@ -88,24 +87,24 @@ export class LazyMapsAPILoader extends MapsAPILoader {
       language: this._config.language
     };
     const params: string = Object.keys(queryParams)
-                               .filter((k: string) => queryParams[k] != null)
-                               .filter((k: string) => {
-                                 // remove empty arrays
-                                 return !Array.isArray(queryParams[k]) ||
-                                     (Array.isArray(queryParams[k]) && queryParams[k].length > 0);
-                               })
-                               .map((k: string) => {
-                                 // join arrays as comma seperated strings
-                                 const i = queryParams[k];
-                                 if (Array.isArray(i)) {
-                                   return {key: k, value: i.join(',')};
-                                 }
-                                 return {key: k, value: queryParams[k]};
-                               })
-                               .map((entry: {key: string, value: string}) => {
-                                 return `${entry.key}=${entry.value}`;
-                               })
-                               .join('&');
+      .filter((k: string) => queryParams[k] != null)
+      .filter((k: string) => {
+        // remove empty arrays
+        return !Array.isArray(queryParams[k]) ||
+          (Array.isArray(queryParams[k]) && queryParams[k].length > 0);
+      })
+      .map((k: string) => {
+        // join arrays as comma seperated strings
+        const i = queryParams[k];
+        if (Array.isArray(i)) {
+          return {key: k, value: i.join(',')};
+        }
+        return {key: k, value: queryParams[k]};
+      })
+      .map((entry: { key: string, value: string }) => {
+        return `${entry.key}=${entry.value}`;
+      })
+      .join('&');
     return `${protocol}//${hostAndPath}?${params}`;
   }
 }

@@ -6,8 +6,7 @@ export enum GoogleMapsScriptProtocol {
 }
 
 /**
- * Token for the config of the LazyMapsAPILoader. Please provide an object of type {@link
-  * LazyMapsAPILoaderConfig}.
+ * Token for the config of the LazyMapsAPILoader. Please provide an object of type {@link LazyMapsAPILoaderConfig}.
  */
 export const LAZY_MAPS_API_CONFIG = new InjectionToken<LazyMapsAPILoaderConfigLiteral>('angular-google-maps LAZY_MAPS_API_CONFIG');
 
