@@ -1,18 +1,18 @@
-import {MapsAPILoader} from '@ng-maps/core';
-import {Directive, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {fromEventPattern} from 'rxjs';
+import { Directive, ElementRef, EventEmitter, Input, NgZone, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { MapsAPILoader } from '@ng-maps/core';
+import { fromEventPattern, Subscription } from 'rxjs';
 
 @Directive({
-  selector: 'agm-autocomplete, [mapAutocomplete]'
+  selector: '[mapAutocomplete]'
 })
-export class AgmAutocompleteDirective implements OnInit, OnChanges {
+export class NgMapsAutocompleteDirective implements OnInit, OnChanges, OnDestroy {
 
   /**
    * Configuration Input described by the AutocompleteOptions Interface
    * https://developers.google.com/maps/documentation/javascript/reference/3.exp/places-widget#AutocompleteOptions
    */
-  // tslint:disable-next-line:no-input-rename
-  @Input('agm-autocomplete') public config: google.maps.places.AutocompleteOptions;
+    // tslint:disable-next-line:no-input-rename
+  @Input('mapAutocomplete') public config: google.maps.places.AutocompleteOptions;
 
   /**
    * This event is fired on selection of an element from the autocomplete list.
@@ -29,9 +29,11 @@ export class AgmAutocompleteDirective implements OnInit, OnChanges {
   @Output() public bounds: EventEmitter<google.maps.LatLngBounds> = new EventEmitter<google.maps.LatLngBounds>();
 
   private autocomplete: google.maps.places.Autocomplete;
+  private subscription: Subscription;
 
   constructor(private element: ElementRef,
-              private mapsAPILoader: MapsAPILoader) {
+              private mapsAPILoader: MapsAPILoader,
+              private _zone: NgZone) {
   }
 
   /** @internal */
@@ -43,19 +45,23 @@ export class AgmAutocompleteDirective implements OnInit, OnChanges {
     }
 
     if (this.element.nativeElement instanceof HTMLInputElement) {
-      this.mapsAPILoader.load().then(() => {
-        this.autocomplete = new google.maps.places.Autocomplete(this.element.nativeElement, this.config);
-        fromEventPattern((handler: any) => this.addHandler(handler), () => this.removeHandler())
-          .subscribe({
-            next: () => {
-              this.placeResult.emit(this.autocomplete.getPlace());
-              this.bounds.emit(this.autocomplete.getBounds());
-            }
-          });
-      });
+      this.init();
     } else {
       throw new Error('Directive can only be applied to an HTMLInputElement');
     }
+  }
+
+  /** @internal */
+  async init() {
+    await this.mapsAPILoader.load();
+    this.autocomplete = new google.maps.places.Autocomplete(this.element.nativeElement, this.config);
+    this.subscription = fromEventPattern((handler: any) => this.addHandler(handler), () => this.removeHandler())
+      .subscribe({
+        next: () => {
+          this.placeResult.emit(this.autocomplete.getPlace());
+          this.bounds.emit(this.autocomplete.getBounds());
+        }
+      });
   }
 
   /** @internal */
@@ -74,9 +80,13 @@ export class AgmAutocompleteDirective implements OnInit, OnChanges {
     }
   }
 
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   /** @internal */
   private addHandler(handler: (...args: Array<any>) => void) {
-    return this.autocomplete.addListener('place_changed', handler);
+    return this.autocomplete.addListener('place_changed', () => this._zone.run(handler));
   }
 
   /** @internal */

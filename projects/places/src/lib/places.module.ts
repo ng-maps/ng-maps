@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { AgmAutocompleteDirective } from './directives/autocomplete';
+import { NgMapsAutocompleteDirective } from './directives/autocomplete';
 
 /**
  * @internal
  */
 export function placesDirectives() {
   return [
-    AgmAutocompleteDirective
+    NgMapsAutocompleteDirective
   ];
 }
 
@@ -14,4 +14,4 @@ export function placesDirectives() {
   declarations: placesDirectives(),
   exports: placesDirectives()
 })
-export class PlacesModule { }
+export class NgMapsPlacesModule { }
