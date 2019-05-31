@@ -1,19 +1,19 @@
 import {
   AfterContentInit,
+  Component,
   ContentChildren,
-  Directive,
   EventEmitter,
+  forwardRef,
   Input,
   OnChanges,
   OnDestroy,
   Output,
   QueryList,
-  SimpleChange,
-  forwardRef,
-  Component
+  SimpleChange
 } from '@angular/core';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { FitBoundsAccessor, FitBoundsDetails } from '../services/fit-bounds';
+import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
 import { MarkerManager } from '../services/managers/marker-manager';
 import { NgMapsInfoWindowComponent } from './info-window';
 
@@ -45,7 +45,8 @@ let markerId = 0;
 @Component({
   selector: 'agm-marker, map-marker',
   providers: [
-    {provide: FitBoundsAccessor, useExisting: forwardRef(() => NgMapsMarkerComponent)}
+    {provide: FitBoundsAccessor, useExisting: forwardRef(() => NgMapsMarkerComponent)},
+    MarkerManager,
   ],
   inputs: [
     'latitude', 'longitude', 'title', 'label', 'draggable: markerDraggable', 'iconUrl',
@@ -78,7 +79,7 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
   /**
    * If true, the marker can be dragged. Default value is false.
    */
-  // tslint:disable-next-line:no-input-rename
+    // tslint:disable-next-line:no-input-rename
   @Input('markerDraggable') draggable: boolean = false;
 
   /**
@@ -112,7 +113,7 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
   /**
    * If true, the marker can be clicked. Default value is true.
    */
-  // tslint:disable-next-line:no-input-rename
+    // tslint:disable-next-line:no-input-rename
   @Input('markerClickable') clickable: boolean = true;
 
   /**
@@ -167,7 +168,9 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
 
   protected readonly _fitBoundsDetails$: ReplaySubject<FitBoundsDetails> = new ReplaySubject<FitBoundsDetails>(1);
 
-  constructor(private _markerManager: MarkerManager) { this._id = (markerId++).toString(); }
+  constructor(private _markerManager: MarkerManager) {
+    this._id = (markerId++).toString();
+  }
 
   /* @internal */
   ngAfterContentInit() {
@@ -185,7 +188,7 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
   }
 
   /** @internal */
-  ngOnChanges(changes: {[key: string]: SimpleChange}) {
+  ngOnChanges(changes: { [key: string]: SimpleChange }) {
     if (typeof this.latitude === 'string') {
       this.latitude = Number(this.latitude);
     }
@@ -261,46 +264,50 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
     this._observableSubscriptions.push(rc);
 
     const ds =
-        this._markerManager.createEventObservable<google.maps.MouseEvent>('dragstart', this)
-            .subscribe((e: google.maps.MouseEvent) => {
-              this.dragStart.emit(e);
-            });
+      this._markerManager.createEventObservable<google.maps.MouseEvent>('dragstart', this)
+        .subscribe((e: google.maps.MouseEvent) => {
+          this.dragStart.emit(e);
+        });
     this._observableSubscriptions.push(ds);
 
     const d =
-        this._markerManager.createEventObservable<google.maps.MouseEvent>('drag', this)
-            .subscribe((e: google.maps.MouseEvent) => {
-              this.drag.emit(e);
-            });
+      this._markerManager.createEventObservable<google.maps.MouseEvent>('drag', this)
+        .subscribe((e: google.maps.MouseEvent) => {
+          this.drag.emit(e);
+        });
     this._observableSubscriptions.push(d);
 
     const de =
-        this._markerManager.createEventObservable<google.maps.MouseEvent>('dragend', this)
-            .subscribe((e: google.maps.MouseEvent) => {
-              this.dragEnd.emit(e);
-            });
+      this._markerManager.createEventObservable<google.maps.MouseEvent>('dragend', this)
+        .subscribe((e: google.maps.MouseEvent) => {
+          this.dragEnd.emit(e);
+        });
     this._observableSubscriptions.push(de);
 
     const mover =
-        this._markerManager.createEventObservable<google.maps.MouseEvent>('mouseover', this)
-            .subscribe((e: google.maps.MouseEvent) => {
-              this.mouseOver.emit(e);
-            });
+      this._markerManager.createEventObservable<google.maps.MouseEvent>('mouseover', this)
+        .subscribe((e: google.maps.MouseEvent) => {
+          this.mouseOver.emit(e);
+        });
     this._observableSubscriptions.push(mover);
 
     const mout =
-        this._markerManager.createEventObservable<google.maps.MouseEvent>('mouseout', this)
-            .subscribe((e: google.maps.MouseEvent) => {
-              this.mouseOut.emit(e);
-            });
+      this._markerManager.createEventObservable<google.maps.MouseEvent>('mouseout', this)
+        .subscribe((e: google.maps.MouseEvent) => {
+          this.mouseOut.emit(e);
+        });
     this._observableSubscriptions.push(mout);
   }
 
   /** @internal */
-  id(): string { return this._id; }
+  id(): string {
+    return this._id;
+  }
 
   /** @internal */
-  toString(): string { return `AgmMarker-${this._id}`; }
+  toString(): string {
+    return `AgmMarker-${this._id}`;
+  }
 
   /** @internal */
   ngOnDestroy() {

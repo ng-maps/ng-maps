@@ -2,11 +2,14 @@ import { Observable ,  Observer } from 'rxjs';
 import {Injectable, NgZone} from '@angular/core';
 
 import {NgMapsInfoWindowComponent} from '../../directives/info-window';
+import { NgMapsViewComponent } from '../../directives/map';
 
 import {GoogleMapsAPIWrapper} from '../google-maps-api-wrapper';
 import {MarkerManager} from './marker-manager';
 
-@Injectable()
+@Injectable({
+  providedIn: NgMapsViewComponent
+})
 export class InfoWindowManager {
   private _infoWindows: Map<NgMapsInfoWindowComponent, Promise<google.maps.InfoWindow>> =
       new Map<NgMapsInfoWindowComponent, Promise<google.maps.InfoWindow>>();

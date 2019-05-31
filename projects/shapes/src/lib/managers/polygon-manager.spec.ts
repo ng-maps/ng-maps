@@ -1,7 +1,7 @@
 import {NgZone} from '@angular/core';
 import {TestBed, inject} from '@angular/core/testing';
 
-import {AgmPolygon} from '../directives/polygon';
+import {NgMapsPolygon} from '../directives/polygon';
 import {GoogleMapsAPIWrapper} from '../../../../core/src/lib/services/google-maps-api-wrapper';
 import {Polygon} from '../google-maps-types';
 import {PolygonManager} from './polygon-manager';
@@ -11,7 +11,7 @@ describe('PolygonManager', () => {
     TestBed.configureTestingModule({
       providers: [
         {provide: NgZone, useFactory: () => new NgZone({enableLongStackTrace: true})},
-        PolygonManager, AgmPolygon, {
+        PolygonManager, NgMapsPolygon, {
           provide: GoogleMapsAPIWrapper,
           useValue: {
             createPolygon: jest.fn()
@@ -26,7 +26,7 @@ describe('PolygonManager', () => {
        inject(
            [PolygonManager, GoogleMapsAPIWrapper],
            (polygonManager: PolygonManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newPolygon = new AgmPolygon(polygonManager);
+             const newPolygon = new NgMapsPolygon(polygonManager);
              polygonManager.addPolygon(newPolygon);
 
              expect(apiWrapper.createPolygon).toHaveBeenCalledWith({
@@ -51,7 +51,7 @@ describe('PolygonManager', () => {
        inject(
            [PolygonManager, GoogleMapsAPIWrapper],
            (polygonManager: PolygonManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newPolygon = new AgmPolygon(polygonManager);
+             const newPolygon = new NgMapsPolygon(polygonManager);
 
              const polygonInstance: any = {
               setMap: jest.fn()

@@ -1,7 +1,7 @@
 import {NgZone} from '@angular/core';
 import {TestBed, inject} from '@angular/core/testing';
 
-import {AgmPolyline} from '../directives/polyline';
+import {NgMapsPolyline} from '../directives/polyline';
 import {GoogleMapsAPIWrapper} from '../../../../core/src/lib/services/google-maps-api-wrapper';
 import {Polyline} from '../../services/google-maps-types';
 import {PolylineManager} from './polyline-manager';
@@ -26,7 +26,7 @@ describe('PolylineManager', () => {
        inject(
            [PolylineManager, GoogleMapsAPIWrapper],
            (polylineManager: PolylineManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newPolyline = new AgmPolyline(polylineManager);
+             const newPolyline = new NgMapsPolyline(polylineManager);
              polylineManager.addPolyline(newPolyline);
 
              expect(apiWrapper.createPolyline).toHaveBeenCalledWith({
@@ -49,7 +49,7 @@ describe('PolylineManager', () => {
        inject(
            [PolylineManager, GoogleMapsAPIWrapper],
            (polylineManager: PolylineManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newPolyline = new AgmPolyline(polylineManager);
+             const newPolyline = new NgMapsPolyline(polylineManager);
 
              const polylineInstance: Partial<Polyline> = {
               setMap: jest.fn()

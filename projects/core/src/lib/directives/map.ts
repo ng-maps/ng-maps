@@ -1,10 +1,19 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Host,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FitBoundsService } from '../services/fit-bounds';
-
 import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
-import { InfoWindowManager } from '../services/managers/info-window-manager';
-import { MarkerManager } from '../services/managers/marker-manager';
 
 /**
  * NgMapsViewComponent renders a Google Map.
@@ -32,8 +41,7 @@ import { MarkerManager } from '../services/managers/marker-manager';
 @Component({
   selector: 'agm-map, map-view',
   providers: [
-    MarkerManager,
-    InfoWindowManager,
+    GoogleMapsAPIWrapper,
     FitBoundsService
   ],
   styles: [`
@@ -183,7 +191,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
 
   /**
    * Sets the viewport to contain the given bounds.
-   * If this option to `true`, the bounds get automatically computed from all elements that use the {@link AgmFitBounds} directive.
+   * If this option to `true`, the bounds get automatically computed from all elements that use the {@link NgMapsFitBounds} directive.
    */
   @Input() fitBounds: google.maps.LatLngBoundsLiteral | google.maps.LatLngBounds | boolean = false;
 

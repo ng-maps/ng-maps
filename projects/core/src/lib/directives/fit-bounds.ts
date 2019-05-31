@@ -1,23 +1,23 @@
-import { Directive, OnInit, Self, OnDestroy, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FitBoundsService, FitBoundsAccessor, FitBoundsDetails } from '../services/fit-bounds';
-import { Subscription, Subject } from 'rxjs';
+import { Directive, Input, OnChanges, OnDestroy, OnInit, Self, SimpleChanges } from '@angular/core';
+import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { FitBoundsAccessor, FitBoundsDetails, FitBoundsService } from '../services/fit-bounds';
 
 /**
  * Adds the given directive to the auto fit bounds feature when the value is true.
  * To make it work with you custom AGM component, you also have to implement the {@link FitBoundsAccessor} abstract class.
  * @example
- * <agm-marker [agmFitBounds]="true"></agm-marker>
+ * <map-marker [mapFitBounds]="true"></map-marker>
  */
 @Directive({
   selector: '[agmFitBounds], [mapFitBounds]'
 })
-export class AgmFitBounds implements OnInit, OnDestroy, OnChanges {
+export class NgMapsFitBounds implements OnInit, OnDestroy, OnChanges {
   /**
    * If the value is true, the element gets added to the bounds of the map.
    * Default: true.
    */
-  @Input() agmFitBounds: boolean = true;
+  @Input() mapFitBounds: boolean = true;
 
   private _destroyed$: Subject<void> = new Subject<void>();
   private _latestFitBoundsDetails: FitBoundsDetails | null = null;
@@ -25,7 +25,8 @@ export class AgmFitBounds implements OnInit, OnDestroy, OnChanges {
   constructor(
     @Self() private readonly _fitBoundsAccessor: FitBoundsAccessor,
     private readonly _fitBoundsService: FitBoundsService
-  ) {}
+  ) {
+  }
 
   /**
    * @internal
@@ -57,7 +58,7 @@ export class AgmFitBounds implements OnInit, OnDestroy, OnChanges {
     if (!this._latestFitBoundsDetails) {
       return;
     }
-    if (this.agmFitBounds) {
+    if (this.mapFitBounds) {
       this._fitBoundsService.addToBounds(this._latestFitBoundsDetails.latLng);
     } else {
       this._fitBoundsService.removeFromBounds(this._latestFitBoundsDetails.latLng);

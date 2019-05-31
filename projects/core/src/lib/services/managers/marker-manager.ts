@@ -1,13 +1,15 @@
 import {Injectable, NgZone} from '@angular/core';
 import {Observable, Observer} from 'rxjs';
+import { NgMapsViewComponent } from '../../directives/map';
 
 import {NgMapsMarkerComponent} from '../../directives/marker';
 
 import {GoogleMapsAPIWrapper} from '../google-maps-api-wrapper';
 
-declare var google: any;
-
-@Injectable()
+@Injectable({
+  providedIn: NgMapsViewComponent,
+//  deps: [GoogleMapsAPIWrapper]
+})
 export class MarkerManager {
   protected _markers: Map<NgMapsMarkerComponent, Promise<google.maps.Marker>> =
       new Map<NgMapsMarkerComponent, Promise<google.maps.Marker>>();

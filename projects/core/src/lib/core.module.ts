@@ -1,10 +1,10 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { AgmFitBounds } from './directives/fit-bounds';
+import { NgMapsFitBounds } from './directives/fit-bounds';
 import { NgMapsInfoWindowComponent } from './directives/info-window';
 import { NgMapsViewComponent } from './directives/map';
 import { NgMapsMarkerComponent } from './directives/marker';
-import { LazyMapsAPILoaderConfigLiteral, LAZY_MAPS_API_CONFIG } from './services/maps-api-loader/lazy-maps-api-loader-config';
-import { LazyMapsAPILoader} from './services/maps-api-loader/lazy-maps-api-loader';
+import { LazyMapsAPILoader } from './services/maps-api-loader/lazy-maps-api-loader';
+import { LAZY_MAPS_API_CONFIG, LazyMapsAPILoaderConfigLiteral } from './services/maps-api-loader/lazy-maps-api-loader-config';
 import { MapsAPILoader } from './services/maps-api-loader/maps-api-loader';
 
 /**
@@ -12,7 +12,7 @@ import { MapsAPILoader } from './services/maps-api-loader/maps-api-loader';
  */
 export function coreDirectives() {
   return [
-    NgMapsViewComponent, NgMapsMarkerComponent, NgMapsInfoWindowComponent, AgmFitBounds
+    NgMapsViewComponent, NgMapsMarkerComponent, NgMapsInfoWindowComponent, NgMapsFitBounds
   ];
 }
 
@@ -20,7 +20,10 @@ export function coreDirectives() {
  * The angular-google-maps core module. Contains all Directives/Services/Pipes
  * of the core module. Please use `NgMapsCoreModule.forRoot()` in your app module.
  */
-@NgModule({declarations: coreDirectives(), exports: coreDirectives()})
+@NgModule({
+  declarations: coreDirectives(),
+  exports: coreDirectives(),
+})
 export class NgMapsCoreModule {
   /**
    * Please use this method when you register the module at the root level.

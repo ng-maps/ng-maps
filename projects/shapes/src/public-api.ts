@@ -2,6 +2,6 @@
  * Public API Surface of shapes
  */
 
-export * from './lib/shapes.service';
-export * from './lib/shapes.component';
+export * from './lib/directives';
+export * from './lib/services';
 export * from './lib/shapes.module';

@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { PolygonManager } from '../managers/polygon-manager';
 
 /**
- * AgmPolygon renders a polygon on a {@link AgmMap}
+ * NgMapsPolygon renders a polygon on a {@link AgmMap}
  *
  * ### Example
  * ```typescript
@@ -52,9 +52,10 @@ import { PolygonManager } from '../managers/polygon-manager';
  * ```
  */
 @Directive({
-  selector: 'agm-polygon, [mapPolygon]'
+  selector: 'agm-polygon, map-polygon',
+  providers: [PolygonManager]
 })
-export class AgmPolygon implements OnDestroy, OnChanges, AfterContentInit {
+export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
   /**
    * Indicates whether this Polygon handles mouse events. Defaults to true.
    */
@@ -243,7 +244,7 @@ export class AgmPolygon implements OnDestroy, OnChanges, AfterContentInit {
 
   private _updatePolygonOptions(changes: SimpleChanges): google.maps.PolygonOptions {
     return Object.keys(changes)
-        .filter(k => AgmPolygon._polygonOptionsAttributes.indexOf(k) !== -1)
+        .filter(k => NgMapsPolygon._polygonOptionsAttributes.indexOf(k) !== -1)
         .reduce((obj: any, k: string) => {
           obj[k] = changes[k].currentValue;
           return obj;

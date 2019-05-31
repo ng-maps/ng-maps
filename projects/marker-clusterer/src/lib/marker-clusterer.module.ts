@@ -1,11 +1,9 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from './config';
 import { MarkerClusterComponent } from './directives/marker-cluster';
-import { ClusterManager } from './services/managers/cluster-manager';
 
 @NgModule({
   declarations: [MarkerClusterComponent],
-  providers: [ClusterManager],
   exports: [MarkerClusterComponent]
 })
 export class NgMapsMarkerClustererModule {

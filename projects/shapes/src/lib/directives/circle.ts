@@ -3,9 +3,10 @@ import {Subscription} from 'rxjs';
 import {CircleManager} from '../managers/circle-manager';
 
 @Directive({
-  selector: 'agm-circle'
+  selector: 'agm-circle, map-circle',
+  providers: [CircleManager]
 })
-export class AgmCircle implements OnInit, OnChanges, OnDestroy {
+export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
 
   constructor(private _manager: CircleManager) {}
 
@@ -188,7 +189,7 @@ export class AgmCircle implements OnInit, OnChanges, OnDestroy {
   private _updateCircleOptionsChanges(changes: {[propName: string]: SimpleChange}) {
     const options: {[propName: string]: any} = {};
     const optionKeys =
-        Object.keys(changes).filter(k => AgmCircle._mapOptions.indexOf(k) !== -1);
+        Object.keys(changes).filter(k => NgMapsCircle._mapOptions.indexOf(k) !== -1);
     optionKeys.forEach((k) => { options[k] = changes[k].currentValue; });
     if (optionKeys.length > 0) {
       this._manager.setOptions(this, options);
@@ -226,13 +227,14 @@ export class AgmCircle implements OnInit, OnChanges, OnDestroy {
               default:
                 eventEmitter.emit(value);
             }
-          }));
+          })
+      );
     });
   }
 
   /** @internal */
   ngOnDestroy() {
-    this._eventSubscriptions.forEach(function(s: Subscription) { s.unsubscribe(); });
+    this._eventSubscriptions.forEach((s: Subscription) => { s.unsubscribe(); });
     this._eventSubscriptions = null;
     this._manager.removeCircle(this);
   }

@@ -1,26 +1,25 @@
-import {Injectable, NgZone} from '@angular/core';
-import {Observable, Observer} from 'rxjs';
-import {MapsAPILoader} from './maps-api-loader/maps-api-loader';
+import { Injectable, NgZone } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 
 /**
  * Wrapper class that handles the communication with the Google Maps Javascript
  * API v3
  */
-@Injectable({
-  providedIn: 'root',
-  deps: [MapsAPILoader]
-})
+@Injectable()
 export class GoogleMapsAPIWrapper {
   private _map: Promise<google.maps.Map>;
   private _mapResolver: (value?: google.maps.Map) => void;
 
   constructor(private _loader: MapsAPILoader, private _zone: NgZone) {
     this._map =
-        new Promise<google.maps.Map>((resolve: () => void) => { this._mapResolver = resolve; });
+      new Promise<google.maps.Map>((resolve: () => void) => {
+        this._mapResolver = resolve;
+      });
   }
 
   createMap(el: HTMLElement, mapOptions: google.maps.MapOptions): Promise<void> {
-    return this._zone.runOutsideAngular( async () => {
+    return this._zone.runOutsideAngular(async () => {
       await this._loader.load();
       this._mapResolver(new google.maps.Map(el, mapOptions));
       return;
@@ -36,7 +35,7 @@ export class GoogleMapsAPIWrapper {
    * Creates a google map marker with the map context
    */
   async createMarker(options: google.maps.MarkerOptions = {}, addToMap: boolean = true):
-      Promise<google.maps.Marker> {
+    Promise<google.maps.Marker> {
     const map = await this._map;
     if (addToMap) {
       options.map = map;
@@ -106,7 +105,9 @@ export class GoogleMapsAPIWrapper {
   subscribeToMapEvent<E>(eventName: string): Observable<E> {
     return new Observable((observer: Observer<E>) => {
       this._map.then((m: google.maps.Map) => {
-        m.addListener(eventName, (arg: E) => { this._zone.run(() => observer.next(arg)); });
+        m.addListener(eventName, (arg: E) => {
+          this._zone.run(() => observer.next(arg));
+        });
       });
     });
   }
@@ -121,7 +122,9 @@ export class GoogleMapsAPIWrapper {
     return this._map.then((map: google.maps.Map) => map.setCenter(latLng));
   }
 
-  getZoom(): Promise<number> { return this._map.then((map: google.maps.Map) => map.getZoom()); }
+  getZoom(): Promise<number> {
+    return this._map.then((map: google.maps.Map) => map.getZoom());
+  }
 
   getBounds(): Promise<google.maps.LatLngBounds> {
     return this._map.then((map: google.maps.Map) => map.getBounds());
@@ -139,7 +142,7 @@ export class GoogleMapsAPIWrapper {
     return this._map.then((map: google.maps.Map) => map.getCenter());
   }
 
-  panTo(latLng: google.maps.LatLng|google.maps.LatLngLiteral): Promise<void> {
+  panTo(latLng: google.maps.LatLng | google.maps.LatLngLiteral): Promise<void> {
     return this._map.then((map) => map.panTo(latLng));
   }
 
@@ -147,18 +150,20 @@ export class GoogleMapsAPIWrapper {
     return this._map.then((map) => map.panBy(x, y));
   }
 
-  fitBounds(latLng: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral): Promise<void> {
+  fitBounds(latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral): Promise<void> {
     return this._map.then((map) => map.fitBounds(latLng));
   }
 
-  panToBounds(latLng: google.maps.LatLngBounds|google.maps.LatLngBoundsLiteral): Promise<void> {
+  panToBounds(latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral): Promise<void> {
     return this._map.then((map) => map.panToBounds(latLng));
   }
 
   /**
    * Returns the native Google Maps Map instance. Be careful when using this instance directly.
    */
-  getNativeMap(): Promise<google.maps.Map> { return this._map; }
+  getNativeMap(): Promise<google.maps.Map> {
+    return this._map;
+  }
 
   /**
    * Triggers the given event name on the map instance.

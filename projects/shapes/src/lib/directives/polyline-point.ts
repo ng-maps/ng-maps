@@ -1,11 +1,13 @@
 import {Directive, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 
 /**
- * AgmPolylinePoint represents one element of a polyline within a  {@link
+ * NgMapsPolylinePoint represents one element of a polyline within a  {@link
  * SembGoogleMapPolyline}
  */
-@Directive({selector: 'agm-polyline-point, map-polyline-point'})
-export class AgmPolylinePoint implements OnChanges {
+@Directive({
+  selector: 'agm-polyline-point, map-polyline-point'
+})
+export class NgMapsPolylinePoint implements OnChanges {
   /**
    * The latitude position of the point.
    */

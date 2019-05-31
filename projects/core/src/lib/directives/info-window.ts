@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 
 import {InfoWindowManager} from '../services/managers/info-window-manager';
+import { MarkerManager } from '../services/managers/marker-manager';
 
 import {NgMapsMarkerComponent} from './marker';
 
@@ -46,7 +47,8 @@ let infoWindowId = 0;
  */
 @Component({
   selector: 'agm-info-window, map-info-window',
-  template: `<div class='info-window-content' #content><ng-content></ng-content></div>`
+  template: `<div class='info-window-content' #content><ng-content></ng-content></div>`,
+  providers: [InfoWindowManager]
 })
 export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
 

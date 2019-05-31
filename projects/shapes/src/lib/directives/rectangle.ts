@@ -12,9 +12,10 @@ import { Subscription } from 'rxjs';
 import { RectangleManager } from '../managers/rectangle-manager';
 
 @Directive({
-  selector: 'agm-rectangle, map-rectangle'
+  selector: 'agm-rectangle, map-rectangle',
+  providers: [RectangleManager]
 })
-export class AgmRectangle implements OnInit, OnChanges, OnDestroy {
+export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {
 
   constructor(private _manager: RectangleManager) {}
 
@@ -216,7 +217,7 @@ export class AgmRectangle implements OnInit, OnChanges, OnDestroy {
   }) {
     const options: { [propName: string]: any } = {};
     const optionKeys = Object.keys(changes).filter(
-      k => AgmRectangle._mapOptions.indexOf(k) !== -1
+      k => NgMapsRectangle._mapOptions.indexOf(k) !== -1
     );
     optionKeys.forEach(k => {
       options[k] = changes[k].currentValue;

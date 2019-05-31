@@ -13,11 +13,11 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PolylineManager } from '../managers/polyline-manager';
-import { AgmPolylinePoint } from './polyline-point';
+import { NgMapsPolylinePoint } from './polyline-point';
 
 let polylineId = 0;
 /**
- * AgmPolyline renders a polyline on a {@link AgmMap}
+ * NgMapsPolyline renders a polyline on a {@link AgmMap}
  *
  * ### Example
  * ```typescript
@@ -45,9 +45,10 @@ let polylineId = 0;
  */
 @Component({
   selector: 'agm-polyline, map-polyline',
-  template: '<ng-content></ng-content>'
+  template: '<ng-content></ng-content>',
+  providers: [PolylineManager]
 })
-export class AgmPolyline implements OnDestroy, OnChanges, AfterContentInit {
+export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
 
   constructor(private _polylineManager: PolylineManager) { this._id = (polylineId++).toString(); }
 
@@ -164,7 +165,7 @@ export class AgmPolyline implements OnDestroy, OnChanges, AfterContentInit {
   /**
    * @internal
    */
-  @ContentChildren(AgmPolylinePoint) points: QueryList<AgmPolylinePoint>;
+  @ContentChildren(NgMapsPolylinePoint) points: QueryList<NgMapsPolylinePoint>;
 
   private _id: string;
   private _polylineAddedToManager: boolean = false;
@@ -173,7 +174,7 @@ export class AgmPolyline implements OnDestroy, OnChanges, AfterContentInit {
   /** @internal */
   ngAfterContentInit() {
     if (this.points.length) {
-      this.points.forEach((point: AgmPolylinePoint) => {
+      this.points.forEach((point: NgMapsPolylinePoint) => {
         const subscription = point.positionChanged.subscribe(
             () => { this._polylineManager.updatePolylinePoints(this); });
         this._subscriptions.push(subscription);
@@ -195,7 +196,7 @@ export class AgmPolyline implements OnDestroy, OnChanges, AfterContentInit {
 
     const options: {[propName: string]: any} = {};
     const optionKeys = Object.keys(changes).filter(
-        k => AgmPolyline._polylineOptionsAttributes.indexOf(k) !== -1);
+        k => NgMapsPolyline._polylineOptionsAttributes.indexOf(k) !== -1);
     optionKeys.forEach(k => options[k] = changes[k].currentValue);
     this._polylineManager.setPolylineOptions(this, options);
   }
@@ -227,7 +228,7 @@ export class AgmPolyline implements OnDestroy, OnChanges, AfterContentInit {
   }
 
   /** @internal */
-  _getPoints(): Array<AgmPolylinePoint> {
+  _getPoints(): Array<NgMapsPolylinePoint> {
     if (this.points) {
       return this.points.toArray();
     }

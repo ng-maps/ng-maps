@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ClusterComponent } from './cluster/cluster.component';
 import { InfoWindowComponent } from './info-window/info-window.component';
+import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
 
 const routes: Routes = [
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'info-window',
     component: InfoWindowComponent
+  },
+  {
+    path: 'shapes',
+    component: ShapesComponent
   }
 ];
 

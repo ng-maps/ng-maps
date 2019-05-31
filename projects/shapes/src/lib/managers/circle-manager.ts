@@ -1,18 +1,19 @@
-import {Injectable, NgZone} from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { GoogleMapsAPIWrapper, NgMapsViewComponent } from '@ng-maps/core';
+import { Observable, Observer } from 'rxjs';
+import { NgMapsCircle } from '../directives/circle';
 
-import {Observable, Observer} from 'rxjs';
-
-import {AgmCircle} from '../directives/circle';
-import {GoogleMapsAPIWrapper} from '../../../../core/src/lib/services/google-maps-api-wrapper';
-
-@Injectable()
+@Injectable({
+  providedIn: NgMapsViewComponent
+})
 export class CircleManager {
-  private _circles: Map<AgmCircle, Promise<google.maps.Circle>> =
-      new Map<AgmCircle, Promise<google.maps.Circle>>();
+  private _circles: Map<NgMapsCircle, Promise<google.maps.Circle>> =
+    new Map<NgMapsCircle, Promise<google.maps.Circle>>();
 
-  constructor(private _apiWrapper: GoogleMapsAPIWrapper, private _zone: NgZone) {}
+  constructor(private _apiWrapper: GoogleMapsAPIWrapper, private _zone: NgZone) {
+  }
 
-  addCircle(circle: AgmCircle) {
+  addCircle(circle: NgMapsCircle) {
     this._circles.set(circle, this._apiWrapper.createCircle({
       center: {lat: circle.latitude, lng: circle.longitude},
       clickable: circle.clickable,
@@ -34,51 +35,50 @@ export class CircleManager {
   /**
    * Removes the given circle from the map.
    */
-  removeCircle(circle: AgmCircle): Promise<void> {
-    return this._circles.get(circle).then((c) => {
-      c.setMap(null);
-      this._circles.delete(circle);
-    });
+  async removeCircle(circle: NgMapsCircle): Promise<void> {
+    const c = await this._circles.get(circle);
+    c.setMap(null);
+    this._circles.delete(circle);
   }
 
-  setOptions(circle: AgmCircle, options: google.maps.CircleOptions): Promise<void> {
+  setOptions(circle: NgMapsCircle, options: google.maps.CircleOptions): Promise<void> {
     return this._circles.get(circle).then((c) => c.setOptions(options));
   }
 
-  getBounds(circle: AgmCircle): Promise<google.maps.LatLngBounds> {
+  getBounds(circle: NgMapsCircle): Promise<google.maps.LatLngBounds> {
     return this._circles.get(circle).then((c) => c.getBounds());
   }
 
-  getCenter(circle: AgmCircle): Promise<google.maps.LatLng> {
+  getCenter(circle: NgMapsCircle): Promise<google.maps.LatLng> {
     return this._circles.get(circle).then((c) => c.getCenter());
   }
 
-  getRadius(circle: AgmCircle): Promise<number> {
+  getRadius(circle: NgMapsCircle): Promise<number> {
     return this._circles.get(circle).then((c) => c.getRadius());
   }
 
-  setCenter(circle: AgmCircle): Promise<void> {
+  setCenter(circle: NgMapsCircle): Promise<void> {
     return this._circles.get(circle).then(
-        (c) => c.setCenter({lat: circle.latitude, lng: circle.longitude}));
+      (c) => c.setCenter({lat: circle.latitude, lng: circle.longitude}));
   }
 
-  setEditable(circle: AgmCircle): Promise<void> {
+  setEditable(circle: NgMapsCircle): Promise<void> {
     return this._circles.get(circle).then((c) => c.setEditable(circle.editable));
   }
 
-  setDraggable(circle: AgmCircle): Promise<void> {
+  setDraggable(circle: NgMapsCircle): Promise<void> {
     return this._circles.get(circle).then((c) => c.setDraggable(circle.draggable));
   }
 
-  setVisible(circle: AgmCircle): Promise<void> {
+  setVisible(circle: NgMapsCircle): Promise<void> {
     return this._circles.get(circle).then((c) => c.setVisible(circle.visible));
   }
 
-  setRadius(circle: AgmCircle): Promise<void> {
+  setRadius(circle: NgMapsCircle): Promise<void> {
     return this._circles.get(circle).then((c) => c.setRadius(circle.radius));
   }
 
-  createEventObservable<T>(eventName: string, circle: AgmCircle): Observable<T> {
+  createEventObservable<T>(eventName: string, circle: NgMapsCircle): Observable<T> {
     return new Observable((observer: Observer<T>) => {
       let listener: google.maps.MapsEventListener = null;
       this._circles.get(circle).then((c) => {
