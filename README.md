@@ -11,7 +11,7 @@ This project is a mono repo and hosts multiple packages:
 | @ng-maps/data-layer              | [![@ng-maps/data-layer](https://img.shields.io/npm/v/@ng-maps/data-layer.svg)](https://www.npmjs.com/package/@ng-maps/data-layer) |
 | @ng-maps/kml-layer              | [![@ng-maps/kml-layer](https://img.shields.io/npm/v/@ng-maps/kml-layer.svg)](https://www.npmjs.com/package/@ng-maps/kml-layer) |
 | @ng-maps/drawing-layer              | [![@ng-maps/drawing-layer](https://img.shields.io/npm/v/@ng-maps/drawing-layer.svg)](https://www.npmjs.com/package/@ng-maps/drawing-layer) |
-| @ng-maps/shapes              | [![@ng-maps/shapes](https://img.shields.io/npm/v/@ng-maps/shapes.svg)](https://www.npmjs.com/package/@ng-maps/shapes) |
+| @ng-maps/shapes              | [![@ng-maps/shapes](https://img.shields.io/npm/v/@ng-maps/shapes.svg)](https://www.npmjs.com/package/@ng-maps/shapes) [![Greenkeeper badge](https://badges.greenkeeper.io/ng-maps/ng-maps.svg)](https://greenkeeper.io/) |
 ---
 
 # NgMaps
