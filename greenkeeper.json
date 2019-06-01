@@ -1,0 +1,17 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "projects/core/package.json",
+        "projects/data-layer/package.json",
+        "projects/drawing-layer/package.json",
+        "projects/kml-layer/package.json",
+        "projects/marker-clusterer/package.json",
+        "projects/places/package.json",
+        "projects/shapes/package.json",
+        "projects/snazzy-info-window/package.json"
+      ]
+    }
+  }
+}
