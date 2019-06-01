@@ -32,6 +32,17 @@ export class GoogleMapsAPIWrapper {
   }
 
   /**
+   * Creates a google map drawing manager with the map context
+   */
+  async createDrawingManager(options: google.maps.drawing.DrawingManagerOptions = {}, addToMap: boolean = true): Promise<google.maps.drawing.DrawingManager> {
+    const map = await this._map;
+    if (addToMap) {
+      options.map = map;
+    }
+    return new google.maps.drawing.DrawingManager(options);
+  }
+
+  /**
    * Creates a google map marker with the map context
    */
   async createMarker(options: google.maps.MarkerOptions = {}, addToMap: boolean = true):

@@ -3,7 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   Host,
-  Input,
+  Input, NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -63,7 +63,10 @@ import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
 })
 export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
 
-  constructor(private elementRef: ElementRef, private _mapsWrapper: GoogleMapsAPIWrapper, protected _fitBoundsService: FitBoundsService) {
+  constructor(protected elementRef: ElementRef,
+              protected _mapsWrapper: GoogleMapsAPIWrapper,
+              protected _fitBoundsService: FitBoundsService,
+              protected _zone: NgZone) {
   }
 
   /**
@@ -467,7 +470,11 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   private _subscribeToFitBoundsUpdates() {
-    this._fitBoundsSubscription = this._fitBoundsService.getBounds$().subscribe(b => this._updateBounds(b));
+    this._zone.runOutsideAngular(() => {
+      this._fitBoundsSubscription = this._fitBoundsService.getBounds$().subscribe(b => {
+        this._zone.run(() => this._updateBounds(b));
+      });
+    });
   }
 
   protected _updateBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral) {
@@ -483,7 +490,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this._mapsWrapper.fitBounds(bounds);
   }
 
-  private _isLatLngBoundsLiteral(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral): bounds is google.maps.LatLngBoundsLiteral {
+  protected _isLatLngBoundsLiteral(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral): bounds is google.maps.LatLngBoundsLiteral {
     return bounds != null && (bounds as any).extend === undefined;
   }
 

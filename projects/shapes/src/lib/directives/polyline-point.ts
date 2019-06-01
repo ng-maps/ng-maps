@@ -28,8 +28,8 @@ export class NgMapsPolylinePoint implements OnChanges {
   ngOnChanges(changes: SimpleChanges): any {
     if (changes.latitude || changes.longitude) {
       const position: google.maps.LatLngLiteral = {
-        lat: changes.latitude.currentValue,
-        lng: changes.longitude.currentValue
+        lat: changes.latitude ? changes.latitude.currentValue : this.latitude,
+        lng: changes.longitude ? changes.longitude.currentValue : this.longitude
       } as google.maps.LatLngLiteral;
       this.positionChanged.emit(position);
     }

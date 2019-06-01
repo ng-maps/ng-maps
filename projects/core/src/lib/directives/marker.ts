@@ -52,7 +52,7 @@ let markerId = 0;
     'latitude', 'longitude', 'title', 'label', 'draggable: markerDraggable', 'iconUrl',
     'openInfoWindow', 'opacity', 'visible', 'zIndex', 'animation'
   ],
-  outputs: ['markerClick', 'dragEnd', 'mouseOver', 'mouseOut'],
+  outputs: ['markerClick', 'dragStart', 'drag', 'dragEnd', 'mouseOver', 'mouseOut'],
   template: '<ng-content></ng-content>'
 })
 export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContentInit, FitBoundsAccessor {
@@ -172,7 +172,9 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
     this._id = (markerId++).toString();
   }
 
-  /* @internal */
+  /**
+   *  @internal
+   */
   ngAfterContentInit() {
     this.handleInfoWindowUpdate();
     this.infoWindow.changes.subscribe(() => this.handleInfoWindowUpdate());
@@ -187,7 +189,9 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
     });
   }
 
-  /** @internal */
+  /**
+   * @internal
+   */
   ngOnChanges(changes: { [key: string]: SimpleChange }) {
     if (typeof this.latitude === 'string') {
       this.latitude = Number(this.latitude);

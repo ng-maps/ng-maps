@@ -2,12 +2,13 @@ import { NgZone } from '@angular/core';
 import { TestBed, async, inject } from '@angular/core/testing';
 
 import { NgMapsRectangle } from '../directives/rectangle';
-import { GoogleMapsAPIWrapper } from '../../../../core/src/lib/services/google-maps-api-wrapper';
-import { Rectangle } from './../google-maps-types';
+import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 import { RectangleManager } from './rectangle-manager';
 
 describe('RectangleManager', () => {
+  let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
   beforeEach(() => {
+    apiWrapperMock = jasmine.createSpyObj('GoogleMapsAPIWrapper', ['createRectangle']);
     TestBed.configureTestingModule({
       providers: [
         {
@@ -17,7 +18,7 @@ describe('RectangleManager', () => {
         RectangleManager,
         {
           provide: GoogleMapsAPIWrapper,
-          useValue: { createRectangle: jest.fn() }
+          useValue: apiWrapperMock
         }
       ]
     });
@@ -73,12 +74,9 @@ describe('RectangleManager', () => {
         newRectangle.south = 89.2;
         newRectangle.west = 52.6;
 
-        const rectangleInstance: any = {
-          setMap: jest.fn()
-        };
-        (<jest.Mock>apiWrapper.createRectangle).mockReturnValue(
-          Promise.resolve(rectangleInstance)
-        );
+        const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj('rectangleInstance', ['setMap']);
+
+        (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createRectangle.and.returnValue(Promise.resolve(rectangleInstance as any));
 
         rectangleManager.addRectangle(newRectangle);
         rectangleManager.removeRectangle(newRectangle).then(() => {
@@ -102,13 +100,10 @@ describe('RectangleManager', () => {
           newRectangle.south = 89.2;
           newRectangle.west = 52.6;
 
-          const rectangleInstance: Rectangle = <any>{
-            setMap: jest.fn(),
-            setBounds: jest.fn()
-          };
-          (<jest.Mock>apiWrapper.createRectangle).mockReturnValue(
-            Promise.resolve(rectangleInstance)
-          );
+
+          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj('rectangleInstance', ['setMap', 'setBounds']);
+
+          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createRectangle.and.returnValue(Promise.resolve(rectangleInstance as any));
 
           rectangleManager.addRectangle(newRectangle);
           expect(apiWrapper.createRectangle).toHaveBeenCalledWith({
@@ -166,14 +161,9 @@ describe('RectangleManager', () => {
           newRectangle.fillOpacity = 0.4;
           newRectangle.strokeOpacity = 0.4;
 
-          const rectangleInstance: any = {
-            setMap: jest.fn(),
-            setOptions: jest.fn()
-          };
+          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj('rectangleInstance', ['setMap', 'setOptions']);
 
-          (<jest.Mock>apiWrapper.createRectangle).mockReturnValue(
-            Promise.resolve(rectangleInstance)
-          );
+          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createRectangle.and.returnValue(Promise.resolve(rectangleInstance as any));
 
           rectangleManager.addRectangle(newRectangle);
           expect(apiWrapper.createRectangle).toHaveBeenCalledWith({
@@ -227,13 +217,8 @@ describe('RectangleManager', () => {
           newRectangle.fillColor = '#FF7F50';
           newRectangle.strokeColor = '#FF7F50';
 
-          const rectangleInstance: any = {
-            setMap: jest.fn(),
-            setOptions: jest.fn()
-          };
-          (<jest.Mock>apiWrapper.createRectangle).mockReturnValue(
-            Promise.resolve(rectangleInstance)
-          );
+          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj('rectangleInstance', ['setMap', 'setOptions']);
+          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createRectangle.and.returnValue(Promise.resolve(rectangleInstance as any));
 
           rectangleManager.addRectangle(newRectangle);
           expect(apiWrapper.createRectangle).toHaveBeenCalledWith({
@@ -286,13 +271,8 @@ describe('RectangleManager', () => {
           newRectangle.west = 52.6;
           newRectangle.visible = false;
 
-          const rectangleInstance: any = {
-            setMap: jest.fn(),
-            setVisible: jest.fn()
-          };
-          (<jest.Mock>apiWrapper.createRectangle).mockReturnValue(
-            Promise.resolve(rectangleInstance)
-          );
+          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj('rectangleInstance', ['setMap', 'setVisible']);
+          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createRectangle.and.returnValue(Promise.resolve(rectangleInstance as any));
 
           rectangleManager.addRectangle(newRectangle);
           expect(apiWrapper.createRectangle).toHaveBeenCalledWith({

@@ -203,7 +203,7 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
     events.set('dblclick', this.circleDblClick);
     events.set('drag', this.drag);
     events.set('dragend', this.dragEnd);
-    events.set('dragStart', this.dragStart);
+    events.set('dragstart', this.dragStart);
     events.set('mousedown', this.mouseDown);
     events.set('mousemove', this.mouseMove);
     events.set('mouseout', this.mouseOut);

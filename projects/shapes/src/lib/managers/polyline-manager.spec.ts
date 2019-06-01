@@ -1,21 +1,20 @@
-import {NgZone} from '@angular/core';
-import {TestBed, inject} from '@angular/core/testing';
+import { NgZone } from '@angular/core';
+import { inject, TestBed } from '@angular/core/testing';
+import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 
-import {NgMapsPolyline} from '../directives/polyline';
-import {GoogleMapsAPIWrapper} from '../../../../core/src/lib/services/google-maps-api-wrapper';
-import {Polyline} from '../../services/google-maps-types';
-import {PolylineManager} from './polyline-manager';
+import { NgMapsPolyline } from '../directives/polyline';
+import { PolylineManager } from './polyline-manager';
 
 describe('PolylineManager', () => {
+  let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
   beforeEach(() => {
+    apiWrapperMock = jasmine.createSpyObj('GoogleMapsAPIWrapper', ['createPolyline']);
     TestBed.configureTestingModule({
       providers: [
         {provide: NgZone, useFactory: () => new NgZone({enableLongStackTrace: true})},
         PolylineManager, {
           provide: GoogleMapsAPIWrapper,
-          useValue: {
-            createPolyline: jest.fn()
-          }
+          useValue: apiWrapperMock
         }
       ]
     });
@@ -23,43 +22,46 @@ describe('PolylineManager', () => {
 
   describe('Create a new polyline', () => {
     it('should call the mapsApiWrapper when creating a new polyline',
-       inject(
-           [PolylineManager, GoogleMapsAPIWrapper],
-           (polylineManager: PolylineManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newPolyline = new NgMapsPolyline(polylineManager);
-             polylineManager.addPolyline(newPolyline);
+      inject(
+        [PolylineManager, GoogleMapsAPIWrapper],
+        (polylineManager: PolylineManager, apiWrapper: GoogleMapsAPIWrapper) => {
+          const newPolyline = new NgMapsPolyline(polylineManager);
+          polylineManager.addPolyline(newPolyline);
 
-             expect(apiWrapper.createPolyline).toHaveBeenCalledWith({
-               clickable: true,
-               draggable: false,
-               editable: false,
-               geodesic: false,
-               strokeColor: undefined,
-               strokeOpacity: undefined,
-               strokeWeight: undefined,
-               visible: true,
-               zIndex: undefined,
-               path: []
-             });
-           }));
+          expect(apiWrapper.createPolyline).toHaveBeenCalledWith({
+            clickable: true,
+            draggable: false,
+            editable: false,
+            geodesic: false,
+            strokeColor: undefined,
+            strokeOpacity: undefined,
+            strokeWeight: undefined,
+            visible: true,
+            zIndex: undefined,
+            icons: undefined,
+            path: []
+          });
+        }));
   });
 
   describe('Delete a polyline', () => {
+    let polylineInstance: Partial<google.maps.Polyline>;
+    beforeEach(() => {
+      polylineInstance = jasmine.createSpyObj('polylineInstance', ['setMap']);
+    });
+
     it('should set the map to null when deleting a existing polyline',
-       inject(
-           [PolylineManager, GoogleMapsAPIWrapper],
-           (polylineManager: PolylineManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newPolyline = new NgMapsPolyline(polylineManager);
+      inject(
+        [PolylineManager, GoogleMapsAPIWrapper],
+        (polylineManager: PolylineManager, apiWrapper: GoogleMapsAPIWrapper) => {
+          const newPolyline = new NgMapsPolyline(polylineManager);
 
-             const polylineInstance: Partial<Polyline> = {
-              setMap: jest.fn()
-             };
-             (<jest.Mock>apiWrapper.createPolyline).mockReturnValue(Promise.resolve(polylineInstance));
+          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createPolyline.and.returnValue(Promise.resolve(polylineInstance as any));
 
-             polylineManager.addPolyline(newPolyline);
-             polylineManager.deletePolyline(newPolyline).then(() => {
-               expect(polylineInstance.setMap).toHaveBeenCalledWith(null);
-             });
-           }));
+          polylineManager.addPolyline(newPolyline);
+          polylineManager.deletePolyline(newPolyline).then(() => {
+            expect(polylineInstance.setMap).toHaveBeenCalledWith(null);
+          });
+        }));
   });
 });

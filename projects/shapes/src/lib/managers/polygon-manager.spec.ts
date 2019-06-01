@@ -2,20 +2,24 @@ import {NgZone} from '@angular/core';
 import {TestBed, inject} from '@angular/core/testing';
 
 import {NgMapsPolygon} from '../directives/polygon';
-import {GoogleMapsAPIWrapper} from '../../../../core/src/lib/services/google-maps-api-wrapper';
-import {Polygon} from '../google-maps-types';
+import {GoogleMapsAPIWrapper} from '@ng-maps/core';
 import {PolygonManager} from './polygon-manager';
 
 describe('PolygonManager', () => {
+  let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
   beforeEach(() => {
+    apiWrapperMock = jasmine.createSpyObj('GoogleMapsAPIWrapper', ['createPolygon']);
     TestBed.configureTestingModule({
       providers: [
-        {provide: NgZone, useFactory: () => new NgZone({enableLongStackTrace: true})},
-        PolygonManager, NgMapsPolygon, {
+        {
+          provide: NgZone,
+          useFactory: () => new NgZone({enableLongStackTrace: true})
+        },
+        PolygonManager,
+        NgMapsPolygon,
+        {
           provide: GoogleMapsAPIWrapper,
-          useValue: {
-            createPolygon: jest.fn()
-          }
+          useValue: apiWrapperMock
         }
       ]
     });
@@ -53,15 +57,15 @@ describe('PolygonManager', () => {
            (polygonManager: PolygonManager, apiWrapper: GoogleMapsAPIWrapper) => {
              const newPolygon = new NgMapsPolygon(polygonManager);
 
-             const polygonInstance: any = {
-              setMap: jest.fn()
-             };
-             (<jest.Mock>apiWrapper.createPolygon).mockReturnValue(Promise.resolve(polygonInstance));
+             const polygonInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj('polygonInstance', ['setMap']);
+
+             (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createPolygon.and.returnValue(Promise.resolve(polygonInstance as any));
 
              polygonManager.addPolygon(newPolygon);
              polygonManager.deletePolygon(newPolygon).then(() => {
                expect(polygonInstance.setMap).toHaveBeenCalledWith(null);
              });
-           }));
+           })
+    );
   });
 });

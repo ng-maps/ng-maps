@@ -60,6 +60,12 @@
       ],
       "@ng-maps/places/*": [
         "dist/places/*"
+      ],
+      "@ng-maps/drawing-layer": [
+        "dist/drawing-layer"
+      ],
+      "@ng-maps/drawing-layer/*": [
+        "dist/drawing-layer/*"
       ]
     }
   }

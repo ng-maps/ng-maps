@@ -54,7 +54,7 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
 
   private static _polylineOptionsAttributes: Array<string> = [
     'draggable', 'editable', 'visible', 'geodesic', 'strokeColor', 'strokeOpacity', 'strokeWeight',
-    'zIndex'
+    'zIndex', 'icons'
   ];
   /**
    * Indicates whether this Polyline handles mouse events. Defaults to true.
@@ -96,6 +96,11 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
    * The stroke width in pixels.
    */
   @Input() strokeWeight: number;
+
+  /**
+   * The icons to be rendered along the polyline.
+   */
+  @Input() icons: Array<google.maps.IconSequence>;
 
   /**
    * Whether this polyline is visible on the map. Defaults to true.
