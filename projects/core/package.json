@@ -1,8 +1,28 @@
 {
   "name": "@ng-maps/core",
-  "version": "0.0.5",
+  "version": "0.0.6",
+  "keywords": [
+    "angular",
+    "ng",
+    "angular8",
+    "angular 8",
+    "google maps",
+    "googlemaps",
+    "maps",
+    "map",
+    "google",
+    "ng2",
+    "angular2",
+    "agm"
+  ],
   "peerDependencies": {
     "@angular/common": "^8.0.0 || ^7.0.0 || ^6.0.0",
     "@angular/core": "^8.0.0 || ^7.0.0 || ^6.0.0"
+  },
+  "homepage": "https://github.com/ng-maps/ng-maps",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ng-maps/ng-maps.git"
   }
 }

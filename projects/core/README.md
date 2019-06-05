@@ -1,24 +1,42 @@
-# Core
+# @ng-maps/core
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.0.
+**@ng-maps/core** is a simple, modular and tree-shakable library for displaying google-maps inside an angular application
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project core` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project core`.
-> Note: Don't forget to add `--project core` or else it will be added to the default project in your `angular.json` file. 
+* Npm: `npm install @ng-maps/core`
+* Yarn: `yarn add @ng-maps/core`
 
-## Build
+Add `NgMapsCoreModule.forRoot({apiKey: 'YOUR_API_KEY'})` to your _AppModule_
 
-Run `ng build core` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Usage
 
-## Publishing
+### Simple Map
 
-After building your library with `ng build core`, go to the dist folder `cd dist/core` and run `npm publish`.
+Add the map to your components template
 
-## Running unit tests
+```angular2html
+<map-view [latitude]="48.858222" [longitude]="2.2945" [zoom]="8"></map-view>
+```
 
-Run `ng test core` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Add a height to your components CSS, for example
 
-## Further help
+```CSS
+map-view {
+  height: 300px;
+}
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### Marker
+
+Additionally you can add markers
+
+```angular2html
+<map-view [latitude]="48.858222" [longitude]="2.2945" [zoom]="8">
+  <map-marker [latitude]="48.858222" [longitude]="2.2945"></map-marker>
+</map-view>
+```
+
+## Additional features
+
+Other features are provided in submodules. Find out more on the [project page at github](https://github.com/ng-maps/ng-maps ) 
