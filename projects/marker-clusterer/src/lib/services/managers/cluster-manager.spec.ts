@@ -1,21 +1,20 @@
-import {NgZone} from '@angular/core';
-import {TestBed, async, inject} from '@angular/core/testing';
+import { NgZone } from '@angular/core';
+import { async, inject, TestBed } from '@angular/core/testing';
 
-import {AgmMarker} from '../../../core/directives/marker';
-import {GoogleMapsAPIWrapper} from '../../../core/services/google-maps-api-wrapper';
-import {Marker} from '../../../core/services/google-maps-types';
-import {ClusterManager} from './cluster-manager';
+import { NgMapsMarkerComponent, GoogleMapsAPIWrapper } from '@ng-maps/core';
+import { ClusterManager } from './cluster-manager';
 
 describe('ClusterManager', () => {
+  let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
   beforeEach(() => {
+    apiWrapperMock = jasmine.createSpyObj('GoogleMapsAPIWrapper', ['createMarker']);
+
     TestBed.configureTestingModule({
       providers: [
         {provide: NgZone, useFactory: () => new NgZone({enableLongStackTrace: true})},
         ClusterManager, {
           provide: GoogleMapsAPIWrapper,
-          useValue: {
-            createMarker: jest.fn()
-          }
+          useValue: apiWrapperMock
         }
       ]
     });
@@ -26,7 +25,7 @@ describe('ClusterManager', () => {
        inject(
            [ClusterManager, GoogleMapsAPIWrapper],
            (clusterManager: ClusterManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(clusterManager);
+             const newMarker = new NgMapsMarkerComponent(clusterManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
@@ -51,15 +50,14 @@ describe('ClusterManager', () => {
        inject(
            [ClusterManager, GoogleMapsAPIWrapper],
            (clusterManager: ClusterManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(clusterManager);
+             const newMarker = new NgMapsMarkerComponent(clusterManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
 
-             const markerInstance: any = {
-              setMap: jest.fn(),
-             };
-             (<jest.Mock>apiWrapper.createMarker).mockReturnValue(Promise.resolve(markerInstance));
+             const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj('polygonInstance', ['setMap']);
+
+             (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(Promise.resolve(markerInstance as any));
 
              clusterManager.addMarker(newMarker);
              clusterManager.deleteMarker(newMarker).then(
@@ -72,16 +70,14 @@ describe('ClusterManager', () => {
        async(inject(
            [ClusterManager, GoogleMapsAPIWrapper],
            (markerManager: ClusterManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(markerManager);
+             const newMarker = new NgMapsMarkerComponent(markerManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
 
-             const markerInstance: any = {
-              setMap: jest.fn(),
-              setIcon: jest.fn()
-             };
-             (<jest.Mock>apiWrapper.createMarker).mockReturnValue(Promise.resolve(markerInstance));
+             const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj('polygonInstance', ['setMap', 'setIcon']);
+
+             (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(Promise.resolve(markerInstance as any));
 
              markerManager.addMarker(newMarker);
              expect(apiWrapper.createMarker).toHaveBeenCalledWith({
@@ -107,16 +103,14 @@ describe('ClusterManager', () => {
        async(inject(
            [ClusterManager, GoogleMapsAPIWrapper],
            (markerManager: ClusterManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(markerManager);
+             const newMarker = new NgMapsMarkerComponent(markerManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
 
-             const markerInstance: any = {
-              setMap: jest.fn(),
-              setOpacity: jest.fn()
-             };
-             (<jest.Mock>apiWrapper.createMarker).mockReturnValue(Promise.resolve(markerInstance));
+             const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj('polygonInstance', ['setMap', 'setOpacity']);
+
+             (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(Promise.resolve(markerInstance as any));
 
              markerManager.addMarker(newMarker);
              expect(apiWrapper.createMarker).toHaveBeenCalledWith({
@@ -142,17 +136,15 @@ describe('ClusterManager', () => {
        async(inject(
            [ClusterManager, GoogleMapsAPIWrapper],
            (markerManager: ClusterManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(markerManager);
+             const newMarker = new NgMapsMarkerComponent(markerManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
              newMarker.visible = false;
 
-             const markerInstance: any = {
-               setMap: jest.fn(),
-               setVisible: jest.fn()
-             };
-             (<jest.Mock>apiWrapper.createMarker).mockReturnValue(Promise.resolve(markerInstance));
+             const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj('markerInstance', ['setMap', 'setVisible']);
+
+             (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(Promise.resolve(markerInstance as any));
 
              markerManager.addMarker(newMarker);
              expect(apiWrapper.createMarker).toHaveBeenCalledWith({
@@ -177,17 +169,15 @@ describe('ClusterManager', () => {
        async(inject(
            [ClusterManager, GoogleMapsAPIWrapper],
            (markerManager: ClusterManager, apiWrapper: GoogleMapsAPIWrapper) => {
-             const newMarker = new AgmMarker(markerManager);
+             const newMarker = new NgMapsMarkerComponent(markerManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
              newMarker.visible = false;
 
-             const markerInstance = {
-               setMap: jest.fn(),
-               setZIndex: jest.fn()
-             };
-             (<jest.Mock>apiWrapper.createMarker).mockReturnValue(Promise.resolve(markerInstance));
+             const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj('markerInstance', ['setMap', 'setZIndex']);
+
+             (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(Promise.resolve(markerInstance as any));
 
              markerManager.addMarker(newMarker);
              expect(apiWrapper.createMarker).toHaveBeenCalledWith({

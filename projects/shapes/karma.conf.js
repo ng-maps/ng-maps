@@ -13,8 +13,8 @@ module.exports = function (config) {
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     customLaunchers: {
-      ChromeCustom: {
-        base: 'ChromeCI',
+      ChromeCI: {
+        base: 'ChromeHeadless',
         flags: ['--no-sandbox']
       }
     },
