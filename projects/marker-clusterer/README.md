@@ -1,24 +1,30 @@
-# JsMarkerClusterer
+# @ng-maps/marker-clusterer
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.0.
+**@ng-maps/marker-clusterer** is a wrapper around [MarkerClusterer](https://github.com/googlemaps/v3-utility-library/tree/master/markerclusterer)
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project js-marker-clusterer` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project js-marker-clusterer`.
-> Note: Don't forget to add `--project js-marker-clusterer` or else it will be added to the default project in your `angular.json` file. 
+* Npm: `npm install @ng-maps/marker-clusterer`
+* Yarn: `yarn add @ng-maps/marker-clusterer`
 
-## Build
+Add `NgMapsMarkerClustererModule.forRoot({imagePath: '/assets/images/m'})` to your _AppModule_
 
-Run `ng build js-marker-clusterer` to build the project. The build artifacts will be stored in the `dist/` directory.
+You need to download images for clusters from https://github.com/googlemaps/v3-utility-library/tree/master/markerclusterer/images or provide your own. The path you placed the images to can be specified globally through configuration like mentioned above or by setting `imagePath` attribute on the component.
 
-## Publishing
+## Usage
 
-After building your library with `ng build js-marker-clusterer`, go to the dist folder `cd dist/js-marker-clusterer` and run `npm publish`.
+### MarkerClusterer
 
-## Running unit tests
+Add marker clusterer component around markers
 
-Run `ng test js-marker-clusterer` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```angular2html
+<map-view [latitude]="48.858222" [longitude]="2.2945" [zoom]="8">
+  <map-marker-cluster>
+    <map-marker [latitude]="48.858222" [longitude]="2.2945"></map-marker>
+  </map-marker-cluster>
+</map-view>
+```
 
-## Further help
+## Additional features
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Other features are provided in submodules. Find out more on the [project page at github](https://github.com/ng-maps/ng-maps ) 

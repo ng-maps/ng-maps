@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { SnazzyInfoWindowComponent } from './snazzy-info-window.component';
+import { NgMapsSnazzyInfoWindowComponent } from './snazzy-info-window.component';
 
 @NgModule({
-  declarations: [SnazzyInfoWindowComponent],
+  declarations: [NgMapsSnazzyInfoWindowComponent],
   imports: [
   ],
-  exports: [SnazzyInfoWindowComponent]
+  exports: [NgMapsSnazzyInfoWindowComponent]
 })
-export class SnazzyInfoWindowModule { }
+export class NgMapsSnazzyInfoWindowModule { }

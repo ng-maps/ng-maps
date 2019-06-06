@@ -9,6 +9,7 @@
     "build:marker-clusterer": "ng build marker-clusterer",
     "build:places": "ng build places",
     "build:shapes": "ng build shapes",
+    "build:snazzy-info-window": "ng build snazzy-info-window",
     "build:all": "npm run build && npm run build:drawing-layer && npm run build:marker-clusterer && npm run build:places && npm run build:shapes",
     "test": "ng test",
     "test:ci": "ng test core -c ci",
@@ -20,6 +21,8 @@
     "test:ci:places": "ng test places -c ci",
     "test:shapes": "ng test shapes",
     "test:ci:shapes": "ng test shapes -c ci",
+    "test:snazzy-info-window": "ng test snazzy-info-window",
+    "test:ci:snazzy-info-window": "ng test snazzy-info-window -c ci",
     "test:all-ci": "npm run test:ci && npm run test:ci:drawing-layer && npm run test:ci:marker-clusterer && npm run test:ci:shapes",
     "lint": "ng lint",
     "e2e": "ng e2e"

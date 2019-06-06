@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SnazzyInfoWindowComponent } from './snazzy-info-window.component';
+import { NgMapsSnazzyInfoWindowComponent } from './snazzy-info-window.component';
 
 describe('SnazzyInfoWindowComponent', () => {
-  let component: SnazzyInfoWindowComponent;
-  let fixture: ComponentFixture<SnazzyInfoWindowComponent>;
+  let component: NgMapsSnazzyInfoWindowComponent;
+  let fixture: ComponentFixture<NgMapsSnazzyInfoWindowComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SnazzyInfoWindowComponent ]
+      declarations: [ NgMapsSnazzyInfoWindowComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SnazzyInfoWindowComponent);
+    fixture = TestBed.createComponent(NgMapsSnazzyInfoWindowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
