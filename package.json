@@ -5,7 +5,17 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:drawing-layer": "ng build drawing-layer",
+    "build:marker-clusterer": "ng build marker-clusterer",
+    "build:places": "ng build places",
+    "build:shapes": "ng build shapes",
+    "build:all": "npm run build && npm run build:drawing-layer && npm run build:marker-clusterer && npm run build:places && npm run build:shapes",
     "test": "ng test",
+    "test:drawing-layer": "ng test drawing-layer",
+    "test:marker-clusterer": "ng test marker-clusterer",
+    "test:places": "ng test places",
+    "test:shapes": "ng test shapes",
+    "test:all": "npm run test && npm run test:drawing-layer && npm run test:marker-clusterer && npm run test:places && npm run test:shapes",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -44,9 +54,9 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "ng-packagr": "^5.1.0",
     "protractor": "~5.4.0",
-    "ts-node": "~8.2.0",
+    "ts-node": "~7.0.1",
     "tsickle": "^0.35.0",
     "tslint": "~5.17.0",
-    "typescript": "~3.5.1"
+    "typescript": "~3.4.5"
   }
 }
