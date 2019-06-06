@@ -4,6 +4,6 @@
   "peerDependencies": {
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0",
-    "@ng-maps/core": "^0.0.4"
+    "@ng-maps/core": "^0.0.6"
   }
 }
