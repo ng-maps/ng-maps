@@ -6,6 +6,9 @@ node_js:
 env:
   - NG_CLI_ANALYTICS=ci
 
+addons:
+  chrome: stable
+
 cache:
  directories:
    - node_modules
@@ -16,7 +19,7 @@ before_install:
 
 script:
   - npm run build:all
-  - npm run test:all
+  - npm run test:all-ci
 
 after_success:
   - codecov

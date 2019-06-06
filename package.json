@@ -15,7 +15,7 @@
     "test:marker-clusterer": "ng test marker-clusterer",
     "test:places": "ng test places",
     "test:shapes": "ng test shapes",
-    "test:all": "npm run test && npm run test:drawing-layer && npm run test:marker-clusterer && npm run test:places && npm run test:shapes",
+    "test:all-ci": "npm run test -c ci && npm run test:drawing-layer -c ci && npm run test:marker-clusterer -c ci && npm run test:places -c ci && npm run test:shapes -c ci",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

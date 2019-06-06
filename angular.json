@@ -22,6 +22,13 @@
             "main": "projects/core/src/test.ts",
             "tsConfig": "projects/core/tsconfig.spec.json",
             "karmaConfig": "projects/core/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeCI",
+              "codeCoverage": true,
+              "watch": false
+            }
           }
         },
         "lint": {
@@ -57,6 +64,13 @@
             "main": "projects/marker-clusterer/src/test.ts",
             "tsConfig": "projects/marker-clusterer/tsconfig.spec.json",
             "karmaConfig": "projects/marker-clusterer/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeCI",
+              "codeCoverage": true,
+              "watch": false
+            }
           }
         },
         "lint": {
@@ -92,6 +106,13 @@
             "main": "projects/snazzy-info-window/src/test.ts",
             "tsConfig": "projects/snazzy-info-window/tsconfig.spec.json",
             "karmaConfig": "projects/snazzy-info-window/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeCI",
+              "codeCoverage": true,
+              "watch": false
+            }
           }
         },
         "lint": {
@@ -127,6 +148,13 @@
             "main": "projects/data-layer/src/test.ts",
             "tsConfig": "projects/data-layer/tsconfig.spec.json",
             "karmaConfig": "projects/data-layer/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeCI",
+              "codeCoverage": true,
+              "watch": false
+            }
           }
         },
         "lint": {
@@ -162,6 +190,13 @@
             "main": "projects/kml-layer/src/test.ts",
             "tsConfig": "projects/kml-layer/tsconfig.spec.json",
             "karmaConfig": "projects/kml-layer/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeCI",
+              "codeCoverage": true,
+              "watch": false
+            }
           }
         },
         "lint": {
@@ -197,6 +232,13 @@
             "main": "projects/shapes/src/test.ts",
             "tsConfig": "projects/shapes/tsconfig.spec.json",
             "karmaConfig": "projects/shapes/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeCI",
+              "codeCoverage": true,
+              "watch": false
+            }
           }
         },
         "lint": {
@@ -232,6 +274,13 @@
             "main": "projects/places/src/test.ts",
             "tsConfig": "projects/places/tsconfig.spec.json",
             "karmaConfig": "projects/places/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeCI",
+              "codeCoverage": true,
+              "watch": false
+            }
           }
         },
         "lint": {
@@ -379,6 +428,13 @@
             "main": "projects/drawing-layer/src/test.ts",
             "tsConfig": "projects/drawing-layer/tsconfig.spec.json",
             "karmaConfig": "projects/drawing-layer/karma.conf.js"
+          },
+          "configurations": {
+            "ci": {
+              "browsers": "ChromeCI",
+              "codeCoverage": true,
+              "watch": false
+            }
           }
         },
         "lint": {
