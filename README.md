@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.com/ng-maps/ng-maps.svg?branch=master)](https://travis-ci.com/ng-maps/ng-maps)
 
+[![codecov.io](https://codecov.io/github/ng-maps/ng-maps/coverage.svg?branch=master)](https://codecov.io/github/ng-maps/ng-maps?branch=master)
+
 ## Packages
 
 This project is a mono repo and hosts multiple packages:

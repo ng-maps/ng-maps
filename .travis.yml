@@ -15,11 +15,17 @@ cache:
    - $HOME/.npm
 
 before_install:
-  - npm i -g codecov
+  - npm i -g codecov greenkeeper-lockfile
+
+install: npm install
+
+before_script: greenkeeper-lockfile-update
 
 script:
   - npm run build:all
   - npm run test:all-ci
+
+after_script: greenkeeper-lockfile-upload
 
 after_success:
   - codecov
