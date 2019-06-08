@@ -1,10 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
 
-import { NgMapsMarkerComponent, GoogleMapsAPIWrapper, MarkerManager, NgMapsViewComponent } from '@ng-maps/core';
+import * as MarkerClusterer from '@google/markerclusterer';
+
+import { GoogleMapsAPIWrapper, MarkerManager, NgMapsMarkerComponent, NgMapsViewComponent } from '@ng-maps/core';
 import { MarkerClusterComponent } from '../../directives/marker-cluster';
 import { ClusterOptions, MarkerClustererInstance } from '../../types';
-
-import * as MarkerClusterer from '@google/markerclusterer';
 
 @Injectable({
   providedIn: NgMapsViewComponent
@@ -20,16 +20,14 @@ export class ClusterManager extends MarkerManager {
     });
   }
 
-  init(options: ClusterOptions): void {
-    this._mapsWrapper.getNativeMap().then(map => {
-      const clusterer = new MarkerClusterer(map, [], options);
-      this._resolver(clusterer);
-    });
+  async init(options: ClusterOptions): Promise<void> {
+    const map = await this._mapsWrapper.getNativeMap();
+    this._resolver(new MarkerClusterer(map, [], options));
   }
 
-  addMarker(marker: NgMapsMarkerComponent): void {
-    const clusterPromise: Promise<MarkerClustererInstance> = this._clustererInstance;
-    const markerPromise = this._mapsWrapper
+  async addMarker(marker: NgMapsMarkerComponent): Promise<void> {
+    const cluster: MarkerClustererInstance = await this._clustererInstance;
+    const markers = await this._mapsWrapper
       .createMarker({
         position: {
           lat: marker.latitude,
@@ -44,13 +42,8 @@ export class ClusterManager extends MarkerManager {
         title: marker.title,
         clickable: marker.clickable,
       }, false);
-
-    Promise
-      .all([clusterPromise, markerPromise])
-      .then(([cluster, markers]) => {
-        return cluster.addMarker(markers);
-      });
-    this._markers.set(marker, markerPromise);
+    cluster.addMarker(markers);
+    this._markers.set(marker, markers);
   }
 
   deleteMarker(marker: NgMapsMarkerComponent): Promise<void> {
@@ -59,13 +52,11 @@ export class ClusterManager extends MarkerManager {
       // marker already deleted
       return Promise.resolve();
     }
-    return m.then((m: google.maps.Marker) => {
-      this._zone.run(() => {
-        m.setMap(null);
-        this._clustererInstance.then(cluster => {
-          cluster.removeMarker(m);
-          this._markers.delete(marker);
-        });
+    this._zone.run(() => {
+      m.setMap(null);
+      this._clustererInstance.then(cluster => {
+        cluster.removeMarker(m);
+        this._markers.delete(marker);
       });
     });
   }

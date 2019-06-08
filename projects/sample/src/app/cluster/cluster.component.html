@@ -1,4 +1,4 @@
-<map-view>
+<map-view [latitude]="40.712778" [longitude]="-74.005833">
   <map-marker-cluster>
     <ng-container *ngFor="let marker of markers">
       <map-marker [latitude]="marker.latitude" [longitude]="marker.longitude"></map-marker>

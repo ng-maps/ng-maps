@@ -8,23 +8,23 @@ xdescribe('FitBoundsService', () => {
   let fitBoundsService: FitBoundsService;
   let latLngBoundsConstructs: number;
   // @ts-ignore
-  let latLngBoundsExtend: jest.Mock;
+  let latLngBoundsExtend: jasmine.Spy;
 
   beforeEach(fakeAsync(() => {
     loader = {
       // @ts-ignore
-      load: jest.fn().mockReturnValue(Promise.resolve())
+      load: jasmine.createSpy().and.returnValue(Promise.resolve())
     };
 
     latLngBoundsConstructs = 0;
     // @ts-ignore
-    latLngBoundsExtend = jest.fn();
+    latLngBoundsExtend = jasmine.createSpy();
 
     (window as any).google = {
       maps: {
         LatLngBounds: class LatLngBounds {
           // @ts-ignore
-          extend: jest.Mock = latLngBoundsExtend;
+          extend: latLngBoundsExtend;
 
           constructor() {
             latLngBoundsConstructs += 1;
@@ -104,6 +104,7 @@ xdescribe('FitBoundsService', () => {
     fitBoundsService.addToBounds({lat: 2, lng: 2});
     fitBoundsService.addToBounds({lat: 3, lng: 3});
     tick(200);
+    // @ts-ignore
     latLngBoundsExtend.mockReset();
 
     fitBoundsService.removeFromBounds({lat: 2, lng: 2});

@@ -1,21 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChange,
-  Output,
-  Input,
-  ViewChild,
-  SimpleChanges
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
-import {InfoWindowManager} from '../services/managers/info-window-manager';
-import { MarkerManager } from '../services/managers/marker-manager';
+import { InfoWindowManager } from '../services/managers/info-window-manager';
 
-import {NgMapsMarkerComponent} from './marker';
+import { NgMapsMarkerComponent } from './marker';
 
 let infoWindowId = 0;
 
@@ -47,23 +34,27 @@ let infoWindowId = 0;
  */
 @Component({
   selector: 'agm-info-window, map-info-window',
-  template: `<div class='info-window-content' #content><ng-content></ng-content></div>`,
+  template: `
+    <div class='info-window-content' #content>
+      <ng-content></ng-content>
+    </div>`,
   providers: [InfoWindowManager]
 })
 export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
 
-  constructor(private _infoWindowManager: InfoWindowManager) {}
+  constructor(private _infoWindowManager: InfoWindowManager) {
+  }
 
   private static _infoWindowOptionsInputs: string[] = ['disableAutoPan', 'maxWidth'];
   /**
    * The latitude position of the info window (only usefull if you use it ouside of a {@link
-   * NgMapsMarkerComponent}).
+    * NgMapsMarkerComponent}).
    */
   @Input() latitude: number;
 
   /**
    * The longitude position of the info window (only usefull if you use it ouside of a {@link
-   * NgMapsMarkerComponent}).
+    * NgMapsMarkerComponent}).
    */
   @Input() longitude: number;
 
@@ -112,10 +103,11 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   private _id: string = (infoWindowId++).toString();
 
   ngOnInit() {
-    this._infoWindowManager.addInfoWindow(this);
-    this._infoWindowAddedToManager = true;
-    this._updateOpenState();
-    this._registerEventListeners();
+    this._infoWindowManager.addInfoWindow(this).then(() => {
+      this._infoWindowAddedToManager = true;
+      this._updateOpenState();
+      this._registerEventListeners();
+    });
   }
 
   /** @internal */
@@ -124,7 +116,7 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
       return;
     }
     if ((changes.latitude || changes.longitude) && typeof this.latitude === 'number' &&
-        typeof this.longitude === 'number') {
+      typeof this.longitude === 'number') {
       this._infoWindowManager.setPosition(this);
     }
     if (changes.zIndex) {
@@ -148,17 +140,21 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   }
 
   private _setInfoWindowOptions(changes: SimpleChanges) {
-    const options: {[propName: string]: any} = {};
+    const options: { [propName: string]: any } = {};
     const optionKeys = Object.keys(changes).filter(
-        k => NgMapsInfoWindowComponent._infoWindowOptionsInputs.indexOf(k) !== -1);
-    optionKeys.forEach((k) => { options[k] = changes[k].currentValue; });
+      k => NgMapsInfoWindowComponent._infoWindowOptionsInputs.indexOf(k) !== -1);
+    optionKeys.forEach((k) => {
+      options[k] = changes[k].currentValue;
+    });
     this._infoWindowManager.setOptions(this, options);
   }
 
   /**
    * Opens the info window.
    */
-  open(): Promise<void> { return this._infoWindowManager.open(this); }
+  open(): Promise<void> {
+    return this._infoWindowManager.open(this);
+  }
 
   /**
    * Closes the info window.
@@ -169,11 +165,17 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   }
 
   /** @internal */
-  id(): string { return this._id; }
+  id(): string {
+    return this._id;
+  }
 
   /** @internal */
-  toString(): string { return `NgMapsInfoWindowComponent-${this._id.toString()}`; }
+  toString(): string {
+    return `NgMapsInfoWindowComponent-${this._id.toString()}`;
+  }
 
   /** @internal */
-  ngOnDestroy() { this._infoWindowManager.deleteInfoWindow(this); }
+  ngOnDestroy() {
+    this._infoWindowManager.deleteInfoWindow(this);
+  }
 }

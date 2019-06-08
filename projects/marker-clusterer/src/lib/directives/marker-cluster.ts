@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChange } from '@angular/core';
+import { Component, Directive, Inject, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChange, SimpleChanges } from '@angular/core';
 import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
 import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from '../config';
 
@@ -33,14 +33,13 @@ import { ClusterOptions, ClusterStyle } from '../types';
  * })
  * ```
  */
-@Component({
+@Directive({
   selector: 'agm-marker-cluster, map-marker-cluster',
   providers: [
     ClusterManager,
     {provide: MarkerManager, useExisting: ClusterManager},
     InfoWindowManager,
   ],
-  template: '<ng-content></ng-content>'
 })
 export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit, ClusterOptions {
   /**
@@ -76,7 +75,8 @@ export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit, Clu
   @Input() imagePath: string;
   @Input() imageExtension: string;
 
-  constructor(@Optional() @Inject(MARKER_CLUSTER_CONFIG) private _config: MarkerClusterConfig = null, private _clusterManager: ClusterManager) {
+  constructor(@Optional() @Inject(MARKER_CLUSTER_CONFIG) private _config: MarkerClusterConfig = null,
+              private _clusterManager: ClusterManager) {
   }
 
   /** @internal */
@@ -85,7 +85,7 @@ export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit, Clu
   }
 
   /** @internal */
-  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+  ngOnChanges(changes: SimpleChanges) {
     if (changes.gridSize) {
       this._clusterManager.setGridSize(this);
     }

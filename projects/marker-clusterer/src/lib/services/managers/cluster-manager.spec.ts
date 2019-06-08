@@ -22,32 +22,33 @@ describe('ClusterManager', () => {
 
   describe('Create a new marker', () => {
     it('should call the mapsApiWrapper when creating a new marker',
-       inject(
+       async(inject(
            [ClusterManager, GoogleMapsAPIWrapper],
            (clusterManager: ClusterManager, apiWrapper: GoogleMapsAPIWrapper) => {
              const newMarker = new NgMapsMarkerComponent(clusterManager);
              newMarker.latitude = 34.4;
              newMarker.longitude = 22.3;
              newMarker.label = 'A';
-             clusterManager.addMarker(newMarker);
-
-             expect(apiWrapper.createMarker).toHaveBeenCalledWith({
-               position: {lat: 34.4, lng: 22.3},
-               label: 'A',
-               draggable: false,
-               icon: undefined,
-               opacity: 1,
-               visible: true,
-               zIndex: 1,
-               title: undefined,
-               clickable: true
-             }, false);
-           }));
+             clusterManager.addMarker(newMarker).then(() => {
+               expect(apiWrapper.createMarker).toHaveBeenCalledWith({
+                 position: {lat: 34.4, lng: 22.3},
+                 label: 'A',
+                 draggable: false,
+                 icon: undefined,
+                 opacity: 1,
+                 visible: true,
+                 zIndex: 1,
+                 title: undefined,
+                 clickable: true
+               }, false);
+             });
+           }))
+    );
   });
 
   describe('Delete a marker', () => {
     it('should set the map to null when deleting a existing marker',
-       inject(
+       async(inject(
            [ClusterManager, GoogleMapsAPIWrapper],
            (clusterManager: ClusterManager, apiWrapper: GoogleMapsAPIWrapper) => {
              const newMarker = new NgMapsMarkerComponent(clusterManager);
@@ -59,10 +60,13 @@ describe('ClusterManager', () => {
 
              (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(Promise.resolve(markerInstance as any));
 
-             clusterManager.addMarker(newMarker);
-             clusterManager.deleteMarker(newMarker).then(
-                 () => { expect(markerInstance.setMap).toHaveBeenCalledWith(null); });
-           }));
+             clusterManager.addMarker(newMarker).then(() => {
+               clusterManager.deleteMarker(newMarker).then(() => {
+                 expect(markerInstance.setMap).toHaveBeenCalledWith(null);
+               });
+             });
+           }))
+    );
   });
 
   describe('set marker icon', () => {
@@ -79,23 +83,25 @@ describe('ClusterManager', () => {
 
              (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(Promise.resolve(markerInstance as any));
 
-             markerManager.addMarker(newMarker);
-             expect(apiWrapper.createMarker).toHaveBeenCalledWith({
-               position: {lat: 34.4, lng: 22.3},
-               label: 'A',
-               draggable: false,
-               icon: undefined,
-               opacity: 1,
-               visible: true,
-               zIndex: 1,
-               title: undefined,
-               clickable: true
-             }, false);
-             const iconUrl = 'http://angular-maps.com/icon.png';
-             newMarker.iconUrl = iconUrl;
-             return markerManager.updateIcon(newMarker).then(
-                 () => { expect(markerInstance.setIcon).toHaveBeenCalledWith(iconUrl); });
-           })));
+             markerManager.addMarker(newMarker).then(() => {
+               expect(apiWrapper.createMarker).toHaveBeenCalledWith({
+                 position: {lat: 34.4, lng: 22.3},
+                 label: 'A',
+                 draggable: false,
+                 icon: undefined,
+                 opacity: 1,
+                 visible: true,
+                 zIndex: 1,
+                 title: undefined,
+                 clickable: true
+               }, false);
+               const iconUrl = 'http://angular-maps.com/icon.png';
+               newMarker.iconUrl = iconUrl;
+               markerManager.updateIcon(newMarker);
+               expect(markerInstance.setIcon).toHaveBeenCalledWith(iconUrl);
+             });
+           }))
+    );
   });
 
   describe('set marker opacity', () => {
@@ -112,23 +118,25 @@ describe('ClusterManager', () => {
 
              (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(Promise.resolve(markerInstance as any));
 
-             markerManager.addMarker(newMarker);
-             expect(apiWrapper.createMarker).toHaveBeenCalledWith({
-               position: {lat: 34.4, lng: 22.3},
-               label: 'A',
-               draggable: false,
-               icon: undefined,
-               visible: true,
-               opacity: 1,
-               zIndex: 1,
-               title: undefined,
-               clickable: true
-             }, false);
-             const opacity = 0.4;
-             newMarker.opacity = opacity;
-             return markerManager.updateOpacity(newMarker).then(
-                 () => { expect(markerInstance.setOpacity).toHaveBeenCalledWith(opacity); });
-           })));
+             markerManager.addMarker(newMarker).then(() => {
+               expect(apiWrapper.createMarker).toHaveBeenCalledWith({
+                 position: {lat: 34.4, lng: 22.3},
+                 label: 'A',
+                 draggable: false,
+                 icon: undefined,
+                 visible: true,
+                 opacity: 1,
+                 zIndex: 1,
+                 title: undefined,
+                 clickable: true
+               }, false);
+               const opacity = 0.4;
+               newMarker.opacity = opacity;
+               markerManager.updateOpacity(newMarker);
+               expect(markerInstance.setOpacity).toHaveBeenCalledWith(opacity);
+             });
+           }))
+    );
   });
 
   describe('set visible option', () => {
@@ -146,22 +154,24 @@ describe('ClusterManager', () => {
 
              (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(Promise.resolve(markerInstance as any));
 
-             markerManager.addMarker(newMarker);
-             expect(apiWrapper.createMarker).toHaveBeenCalledWith({
-               position: {lat: 34.4, lng: 22.3},
-               label: 'A',
-               draggable: false,
-               icon: undefined,
-               visible: false,
-               opacity: 1,
-               zIndex: 1,
-               title: undefined,
-               clickable: true
-             }, false);
-             newMarker.visible = true;
-             return markerManager.updateVisible(newMarker).then(
-                 () => { expect(markerInstance.setVisible).toHaveBeenCalledWith(true); });
-           })));
+             markerManager.addMarker(newMarker).then(() => {
+               expect(apiWrapper.createMarker).toHaveBeenCalledWith({
+                 position: {lat: 34.4, lng: 22.3},
+                 label: 'A',
+                 draggable: false,
+                 icon: undefined,
+                 visible: false,
+                 opacity: 1,
+                 zIndex: 1,
+                 title: undefined,
+                 clickable: true
+               }, false);
+               newMarker.visible = true;
+               markerManager.updateVisible(newMarker);
+               expect(markerInstance.setVisible).toHaveBeenCalledWith(true);
+             });
+           }))
+    );
   });
 
   describe('set zIndex option', () => {
@@ -179,22 +189,24 @@ describe('ClusterManager', () => {
 
              (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(Promise.resolve(markerInstance as any));
 
-             markerManager.addMarker(newMarker);
-             expect(apiWrapper.createMarker).toHaveBeenCalledWith({
-               position: {lat: 34.4, lng: 22.3},
-               label: 'A',
-               draggable: false,
-               icon: undefined,
-               visible: false,
-               opacity: 1,
-               zIndex: 1,
-               title: undefined,
-               clickable: true
-             }, false);
-             const zIndex = 10;
-             newMarker.zIndex = zIndex;
-             return markerManager.updateZIndex(newMarker).then(
-                 () => { expect(markerInstance.setZIndex).toHaveBeenCalledWith(zIndex); });
-           })));
+             markerManager.addMarker(newMarker).then(() => {
+               expect(apiWrapper.createMarker).toHaveBeenCalledWith({
+                 position: {lat: 34.4, lng: 22.3},
+                 label: 'A',
+                 draggable: false,
+                 icon: undefined,
+                 visible: false,
+                 opacity: 1,
+                 zIndex: 1,
+                 title: undefined,
+                 clickable: true
+               }, false);
+               const zIndex = 10;
+               newMarker.zIndex = zIndex;
+               markerManager.updateZIndex(newMarker);
+               expect(markerInstance.setZIndex).toHaveBeenCalledWith(zIndex);
+             });
+           }))
+    );
   });
 });

@@ -13,7 +13,6 @@ import {
 } from '@angular/core';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { FitBoundsAccessor, FitBoundsDetails } from '../services/fit-bounds';
-import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
 import { MarkerManager } from '../services/managers/marker-manager';
 import { NgMapsInfoWindowComponent } from './info-window';
 
@@ -45,8 +44,7 @@ let markerId = 0;
 @Component({
   selector: 'agm-marker, map-marker',
   providers: [
-    {provide: FitBoundsAccessor, useExisting: forwardRef(() => NgMapsMarkerComponent)},
-    MarkerManager,
+    {provide: FitBoundsAccessor, useExisting: forwardRef(() => NgMapsMarkerComponent)}
   ],
   inputs: [
     'latitude', 'longitude', 'title', 'label', 'draggable: markerDraggable', 'iconUrl',
@@ -203,10 +201,11 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
       return;
     }
     if (!this._markerAddedToManger) {
-      this._markerManager.addMarker(this);
-      this._updateFitBoundsDetails();
-      this._markerAddedToManger = true;
-      this._addEventListeners();
+      this._markerManager.addMarker(this).then(() => {
+        this._updateFitBoundsDetails();
+        this._markerAddedToManger = true;
+        this._addEventListeners();
+      });
       return;
     }
     if (changes.latitude || changes.longitude) {
