@@ -12,7 +12,7 @@ export class NgMapsMarkerClustererModule {
   /**
    * Please use this method when you register the module at the root level.
    */
-  static forRoot(markerClusterConfig?: MarkerClusterConfig): ModuleWithProviders {
+  static forRoot(markerClusterConfig?: MarkerClusterConfig): ModuleWithProviders<NgMapsMarkerClustererModule> {
     return {
       ngModule: NgMapsMarkerClustererModule,
       providers: [
