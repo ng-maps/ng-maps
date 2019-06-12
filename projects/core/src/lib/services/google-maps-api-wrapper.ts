@@ -12,13 +12,15 @@ export class GoogleMapsAPIWrapper {
   private _mapResolver: (value?: google.maps.Map) => void;
 
   constructor(private _loader: MapsAPILoader, private _zone: NgZone) {
-    this._map =
-      new Promise<google.maps.Map>((resolve: () => void) => {
-        this._mapResolver = resolve;
-      });
+    this._map = new Promise<google.maps.Map>((resolve: () => void) => {
+      this._mapResolver = resolve;
+    });
   }
 
-  createMap(el: HTMLElement, mapOptions: google.maps.MapOptions): Promise<void> {
+  createMap(
+    el: HTMLElement,
+    mapOptions: google.maps.MapOptions,
+  ): Promise<void> {
     return this._zone.runOutsideAngular(async () => {
       await this._loader.load();
       this._mapResolver(new google.maps.Map(el, mapOptions));
@@ -34,7 +36,10 @@ export class GoogleMapsAPIWrapper {
   /**
    * Creates a google map drawing manager with the map context
    */
-  async createDrawingManager(options: google.maps.drawing.DrawingManagerOptions = {}, addToMap: boolean = true): Promise<google.maps.drawing.DrawingManager> {
+  async createDrawingManager(
+    options: google.maps.drawing.DrawingManagerOptions = {},
+    addToMap: boolean = true,
+  ): Promise<google.maps.drawing.DrawingManager> {
     const map = await this._map;
     if (addToMap) {
       options.map = map;
@@ -45,8 +50,10 @@ export class GoogleMapsAPIWrapper {
   /**
    * Creates a google map marker with the map context
    */
-  async createMarker(options: google.maps.MarkerOptions = {}, addToMap: boolean = true):
-    Promise<google.maps.Marker> {
+  async createMarker(
+    options: google.maps.MarkerOptions = {},
+    addToMap: boolean = true,
+  ): Promise<google.maps.Marker> {
     const map = await this._map;
     if (addToMap) {
       options.map = map;
@@ -54,7 +61,9 @@ export class GoogleMapsAPIWrapper {
     return new google.maps.Marker(options);
   }
 
-  async createInfoWindow(options?: google.maps.InfoWindowOptions): Promise<google.maps.InfoWindow> {
+  async createInfoWindow(
+    options?: google.maps.InfoWindowOptions,
+  ): Promise<google.maps.InfoWindow> {
     await this._map;
     return new google.maps.InfoWindow(options);
   }
@@ -62,7 +71,9 @@ export class GoogleMapsAPIWrapper {
   /**
    * Creates a google.map.Circle for the current map.
    */
-  createCircle(options: google.maps.CircleOptions): Promise<google.maps.Circle> {
+  createCircle(
+    options: google.maps.CircleOptions,
+  ): Promise<google.maps.Circle> {
     return this._map.then((map: google.maps.Map) => {
       options.map = map;
       return new google.maps.Circle(options);
@@ -72,14 +83,18 @@ export class GoogleMapsAPIWrapper {
   /**
    * Creates a google.map.Rectangle for the current map.
    */
-  createRectangle(options: google.maps.RectangleOptions): Promise<google.maps.Rectangle> {
+  createRectangle(
+    options: google.maps.RectangleOptions,
+  ): Promise<google.maps.Rectangle> {
     return this._map.then((map: google.maps.Map) => {
       options.map = map;
       return new google.maps.Rectangle(options);
     });
   }
 
-  createPolyline(options: google.maps.PolylineOptions): Promise<google.maps.Polyline> {
+  createPolyline(
+    options: google.maps.PolylineOptions,
+  ): Promise<google.maps.Polyline> {
     return this.getNativeMap().then((map: google.maps.Map) => {
       const line = new google.maps.Polyline(options);
       line.setMap(map);
@@ -87,7 +102,9 @@ export class GoogleMapsAPIWrapper {
     });
   }
 
-  createPolygon(options: google.maps.PolygonOptions): Promise<google.maps.Polygon> {
+  createPolygon(
+    options: google.maps.PolygonOptions,
+  ): Promise<google.maps.Polygon> {
     return this.getNativeMap().then((map: google.maps.Map) => {
       const polygon = new google.maps.Polygon(options);
       polygon.setMap(map);
@@ -98,8 +115,10 @@ export class GoogleMapsAPIWrapper {
   /**
    * Creates a new google.map.Data layer for the current map
    */
-  createDataLayer(options?: google.maps.Data.DataOptions): Promise<google.maps.Data> {
-    return this._map.then(m => {
+  createDataLayer(
+    options?: google.maps.Data.DataOptions,
+  ): Promise<google.maps.Data> {
+    return this._map.then((m) => {
       const data = new google.maps.Data(options);
       data.setMap(m);
       return data;
@@ -109,7 +128,10 @@ export class GoogleMapsAPIWrapper {
   /**
    * Determines if given coordinates are insite a Polygon path.
    */
-  containsLocation(latLng: google.maps.LatLng, polygon: google.maps.Polygon): boolean {
+  containsLocation(
+    latLng: google.maps.LatLng,
+    polygon: google.maps.Polygon,
+  ): boolean {
     return google.maps.geometry.poly.containsLocation(latLng, polygon);
   }
 
@@ -161,11 +183,15 @@ export class GoogleMapsAPIWrapper {
     return this._map.then((map) => map.panBy(x, y));
   }
 
-  fitBounds(latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral): Promise<void> {
+  fitBounds(
+    latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+  ): Promise<void> {
     return this._map.then((map) => map.fitBounds(latLng));
   }
 
-  panToBounds(latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral): Promise<void> {
+  panToBounds(
+    latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+  ): Promise<void> {
     return this._map.then((map) => map.panToBounds(latLng));
   }
 

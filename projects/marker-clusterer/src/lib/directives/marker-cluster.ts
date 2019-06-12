@@ -1,4 +1,15 @@
-import { Component, Directive, Inject, Input, OnChanges, OnDestroy, OnInit, Optional, SimpleChange, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Directive,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Optional,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
 import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from '../config';
 
@@ -37,11 +48,12 @@ import { ClusterOptions, ClusterStyle } from '../types';
   selector: 'agm-marker-cluster, map-marker-cluster',
   providers: [
     ClusterManager,
-    {provide: MarkerManager, useExisting: ClusterManager},
+    { provide: MarkerManager, useExisting: ClusterManager },
     InfoWindowManager,
   ],
 })
-export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit, ClusterOptions {
+export class MarkerClusterComponent
+  implements OnDestroy, OnChanges, OnInit, ClusterOptions {
   /**
    * The grid size of a cluster in pixels
    */
@@ -75,9 +87,12 @@ export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit, Clu
   @Input() imagePath: string;
   @Input() imageExtension: string;
 
-  constructor(@Optional() @Inject(MARKER_CLUSTER_CONFIG) private _config: MarkerClusterConfig = null,
-              private _clusterManager: ClusterManager) {
-  }
+  constructor(
+    @Optional()
+    @Inject(MARKER_CLUSTER_CONFIG)
+    private _config: MarkerClusterConfig = null,
+    private _clusterManager: ClusterManager,
+  ) {}
 
   /** @internal */
   ngOnDestroy() {
@@ -124,7 +139,10 @@ export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit, Clu
       averageCenter: this.averageCenter,
       minimumClusterSize: this.minimumClusterSize,
       styles: this.styles,
-      imagePath: this.imagePath == null && this._config != null ? this._config.imagePath : this.imagePath,
+      imagePath:
+        this.imagePath == null && this._config != null
+          ? this._config.imagePath
+          : this.imagePath,
       imageExtension: this.imageExtension,
     });
   }

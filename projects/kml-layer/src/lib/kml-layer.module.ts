@@ -4,9 +4,8 @@ import { KmlLayerManager } from './kml-layer-manager';
 
 @NgModule({
   declarations: [AgmKmlLayer],
-  imports: [
-  ],
+  imports: [],
   providers: [KmlLayerManager],
-  exports: [AgmKmlLayer]
+  exports: [AgmKmlLayer],
 })
-export class KmlLayerModule { }
+export class KmlLayerModule {}

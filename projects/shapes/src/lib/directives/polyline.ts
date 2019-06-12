@@ -9,7 +9,7 @@ import {
   SimpleChanges,
   Input,
   Output,
-  Component
+  Component,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PolylineManager } from '../managers/polyline-manager';
@@ -46,15 +46,23 @@ let polylineId = 0;
 @Component({
   selector: 'agm-polyline, map-polyline',
   template: '<ng-content></ng-content>',
-  providers: [PolylineManager]
+  providers: [PolylineManager],
 })
 export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
-
-  constructor(private _polylineManager: PolylineManager) { this._id = (polylineId++).toString(); }
+  constructor(private _polylineManager: PolylineManager) {
+    this._id = (polylineId++).toString();
+  }
 
   private static _polylineOptionsAttributes: Array<string> = [
-    'draggable', 'editable', 'visible', 'geodesic', 'strokeColor', 'strokeOpacity', 'strokeWeight',
-    'zIndex', 'icons'
+    'draggable',
+    'editable',
+    'visible',
+    'geodesic',
+    'strokeColor',
+    'strokeOpacity',
+    'strokeWeight',
+    'zIndex',
+    'icons',
   ];
   /**
    * Indicates whether this Polyline handles mouse events. Defaults to true.
@@ -115,12 +123,16 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
   /**
    * This event is fired when the DOM click event is fired on the Polyline.
    */
-  @Output() lineClick: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() lineClick: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired when the DOM dblclick event is fired on the Polyline.
    */
-  @Output() lineDblClick: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() lineDblClick: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is repeatedly fired while the user drags the polyline.
@@ -130,42 +142,58 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
   /**
    * This event is fired when the user stops dragging the polyline.
    */
-  @Output() lineDragEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() lineDragEnd: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event is fired when the user starts dragging the polyline.
    */
-  @Output() lineDragStart: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() lineDragStart: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event is fired when the DOM mousedown event is fired on the Polyline.
    */
-  @Output() lineMouseDown: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() lineMouseDown: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired when the DOM mousemove event is fired on the Polyline.
    */
-  @Output() lineMouseMove: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() lineMouseMove: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired on Polyline mouseout.
    */
-  @Output() lineMouseOut: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() lineMouseOut: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired on Polyline mouseover.
    */
-  @Output() lineMouseOver: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() lineMouseOver: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired whe the DOM mouseup event is fired on the Polyline
    */
-  @Output() lineMouseUp: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() lineMouseUp: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This even is fired when the Polyline is right-clicked on.
    */
-  @Output() lineRightClick: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() lineRightClick: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * @internal
@@ -180,15 +208,18 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
   ngAfterContentInit() {
     if (this.points.length) {
       this.points.forEach((point: NgMapsPolylinePoint) => {
-        const subscription = point.positionChanged.subscribe(
-            () => { this._polylineManager.updatePolylinePoints(this); });
+        const subscription = point.positionChanged.subscribe(() => {
+          this._polylineManager.updatePolylinePoints(this);
+        });
         this._subscriptions.push(subscription);
       });
     }
     if (!this._polylineAddedToManager) {
       this._init();
     }
-    const s = this.points.changes.subscribe(() => this._polylineManager.updatePolylinePoints(this));
+    const s = this.points.changes.subscribe(() =>
+      this._polylineManager.updatePolylinePoints(this),
+    );
     this._subscriptions.push(s);
     this._polylineManager.updatePolylinePoints(this);
   }
@@ -199,10 +230,11 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
       return;
     }
 
-    const options: {[propName: string]: any} = {};
+    const options: { [propName: string]: any } = {};
     const optionKeys = Object.keys(changes).filter(
-        k => NgMapsPolyline._polylineOptionsAttributes.indexOf(k) !== -1);
-    optionKeys.forEach(k => options[k] = changes[k].currentValue);
+      (k) => NgMapsPolyline._polylineOptionsAttributes.indexOf(k) !== -1,
+    );
+    optionKeys.forEach((k) => (options[k] = changes[k].currentValue));
     this._polylineManager.setPolylineOptions(this, options);
   }
 
@@ -214,20 +246,56 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
 
   private _addEventListeners() {
     const handlers = [
-      {name: 'click', handler: (ev: google.maps.PolyMouseEvent) => this.lineClick.emit(ev)},
-      {name: 'dblclick', handler: (ev: google.maps.PolyMouseEvent) => this.lineDblClick.emit(ev)},
-      {name: 'drag', handler: (ev: MouseEvent) => this.lineDrag.emit(ev)},
-      {name: 'dragend', handler: (ev: MouseEvent) => this.lineDragEnd.emit(ev)},
-      {name: 'dragstart', handler: (ev: MouseEvent) => this.lineDragStart.emit(ev)},
-      {name: 'mousedown', handler: (ev: google.maps.PolyMouseEvent) => this.lineMouseDown.emit(ev)},
-      {name: 'mousemove', handler: (ev: google.maps.PolyMouseEvent) => this.lineMouseMove.emit(ev)},
-      {name: 'mouseout', handler: (ev: google.maps.PolyMouseEvent) => this.lineMouseOut.emit(ev)},
-      {name: 'mouseover', handler: (ev: google.maps.PolyMouseEvent) => this.lineMouseOver.emit(ev)},
-      {name: 'mouseup', handler: (ev: google.maps.PolyMouseEvent) => this.lineMouseUp.emit(ev)},
-      {name: 'rightclick', handler: (ev: google.maps.PolyMouseEvent) => this.lineRightClick.emit(ev)},
+      {
+        name: 'click',
+        handler: (ev: google.maps.PolyMouseEvent) => this.lineClick.emit(ev),
+      },
+      {
+        name: 'dblclick',
+        handler: (ev: google.maps.PolyMouseEvent) => this.lineDblClick.emit(ev),
+      },
+      { name: 'drag', handler: (ev: MouseEvent) => this.lineDrag.emit(ev) },
+      {
+        name: 'dragend',
+        handler: (ev: MouseEvent) => this.lineDragEnd.emit(ev),
+      },
+      {
+        name: 'dragstart',
+        handler: (ev: MouseEvent) => this.lineDragStart.emit(ev),
+      },
+      {
+        name: 'mousedown',
+        handler: (ev: google.maps.PolyMouseEvent) =>
+          this.lineMouseDown.emit(ev),
+      },
+      {
+        name: 'mousemove',
+        handler: (ev: google.maps.PolyMouseEvent) =>
+          this.lineMouseMove.emit(ev),
+      },
+      {
+        name: 'mouseout',
+        handler: (ev: google.maps.PolyMouseEvent) => this.lineMouseOut.emit(ev),
+      },
+      {
+        name: 'mouseover',
+        handler: (ev: google.maps.PolyMouseEvent) =>
+          this.lineMouseOver.emit(ev),
+      },
+      {
+        name: 'mouseup',
+        handler: (ev: google.maps.PolyMouseEvent) => this.lineMouseUp.emit(ev),
+      },
+      {
+        name: 'rightclick',
+        handler: (ev: google.maps.PolyMouseEvent) =>
+          this.lineRightClick.emit(ev),
+      },
     ];
     handlers.forEach((obj) => {
-      const os = this._polylineManager.createEventObservable(obj.name, this).subscribe(obj.handler);
+      const os = this._polylineManager
+        .createEventObservable(obj.name, this)
+        .subscribe(obj.handler);
       this._subscriptions.push(os);
     });
   }
@@ -241,7 +309,9 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
   }
 
   /** @internal */
-  id(): string { return this._id; }
+  id(): string {
+    return this._id;
+  }
 
   /** @internal */
   ngOnDestroy() {

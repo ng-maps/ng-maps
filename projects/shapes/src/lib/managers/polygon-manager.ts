@@ -1,17 +1,22 @@
-import {Injectable, NgZone} from '@angular/core';
-import {Observable, Observer} from 'rxjs';
+import { Injectable, NgZone } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
 
-import {NgMapsPolygon} from '../directives/polygon';
+import { NgMapsPolygon } from '../directives/polygon';
 import { GoogleMapsAPIWrapper, NgMapsViewComponent } from '@ng-maps/core';
 
 @Injectable({
-  providedIn: NgMapsViewComponent
+  providedIn: NgMapsViewComponent,
 })
 export class PolygonManager {
-  private _polygons: Map<NgMapsPolygon, Promise<google.maps.Polygon>> =
-      new Map<NgMapsPolygon, Promise<google.maps.Polygon>>();
+  private _polygons: Map<NgMapsPolygon, Promise<google.maps.Polygon>> = new Map<
+    NgMapsPolygon,
+    Promise<google.maps.Polygon>
+  >();
 
-  constructor(private _mapsWrapper: GoogleMapsAPIWrapper, private _zone: NgZone) {}
+  constructor(
+    private _mapsWrapper: GoogleMapsAPIWrapper,
+    private _zone: NgZone,
+  ) {}
 
   addPolygon(path: NgMapsPolygon) {
     const polygonPromise = this._mapsWrapper.createPolygon({
@@ -38,11 +43,20 @@ export class PolygonManager {
       return Promise.resolve();
     }
     // @ts-ignore
-    return m.then((l: google.maps.Polygon) => this._zone.run(() => {l.setPaths(polygon.paths); }));
+    return m.then((l: google.maps.Polygon) =>
+      this._zone.run(() => {
+        l.setPaths(polygon.paths);
+      }),
+    );
   }
 
-  setPolygonOptions(path: NgMapsPolygon, options: {[propName: string]: any}): Promise<void> {
-    return this._polygons.get(path).then((l: google.maps.Polygon) => { l.setOptions(options); });
+  setPolygonOptions(
+    path: NgMapsPolygon,
+    options: { [propName: string]: any },
+  ): Promise<void> {
+    return this._polygons.get(path).then((l: google.maps.Polygon) => {
+      l.setOptions(options);
+    });
   }
 
   deletePolygon(paths: NgMapsPolygon): Promise<void> {
@@ -58,10 +72,15 @@ export class PolygonManager {
     });
   }
 
-  createEventObservable<T>(eventName: string, path: NgMapsPolygon): Observable<T> {
+  createEventObservable<T>(
+    eventName: string,
+    path: NgMapsPolygon,
+  ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
       this._polygons.get(path).then((l: google.maps.Polygon) => {
-        l.addListener(eventName, (e: T) => this._zone.run(() => observer.next(e)));
+        l.addListener(eventName, (e: T) =>
+          this._zone.run(() => observer.next(e)),
+        );
       });
     });
   }

@@ -1,6 +1,10 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { GoogleMapsScriptProtocol, LAZY_MAPS_API_CONFIG, LazyMapsAPILoaderConfigLiteral } from './lazy-maps-api-loader-config';
+import {
+  GoogleMapsScriptProtocol,
+  LAZY_MAPS_API_CONFIG,
+  LazyMapsAPILoaderConfigLiteral,
+} from './lazy-maps-api-loader-config';
 
 import { MapsAPILoader } from './maps-api-loader';
 
@@ -12,7 +16,12 @@ export class LazyMapsAPILoader extends MapsAPILoader {
   protected readonly _SCRIPT_ID: string = 'GoogleMapsApiScript';
   protected readonly callbackName: string = `LazyMapsAPILoader`;
 
-  constructor(@Optional() @Inject(LAZY_MAPS_API_CONFIG) config: LazyMapsAPILoaderConfigLiteral = null, @Inject(DOCUMENT) document: any) {
+  constructor(
+    @Optional()
+    @Inject(LAZY_MAPS_API_CONFIG)
+    config: LazyMapsAPILoaderConfigLiteral = null,
+    @Inject(DOCUMENT) document: any,
+  ) {
     super();
     this._config = config || {};
     this._document = document as Document;
@@ -48,7 +57,7 @@ export class LazyMapsAPILoader extends MapsAPILoader {
 
   private _assignScriptLoadingPromise(scriptElem: HTMLElement) {
     this._scriptLoadingPromise = new Promise<void>((resolve, reject) => {
-      (window)[this.callbackName] = () => {
+      window[this.callbackName] = () => {
         resolve();
       };
 
@@ -75,7 +84,8 @@ export class LazyMapsAPILoader extends MapsAPILoader {
         break;
     }
 
-    const hostAndPath: string = this._config.hostAndPath || 'maps.googleapis.com/maps/api/js';
+    const hostAndPath: string =
+      this._config.hostAndPath || 'maps.googleapis.com/maps/api/js';
     const queryParams: { [key: string]: string | Array<string> } = {
       v: this._config.apiVersion || 'quarterly',
       callback: callbackName,
@@ -84,24 +94,26 @@ export class LazyMapsAPILoader extends MapsAPILoader {
       channel: this._config.channel,
       libraries: this._config.libraries,
       region: this._config.region,
-      language: this._config.language
+      language: this._config.language,
     };
     const params: string = Object.keys(queryParams)
       .filter((k: string) => queryParams[k] != null)
       .filter((k: string) => {
         // remove empty arrays
-        return !Array.isArray(queryParams[k]) ||
-          (Array.isArray(queryParams[k]) && queryParams[k].length > 0);
+        return (
+          !Array.isArray(queryParams[k]) ||
+          (Array.isArray(queryParams[k]) && queryParams[k].length > 0)
+        );
       })
       .map((k: string) => {
         // join arrays as comma seperated strings
         const i = queryParams[k];
         if (Array.isArray(i)) {
-          return {key: k, value: i.join(',')};
+          return { key: k, value: i.join(',') };
         }
-        return {key: k, value: queryParams[k]};
+        return { key: k, value: queryParams[k] };
       })
-      .map((entry: { key: string, value: string }) => {
+      .map((entry: { key: string; value: string }) => {
         return `${entry.key}=${entry.value}`;
       })
       .join('&');

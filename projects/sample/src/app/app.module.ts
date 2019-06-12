@@ -17,20 +17,20 @@ import { ShapesComponent } from './shapes/shapes.component';
     SimpleMapComponent,
     ClusterComponent,
     InfoWindowComponent,
-    ShapesComponent
+    ShapesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgMapsCoreModule.forRoot({
-      apiKey: 'AIzaSyAtee0zgzh-_8JgWoRXFf2Lac61vkk0GZc'
+      apiKey: 'AIzaSyAtee0zgzh-_8JgWoRXFf2Lac61vkk0GZc',
     }),
     NgMapsMarkerClustererModule.forRoot({
-      imagePath: '/assets/images/m'
+      imagePath: '/assets/images/m',
     }),
-    NgMapsShapesModule
+    NgMapsShapesModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

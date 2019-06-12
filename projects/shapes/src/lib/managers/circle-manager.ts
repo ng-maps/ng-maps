@@ -4,32 +4,39 @@ import { Observable, Observer } from 'rxjs';
 import { NgMapsCircle } from '../directives/circle';
 
 @Injectable({
-  providedIn: NgMapsViewComponent
+  providedIn: NgMapsViewComponent,
 })
 export class CircleManager {
-  private _circles: Map<NgMapsCircle, Promise<google.maps.Circle>> =
-    new Map<NgMapsCircle, Promise<google.maps.Circle>>();
+  private _circles: Map<NgMapsCircle, Promise<google.maps.Circle>> = new Map<
+    NgMapsCircle,
+    Promise<google.maps.Circle>
+  >();
 
-  constructor(private _apiWrapper: GoogleMapsAPIWrapper, private _zone: NgZone) {
-  }
+  constructor(
+    private _apiWrapper: GoogleMapsAPIWrapper,
+    private _zone: NgZone,
+  ) {}
 
   addCircle(circle: NgMapsCircle) {
-    this._circles.set(circle, this._apiWrapper.createCircle({
-      center: {lat: circle.latitude, lng: circle.longitude},
-      clickable: circle.clickable,
-      draggable: circle.draggable,
-      editable: circle.editable,
-      fillColor: circle.fillColor,
-      fillOpacity: circle.fillOpacity,
-      radius: circle.radius,
-      strokeColor: circle.strokeColor,
-      strokeOpacity: circle.strokeOpacity,
-      // @ts-ignore
-      strokePosition: circle.strokePosition,
-      strokeWeight: circle.strokeWeight,
-      visible: circle.visible,
-      zIndex: circle.zIndex
-    }));
+    this._circles.set(
+      circle,
+      this._apiWrapper.createCircle({
+        center: { lat: circle.latitude, lng: circle.longitude },
+        clickable: circle.clickable,
+        draggable: circle.draggable,
+        editable: circle.editable,
+        fillColor: circle.fillColor,
+        fillOpacity: circle.fillOpacity,
+        radius: circle.radius,
+        strokeColor: circle.strokeColor,
+        strokeOpacity: circle.strokeOpacity,
+        // @ts-ignore
+        strokePosition: circle.strokePosition,
+        strokeWeight: circle.strokeWeight,
+        visible: circle.visible,
+        zIndex: circle.zIndex,
+      }),
+    );
   }
 
   /**
@@ -41,7 +48,10 @@ export class CircleManager {
     this._circles.delete(circle);
   }
 
-  setOptions(circle: NgMapsCircle, options: google.maps.CircleOptions): Promise<void> {
+  setOptions(
+    circle: NgMapsCircle,
+    options: google.maps.CircleOptions,
+  ): Promise<void> {
     return this._circles.get(circle).then((c) => c.setOptions(options));
   }
 
@@ -58,16 +68,23 @@ export class CircleManager {
   }
 
   setCenter(circle: NgMapsCircle): Promise<void> {
-    return this._circles.get(circle).then(
-      (c) => c.setCenter({lat: circle.latitude, lng: circle.longitude}));
+    return this._circles
+      .get(circle)
+      .then((c) =>
+        c.setCenter({ lat: circle.latitude, lng: circle.longitude }),
+      );
   }
 
   setEditable(circle: NgMapsCircle): Promise<void> {
-    return this._circles.get(circle).then((c) => c.setEditable(circle.editable));
+    return this._circles
+      .get(circle)
+      .then((c) => c.setEditable(circle.editable));
   }
 
   setDraggable(circle: NgMapsCircle): Promise<void> {
-    return this._circles.get(circle).then((c) => c.setDraggable(circle.draggable));
+    return this._circles
+      .get(circle)
+      .then((c) => c.setDraggable(circle.draggable));
   }
 
   setVisible(circle: NgMapsCircle): Promise<void> {
@@ -78,11 +95,16 @@ export class CircleManager {
     return this._circles.get(circle).then((c) => c.setRadius(circle.radius));
   }
 
-  createEventObservable<T>(eventName: string, circle: NgMapsCircle): Observable<T> {
+  createEventObservable<T>(
+    eventName: string,
+    circle: NgMapsCircle,
+  ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
       let listener: google.maps.MapsEventListener = null;
       this._circles.get(circle).then((c) => {
-        listener = c.addListener(eventName, (e: T) => this._zone.run(() => observer.next(e)));
+        listener = c.addListener(eventName, (e: T) =>
+          this._zone.run(() => observer.next(e)),
+        );
       });
 
       return () => {

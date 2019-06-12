@@ -4,8 +4,8 @@
 
 ## Installation
 
-* Npm: `npm install @ng-maps/core`
-* Yarn: `yarn add @ng-maps/core`
+- Npm: `npm install @ng-maps/core`
+- Yarn: `yarn add @ng-maps/core`
 
 Add `NgMapsCoreModule.forRoot({apiKey: 'YOUR_API_KEY'})` to your _AppModule_
 
@@ -39,4 +39,4 @@ Additionally you can add markers
 
 ## Additional features
 
-Other features are provided in submodules. Find out more on the [project page at github](https://github.com/ng-maps/ng-maps ) 
+Other features are provided in submodules. Find out more on the [project page at github](https://github.com/ng-maps/ng-maps)

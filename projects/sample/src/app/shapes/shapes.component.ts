@@ -4,24 +4,23 @@ import { MARKERS } from './markers';
 @Component({
   selector: 'app-shapes',
   templateUrl: './shapes.component.html',
-  styleUrls: ['./shapes.component.css']
+  styleUrls: ['./shapes.component.css'],
 })
 export class ShapesComponent implements OnInit {
-
   latA: number;
   lngA: number;
 
   latB: number;
   lngB: number;
 
-  paths: Array<{lat: number, lng: number}>;
+  paths: Array<{ lat: number; lng: number }>;
 
   north: number;
   east: number;
   west: number;
   south: number;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     const pointA = getRandomMarker();
@@ -31,19 +30,24 @@ export class ShapesComponent implements OnInit {
     this.latB = parseFloat(pointB.latitude);
     this.lngB = parseFloat(pointB.longitude);
 
-    this.paths = [getRandomMarker(), getRandomMarker(), getRandomMarker(), getRandomMarker(), getRandomMarker()].map((marker) => {
+    this.paths = [
+      getRandomMarker(),
+      getRandomMarker(),
+      getRandomMarker(),
+      getRandomMarker(),
+      getRandomMarker(),
+    ].map((marker) => {
       return {
         lat: parseFloat(marker.latitude),
-        lng: parseFloat(marker.longitude)
+        lng: parseFloat(marker.longitude),
       };
     });
 
-    this.north =  parseFloat(getRandomMarker().latitude);
+    this.north = parseFloat(getRandomMarker().latitude);
     this.east = parseFloat(getRandomMarker().longitude);
     this.west = parseFloat(getRandomMarker().longitude);
     this.south = parseFloat(getRandomMarker().latitude);
   }
-
 }
 
 function getRandomMarker() {

@@ -1,4 +1,4 @@
-import {MapsAPILoader} from './maps-api-loader';
+import { MapsAPILoader } from './maps-api-loader';
 
 /**
  * When using the NoOpMapsAPILoader, the Google Maps API must be added to the page via a `<script>`
@@ -9,7 +9,8 @@ export class NoOpMapsAPILoader implements MapsAPILoader {
   load(): Promise<void> {
     if (!(<any>window).google || !(<any>window).google.maps) {
       throw new Error(
-          'Google Maps API not loaded on page. Make sure window.google.maps is available!');
+        'Google Maps API not loaded on page. Make sure window.google.maps is available!',
+      );
     }
     return Promise.resolve();
   }

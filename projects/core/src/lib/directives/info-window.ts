@@ -1,4 +1,15 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 
 import { InfoWindowManager } from '../services/managers/info-window-manager';
 
@@ -35,26 +46,28 @@ let infoWindowId = 0;
 @Component({
   selector: 'agm-info-window, map-info-window',
   template: `
-    <div class='info-window-content' #content>
+    <div class="info-window-content" #content>
       <ng-content></ng-content>
-    </div>`,
-  providers: [InfoWindowManager]
+    </div>
+  `,
+  providers: [InfoWindowManager],
 })
 export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
+  constructor(private _infoWindowManager: InfoWindowManager) {}
 
-  constructor(private _infoWindowManager: InfoWindowManager) {
-  }
-
-  private static _infoWindowOptionsInputs: string[] = ['disableAutoPan', 'maxWidth'];
+  private static _infoWindowOptionsInputs: string[] = [
+    'disableAutoPan',
+    'maxWidth',
+  ];
   /**
    * The latitude position of the info window (only usefull if you use it ouside of a {@link
-    * NgMapsMarkerComponent}).
+   * NgMapsMarkerComponent}).
    */
   @Input() latitude: number;
 
   /**
    * The longitude position of the info window (only usefull if you use it ouside of a {@link
-    * NgMapsMarkerComponent}).
+   * NgMapsMarkerComponent}).
    */
   @Input() longitude: number;
 
@@ -87,7 +100,7 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   /**
    * Holds the native element that is used for the info window content.
    */
-  @ViewChild('content', {static: true})
+  @ViewChild('content', { static: true })
   content: ElementRef;
 
   /**
@@ -115,8 +128,11 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
     if (!this._infoWindowAddedToManager) {
       return;
     }
-    if ((changes.latitude || changes.longitude) && typeof this.latitude === 'number' &&
-      typeof this.longitude === 'number') {
+    if (
+      (changes.latitude || changes.longitude) &&
+      typeof this.latitude === 'number' &&
+      typeof this.longitude === 'number'
+    ) {
       this._infoWindowManager.setPosition(this);
     }
     if (changes.zIndex) {
@@ -129,10 +145,12 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   }
 
   private _registerEventListeners() {
-    this._infoWindowManager.createEventObservable('closeclick', this).subscribe(() => {
-      this.isOpen = false;
-      this.infoWindowClose.emit();
-    });
+    this._infoWindowManager
+      .createEventObservable('closeclick', this)
+      .subscribe(() => {
+        this.isOpen = false;
+        this.infoWindowClose.emit();
+      });
   }
 
   private _updateOpenState() {
@@ -142,7 +160,9 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   private _setInfoWindowOptions(changes: SimpleChanges) {
     const options: { [propName: string]: any } = {};
     const optionKeys = Object.keys(changes).filter(
-      k => NgMapsInfoWindowComponent._infoWindowOptionsInputs.indexOf(k) !== -1);
+      (k) =>
+        NgMapsInfoWindowComponent._infoWindowOptionsInputs.indexOf(k) !== -1,
+    );
     optionKeys.forEach((k) => {
       options[k] = changes[k].currentValue;
     });

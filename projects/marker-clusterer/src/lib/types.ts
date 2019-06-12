@@ -3,7 +3,10 @@ export interface CalculatorResult {
   index: number;
 }
 
-export type CalculateFunction = (marker: google.maps.Marker[], count: number) => CalculatorResult;
+export type CalculateFunction = (
+  marker: google.maps.Marker[],
+  count: number,
+) => CalculatorResult;
 
 export interface MarkerClustererInstance {
   zoomOnClick_: boolean;
@@ -11,7 +14,11 @@ export interface MarkerClustererInstance {
   imagePath_: string;
   minimumClusterSize_: number;
   imageExtension_: string;
-  new(map: google.maps.Map, marker: google.maps.Marker[], options: ClusterOptions): MarkerClustererInstance;
+  new (
+    map: google.maps.Map,
+    marker: google.maps.Marker[],
+    options: ClusterOptions,
+  ): MarkerClustererInstance;
   addMarker(marker: google.maps.Marker, noDraw?: boolean): void;
   addMarkers(markers: google.maps.Marker[], noDraw?: boolean): void;
   clearMarkers(): void;

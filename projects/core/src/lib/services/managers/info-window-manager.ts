@@ -1,23 +1,26 @@
-import { Observable ,  Observer } from 'rxjs';
-import {Injectable, NgZone} from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+import { Injectable, NgZone } from '@angular/core';
 
-import {NgMapsInfoWindowComponent} from '../../directives/info-window';
+import { NgMapsInfoWindowComponent } from '../../directives/info-window';
 import { NgMapsViewComponent } from '../../directives/map';
 
-import {GoogleMapsAPIWrapper} from '../google-maps-api-wrapper';
-import {MarkerManager} from './marker-manager';
+import { GoogleMapsAPIWrapper } from '../google-maps-api-wrapper';
+import { MarkerManager } from './marker-manager';
 
 @Injectable({
-  providedIn: NgMapsViewComponent
+  providedIn: NgMapsViewComponent,
 })
 export class InfoWindowManager {
-  private _infoWindows: Map<NgMapsInfoWindowComponent, google.maps.InfoWindow> =
-      new Map<NgMapsInfoWindowComponent, google.maps.InfoWindow>();
+  private _infoWindows: Map<
+    NgMapsInfoWindowComponent,
+    google.maps.InfoWindow
+  > = new Map<NgMapsInfoWindowComponent, google.maps.InfoWindow>();
 
   constructor(
-      private _mapsWrapper: GoogleMapsAPIWrapper,
-      private _zone: NgZone,
-      private _markerManager: MarkerManager) {}
+    private _mapsWrapper: GoogleMapsAPIWrapper,
+    private _zone: NgZone,
+    private _markerManager: MarkerManager,
+  ) {}
 
   async deleteInfoWindow(infoWindow: NgMapsInfoWindowComponent): Promise<void> {
     const iWindow = await this._infoWindows.get(infoWindow);
@@ -36,7 +39,7 @@ export class InfoWindowManager {
     const i = this._infoWindows.get(infoWindow);
     i.setPosition({
       lat: infoWindow.latitude,
-      lng: infoWindow.longitude
+      lng: infoWindow.longitude,
     });
   }
 
@@ -49,7 +52,9 @@ export class InfoWindowManager {
     const w = this._infoWindows.get(infoWindow);
     const map = await this._mapsWrapper.getNativeMap();
     if (infoWindow.hostMarker != null) {
-      const marker = await this._markerManager.getNativeMarker(infoWindow.hostMarker);
+      const marker = await this._markerManager.getNativeMarker(
+        infoWindow.hostMarker,
+      );
       w.open(map, marker);
     } else {
       w.open(map);
@@ -61,7 +66,10 @@ export class InfoWindowManager {
     w.close();
   }
 
-  setOptions(infoWindow: NgMapsInfoWindowComponent, options: google.maps.InfoWindowOptions) {
+  setOptions(
+    infoWindow: NgMapsInfoWindowComponent,
+    options: google.maps.InfoWindowOptions,
+  ) {
     const i = this._infoWindows.get(infoWindow);
     i.setOptions(options);
   }
@@ -71,22 +79,33 @@ export class InfoWindowManager {
       content: infoWindow.content.nativeElement,
       maxWidth: infoWindow.maxWidth,
       zIndex: infoWindow.zIndex,
-      disableAutoPan: infoWindow.disableAutoPan
+      disableAutoPan: infoWindow.disableAutoPan,
     };
-    if (typeof infoWindow.latitude === 'number' && typeof infoWindow.longitude === 'number') {
-      options.position = {lat: infoWindow.latitude, lng: infoWindow.longitude};
+    if (
+      typeof infoWindow.latitude === 'number' &&
+      typeof infoWindow.longitude === 'number'
+    ) {
+      options.position = {
+        lat: infoWindow.latitude,
+        lng: infoWindow.longitude,
+      };
     }
     const instance = await this._mapsWrapper.createInfoWindow(options);
     this._infoWindows.set(infoWindow, instance);
   }
 
-   /**
-    * Creates a Google Maps event listener for the given InfoWindow as an Observable
-    */
-  createEventObservable<T>(eventName: string, infoWindow: NgMapsInfoWindowComponent): Observable<T> {
+  /**
+   * Creates a Google Maps event listener for the given InfoWindow as an Observable
+   */
+  createEventObservable<T>(
+    eventName: string,
+    infoWindow: NgMapsInfoWindowComponent,
+  ): Observable<T> {
     const i = this._infoWindows.get(infoWindow);
     return new Observable((observer: Observer<T>) => {
-        i.addListener(eventName, (e: T) => this._zone.run(() => observer.next(e)));
+      i.addListener(eventName, (e: T) =>
+        this._zone.run(() => observer.next(e)),
+      );
     });
   }
 }

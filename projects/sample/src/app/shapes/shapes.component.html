@@ -6,8 +6,22 @@
     </map-polyline-point>
   </map-polyline>
 
-  <map-circle [latitude]="latA" [longitude]="lngA" [radius]="50250" fillColor="red" [fillOpacity]="0.5" [zIndex]="10"></map-circle>
-  <map-circle [latitude]="latB" [longitude]="lngB" [radius]="50250" fillColor="red" [fillOpacity]="0.5" [zIndex]="10"></map-circle>
+  <map-circle
+    [latitude]="latA"
+    [longitude]="lngA"
+    [radius]="50250"
+    fillColor="red"
+    [fillOpacity]="0.5"
+    [zIndex]="10"
+  ></map-circle>
+  <map-circle
+    [latitude]="latB"
+    [longitude]="lngB"
+    [radius]="50250"
+    fillColor="red"
+    [fillOpacity]="0.5"
+    [zIndex]="10"
+  ></map-circle>
 
   <map-polygon [paths]="paths"></map-polygon>
 </map-view>
@@ -16,5 +30,10 @@
 
 <map-view>
   <map-marker [latitude]="latB" [longitude]="lngB"></map-marker>
-  <map-rectangle [east]="east" [west]="west" [north]="north" [south]="south"></map-rectangle>
+  <map-rectangle
+    [east]="east"
+    [west]="west"
+    [north]="north"
+    [south]="south"
+  ></map-rectangle>
 </map-view>

@@ -1,4 +1,9 @@
-import { discardPeriodicTasks, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {
+  discardPeriodicTasks,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { first } from 'rxjs/operators';
 import { FitBoundsService } from './fit-bounds';
 import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
@@ -13,7 +18,7 @@ xdescribe('FitBoundsService', () => {
   beforeEach(fakeAsync(() => {
     loader = {
       // @ts-ignore
-      load: jasmine.createSpy().and.returnValue(Promise.resolve())
+      load: jasmine.createSpy().and.returnValue(Promise.resolve()),
     };
 
     latLngBoundsConstructs = 0;
@@ -29,15 +34,15 @@ xdescribe('FitBoundsService', () => {
           constructor() {
             latLngBoundsConstructs += 1;
           }
-        }
-      }
+        },
+      },
     };
 
     TestBed.configureTestingModule({
       providers: [
-        {provide: MapsAPILoader, useValue: loader},
-        FitBoundsService
-      ]
+        { provide: MapsAPILoader, useValue: loader },
+        FitBoundsService,
+      ],
     });
 
     fitBoundsService = TestBed.get(FitBoundsService);
@@ -52,7 +57,10 @@ xdescribe('FitBoundsService', () => {
   it('should emit empty bounds when API finished loaded but the are not entries in the includeInBounds$ map', fakeAsync(() => {
     // @ts-ignore
     const success = jest.fn();
-    fitBoundsService.getBounds$().pipe(first()).subscribe(success);
+    fitBoundsService
+      .getBounds$()
+      .pipe(first())
+      .subscribe(success);
     tick();
     expect(success).toHaveBeenCalledTimes(1);
     discardPeriodicTasks();
@@ -63,9 +71,9 @@ xdescribe('FitBoundsService', () => {
     const success = jest.fn();
     fitBoundsService.getBounds$().subscribe(success);
     tick(1);
-    fitBoundsService.addToBounds({lat: 2, lng: 2});
-    fitBoundsService.addToBounds({lat: 2, lng: 2});
-    fitBoundsService.addToBounds({lat: 3, lng: 3});
+    fitBoundsService.addToBounds({ lat: 2, lng: 2 });
+    fitBoundsService.addToBounds({ lat: 2, lng: 2 });
+    fitBoundsService.addToBounds({ lat: 3, lng: 3 });
     expect(success).toHaveBeenCalledTimes(1);
     tick(150);
     expect(success).toHaveBeenCalledTimes(1);
@@ -80,9 +88,9 @@ xdescribe('FitBoundsService', () => {
     fitBoundsService.getBounds$().subscribe(success);
     tick(1);
     const latLngs = [
-      {lat: 2, lng: 2},
-      {lat: 3, lng: 3},
-      {lat: 4, lng: 4}
+      { lat: 2, lng: 2 },
+      { lat: 3, lng: 3 },
+      { lat: 4, lng: 4 },
     ];
     fitBoundsService.addToBounds(latLngs[0]);
     fitBoundsService.addToBounds(latLngs[1]);
@@ -101,14 +109,14 @@ xdescribe('FitBoundsService', () => {
     const success = jest.fn();
     fitBoundsService.getBounds$().subscribe(success);
     tick(1);
-    fitBoundsService.addToBounds({lat: 2, lng: 2});
-    fitBoundsService.addToBounds({lat: 3, lng: 3});
+    fitBoundsService.addToBounds({ lat: 2, lng: 2 });
+    fitBoundsService.addToBounds({ lat: 3, lng: 3 });
     tick(200);
     // @ts-ignore
     latLngBoundsExtend.mockReset();
 
-    fitBoundsService.removeFromBounds({lat: 2, lng: 2});
-    fitBoundsService.removeFromBounds({lat: 3, lng: 3});
+    fitBoundsService.removeFromBounds({ lat: 2, lng: 2 });
+    fitBoundsService.removeFromBounds({ lat: 3, lng: 3 });
     tick(150);
     expect(latLngBoundsExtend).toHaveBeenCalledTimes(0);
     tick(200);
@@ -122,18 +130,17 @@ xdescribe('FitBoundsService', () => {
     const success = jest.fn();
     fitBoundsService.getBounds$().subscribe(success);
     tick(1);
-    fitBoundsService.addToBounds({lat: 2, lng: 2});
-    fitBoundsService.addToBounds({lat: 3, lng: 3});
+    fitBoundsService.addToBounds({ lat: 2, lng: 2 });
+    fitBoundsService.addToBounds({ lat: 3, lng: 3 });
     tick(200);
     success.mockReset();
 
     fitBoundsService.changeFitBoundsChangeSampleTime(100);
-    fitBoundsService.removeFromBounds({lat: 2, lng: 2});
-    fitBoundsService.removeFromBounds({lat: 3, lng: 3});
+    fitBoundsService.removeFromBounds({ lat: 2, lng: 2 });
+    fitBoundsService.removeFromBounds({ lat: 3, lng: 3 });
     tick(100);
 
     expect(success).toHaveBeenCalledTimes(1);
     discardPeriodicTasks();
   }));
-
 });

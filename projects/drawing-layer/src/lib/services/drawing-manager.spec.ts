@@ -9,69 +9,96 @@ describe('DrawingManager', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        {provide: NgZone, useFactory: () => new NgZone({enableLongStackTrace: true})},
-        DrawingManager, {
+        {
+          provide: NgZone,
+          useFactory: () => new NgZone({ enableLongStackTrace: true }),
+        },
+        DrawingManager,
+        {
           provide: GoogleMapsAPIWrapper,
-          useValue: jasmine.createSpyObj('GoogleMapsAPIWrapper', ['createDrawingManager'])
-        }
-      ]
+          useValue: jasmine.createSpyObj('GoogleMapsAPIWrapper', [
+            'createDrawingManager',
+          ]),
+        },
+      ],
     });
   });
 
   describe('Create a new drawing manager', () => {
-    it('should call the mapsApiWrapper when creating a new drawing manager',
-      inject(
-        [DrawingManager, GoogleMapsAPIWrapper],
-        (drawingManagerManager: DrawingManager, apiWrapper: GoogleMapsAPIWrapper) => {
-          const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
-          // @ts-ignore
-          newDrawingManager.drawingMode = 'circle';
-          newDrawingManager.drawingControl = false;
+    it('should call the mapsApiWrapper when creating a new drawing manager', inject(
+      [DrawingManager, GoogleMapsAPIWrapper],
+      (
+        drawingManagerManager: DrawingManager,
+        apiWrapper: GoogleMapsAPIWrapper,
+      ) => {
+        const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
+        // @ts-ignore
+        newDrawingManager.drawingMode = 'circle';
+        newDrawingManager.drawingControl = false;
 
-          drawingManagerManager.addDrawingManager(newDrawingManager);
+        drawingManagerManager.addDrawingManager(newDrawingManager);
 
-          expect(apiWrapper.createDrawingManager).toHaveBeenCalledWith({
-            drawingMode: 'circle',
-            drawingControl: false,
-            drawingControlOptions: undefined,
-            circleOptions: undefined,
-            markerOptions: undefined,
-            polylineOptions: undefined,
-            polygonOptions: undefined,
-            rectangleOptions: undefined,
-          });
-        }));
+        expect(apiWrapper.createDrawingManager).toHaveBeenCalledWith({
+          drawingMode: 'circle',
+          drawingControl: false,
+          drawingControlOptions: undefined,
+          circleOptions: undefined,
+          markerOptions: undefined,
+          polylineOptions: undefined,
+          polygonOptions: undefined,
+          rectangleOptions: undefined,
+        });
+      },
+    ));
   });
 
   describe('Delete a drawing manager', () => {
-    it('should set the map to null when deleting a existing drawing manager',
-      inject(
-        [DrawingManager, GoogleMapsAPIWrapper],
-        (drawingManagerManager: DrawingManager, apiWrapper: GoogleMapsAPIWrapper) => {
-          const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
+    it('should set the map to null when deleting a existing drawing manager', inject(
+      [DrawingManager, GoogleMapsAPIWrapper],
+      (
+        drawingManagerManager: DrawingManager,
+        apiWrapper: GoogleMapsAPIWrapper,
+      ) => {
+        const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
 
-          const drawingManagerInstance: DrawingManager = jasmine.createSpyObj('DrawingManager', ['setMap']);
-          (apiWrapper.createDrawingManager as any).and.returnValue(Promise.resolve(drawingManagerInstance));
+        const drawingManagerInstance: DrawingManager = jasmine.createSpyObj(
+          'DrawingManager',
+          ['setMap'],
+        );
+        (apiWrapper.createDrawingManager as any).and.returnValue(
+          Promise.resolve(drawingManagerInstance),
+        );
 
-          drawingManagerManager.addDrawingManager(newDrawingManager);
-          drawingManagerManager.deleteDrawingManager(newDrawingManager).then(
-            () => {
-              // @ts-ignore
-              expect(drawingManagerInstance.setMap).toHaveBeenCalledWith(null);
-            });
-        }));
+        drawingManagerManager.addDrawingManager(newDrawingManager);
+        drawingManagerManager
+          .deleteDrawingManager(newDrawingManager)
+          .then(() => {
+            // @ts-ignore
+            expect(drawingManagerInstance.setMap).toHaveBeenCalledWith(null);
+          });
+      },
+    ));
   });
 
   describe('set drawing manager drawing mode', () => {
-    it('should update drawing manager via setDrawingMode method when the drawingMode changes',
-      async(inject(
+    it('should update drawing manager via setDrawingMode method when the drawingMode changes', async(
+      inject(
         [DrawingManager, GoogleMapsAPIWrapper],
-        (drawingManagerManager: DrawingManager, apiWrapper: GoogleMapsAPIWrapper) => {
-          const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
+        (
+          drawingManagerManager: DrawingManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
+          const newDrawingManager = new NgMapsDrawingLayer(
+            drawingManagerManager,
+          );
 
-          const drawingManagerInstance: DrawingManager =
-            jasmine.createSpyObj('DrawingManager', ['setMap', 'setOptions']);
-          (apiWrapper.createDrawingManager as any).and.returnValue(Promise.resolve(drawingManagerInstance));
+          const drawingManagerInstance: DrawingManager = jasmine.createSpyObj(
+            'DrawingManager',
+            ['setMap', 'setOptions'],
+          );
+          (apiWrapper.createDrawingManager as any).and.returnValue(
+            Promise.resolve(drawingManagerInstance),
+          );
 
           drawingManagerManager.addDrawingManager(newDrawingManager);
           expect(apiWrapper.createDrawingManager).toHaveBeenCalledWith({
@@ -88,24 +115,38 @@ describe('DrawingManager', () => {
           const drawingMode = 'POLYGON';
           // @ts-ignore
           newDrawingManager.drawingMode = drawingMode;
-          return drawingManagerManager.updateDrawingMode(newDrawingManager).then(
-            () => {
+          return drawingManagerManager
+            .updateDrawingMode(newDrawingManager)
+            .then(() => {
               // @ts-ignore
-              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({drawingMode});
+              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({
+                drawingMode,
+              });
             });
-        })));
+        },
+      ),
+    ));
   });
 
   describe('set drawing manager drawing control', () => {
-    it('should update drawing manager via setDrawingControl method when the drawingControl changes',
-      async(inject(
+    it('should update drawing manager via setDrawingControl method when the drawingControl changes', async(
+      inject(
         [DrawingManager, GoogleMapsAPIWrapper],
-        (drawingManagerManager: DrawingManager, apiWrapper: GoogleMapsAPIWrapper) => {
-          const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
+        (
+          drawingManagerManager: DrawingManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
+          const newDrawingManager = new NgMapsDrawingLayer(
+            drawingManagerManager,
+          );
 
-          const drawingManagerInstance: DrawingManager =
-            jasmine.createSpyObj('DrawingManager', ['setMap', 'setOptions']);
-          (apiWrapper.createDrawingManager as any).and.returnValue(Promise.resolve(drawingManagerInstance));
+          const drawingManagerInstance: DrawingManager = jasmine.createSpyObj(
+            'DrawingManager',
+            ['setMap', 'setOptions'],
+          );
+          (apiWrapper.createDrawingManager as any).and.returnValue(
+            Promise.resolve(drawingManagerInstance),
+          );
 
           drawingManagerManager.addDrawingManager(newDrawingManager);
           expect(apiWrapper.createDrawingManager).toHaveBeenCalledWith({
@@ -121,24 +162,38 @@ describe('DrawingManager', () => {
 
           const drawingControl = false;
           newDrawingManager.drawingControl = drawingControl;
-          return drawingManagerManager.updateDrawingControl(newDrawingManager).then(
-            () => {
+          return drawingManagerManager
+            .updateDrawingControl(newDrawingManager)
+            .then(() => {
               // @ts-ignore
-              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({drawingControl});
+              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({
+                drawingControl,
+              });
             });
-        })));
+        },
+      ),
+    ));
   });
 
   describe('set drawing manager drawing control options', () => {
-    it('should update drawing manager via setDrawingControlOptions method when the drawingControlOptions changes',
-      async(inject(
+    it('should update drawing manager via setDrawingControlOptions method when the drawingControlOptions changes', async(
+      inject(
         [DrawingManager, GoogleMapsAPIWrapper],
-        (drawingManagerManager: DrawingManager, apiWrapper: GoogleMapsAPIWrapper) => {
-          const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
+        (
+          drawingManagerManager: DrawingManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
+          const newDrawingManager = new NgMapsDrawingLayer(
+            drawingManagerManager,
+          );
 
-          const drawingManagerInstance: DrawingManager =
-            jasmine.createSpyObj('DrawingManager', ['setMap', 'setOptions']);
-          (apiWrapper.createDrawingManager as any).and.returnValue(Promise.resolve(drawingManagerInstance));
+          const drawingManagerInstance: DrawingManager = jasmine.createSpyObj(
+            'DrawingManager',
+            ['setMap', 'setOptions'],
+          );
+          (apiWrapper.createDrawingManager as any).and.returnValue(
+            Promise.resolve(drawingManagerInstance),
+          );
 
           drawingManagerManager.addDrawingManager(newDrawingManager);
           expect(apiWrapper.createDrawingManager).toHaveBeenCalledWith({
@@ -152,26 +207,43 @@ describe('DrawingManager', () => {
             rectangleOptions: undefined,
           });
 
-          const drawingControlOptions = {position: 10, drawingMode: ['circle']};
+          const drawingControlOptions = {
+            position: 10,
+            drawingMode: ['circle'],
+          };
           newDrawingManager.drawingControlOptions = drawingControlOptions;
-          return drawingManagerManager.updateDrawingControlOptions(newDrawingManager).then(
-            () => {
+          return drawingManagerManager
+            .updateDrawingControlOptions(newDrawingManager)
+            .then(() => {
               // @ts-ignore
-              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({drawingControlOptions});
+              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({
+                drawingControlOptions,
+              });
             });
-        })));
+        },
+      ),
+    ));
   });
 
   describe('set drawing manager circle options', () => {
-    it('should update drawing manager via setCircleOptions method when the circleOptions changes',
-      async(inject(
+    it('should update drawing manager via setCircleOptions method when the circleOptions changes', async(
+      inject(
         [DrawingManager, GoogleMapsAPIWrapper],
-        (drawingManagerManager: DrawingManager, apiWrapper: GoogleMapsAPIWrapper) => {
-          const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
+        (
+          drawingManagerManager: DrawingManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
+          const newDrawingManager = new NgMapsDrawingLayer(
+            drawingManagerManager,
+          );
 
-          const drawingManagerInstance: DrawingManager =
-            jasmine.createSpyObj('DrawingManager', ['setMap', 'setOptions']);
-          (apiWrapper.createDrawingManager as any).and.returnValue(Promise.resolve(drawingManagerInstance));
+          const drawingManagerInstance: DrawingManager = jasmine.createSpyObj(
+            'DrawingManager',
+            ['setMap', 'setOptions'],
+          );
+          (apiWrapper.createDrawingManager as any).and.returnValue(
+            Promise.resolve(drawingManagerInstance),
+          );
 
           drawingManagerManager.addDrawingManager(newDrawingManager);
           expect(apiWrapper.createDrawingManager).toHaveBeenCalledWith({
@@ -185,26 +257,40 @@ describe('DrawingManager', () => {
             rectangleOptions: undefined,
           });
 
-          const circleOptions = {clickable: false};
+          const circleOptions = { clickable: false };
           newDrawingManager.circleOptions = circleOptions;
-          return drawingManagerManager.updateCircleOptions(newDrawingManager).then(
-            () => {
+          return drawingManagerManager
+            .updateCircleOptions(newDrawingManager)
+            .then(() => {
               // @ts-ignore
-              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({circleOptions});
+              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({
+                circleOptions,
+              });
             });
-        })));
+        },
+      ),
+    ));
   });
 
   describe('set drawing manager marker options', () => {
-    it('should update drawing manager via setCircleOptions method when the markerOptions changes',
-      async(inject(
+    it('should update drawing manager via setCircleOptions method when the markerOptions changes', async(
+      inject(
         [DrawingManager, GoogleMapsAPIWrapper],
-        (drawingManagerManager: DrawingManager, apiWrapper: GoogleMapsAPIWrapper) => {
-          const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
+        (
+          drawingManagerManager: DrawingManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
+          const newDrawingManager = new NgMapsDrawingLayer(
+            drawingManagerManager,
+          );
 
-          const drawingManagerInstance: DrawingManager =
-            jasmine.createSpyObj('DrawingManager', ['setMap', 'setOptions']);
-          (apiWrapper.createDrawingManager as any).and.returnValue(Promise.resolve(drawingManagerInstance));
+          const drawingManagerInstance: DrawingManager = jasmine.createSpyObj(
+            'DrawingManager',
+            ['setMap', 'setOptions'],
+          );
+          (apiWrapper.createDrawingManager as any).and.returnValue(
+            Promise.resolve(drawingManagerInstance),
+          );
 
           drawingManagerManager.addDrawingManager(newDrawingManager);
           expect(apiWrapper.createDrawingManager).toHaveBeenCalledWith({
@@ -218,26 +304,43 @@ describe('DrawingManager', () => {
             rectangleOptions: undefined,
           });
 
-          const markerOptions = {clickable: false, position: {lat: 0.1, lng: 0.1} as google.maps.LatLngLiteral};
+          const markerOptions = {
+            clickable: false,
+            position: { lat: 0.1, lng: 0.1 } as google.maps.LatLngLiteral,
+          };
           newDrawingManager.markerOptions = markerOptions;
-          return drawingManagerManager.updateMarkerOptions(newDrawingManager).then(
-            () => {
+          return drawingManagerManager
+            .updateMarkerOptions(newDrawingManager)
+            .then(() => {
               // @ts-ignore
-              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({markerOptions});
+              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({
+                markerOptions,
+              });
             });
-        })));
+        },
+      ),
+    ));
   });
 
   describe('set drawing manager polyline options', () => {
-    it('should update drawing manager via setPolylineOptions method when the polylineOptions changes',
-      async(inject(
+    it('should update drawing manager via setPolylineOptions method when the polylineOptions changes', async(
+      inject(
         [DrawingManager, GoogleMapsAPIWrapper],
-        (drawingManagerManager: DrawingManager, apiWrapper: GoogleMapsAPIWrapper) => {
-          const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
+        (
+          drawingManagerManager: DrawingManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
+          const newDrawingManager = new NgMapsDrawingLayer(
+            drawingManagerManager,
+          );
 
-          const drawingManagerInstance: DrawingManager =
-            jasmine.createSpyObj('DrawingManager', ['setMap', 'setOptions']);
-          (apiWrapper.createDrawingManager as any).and.returnValue(Promise.resolve(drawingManagerInstance));
+          const drawingManagerInstance: DrawingManager = jasmine.createSpyObj(
+            'DrawingManager',
+            ['setMap', 'setOptions'],
+          );
+          (apiWrapper.createDrawingManager as any).and.returnValue(
+            Promise.resolve(drawingManagerInstance),
+          );
 
           drawingManagerManager.addDrawingManager(newDrawingManager);
           expect(apiWrapper.createDrawingManager).toHaveBeenCalledWith({
@@ -251,26 +354,40 @@ describe('DrawingManager', () => {
             rectangleOptions: undefined,
           });
 
-          const polylineOptions = {clickable: false};
+          const polylineOptions = { clickable: false };
           newDrawingManager.polylineOptions = polylineOptions;
-          return drawingManagerManager.updatePolylineOptions(newDrawingManager).then(
-            () => {
+          return drawingManagerManager
+            .updatePolylineOptions(newDrawingManager)
+            .then(() => {
               // @ts-ignore
-              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({polylineOptions});
+              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({
+                polylineOptions,
+              });
             });
-        })));
+        },
+      ),
+    ));
   });
 
   describe('set drawing manager polygon options', () => {
-    it('should update drawing manager via setPolygonOptions method when the polygonOptions changes',
-      async(inject(
+    it('should update drawing manager via setPolygonOptions method when the polygonOptions changes', async(
+      inject(
         [DrawingManager, GoogleMapsAPIWrapper],
-        (drawingManagerManager: DrawingManager, apiWrapper: GoogleMapsAPIWrapper) => {
-          const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
+        (
+          drawingManagerManager: DrawingManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
+          const newDrawingManager = new NgMapsDrawingLayer(
+            drawingManagerManager,
+          );
 
-          const drawingManagerInstance: DrawingManager =
-            jasmine.createSpyObj('DrawingManager', ['setMap', 'setOptions']);
-          (apiWrapper.createDrawingManager as any).and.returnValue(Promise.resolve(drawingManagerInstance));
+          const drawingManagerInstance: DrawingManager = jasmine.createSpyObj(
+            'DrawingManager',
+            ['setMap', 'setOptions'],
+          );
+          (apiWrapper.createDrawingManager as any).and.returnValue(
+            Promise.resolve(drawingManagerInstance),
+          );
 
           drawingManagerManager.addDrawingManager(newDrawingManager);
           expect(apiWrapper.createDrawingManager).toHaveBeenCalledWith({
@@ -284,26 +401,40 @@ describe('DrawingManager', () => {
             rectangleOptions: undefined,
           });
 
-          const polygonOptions = {clickable: false};
+          const polygonOptions = { clickable: false };
           newDrawingManager.polygonOptions = polygonOptions;
-          return drawingManagerManager.updatePolygonOptions(newDrawingManager).then(
-            () => {
+          return drawingManagerManager
+            .updatePolygonOptions(newDrawingManager)
+            .then(() => {
               // @ts-ignore
-              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({polygonOptions});
+              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({
+                polygonOptions,
+              });
             });
-        })));
+        },
+      ),
+    ));
   });
 
   describe('set drawing manager rectangle options', () => {
-    it('should update drawing manager via setRectangleOptions method when the rectangleOptions changes',
-      async(inject(
+    it('should update drawing manager via setRectangleOptions method when the rectangleOptions changes', async(
+      inject(
         [DrawingManager, GoogleMapsAPIWrapper],
-        (drawingManagerManager: DrawingManager, apiWrapper: GoogleMapsAPIWrapper) => {
-          const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
+        (
+          drawingManagerManager: DrawingManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
+          const newDrawingManager = new NgMapsDrawingLayer(
+            drawingManagerManager,
+          );
 
-          const drawingManagerInstance: DrawingManager =
-            jasmine.createSpyObj('DrawingManager', ['setMap', 'setOptions']);
-          (apiWrapper.createDrawingManager as any).and.returnValue(Promise.resolve(drawingManagerInstance));
+          const drawingManagerInstance: DrawingManager = jasmine.createSpyObj(
+            'DrawingManager',
+            ['setMap', 'setOptions'],
+          );
+          (apiWrapper.createDrawingManager as any).and.returnValue(
+            Promise.resolve(drawingManagerInstance),
+          );
 
           drawingManagerManager.addDrawingManager(newDrawingManager);
           expect(apiWrapper.createDrawingManager).toHaveBeenCalledWith({
@@ -317,13 +448,18 @@ describe('DrawingManager', () => {
             rectangleOptions: undefined,
           });
 
-          const rectangleOptions = {clickable: false};
+          const rectangleOptions = { clickable: false };
           newDrawingManager.rectangleOptions = rectangleOptions;
-          return drawingManagerManager.updateRectangleOptions(newDrawingManager).then(
-            () => {
+          return drawingManagerManager
+            .updateRectangleOptions(newDrawingManager)
+            .then(() => {
               // @ts-ignore
-              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({rectangleOptions});
+              expect(drawingManagerInstance.setOptions).toHaveBeenCalledWith({
+                rectangleOptions,
+              });
             });
-        })));
+        },
+      ),
+    ));
   });
 });

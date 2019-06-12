@@ -8,9 +8,8 @@ describe('InfoWindowComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InfoWindowComponent ]
-    })
-    .compileComponents();
+      declarations: [InfoWindowComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

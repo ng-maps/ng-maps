@@ -1,19 +1,34 @@
-import { Directive, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges, Input, Output } from '@angular/core';
-import {Subscription} from 'rxjs';
+import {
+  Directive,
+  EventEmitter,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  Input,
+  Output,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 
-import {KmlLayerManager} from './kml-layer-manager';
+import { KmlLayerManager } from './kml-layer-manager';
 
 let layerId = 0;
 
 @Directive({
-  selector: 'agm-kml-layer'
+  selector: 'agm-kml-layer',
 })
 export class AgmKmlLayer implements OnInit, OnDestroy, OnChanges {
   private _addedToManager: boolean = false;
   private _id: string = (layerId++).toString();
   private _subscriptions: Subscription[] = [];
-  private static _kmlLayerOptions: string[] =
-      ['clickable', 'preserveViewport', 'screenOverlays', 'suppressInfoWindows', 'url', 'zIndex'];
+  private static _kmlLayerOptions: string[] = [
+    'clickable',
+    'preserveViewport',
+    'screenOverlays',
+    'suppressInfoWindows',
+    'url',
+    'zIndex',
+  ];
 
   /**
    * If true, the layer receives mouse events. Default value is true.
@@ -46,17 +61,21 @@ export class AgmKmlLayer implements OnInit, OnDestroy, OnChanges {
   /**
    * The z-index of the layer.
    */
-  @Input() zIndex: number|null = null;
+  @Input() zIndex: number | null = null;
 
   /**
    * This event is fired when a feature in the layer is clicked.
    */
-  @Output() layerClick: EventEmitter<google.maps.KmlMouseEvent> = new EventEmitter<google.maps.KmlMouseEvent>();
+  @Output() layerClick: EventEmitter<
+    google.maps.KmlMouseEvent
+  > = new EventEmitter<google.maps.KmlMouseEvent>();
 
   /**
    * This event is fired when the KML layers default viewport has changed.
    */
-  @Output() defaultViewportChange: EventEmitter<void> = new EventEmitter<void>();
+  @Output() defaultViewportChange: EventEmitter<void> = new EventEmitter<
+    void
+  >();
 
   /**
    * This event is fired when the KML layer has finished loading.
@@ -85,11 +104,11 @@ export class AgmKmlLayer implements OnInit, OnDestroy, OnChanges {
 
   private _updatePolygonOptions(changes: SimpleChanges) {
     const options = Object.keys(changes)
-                        .filter(k => AgmKmlLayer._kmlLayerOptions.indexOf(k) !== -1)
-                        .reduce((obj: any, k: string) => {
-                          obj[k] = changes[k].currentValue;
-                          return obj;
-                        }, {});
+      .filter((k) => AgmKmlLayer._kmlLayerOptions.indexOf(k) !== -1)
+      .reduce((obj: any, k: string) => {
+        obj[k] = changes[k].currentValue;
+        return obj;
+      }, {});
     if (Object.keys(options).length > 0) {
       this._manager.setOptions(this, options);
     }
@@ -97,26 +116,38 @@ export class AgmKmlLayer implements OnInit, OnDestroy, OnChanges {
 
   private _addEventListeners() {
     const listeners = [
-      {name: 'click', handler: (ev: google.maps.KmlMouseEvent) => this.layerClick.emit(ev)},
-      {name: 'defaultviewport_changed', handler: () => this.defaultViewportChange.emit()},
-      {name: 'status_changed', handler: () => this.statusChange.emit()},
+      {
+        name: 'click',
+        handler: (ev: google.maps.KmlMouseEvent) => this.layerClick.emit(ev),
+      },
+      {
+        name: 'defaultviewport_changed',
+        handler: () => this.defaultViewportChange.emit(),
+      },
+      { name: 'status_changed', handler: () => this.statusChange.emit() },
     ];
     listeners.forEach((obj) => {
-      const os = this._manager.createEventObservable(obj.name, this).subscribe(obj.handler);
+      const os = this._manager
+        .createEventObservable(obj.name, this)
+        .subscribe(obj.handler);
       this._subscriptions.push(os);
     });
   }
 
   /** @internal */
-  id(): string { return this._id; }
+  id(): string {
+    return this._id;
+  }
 
   /** @internal */
-  toString(): string { return `AgmKmlLayer-${this._id.toString()}`; }
+  toString(): string {
+    return `AgmKmlLayer-${this._id.toString()}`;
+  }
 
   /** @internal */
   ngOnDestroy() {
     this._manager.deleteKmlLayer(this);
     // unsubscribe all registered observable subscriptions
-    this._subscriptions.forEach(s => s.unsubscribe());
+    this._subscriptions.forEach((s) => s.unsubscribe());
   }
 }

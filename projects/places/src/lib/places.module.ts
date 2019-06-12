@@ -5,13 +5,11 @@ import { NgMapsAutocompleteDirective } from './directives/autocomplete';
  * @internal
  */
 export function placesDirectives() {
-  return [
-    NgMapsAutocompleteDirective
-  ];
+  return [NgMapsAutocompleteDirective];
 }
 
 @NgModule({
   declarations: placesDirectives(),
-  exports: placesDirectives()
+  exports: placesDirectives(),
 })
-export class NgMapsPlacesModule { }
+export class NgMapsPlacesModule {}

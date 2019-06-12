@@ -9,7 +9,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FitBoundsService } from '../services/fit-bounds';
@@ -40,44 +40,65 @@ import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
  */
 @Component({
   selector: 'agm-map, map-view',
-  providers: [
-    GoogleMapsAPIWrapper,
-    FitBoundsService
-  ],
-  styles: [`
-    .map-container-inner {
-      width: inherit;
-      height: inherit;
-    }
+  providers: [GoogleMapsAPIWrapper, FitBoundsService],
+  styles: [
+    `
+      .map-container-inner {
+        width: inherit;
+        height: inherit;
+      }
 
-    .map-content {
-      display: none;
-    }
-  `],
+      .map-content {
+        display: none;
+      }
+    `,
+  ],
   template: `
-    <div class='map-container-inner' #container></div>
-    <div class='map-content'>
+    <div class="map-container-inner" #container></div>
+    <div class="map-content">
       <ng-content></ng-content>
     </div>
-  `
+  `,
 })
 export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
-
-  constructor(protected _mapsWrapper: GoogleMapsAPIWrapper,
-              protected _fitBoundsService: FitBoundsService,
-              protected _zone: NgZone) {
-  }
+  constructor(
+    protected _mapsWrapper: GoogleMapsAPIWrapper,
+    protected _fitBoundsService: FitBoundsService,
+    protected _zone: NgZone,
+  ) {}
 
   /**
    * Map option attributes that can change over time
    */
   private static _mapOptionsAttributes: string[] = [
-    'disableDoubleClickZoom', 'scrollwheel', 'draggable', 'draggableCursor', 'draggingCursor',
-    'keyboardShortcuts', 'zoomControl', 'zoomControlOptions', 'styles', 'streetViewControl',
-    'streetViewControlOptions', 'zoom', 'mapTypeControl', 'mapTypeControlOptions', 'minZoom',
-    'maxZoom', 'panControl', 'panControlOptions', 'rotateControl', 'rotateControlOptions',
-    'fullscreenControl', 'fullscreenControlOptions', 'scaleControl', 'scaleControlOptions',
-    'mapTypeId', 'clickableIcons', 'gestureHandling', 'tilt'
+    'disableDoubleClickZoom',
+    'scrollwheel',
+    'draggable',
+    'draggableCursor',
+    'draggingCursor',
+    'keyboardShortcuts',
+    'zoomControl',
+    'zoomControlOptions',
+    'styles',
+    'streetViewControl',
+    'streetViewControlOptions',
+    'zoom',
+    'mapTypeControl',
+    'mapTypeControlOptions',
+    'minZoom',
+    'maxZoom',
+    'panControl',
+    'panControlOptions',
+    'rotateControl',
+    'rotateControlOptions',
+    'fullscreenControl',
+    'fullscreenControlOptions',
+    'scaleControl',
+    'scaleControlOptions',
+    'mapTypeId',
+    'clickableIcons',
+    'gestureHandling',
+    'tilt',
   ];
   /**
    * The longitude that defines the center of the map.
@@ -109,7 +130,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * Enables/disables if map is draggable.
    */
-    // tslint:disable-next-line:no-input-rename
+  // tslint:disable-next-line:no-input-rename
   @Input('mapDraggable') draggable: boolean = true;
 
   /**
@@ -195,7 +216,10 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
    * Sets the viewport to contain the given bounds.
    * If this option to `true`, the bounds get automatically computed from all elements that use the {@link NgMapsFitBounds} directive.
    */
-  @Input() fitBounds: google.maps.LatLngBoundsLiteral | google.maps.LatLngBounds | boolean = false;
+  @Input() fitBounds:
+    | google.maps.LatLngBoundsLiteral
+    | google.maps.LatLngBounds
+    | boolean = false;
 
   /**
    * The initial enabled/disabled state of the Scale control. This is disabled by default.
@@ -250,7 +274,8 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * The map mapTypeId. Defaults to 'roadmap'.
    */
-  @Input() mapTypeId: 'roadmap' | 'hybrid' | 'satellite' | 'terrain' | string = 'roadmap';
+  @Input() mapTypeId: 'roadmap' | 'hybrid' | 'satellite' | 'terrain' | string =
+    'roadmap';
 
   /**
    * When false, map icons are not clickable. A map icon represents a point of interest,
@@ -297,28 +322,38 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
    * This event emitter gets emitted when the user right-clicks on the map (but not when they click
    * on a marker or infoWindow).
    */
-  @Output() mapRightClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() mapRightClick: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event emitter gets emitted when the user double-clicks on the map (but not when they click
    * on a marker or infoWindow).
    */
-  @Output() mapDblClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() mapDblClick: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event emitter is fired when the map center changes.
    */
-  @Output() centerChange: EventEmitter<google.maps.LatLngLiteral> = new EventEmitter<google.maps.LatLngLiteral>();
+  @Output() centerChange: EventEmitter<
+    google.maps.LatLngLiteral
+  > = new EventEmitter<google.maps.LatLngLiteral>();
 
   /**
    * This event is fired when the viewport bounds have changed.
    */
-  @Output() boundsChange: EventEmitter<google.maps.LatLngBounds> = new EventEmitter<google.maps.LatLngBounds>();
+  @Output() boundsChange: EventEmitter<
+    google.maps.LatLngBounds
+  > = new EventEmitter<google.maps.LatLngBounds>();
 
   /**
    * This event is fired when the mapTypeId property changes.
    */
-  @Output() mapTypeIdChange: EventEmitter<google.maps.MapTypeId> = new EventEmitter<google.maps.MapTypeId>();
+  @Output() mapTypeIdChange: EventEmitter<
+    google.maps.MapTypeId
+  > = new EventEmitter<google.maps.MapTypeId>();
 
   /**
    * This event is fired when the map becomes idle after panning or zooming.
@@ -336,7 +371,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
    */
   @Output() mapReady: EventEmitter<any> = new EventEmitter<any>();
 
-  @ViewChild('container', {static: true}) container: ElementRef;
+  @ViewChild('container', { static: true }) container: ElementRef;
 
   /** @internal */
   ngOnInit() {
@@ -345,7 +380,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
 
   private async _initMapInstance(el: HTMLElement) {
     await this._mapsWrapper.createMap(el, {
-      center: {lat: this.latitude || 0, lng: this.longitude || 0},
+      center: { lat: this.latitude || 0, lng: this.longitude || 0 },
       zoom: this.zoom,
       minZoom: this.minZoom,
       maxZoom: this.maxZoom,
@@ -376,7 +411,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       mapTypeId: this.mapTypeId,
       clickableIcons: this.clickableIcons,
       gestureHandling: this.gestureHandling,
-      tilt: this.tilt
+      tilt: this.tilt,
     });
     const map = await this._mapsWrapper.getNativeMap();
     this.mapReady.emit(map);
@@ -410,8 +445,9 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
 
   private _updateMapOptionsChanges(changes: SimpleChanges) {
     const options: { [propName: string]: any } = {};
-    const optionKeys =
-      Object.keys(changes).filter(k => NgMapsViewComponent._mapOptionsAttributes.indexOf(k) !== -1);
+    const optionKeys = Object.keys(changes).filter(
+      (k) => NgMapsViewComponent._mapOptionsAttributes.indexOf(k) !== -1,
+    );
     optionKeys.forEach((k) => {
       options[k] = changes[k].currentValue;
     });
@@ -440,8 +476,11 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   private _updatePosition(changes: SimpleChanges) {
-    if (changes.latitude == null && changes.longitude == null &&
-      !changes.fitBounds) {
+    if (
+      changes.latitude == null &&
+      changes.longitude == null &&
+      !changes.fitBounds
+    ) {
       // no position update needed
       return;
     }
@@ -452,7 +491,10 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       return;
     }
 
-    if (typeof this.latitude !== 'number' || typeof this.longitude !== 'number') {
+    if (
+      typeof this.latitude !== 'number' ||
+      typeof this.longitude !== 'number'
+    ) {
       return;
     }
     this._setCenter();
@@ -487,13 +529,17 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
 
   private _subscribeToFitBoundsUpdates() {
     this._zone.runOutsideAngular(() => {
-      this._fitBoundsSubscription = this._fitBoundsService.getBounds$().subscribe(b => {
-        this._zone.run(() => this._updateBounds(b));
-      });
+      this._fitBoundsSubscription = this._fitBoundsService
+        .getBounds$()
+        .subscribe((b) => {
+          this._zone.run(() => this._updateBounds(b));
+        });
     });
   }
 
-  protected _updateBounds(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral) {
+  protected _updateBounds(
+    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+  ) {
     if (this._isLatLngBoundsLiteral(bounds) && google && google.maps) {
       const newBounds = new google.maps.LatLngBounds();
       newBounds.union(bounds);
@@ -506,54 +552,70 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this._mapsWrapper.fitBounds(bounds);
   }
 
-  protected _isLatLngBoundsLiteral(bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral): bounds is google.maps.LatLngBoundsLiteral {
+  protected _isLatLngBoundsLiteral(
+    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+  ): bounds is google.maps.LatLngBoundsLiteral {
     return bounds != null && (bounds as any).extend === undefined;
   }
 
   private _handleMapCenterChange() {
-    const s = this._mapsWrapper.subscribeToMapEvent<void>('center_changed').subscribe(() => {
-      this._mapsWrapper.getCenter().then((center: google.maps.LatLng) => {
-        this.latitude = center.lat();
-        this.longitude = center.lng();
-        this.centerChange.emit({lat: this.latitude, lng: this.longitude} as google.maps.LatLngLiteral);
+    const s = this._mapsWrapper
+      .subscribeToMapEvent<void>('center_changed')
+      .subscribe(() => {
+        this._mapsWrapper.getCenter().then((center: google.maps.LatLng) => {
+          this.latitude = center.lat();
+          this.longitude = center.lng();
+          this.centerChange.emit({
+            lat: this.latitude,
+            lng: this.longitude,
+          } as google.maps.LatLngLiteral);
+        });
       });
-    });
     this._observableSubscriptions.push(s);
   }
 
   private _handleBoundsChange() {
-    const s = this._mapsWrapper.subscribeToMapEvent<void>('bounds_changed').subscribe(() => {
-      this._mapsWrapper.getBounds().then(
-        (bounds: google.maps.LatLngBounds) => {
-          this.boundsChange.emit(bounds);
-        });
-    });
+    const s = this._mapsWrapper
+      .subscribeToMapEvent<void>('bounds_changed')
+      .subscribe(() => {
+        this._mapsWrapper
+          .getBounds()
+          .then((bounds: google.maps.LatLngBounds) => {
+            this.boundsChange.emit(bounds);
+          });
+      });
     this._observableSubscriptions.push(s);
   }
 
   private _handleMapTypeIdChange() {
-    const s = this._mapsWrapper.subscribeToMapEvent<void>('maptypeid_changed').subscribe(() => {
-      this._mapsWrapper.getMapTypeId().then(
-        (mapTypeId: google.maps.MapTypeId) => {
-          this.mapTypeIdChange.emit(mapTypeId);
-        });
-    });
+    const s = this._mapsWrapper
+      .subscribeToMapEvent<void>('maptypeid_changed')
+      .subscribe(() => {
+        this._mapsWrapper
+          .getMapTypeId()
+          .then((mapTypeId: google.maps.MapTypeId) => {
+            this.mapTypeIdChange.emit(mapTypeId);
+          });
+      });
     this._observableSubscriptions.push(s);
   }
 
   private _handleMapZoomChange() {
-    const s = this._mapsWrapper.subscribeToMapEvent<void>('zoom_changed').subscribe(() => {
-      this._mapsWrapper.getZoom().then((z: number) => {
-        this.zoom = z;
-        this.zoomChange.emit(z);
+    const s = this._mapsWrapper
+      .subscribeToMapEvent<void>('zoom_changed')
+      .subscribe(() => {
+        this._mapsWrapper.getZoom().then((z: number) => {
+          this.zoom = z;
+          this.zoomChange.emit(z);
+        });
       });
-    });
     this._observableSubscriptions.push(s);
   }
 
   private _handleIdleEvent() {
-    const s = this._mapsWrapper.subscribeToMapEvent<void>('idle').subscribe(
-      () => {
+    const s = this._mapsWrapper
+      .subscribeToMapEvent<void>('idle')
+      .subscribe(() => {
         this.idle.emit(void 0);
       });
     this._observableSubscriptions.push(s);
@@ -570,16 +632,19 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     const events: Event[] = [
-      {name: 'click', emitter: this.mapClick},
-      {name: 'rightclick', emitter: this.mapRightClick},
-      {name: 'dblclick', emitter: this.mapDblClick},
+      { name: 'click', emitter: this.mapClick },
+      { name: 'rightclick', emitter: this.mapRightClick },
+      { name: 'dblclick', emitter: this.mapDblClick },
     ];
 
     events.forEach((e: Event) => {
-      const s = this._mapsWrapper.subscribeToMapEvent<{ latLng: google.maps.LatLng }>(e.name).subscribe(
-        (event: { latLng: google.maps.LatLng }) => {
+      const s = this._mapsWrapper
+        .subscribeToMapEvent<{ latLng: google.maps.LatLng }>(e.name)
+        .subscribe((event: { latLng: google.maps.LatLng }) => {
           // @ts-ignore
-          const value = {coords: {lat: event.latLng.lat(), lng: event.latLng.lng()}} as MouseEvent;
+          const value = {
+            coords: { lat: event.latLng.lat(), lng: event.latLng.lng() },
+          } as MouseEvent;
           e.emitter.emit(value);
         });
       this._observableSubscriptions.push(s);

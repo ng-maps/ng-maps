@@ -8,9 +8,8 @@ describe('ShapesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShapesComponent ]
-    })
-    .compileComponents();
+      declarations: [ShapesComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

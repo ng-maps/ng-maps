@@ -3,8 +3,7 @@ import { NgMapsDrawingLayer } from './directives/drawing-layer';
 
 @NgModule({
   declarations: [NgMapsDrawingLayer],
-  imports: [
-  ],
-  exports: [NgMapsDrawingLayer]
+  imports: [],
+  exports: [NgMapsDrawingLayer],
 })
-export class NgMapsDrawingLayerModule { }
+export class NgMapsDrawingLayerModule {}

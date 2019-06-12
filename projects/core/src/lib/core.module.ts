@@ -4,7 +4,10 @@ import { NgMapsInfoWindowComponent } from './directives/info-window';
 import { NgMapsViewComponent } from './directives/map';
 import { NgMapsMarkerComponent } from './directives/marker';
 import { LazyMapsAPILoader } from './services/maps-api-loader/lazy-maps-api-loader';
-import { LAZY_MAPS_API_CONFIG, LazyMapsAPILoaderConfigLiteral } from './services/maps-api-loader/lazy-maps-api-loader-config';
+import {
+  LAZY_MAPS_API_CONFIG,
+  LazyMapsAPILoaderConfigLiteral,
+} from './services/maps-api-loader/lazy-maps-api-loader-config';
 import { MapsAPILoader } from './services/maps-api-loader/maps-api-loader';
 
 /**
@@ -12,7 +15,10 @@ import { MapsAPILoader } from './services/maps-api-loader/maps-api-loader';
  */
 export function coreDirectives() {
   return [
-    NgMapsViewComponent, NgMapsMarkerComponent, NgMapsInfoWindowComponent, NgMapsFitBounds
+    NgMapsViewComponent,
+    NgMapsMarkerComponent,
+    NgMapsInfoWindowComponent,
+    NgMapsFitBounds,
   ];
 }
 
@@ -28,12 +34,14 @@ export class NgMapsCoreModule {
   /**
    * Please use this method when you register the module at the root level.
    */
-  static forRoot(lazyMapsAPILoaderConfig?: LazyMapsAPILoaderConfigLiteral): ModuleWithProviders<NgMapsCoreModule> {
+  static forRoot(
+    lazyMapsAPILoaderConfig?: LazyMapsAPILoaderConfigLiteral,
+  ): ModuleWithProviders<NgMapsCoreModule> {
     return {
       ngModule: NgMapsCoreModule,
       providers: [
-        {provide: MapsAPILoader, useClass: LazyMapsAPILoader},
-        {provide: LAZY_MAPS_API_CONFIG, useValue: lazyMapsAPILoaderConfig}
+        { provide: MapsAPILoader, useClass: LazyMapsAPILoader },
+        { provide: LAZY_MAPS_API_CONFIG, useValue: lazyMapsAPILoaderConfig },
       ],
     };
   }

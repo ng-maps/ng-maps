@@ -6,17 +6,27 @@ import { NgMapsPolyline } from '../directives/polyline';
 import { NgMapsPolylinePoint } from '../directives/polyline-point';
 
 @Injectable({
-  providedIn: NgMapsViewComponent
+  providedIn: NgMapsViewComponent,
 })
 export class PolylineManager {
-  private _polylines: Map<NgMapsPolyline, Promise<google.maps.Polyline>> =
-      new Map<NgMapsPolyline, Promise<google.maps.Polyline>>();
+  private _polylines: Map<
+    NgMapsPolyline,
+    Promise<google.maps.Polyline>
+  > = new Map<NgMapsPolyline, Promise<google.maps.Polyline>>();
 
-  constructor(private _mapsWrapper: GoogleMapsAPIWrapper, private _zone: NgZone) {}
+  constructor(
+    private _mapsWrapper: GoogleMapsAPIWrapper,
+    private _zone: NgZone,
+  ) {}
 
-  private _convertPoints(line: NgMapsPolyline): Array<google.maps.LatLngLiteral> {
+  private _convertPoints(
+    line: NgMapsPolyline,
+  ): Array<google.maps.LatLngLiteral> {
     return line._getPoints().map((point: NgMapsPolylinePoint) => {
-      return {lat: point.latitude, lng: point.longitude} as google.maps.LatLngLiteral;
+      return {
+        lat: point.latitude,
+        lng: point.longitude,
+      } as google.maps.LatLngLiteral;
     });
   }
 
@@ -33,7 +43,7 @@ export class PolylineManager {
       visible: line.visible,
       zIndex: line.zIndex,
       icons: line.icons,
-      path
+      path,
     });
     this._polylines.set(line, polylinePromise);
   }
@@ -44,12 +54,20 @@ export class PolylineManager {
     if (m == null) {
       return Promise.resolve();
     }
-    return m.then((l: google.maps.Polyline) => this._zone.run(() => { l.setPath(path); }));
+    return m.then((l: google.maps.Polyline) =>
+      this._zone.run(() => {
+        l.setPath(path);
+      }),
+    );
   }
 
-  setPolylineOptions(line: NgMapsPolyline, options: {[propName: string]: any}):
-      Promise<void> {
-    return this._polylines.get(line).then((l: google.maps.Polyline) => { l.setOptions(options); });
+  setPolylineOptions(
+    line: NgMapsPolyline,
+    options: { [propName: string]: any },
+  ): Promise<void> {
+    return this._polylines.get(line).then((l: google.maps.Polyline) => {
+      l.setOptions(options);
+    });
   }
 
   deletePolyline(line: NgMapsPolyline): Promise<void> {
@@ -65,10 +83,15 @@ export class PolylineManager {
     });
   }
 
-  createEventObservable<T>(eventName: string, line: NgMapsPolyline): Observable<T> {
+  createEventObservable<T>(
+    eventName: string,
+    line: NgMapsPolyline,
+  ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
       this._polylines.get(line).then((l: google.maps.Polyline) => {
-        l.addListener(eventName, (e: T) => this._zone.run(() => observer.next(e)));
+        l.addListener(eventName, (e: T) =>
+          this._zone.run(() => observer.next(e)),
+        );
       });
     });
   }

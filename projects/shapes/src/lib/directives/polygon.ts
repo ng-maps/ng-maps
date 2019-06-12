@@ -1,4 +1,13 @@
-import { AfterContentInit, Directive, EventEmitter, OnChanges, OnDestroy, SimpleChanges, Input, Output } from '@angular/core';
+import {
+  AfterContentInit,
+  Directive,
+  EventEmitter,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+  Input,
+  Output,
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PolygonManager } from '../managers/polygon-manager';
 
@@ -53,7 +62,7 @@ import { PolygonManager } from '../managers/polygon-manager';
  */
 @Directive({
   selector: 'agm-polygon, map-polygon',
-  providers: [PolygonManager]
+  providers: [PolygonManager],
 })
 export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
   /**
@@ -105,7 +114,9 @@ export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
    * Inserting or removing LatLngs from the Array will automatically update
    * the polygon on the map.
    */
-  @Input() paths: Array<google.maps.LatLng|google.maps.LatLngLiteral>|Array<Array<google.maps.LatLng|google.maps.LatLngLiteral>> = [];
+  @Input() paths:
+    | Array<google.maps.LatLng | google.maps.LatLngLiteral>
+    | Array<Array<google.maps.LatLng | google.maps.LatLngLiteral>> = [];
 
   /**
    * The stroke color. All CSS3 colors are supported except for extended
@@ -136,12 +147,16 @@ export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
   /**
    * This event is fired when the DOM click event is fired on the Polygon.
    */
-  @Output() polyClick: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() polyClick: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired when the DOM dblclick event is fired on the Polygon.
    */
-  @Output() polyDblClick: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() polyDblClick: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is repeatedly fired while the user drags the polygon.
@@ -151,47 +166,77 @@ export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
   /**
    * This event is fired when the user stops dragging the polygon.
    */
-  @Output() polyDragEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() polyDragEnd: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event is fired when the user starts dragging the polygon.
    */
-  @Output() polyDragStart: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() polyDragStart: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event is fired when the DOM mousedown event is fired on the Polygon.
    */
-  @Output() polyMouseDown: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() polyMouseDown: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired when the DOM mousemove event is fired on the Polygon.
    */
-  @Output() polyMouseMove: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() polyMouseMove: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired on Polygon mouseout.
    */
-  @Output() polyMouseOut: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() polyMouseOut: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired on Polygon mouseover.
    */
-  @Output() polyMouseOver: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() polyMouseOver: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired whe the DOM mouseup event is fired on the Polygon
    */
-  @Output() polyMouseUp: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() polyMouseUp: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This even is fired when the Polygon is right-clicked on.
    */
-  @Output() polyRightClick: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  @Output() polyRightClick: EventEmitter<
+    google.maps.PolyMouseEvent
+  > = new EventEmitter<google.maps.PolyMouseEvent>();
 
   private static _polygonOptionsAttributes: Array<string> = [
-    'clickable', 'draggable', 'editable', 'fillColor', 'fillOpacity', 'geodesic', 'icon', 'map',
-    'paths', 'strokeColor', 'strokeOpacity', 'strokeWeight', 'visible', 'zIndex', 'draggable',
-    'editable', 'visible'
+    'clickable',
+    'draggable',
+    'editable',
+    'fillColor',
+    'fillOpacity',
+    'geodesic',
+    'icon',
+    'map',
+    'paths',
+    'strokeColor',
+    'strokeOpacity',
+    'strokeWeight',
+    'visible',
+    'zIndex',
+    'draggable',
+    'editable',
+    'visible',
   ];
 
   private _id: string;
@@ -213,7 +258,10 @@ export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
       return;
     }
 
-    this._polygonManager.setPolygonOptions(this, this._updatePolygonOptions(changes));
+    this._polygonManager.setPolygonOptions(
+      this,
+      this._updatePolygonOptions(changes),
+    );
   }
 
   private _init() {
@@ -224,35 +272,75 @@ export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
 
   private _addEventListeners() {
     const handlers = [
-      {name: 'click', handler: (ev: google.maps.PolyMouseEvent) => this.polyClick.emit(ev)},
-      {name: 'dblclick', handler: (ev: google.maps.PolyMouseEvent) => this.polyDblClick.emit(ev)},
-      {name: 'drag', handler: (ev: MouseEvent) => this.polyDrag.emit(ev)},
-      {name: 'dragend', handler: (ev: MouseEvent) => this.polyDragEnd.emit(ev)},
-      {name: 'dragstart', handler: (ev: MouseEvent) => this.polyDragStart.emit(ev)},
-      {name: 'mousedown', handler: (ev: google.maps.PolyMouseEvent) => this.polyMouseDown.emit(ev)},
-      {name: 'mousemove', handler: (ev: google.maps.PolyMouseEvent) => this.polyMouseMove.emit(ev)},
-      {name: 'mouseout', handler: (ev: google.maps.PolyMouseEvent) => this.polyMouseOut.emit(ev)},
-      {name: 'mouseover', handler: (ev: google.maps.PolyMouseEvent) => this.polyMouseOver.emit(ev)},
-      {name: 'mouseup', handler: (ev: google.maps.PolyMouseEvent) => this.polyMouseUp.emit(ev)},
-      {name: 'rightclick', handler: (ev: google.maps.PolyMouseEvent) => this.polyRightClick.emit(ev)},
+      {
+        name: 'click',
+        handler: (ev: google.maps.PolyMouseEvent) => this.polyClick.emit(ev),
+      },
+      {
+        name: 'dblclick',
+        handler: (ev: google.maps.PolyMouseEvent) => this.polyDblClick.emit(ev),
+      },
+      { name: 'drag', handler: (ev: MouseEvent) => this.polyDrag.emit(ev) },
+      {
+        name: 'dragend',
+        handler: (ev: MouseEvent) => this.polyDragEnd.emit(ev),
+      },
+      {
+        name: 'dragstart',
+        handler: (ev: MouseEvent) => this.polyDragStart.emit(ev),
+      },
+      {
+        name: 'mousedown',
+        handler: (ev: google.maps.PolyMouseEvent) =>
+          this.polyMouseDown.emit(ev),
+      },
+      {
+        name: 'mousemove',
+        handler: (ev: google.maps.PolyMouseEvent) =>
+          this.polyMouseMove.emit(ev),
+      },
+      {
+        name: 'mouseout',
+        handler: (ev: google.maps.PolyMouseEvent) => this.polyMouseOut.emit(ev),
+      },
+      {
+        name: 'mouseover',
+        handler: (ev: google.maps.PolyMouseEvent) =>
+          this.polyMouseOver.emit(ev),
+      },
+      {
+        name: 'mouseup',
+        handler: (ev: google.maps.PolyMouseEvent) => this.polyMouseUp.emit(ev),
+      },
+      {
+        name: 'rightclick',
+        handler: (ev: google.maps.PolyMouseEvent) =>
+          this.polyRightClick.emit(ev),
+      },
     ];
     handlers.forEach((obj) => {
-      const os = this._polygonManager.createEventObservable(obj.name, this).subscribe(obj.handler);
+      const os = this._polygonManager
+        .createEventObservable(obj.name, this)
+        .subscribe(obj.handler);
       this._subscriptions.push(os);
     });
   }
 
-  private _updatePolygonOptions(changes: SimpleChanges): google.maps.PolygonOptions {
+  private _updatePolygonOptions(
+    changes: SimpleChanges,
+  ): google.maps.PolygonOptions {
     return Object.keys(changes)
-        .filter(k => NgMapsPolygon._polygonOptionsAttributes.indexOf(k) !== -1)
-        .reduce((obj: any, k: string) => {
-          obj[k] = changes[k].currentValue;
-          return obj;
-        }, {});
+      .filter((k) => NgMapsPolygon._polygonOptionsAttributes.indexOf(k) !== -1)
+      .reduce((obj: any, k: string) => {
+        obj[k] = changes[k].currentValue;
+        return obj;
+      }, {});
   }
 
   /** @internal */
-  id(): string { return this._id; }
+  id(): string {
+    return this._id;
+  }
 
   /** @internal */
   ngOnDestroy() {

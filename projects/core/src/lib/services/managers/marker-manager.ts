@@ -1,19 +1,24 @@
-import {Injectable, NgZone} from '@angular/core';
-import {Observable, Observer} from 'rxjs';
+import { Injectable, NgZone } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
 import { NgMapsViewComponent } from '../../directives/map';
 
-import {NgMapsMarkerComponent} from '../../directives/marker';
+import { NgMapsMarkerComponent } from '../../directives/marker';
 
-import {GoogleMapsAPIWrapper} from '../google-maps-api-wrapper';
+import { GoogleMapsAPIWrapper } from '../google-maps-api-wrapper';
 
 @Injectable({
   providedIn: NgMapsViewComponent,
 })
 export class MarkerManager {
-  protected _markers: Map<NgMapsMarkerComponent, google.maps.Marker> =
-      new Map<NgMapsMarkerComponent, google.maps.Marker>();
+  protected _markers: Map<NgMapsMarkerComponent, google.maps.Marker> = new Map<
+    NgMapsMarkerComponent,
+    google.maps.Marker
+  >();
 
-  constructor(protected _mapsWrapper: GoogleMapsAPIWrapper, protected _zone: NgZone) {}
+  constructor(
+    protected _mapsWrapper: GoogleMapsAPIWrapper,
+    protected _zone: NgZone,
+  ) {}
 
   deleteMarker(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
@@ -30,7 +35,7 @@ export class MarkerManager {
 
   updateMarkerPosition(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    m.setPosition({lat: marker.latitude, lng: marker.longitude});
+    m.setPosition({ lat: marker.latitude, lng: marker.longitude });
   }
 
   updateTitle(marker: NgMapsMarkerComponent): void {
@@ -84,7 +89,7 @@ export class MarkerManager {
 
   async addMarker(marker: NgMapsMarkerComponent): Promise<void> {
     const m = await this._mapsWrapper.createMarker({
-      position: {lat: marker.latitude, lng: marker.longitude},
+      position: { lat: marker.latitude, lng: marker.longitude },
       label: marker.label,
       draggable: marker.draggable,
       icon: marker.iconUrl,
@@ -93,7 +98,10 @@ export class MarkerManager {
       zIndex: marker.zIndex,
       title: marker.title,
       clickable: marker.clickable,
-      animation: (typeof marker.animation === 'string') ? google.maps.Animation[marker.animation] : marker.animation
+      animation:
+        typeof marker.animation === 'string'
+          ? google.maps.Animation[marker.animation]
+          : marker.animation,
     });
     this._markers.set(marker, m);
   }
@@ -102,10 +110,17 @@ export class MarkerManager {
     return this._markers.get(marker);
   }
 
-  createEventObservable<T>(eventName: google.maps.MarkerChangeOptionEventNames | google.maps.MarkerMouseEventNames, marker: NgMapsMarkerComponent): Observable<T> {
+  createEventObservable<T>(
+    eventName:
+      | google.maps.MarkerChangeOptionEventNames
+      | google.maps.MarkerMouseEventNames,
+    marker: NgMapsMarkerComponent,
+  ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
       const m = this._markers.get(marker);
-      m.addListener(eventName, (e: T) => this._zone.run(() => observer.next(e)));
+      m.addListener(eventName, (e: T) =>
+        this._zone.run(() => observer.next(e)),
+      );
     });
   }
 }

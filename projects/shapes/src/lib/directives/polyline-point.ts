@@ -1,11 +1,18 @@
-import {Directive, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {
+  Directive,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 /**
  * NgMapsPolylinePoint represents one element of a polyline within a  {@link
  * SembGoogleMapPolyline}
  */
 @Directive({
-  selector: 'agm-polyline-point, map-polyline-point'
+  selector: 'agm-polyline-point, map-polyline-point',
 })
 export class NgMapsPolylinePoint implements OnChanges {
   /**
@@ -21,7 +28,9 @@ export class NgMapsPolylinePoint implements OnChanges {
   /**
    * This event emitter gets emitted when the position of the point changed.
    */
-  @Output() positionChanged: EventEmitter<google.maps.LatLngLiteral> = new EventEmitter<google.maps.LatLngLiteral>();
+  @Output() positionChanged: EventEmitter<
+    google.maps.LatLngLiteral
+  > = new EventEmitter<google.maps.LatLngLiteral>();
 
   constructor() {}
 
@@ -29,7 +38,9 @@ export class NgMapsPolylinePoint implements OnChanges {
     if (changes.latitude || changes.longitude) {
       const position: google.maps.LatLngLiteral = {
         lat: changes.latitude ? changes.latitude.currentValue : this.latitude,
-        lng: changes.longitude ? changes.longitude.currentValue : this.longitude
+        lng: changes.longitude
+          ? changes.longitude.currentValue
+          : this.longitude,
       } as google.maps.LatLngLiteral;
       this.positionChanged.emit(position);
     }

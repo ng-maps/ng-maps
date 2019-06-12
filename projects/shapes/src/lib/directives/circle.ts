@@ -1,18 +1,33 @@
-import {Directive, EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChange, Input, Output} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {CircleManager} from '../managers/circle-manager';
+import {
+  Directive,
+  EventEmitter,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChange,
+  Input,
+  Output,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { CircleManager } from '../managers/circle-manager';
 
 @Directive({
   selector: 'agm-circle, map-circle',
-  providers: [CircleManager]
+  providers: [CircleManager],
 })
 export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
-
   constructor(private _manager: CircleManager) {}
 
   private static _mapOptions: string[] = [
-    'fillColor', 'fillOpacity', 'strokeColor', 'strokeOpacity', 'strokePosition', 'strokeWeight',
-    'visible', 'zIndex', 'clickable'
+    'fillColor',
+    'fillOpacity',
+    'strokeColor',
+    'strokeOpacity',
+    'strokePosition',
+    'strokeWeight',
+    'visible',
+    'zIndex',
+    'clickable',
   ];
   /**
    * The latitude position of the circle (required).
@@ -70,7 +85,7 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
    * The stroke position. Defaults to CENTER.
    * This property is not supported on Internet Explorer 8 and earlier.
    */
-  @Input() strokePosition: 'CENTER'|'INSIDE'|'OUTSIDE' = 'CENTER';
+  @Input() strokePosition: 'CENTER' | 'INSIDE' | 'OUTSIDE' = 'CENTER';
 
   /**
    * The stroke width in pixels.
@@ -90,17 +105,23 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   /**
    * This event is fired when the circle's center is changed.
    */
-  @Output() centerChange: EventEmitter<google.maps.LatLngLiteral> = new EventEmitter<google.maps.LatLngLiteral>();
+  @Output() centerChange: EventEmitter<
+    google.maps.LatLngLiteral
+  > = new EventEmitter<google.maps.LatLngLiteral>();
 
   /**
    * This event emitter gets emitted when the user clicks on the circle.
    */
-  @Output() circleClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() circleClick: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event emitter gets emitted when the user clicks on the circle.
    */
-  @Output() circleDblClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() circleDblClick: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event is repeatedly fired while the user drags the circle.
@@ -115,17 +136,23 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   /**
    * This event is fired when the user starts dragging the circle.
    */
-  @Output() dragStart: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() dragStart: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event is fired when the DOM mousedown event is fired on the circle.
    */
-  @Output() mouseDown: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() mouseDown: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event is fired when the DOM mousemove event is fired on the circle.
    */
-  @Output() mouseMove: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() mouseMove: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event is fired on circle mouseout.
@@ -135,7 +162,9 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   /**
    * This event is fired on circle mouseover.
    */
-  @Output() mouseOver: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() mouseOver: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   /**
    * This event is fired when the DOM mouseup event is fired on the circle.
@@ -150,7 +179,9 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   /**
    * This event is fired when the circle is right-clicked on.
    */
-  @Output() rightClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() rightClick: EventEmitter<MouseEvent> = new EventEmitter<
+    MouseEvent
+  >();
 
   private _circleAddedToManager: boolean = false;
 
@@ -164,7 +195,7 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   }
 
   /** @internal */
-  ngOnChanges(changes: {[key: string]: SimpleChange}) {
+  ngOnChanges(changes: { [key: string]: SimpleChange }) {
     if (!this._circleAddedToManager) {
       return;
     }
@@ -186,18 +217,26 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
     this._updateCircleOptionsChanges(changes);
   }
 
-  private _updateCircleOptionsChanges(changes: {[propName: string]: SimpleChange}) {
-    const options: {[propName: string]: any} = {};
-    const optionKeys =
-        Object.keys(changes).filter(k => NgMapsCircle._mapOptions.indexOf(k) !== -1);
-    optionKeys.forEach((k) => { options[k] = changes[k].currentValue; });
+  private _updateCircleOptionsChanges(changes: {
+    [propName: string]: SimpleChange;
+  }) {
+    const options: { [propName: string]: any } = {};
+    const optionKeys = Object.keys(changes).filter(
+      (k) => NgMapsCircle._mapOptions.indexOf(k) !== -1,
+    );
+    optionKeys.forEach((k) => {
+      options[k] = changes[k].currentValue;
+    });
     if (optionKeys.length > 0) {
       this._manager.setOptions(this, options);
     }
   }
 
   private _registerEventListeners() {
-    const events: Map<string, EventEmitter<any>> = new Map<string, EventEmitter<any>>();
+    const events: Map<string, EventEmitter<any>> = new Map<
+      string,
+      EventEmitter<any>
+    >();
     events.set('center_changed', this.centerChange);
     events.set('click', this.circleClick);
     events.set('dblclick', this.circleDblClick);
@@ -214,27 +253,36 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
 
     events.forEach((eventEmitter, eventName) => {
       this._eventSubscriptions.push(
-          this._manager.createEventObservable<google.maps.MouseEvent>(eventName, this).subscribe((value) => {
+        this._manager
+          .createEventObservable<google.maps.MouseEvent>(eventName, this)
+          .subscribe((value) => {
             switch (eventName) {
               case 'radius_changed':
-                this._manager.getRadius(this).then((radius) => eventEmitter.emit(radius));
+                this._manager
+                  .getRadius(this)
+                  .then((radius) => eventEmitter.emit(radius));
                 break;
               case 'center_changed':
-                this._manager.getCenter(this).then(
-                    (center) =>
-                        eventEmitter.emit({lat: center.lat(), lng: center.lng()} as google.maps.LatLngLiteral));
+                this._manager.getCenter(this).then((center) =>
+                  eventEmitter.emit({
+                    lat: center.lat(),
+                    lng: center.lng(),
+                  } as google.maps.LatLngLiteral),
+                );
                 break;
               default:
                 eventEmitter.emit(value);
             }
-          })
+          }),
       );
     });
   }
 
   /** @internal */
   ngOnDestroy() {
-    this._eventSubscriptions.forEach((s: Subscription) => { s.unsubscribe(); });
+    this._eventSubscriptions.forEach((s: Subscription) => {
+      s.unsubscribe();
+    });
     this._eventSubscriptions = null;
     this._manager.removeCircle(this);
   }
@@ -242,7 +290,11 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   /**
    * Gets the LatLngBounds of this Circle.
    */
-  getBounds(): Promise<google.maps.LatLngBounds> { return this._manager.getBounds(this); }
+  getBounds(): Promise<google.maps.LatLngBounds> {
+    return this._manager.getBounds(this);
+  }
 
-  getCenter(): Promise<google.maps.LatLng> { return this._manager.getCenter(this); }
+  getCenter(): Promise<google.maps.LatLng> {
+    return this._manager.getCenter(this);
+  }
 }

@@ -6,7 +6,6 @@ import { DataLayerManager } from './data-layer-manager';
   declarations: [AgmDataLayer],
   imports: [],
   exports: [AgmDataLayer],
-  providers: [DataLayerManager]
+  providers: [DataLayerManager],
 })
-export class DataLayerModule {
-}
+export class DataLayerModule {}

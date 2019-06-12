@@ -8,24 +8,24 @@ import { SimpleMapComponent } from './simple-map/simple-map.component';
 const routes: Routes = [
   {
     path: '',
-    component: SimpleMapComponent
+    component: SimpleMapComponent,
   },
   {
     path: 'cluster',
-    component: ClusterComponent
+    component: ClusterComponent,
   },
   {
     path: 'info-window',
-    component: InfoWindowComponent
+    component: InfoWindowComponent,
   },
   {
     path: 'shapes',
-    component: ShapesComponent
-  }
+    component: ShapesComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

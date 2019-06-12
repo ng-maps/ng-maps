@@ -8,9 +8,8 @@ describe('SimpleMapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SimpleMapComponent ]
-    })
-    .compileComponents();
+      declarations: [SimpleMapComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

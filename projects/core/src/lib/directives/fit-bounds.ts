@@ -1,7 +1,19 @@
-import { Directive, Input, OnChanges, OnDestroy, OnInit, Self, SimpleChanges } from '@angular/core';
+import {
+  Directive,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Self,
+  SimpleChanges,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { FitBoundsAccessor, FitBoundsDetails, FitBoundsService } from '../services/fit-bounds';
+import {
+  FitBoundsAccessor,
+  FitBoundsDetails,
+  FitBoundsService,
+} from '../services/fit-bounds';
 
 /**
  * Adds the given directive to the auto fit bounds feature when the value is true.
@@ -10,7 +22,7 @@ import { FitBoundsAccessor, FitBoundsDetails, FitBoundsService } from '../servic
  * <map-marker [mapFitBounds]="true"></map-marker>
  */
 @Directive({
-  selector: '[agmFitBounds], [mapFitBounds]'
+  selector: '[agmFitBounds], [mapFitBounds]',
 })
 export class NgMapsFitBounds implements OnInit, OnDestroy, OnChanges {
   /**
@@ -24,9 +36,8 @@ export class NgMapsFitBounds implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     @Self() private readonly _fitBoundsAccessor: FitBoundsAccessor,
-    private readonly _fitBoundsService: FitBoundsService
-  ) {
-  }
+    private readonly _fitBoundsService: FitBoundsService,
+  ) {}
 
   /**
    * @internal
@@ -44,11 +55,11 @@ export class NgMapsFitBounds implements OnInit, OnDestroy, OnChanges {
       .pipe(
         distinctUntilChanged(
           (x: FitBoundsDetails, y: FitBoundsDetails) =>
-            x.latLng.lat === y.latLng.lng
+            x.latLng.lat === y.latLng.lng,
         ),
-        takeUntil(this._destroyed$)
+        takeUntil(this._destroyed$),
       )
-      .subscribe(details => this._updateBounds(details));
+      .subscribe((details) => this._updateBounds(details));
   }
 
   private _updateBounds(newFitBoundsDetails?: FitBoundsDetails) {
@@ -61,7 +72,9 @@ export class NgMapsFitBounds implements OnInit, OnDestroy, OnChanges {
     if (this.mapFitBounds) {
       this._fitBoundsService.addToBounds(this._latestFitBoundsDetails.latLng);
     } else {
-      this._fitBoundsService.removeFromBounds(this._latestFitBoundsDetails.latLng);
+      this._fitBoundsService.removeFromBounds(
+        this._latestFitBoundsDetails.latLng,
+      );
     }
   }
 
@@ -72,7 +85,9 @@ export class NgMapsFitBounds implements OnInit, OnDestroy, OnChanges {
     this._destroyed$.next();
     this._destroyed$.complete();
     if (this._latestFitBoundsDetails !== null) {
-      this._fitBoundsService.removeFromBounds(this._latestFitBoundsDetails.latLng);
+      this._fitBoundsService.removeFromBounds(
+        this._latestFitBoundsDetails.latLng,
+      );
     }
   }
 }

@@ -14,13 +14,12 @@ export function shapesDirectives() {
     NgMapsPolygon,
     NgMapsPolyline,
     NgMapsPolylinePoint,
-    NgMapsRectangle
+    NgMapsRectangle,
   ];
 }
 
 @NgModule({
   declarations: shapesDirectives(),
-  exports: shapesDirectives()
+  exports: shapesDirectives(),
 })
-export class NgMapsShapesModule {
-}
+export class NgMapsShapesModule {}

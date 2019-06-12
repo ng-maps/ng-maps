@@ -2,22 +2,32 @@ import { Injectable, NgZone } from '@angular/core';
 
 import * as MarkerClusterer from '@google/markerclusterer';
 
-import { GoogleMapsAPIWrapper, MarkerManager, NgMapsMarkerComponent, NgMapsViewComponent } from '@ng-maps/core';
+import {
+  GoogleMapsAPIWrapper,
+  MarkerManager,
+  NgMapsMarkerComponent,
+  NgMapsViewComponent,
+} from '@ng-maps/core';
 import { MarkerClusterComponent } from '../../directives/marker-cluster';
 import { ClusterOptions, MarkerClustererInstance } from '../../types';
 
 @Injectable({
-  providedIn: NgMapsViewComponent
+  providedIn: NgMapsViewComponent,
 })
 export class ClusterManager extends MarkerManager {
   private _clustererInstance: Promise<MarkerClustererInstance>;
   private _resolver: Function;
 
-  constructor(protected _mapsWrapper: GoogleMapsAPIWrapper, protected _zone: NgZone) {
+  constructor(
+    protected _mapsWrapper: GoogleMapsAPIWrapper,
+    protected _zone: NgZone,
+  ) {
     super(_mapsWrapper, _zone);
-    this._clustererInstance = new Promise<MarkerClustererInstance>((resolver) => {
-      this._resolver = resolver;
-    });
+    this._clustererInstance = new Promise<MarkerClustererInstance>(
+      (resolver) => {
+        this._resolver = resolver;
+      },
+    );
   }
 
   async init(options: ClusterOptions): Promise<void> {
@@ -27,11 +37,11 @@ export class ClusterManager extends MarkerManager {
 
   async addMarker(marker: NgMapsMarkerComponent): Promise<void> {
     const cluster: MarkerClustererInstance = await this._clustererInstance;
-    const markers = await this._mapsWrapper
-      .createMarker({
+    const markers = await this._mapsWrapper.createMarker(
+      {
         position: {
           lat: marker.latitude,
-          lng: marker.longitude
+          lng: marker.longitude,
         },
         label: marker.label,
         draggable: marker.draggable,
@@ -41,7 +51,9 @@ export class ClusterManager extends MarkerManager {
         zIndex: marker.zIndex,
         title: marker.title,
         clickable: marker.clickable,
-      }, false);
+      },
+      false,
+    );
     cluster.addMarker(markers);
     this._markers.set(marker, markers);
   }
@@ -54,7 +66,7 @@ export class ClusterManager extends MarkerManager {
     }
     this._zone.run(() => {
       m.setMap(null);
-      this._clustererInstance.then(cluster => {
+      this._clustererInstance.then((cluster) => {
         cluster.removeMarker(m);
         this._markers.delete(marker);
       });
@@ -62,31 +74,31 @@ export class ClusterManager extends MarkerManager {
   }
 
   clearMarkers(): Promise<void> {
-    return this._clustererInstance.then(cluster => {
+    return this._clustererInstance.then((cluster) => {
       cluster.clearMarkers();
     });
   }
 
   setGridSize(c: MarkerClusterComponent): void {
-    this._clustererInstance.then(cluster => {
+    this._clustererInstance.then((cluster) => {
       cluster.setGridSize(c.gridSize);
     });
   }
 
   setMaxZoom(c: MarkerClusterComponent): void {
-    this._clustererInstance.then(cluster => {
+    this._clustererInstance.then((cluster) => {
       cluster.setMaxZoom(c.maxZoom);
     });
   }
 
   setStyles(c: MarkerClusterComponent): void {
-    this._clustererInstance.then(cluster => {
+    this._clustererInstance.then((cluster) => {
       cluster.setStyles(c.styles);
     });
   }
 
   setZoomOnClick(c: MarkerClusterComponent): void {
-    this._clustererInstance.then(cluster => {
+    this._clustererInstance.then((cluster) => {
       if (c.zoomOnClick !== undefined) {
         cluster.zoomOnClick_ = c.zoomOnClick;
       }
@@ -94,7 +106,7 @@ export class ClusterManager extends MarkerManager {
   }
 
   setAverageCenter(c: MarkerClusterComponent): void {
-    this._clustererInstance.then(cluster => {
+    this._clustererInstance.then((cluster) => {
       if (c.averageCenter !== undefined) {
         cluster.averageCenter_ = c.averageCenter;
       }
@@ -102,7 +114,7 @@ export class ClusterManager extends MarkerManager {
   }
 
   setImagePath(c: MarkerClusterComponent): void {
-    this._clustererInstance.then(cluster => {
+    this._clustererInstance.then((cluster) => {
       if (c.imagePath !== undefined) {
         cluster.imagePath_ = c.imagePath;
       }
@@ -110,7 +122,7 @@ export class ClusterManager extends MarkerManager {
   }
 
   setMinimumClusterSize(c: MarkerClusterComponent): void {
-    this._clustererInstance.then(cluster => {
+    this._clustererInstance.then((cluster) => {
       if (c.minimumClusterSize !== undefined) {
         cluster.minimumClusterSize_ = c.minimumClusterSize;
       }
@@ -118,7 +130,7 @@ export class ClusterManager extends MarkerManager {
   }
 
   setImageExtension(c: MarkerClusterComponent): void {
-    this._clustererInstance.then(cluster => {
+    this._clustererInstance.then((cluster) => {
       if (c.imageExtension !== undefined) {
         cluster.imageExtension_ = c.imageExtension;
       }

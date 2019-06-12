@@ -1,1 +1,1 @@
-export {MarkerClusterComponent} from './directives/marker-cluster';
+export { MarkerClusterComponent } from './directives/marker-cluster';

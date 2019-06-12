@@ -4,8 +4,8 @@
 
 ## Installation
 
-* Npm: `npm install @ng-maps/marker-clusterer`
-* Yarn: `yarn add @ng-maps/marker-clusterer`
+- Npm: `npm install @ng-maps/marker-clusterer`
+- Yarn: `yarn add @ng-maps/marker-clusterer`
 
 Add `NgMapsMarkerClustererModule.forRoot({imagePath: '/assets/images/m'})` to your _AppModule_
 
@@ -27,4 +27,4 @@ Add marker clusterer component around markers
 
 ## Additional features
 
-Other features are provided in submodules. Find out more on the [project page at github](https://github.com/ng-maps/ng-maps ) 
+Other features are provided in submodules. Find out more on the [project page at github](https://github.com/ng-maps/ng-maps)

@@ -8,9 +8,8 @@ describe('SnazzyInfoWindowComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NgMapsSnazzyInfoWindowComponent ]
-    })
-    .compileComponents();
+      declarations: [NgMapsSnazzyInfoWindowComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

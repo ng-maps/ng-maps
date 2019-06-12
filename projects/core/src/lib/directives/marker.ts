@@ -9,7 +9,7 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  SimpleChange
+  SimpleChange,
 } from '@angular/core';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { FitBoundsAccessor, FitBoundsDetails } from '../services/fit-bounds';
@@ -44,16 +44,36 @@ let markerId = 0;
 @Component({
   selector: 'agm-marker, map-marker',
   providers: [
-    {provide: FitBoundsAccessor, useExisting: forwardRef(() => NgMapsMarkerComponent)}
+    {
+      provide: FitBoundsAccessor,
+      useExisting: forwardRef(() => NgMapsMarkerComponent),
+    },
   ],
   inputs: [
-    'latitude', 'longitude', 'title', 'label', 'draggable: markerDraggable', 'iconUrl',
-    'openInfoWindow', 'opacity', 'visible', 'zIndex', 'animation'
+    'latitude',
+    'longitude',
+    'title',
+    'label',
+    'draggable: markerDraggable',
+    'iconUrl',
+    'openInfoWindow',
+    'opacity',
+    'visible',
+    'zIndex',
+    'animation',
   ],
-  outputs: ['markerClick', 'dragStart', 'drag', 'dragEnd', 'mouseOver', 'mouseOut'],
-  template: '<ng-content></ng-content>'
+  outputs: [
+    'markerClick',
+    'dragStart',
+    'drag',
+    'dragEnd',
+    'mouseOver',
+    'mouseOut',
+  ],
+  template: '<ng-content></ng-content>',
 })
-export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContentInit, FitBoundsAccessor {
+export class NgMapsMarkerComponent
+  implements OnDestroy, OnChanges, AfterContentInit, FitBoundsAccessor {
   /**
    * The latitude position of the marker.
    */
@@ -77,7 +97,7 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
   /**
    * If true, the marker can be dragged. Default value is false.
    */
-    // tslint:disable-next-line:no-input-rename
+  // tslint:disable-next-line:no-input-rename
   @Input('markerDraggable') draggable: boolean = false;
 
   /**
@@ -111,7 +131,7 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
   /**
    * If true, the marker can be clicked. Default value is true.
    */
-    // tslint:disable-next-line:no-input-rename
+  // tslint:disable-next-line:no-input-rename
   @Input('markerClickable') clickable: boolean = true;
 
   /**
@@ -123,7 +143,9 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
   /**
    * This event emitter gets emitted when the user clicks on the marker.
    */
-  @Output() markerClick: EventEmitter<NgMapsMarkerComponent> = new EventEmitter<NgMapsMarkerComponent>();
+  @Output() markerClick: EventEmitter<NgMapsMarkerComponent> = new EventEmitter<
+    NgMapsMarkerComponent
+  >();
 
   /**
    * This event is fired when the user rightclicks on the marker.
@@ -133,38 +155,52 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
   /**
    * This event is fired when the user starts dragging the marker.
    */
-  @Output() dragStart: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  @Output() dragStart: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
+    google.maps.MouseEvent
+  >();
 
   /**
    * This event is repeatedly fired while the user drags the marker.
    */
-  @Output() drag: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  @Output() drag: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
+    google.maps.MouseEvent
+  >();
 
   /**
    * This event is fired when the user stops dragging the marker.
    */
-  @Output() dragEnd: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  @Output() dragEnd: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
+    google.maps.MouseEvent
+  >();
 
   /**
    * This event is fired when the user mouses over the marker.
    */
-  @Output() mouseOver: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  @Output() mouseOver: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
+    google.maps.MouseEvent
+  >();
 
   /**
    * This event is fired when the user mouses outside the marker.
    */
-  @Output() mouseOut: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  @Output() mouseOut: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
+    google.maps.MouseEvent
+  >();
 
   /**
    * @internal
    */
-  @ContentChildren(NgMapsInfoWindowComponent) infoWindow: QueryList<NgMapsInfoWindowComponent> = new QueryList<NgMapsInfoWindowComponent>();
+  @ContentChildren(NgMapsInfoWindowComponent) infoWindow: QueryList<
+    NgMapsInfoWindowComponent
+  > = new QueryList<NgMapsInfoWindowComponent>();
 
   private _markerAddedToManger: boolean = false;
   private _id: string;
   private _observableSubscriptions: Subscription[] = [];
 
-  protected readonly _fitBoundsDetails$: ReplaySubject<FitBoundsDetails> = new ReplaySubject<FitBoundsDetails>(1);
+  protected readonly _fitBoundsDetails$: ReplaySubject<
+    FitBoundsDetails
+  > = new ReplaySubject<FitBoundsDetails>(1);
 
   constructor(private _markerManager: MarkerManager) {
     this._id = (markerId++).toString();
@@ -182,7 +218,7 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
     if (this.infoWindow.length > 1) {
       throw new Error('Expected no more than one info window.');
     }
-    this.infoWindow.forEach(marker => {
+    this.infoWindow.forEach((marker) => {
       marker.hostMarker = this;
     });
   }
@@ -197,7 +233,10 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
     if (typeof this.longitude === 'string') {
       this.longitude = Number(this.longitude);
     }
-    if (typeof this.latitude !== 'number' || typeof this.longitude !== 'number') {
+    if (
+      typeof this.latitude !== 'number' ||
+      typeof this.longitude !== 'number'
+    ) {
       return;
     }
     if (!this._markerAddedToManger) {
@@ -249,56 +288,62 @@ export class NgMapsMarkerComponent implements OnDestroy, OnChanges, AfterContent
   }
 
   protected _updateFitBoundsDetails() {
-    this._fitBoundsDetails$.next({latLng: {lat: this.latitude, lng: this.longitude}});
+    this._fitBoundsDetails$.next({
+      latLng: { lat: this.latitude, lng: this.longitude },
+    });
   }
 
   private _addEventListeners() {
-    const cs = this._markerManager.createEventObservable('click', this).subscribe(() => {
-      if (this.openInfoWindow) {
-        this.infoWindow.forEach(infoWindow => infoWindow.open());
-      }
-      this.markerClick.emit(this);
-    });
+    const cs = this._markerManager
+      .createEventObservable('click', this)
+      .subscribe(() => {
+        if (this.openInfoWindow) {
+          this.infoWindow.forEach((infoWindow) => infoWindow.open());
+        }
+        this.markerClick.emit(this);
+      });
     this._observableSubscriptions.push(cs);
 
-    const rc = this._markerManager.createEventObservable('rightclick', this).subscribe(() => {
-      this.markerRightClick.emit(null);
-    });
+    const rc = this._markerManager
+      .createEventObservable('rightclick', this)
+      .subscribe(() => {
+        this.markerRightClick.emit(null);
+      });
     this._observableSubscriptions.push(rc);
 
-    const ds =
-      this._markerManager.createEventObservable<google.maps.MouseEvent>('dragstart', this)
-        .subscribe((e: google.maps.MouseEvent) => {
-          this.dragStart.emit(e);
-        });
+    const ds = this._markerManager
+      .createEventObservable<google.maps.MouseEvent>('dragstart', this)
+      .subscribe((e: google.maps.MouseEvent) => {
+        this.dragStart.emit(e);
+      });
     this._observableSubscriptions.push(ds);
 
-    const d =
-      this._markerManager.createEventObservable<google.maps.MouseEvent>('drag', this)
-        .subscribe((e: google.maps.MouseEvent) => {
-          this.drag.emit(e);
-        });
+    const d = this._markerManager
+      .createEventObservable<google.maps.MouseEvent>('drag', this)
+      .subscribe((e: google.maps.MouseEvent) => {
+        this.drag.emit(e);
+      });
     this._observableSubscriptions.push(d);
 
-    const de =
-      this._markerManager.createEventObservable<google.maps.MouseEvent>('dragend', this)
-        .subscribe((e: google.maps.MouseEvent) => {
-          this.dragEnd.emit(e);
-        });
+    const de = this._markerManager
+      .createEventObservable<google.maps.MouseEvent>('dragend', this)
+      .subscribe((e: google.maps.MouseEvent) => {
+        this.dragEnd.emit(e);
+      });
     this._observableSubscriptions.push(de);
 
-    const mover =
-      this._markerManager.createEventObservable<google.maps.MouseEvent>('mouseover', this)
-        .subscribe((e: google.maps.MouseEvent) => {
-          this.mouseOver.emit(e);
-        });
+    const mover = this._markerManager
+      .createEventObservable<google.maps.MouseEvent>('mouseover', this)
+      .subscribe((e: google.maps.MouseEvent) => {
+        this.mouseOver.emit(e);
+      });
     this._observableSubscriptions.push(mover);
 
-    const mout =
-      this._markerManager.createEventObservable<google.maps.MouseEvent>('mouseout', this)
-        .subscribe((e: google.maps.MouseEvent) => {
-          this.mouseOut.emit(e);
-        });
+    const mout = this._markerManager
+      .createEventObservable<google.maps.MouseEvent>('mouseout', this)
+      .subscribe((e: google.maps.MouseEvent) => {
+        this.mouseOut.emit(e);
+      });
     this._observableSubscriptions.push(mout);
   }
 

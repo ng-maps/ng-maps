@@ -6,17 +6,16 @@ import {
   OnInit,
   SimpleChange,
   Input,
-  Output
+  Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RectangleManager } from '../managers/rectangle-manager';
 
 @Directive({
   selector: 'agm-rectangle, map-rectangle',
-  providers: [RectangleManager]
+  providers: [RectangleManager],
 })
 export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {
-
   constructor(private _manager: RectangleManager) {}
 
   private static _mapOptions: string[] = [
@@ -28,7 +27,7 @@ export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {
     'strokeWeight',
     'visible',
     'zIndex',
-    'clickable'
+    'clickable',
   ];
   /**
    * The north position of the rectangle (required).
@@ -112,7 +111,9 @@ export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {
    * This event is fired when the rectangle's is changed.
    */
   @Output()
-  boundsChange: EventEmitter<google.maps.LatLngBoundsLiteral> = new EventEmitter<google.maps.LatLngBoundsLiteral>();
+  boundsChange: EventEmitter<
+    google.maps.LatLngBoundsLiteral
+  > = new EventEmitter<google.maps.LatLngBoundsLiteral>();
 
   /**
    * This event emitter gets emitted when the user clicks on the rectangle.
@@ -192,12 +193,7 @@ export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {
     if (!this._rectangleAddedToManager) {
       return;
     }
-    if (
-      changes.north ||
-      changes.east ||
-      changes.south ||
-      changes.west
-    ) {
+    if (changes.north || changes.east || changes.south || changes.west) {
       this._manager.setBounds(this);
     }
     if (changes.editable) {
@@ -217,9 +213,9 @@ export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {
   }) {
     const options: { [propName: string]: any } = {};
     const optionKeys = Object.keys(changes).filter(
-      k => NgMapsRectangle._mapOptions.indexOf(k) !== -1
+      (k) => NgMapsRectangle._mapOptions.indexOf(k) !== -1,
     );
-    optionKeys.forEach(k => {
+    optionKeys.forEach((k) => {
       options[k] = changes[k].currentValue;
     });
     if (optionKeys.length > 0) {
@@ -249,22 +245,22 @@ export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {
       this._eventSubscriptions.push(
         this._manager
           .createEventObservable<google.maps.MouseEvent>(eventName, this)
-          .subscribe(value => {
+          .subscribe((value) => {
             switch (eventName) {
               case 'bounds_changed':
-                this._manager.getBounds(this).then(bounds =>
+                this._manager.getBounds(this).then((bounds) =>
                   eventEmitter.emit({
                     north: bounds.getNorthEast().lat(),
                     east: bounds.getNorthEast().lng(),
                     south: bounds.getSouthWest().lat(),
-                    west: bounds.getSouthWest().lng()
-                  } as google.maps.LatLngBoundsLiteral)
+                    west: bounds.getSouthWest().lng(),
+                  } as google.maps.LatLngBoundsLiteral),
                 );
                 break;
               default:
                 eventEmitter.emit(value);
             }
-          })
+          }),
       );
     });
   }
