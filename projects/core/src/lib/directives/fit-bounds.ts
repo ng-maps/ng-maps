@@ -66,15 +66,14 @@ export class NgMapsFitBounds implements OnInit, OnDestroy, OnChanges {
     if (newFitBoundsDetails) {
       this._latestFitBoundsDetails = newFitBoundsDetails;
     }
-    if (!this._latestFitBoundsDetails) {
-      return;
-    }
-    if (this.mapFitBounds) {
-      this._fitBoundsService.addToBounds(this._latestFitBoundsDetails.latLng);
-    } else {
-      this._fitBoundsService.removeFromBounds(
-        this._latestFitBoundsDetails.latLng,
-      );
+    if (this._latestFitBoundsDetails) {
+      if (this.mapFitBounds) {
+        this._fitBoundsService.addToBounds(this._latestFitBoundsDetails.latLng);
+      } else {
+        this._fitBoundsService.removeFromBounds(
+          this._latestFitBoundsDetails.latLng,
+        );
+      }
     }
   }
 

@@ -158,10 +158,9 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   }
 
   private _setInfoWindowOptions(changes: SimpleChanges) {
-    const options: { [propName: string]: any } = {};
-    const optionKeys = Object.keys(changes).filter(
-      (k) =>
-        NgMapsInfoWindowComponent._infoWindowOptionsInputs.indexOf(k) !== -1,
+    const options: SimpleChanges = {};
+    const optionKeys = Object.keys(changes).filter((k) =>
+      NgMapsInfoWindowComponent._infoWindowOptionsInputs.includes(k),
     );
     optionKeys.forEach((k) => {
       options[k] = changes[k].currentValue;

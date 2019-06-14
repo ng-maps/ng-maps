@@ -1,0 +1,10 @@
+<map-view [fitBounds]="boundaries">
+  <map-polyline strokeColor="blue">
+    <map-polyline-point
+      *ngFor="let point of points"
+      [latitude]="point.lat"
+      [longitude]="point.lon"
+      >¨
+    </map-polyline-point>
+  </map-polyline>
+</map-view>

@@ -14,6 +14,7 @@ import {
 import { Subscription } from 'rxjs';
 import { FitBoundsService } from '../services/fit-bounds';
 import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
+import { MarkerManager } from '../services/managers/marker-manager';
 
 /**
  * NgMapsViewComponent renders a Google Map.
@@ -40,7 +41,7 @@ import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
  */
 @Component({
   selector: 'agm-map, map-view',
-  providers: [GoogleMapsAPIWrapper, FitBoundsService],
+  providers: [GoogleMapsAPIWrapper, FitBoundsService, MarkerManager],
   styles: [
     `
       .map-container-inner {
@@ -444,9 +445,9 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   }
 
   private _updateMapOptionsChanges(changes: SimpleChanges) {
-    const options: { [propName: string]: any } = {};
-    const optionKeys = Object.keys(changes).filter(
-      (k) => NgMapsViewComponent._mapOptionsAttributes.indexOf(k) !== -1,
+    const options: SimpleChanges = {};
+    const optionKeys = Object.keys(changes).filter((k) =>
+      NgMapsViewComponent._mapOptionsAttributes.includes(k),
     );
     optionKeys.forEach((k) => {
       options[k] = changes[k].currentValue;
@@ -464,13 +465,12 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     // common case for triggering a resize event), then the resize event would not
     // work (to show the map), so we trigger the event in a timeout.
     return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        return this._mapsWrapper.triggerMapEvent('resize').then(() => {
-          if (recenter) {
-            this.fitBounds != null ? this._fitBounds() : this._setCenter();
-          }
-          resolve();
-        });
+      setTimeout(async () => {
+        await this._mapsWrapper.triggerMapEvent('resize');
+        if (recenter) {
+          this.fitBounds != null ? this._fitBounds() : this._setCenter();
+        }
+        resolve();
       });
     });
   }
@@ -506,9 +506,9 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       lng: this.longitude,
     };
     if (this.usePanning) {
-      this._mapsWrapper.panTo(newCenter);
+      return this._mapsWrapper.panTo(newCenter);
     } else {
-      this._mapsWrapper.setCenter(newCenter);
+      return this._mapsWrapper.setCenter(newCenter);
     }
   }
 
@@ -523,7 +523,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
         }
         break;
       default:
-        this._updateBounds(this.fitBounds);
+        return this._updateBounds(this.fitBounds);
     }
   }
 
@@ -537,19 +537,20 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     });
   }
 
-  protected _updateBounds(
+  protected async _updateBounds(
     bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
   ) {
-    if (this._isLatLngBoundsLiteral(bounds) && google && google.maps) {
+    await this._mapsWrapper.getNativeMap();
+    if (this._isLatLngBoundsLiteral(bounds)) {
       const newBounds = new google.maps.LatLngBounds();
       newBounds.union(bounds);
       bounds = newBounds;
+      if (this.usePanning) {
+        return this._mapsWrapper.panToBounds(bounds);
+      } else {
+        return this._mapsWrapper.fitBounds(bounds);
+      }
     }
-    if (this.usePanning) {
-      this._mapsWrapper.panToBounds(bounds);
-      return;
-    }
-    this._mapsWrapper.fitBounds(bounds);
   }
 
   protected _isLatLngBoundsLiteral(

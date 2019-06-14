@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ClusterComponent } from './cluster/cluster.component';
+import { FitBoundsComponent } from './fit-bounds/fit-bounds.component';
 import { InfoWindowComponent } from './info-window/info-window.component';
 import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'shapes',
     component: ShapesComponent,
+  },
+  {
+    path: 'fit-bounds',
+    component: FitBoundsComponent,
   },
 ];
 

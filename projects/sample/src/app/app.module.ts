@@ -1,15 +1,18 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgMapsCoreModule } from '@ng-maps/core';
 import { NgMapsMarkerClustererModule } from '@ng-maps/marker-clusterer';
 import { NgMapsShapesModule } from '@ng-maps/shapes';
+import { NgMapsPlacesModule } from '@ng-maps/places';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SimpleMapComponent } from './simple-map/simple-map.component';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { ClusterComponent } from './cluster/cluster.component';
+import { FitBoundsComponent } from './fit-bounds/fit-bounds.component';
 import { InfoWindowComponent } from './info-window/info-window.component';
 import { ShapesComponent } from './shapes/shapes.component';
+import { SimpleMapComponent } from './simple-map/simple-map.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import { ShapesComponent } from './shapes/shapes.component';
     ClusterComponent,
     InfoWindowComponent,
     ShapesComponent,
+    FitBoundsComponent,
+    AutocompleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +34,7 @@ import { ShapesComponent } from './shapes/shapes.component';
       imagePath: '/assets/images/m',
     }),
     NgMapsShapesModule,
+    NgMapsPlacesModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

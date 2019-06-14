@@ -71,13 +71,11 @@ export class GoogleMapsAPIWrapper {
   /**
    * Creates a google.map.Circle for the current map.
    */
-  createCircle(
+  async createCircle(
     options: google.maps.CircleOptions,
   ): Promise<google.maps.Circle> {
-    return this._map.then((map: google.maps.Map) => {
-      options.map = map;
-      return new google.maps.Circle(options);
-    });
+    options.map = await this._map;
+    return new google.maps.Circle(options);
   }
 
   /**
@@ -183,10 +181,11 @@ export class GoogleMapsAPIWrapper {
     return this._map.then((map) => map.panBy(x, y));
   }
 
-  fitBounds(
+  async fitBounds(
     latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
   ): Promise<void> {
-    return this._map.then((map) => map.fitBounds(latLng));
+    const map = await this._map;
+    return map.fitBounds(latLng);
   }
 
   panToBounds(

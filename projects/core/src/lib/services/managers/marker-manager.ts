@@ -6,9 +6,7 @@ import { NgMapsMarkerComponent } from '../../directives/marker';
 
 import { GoogleMapsAPIWrapper } from '../google-maps-api-wrapper';
 
-@Injectable({
-  providedIn: NgMapsViewComponent,
-})
+@Injectable()
 export class MarkerManager {
   protected _markers: Map<NgMapsMarkerComponent, google.maps.Marker> = new Map<
     NgMapsMarkerComponent,

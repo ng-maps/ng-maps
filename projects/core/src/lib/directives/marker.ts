@@ -202,7 +202,7 @@ export class NgMapsMarkerComponent
     FitBoundsDetails
   > = new ReplaySubject<FitBoundsDetails>(1);
 
-  constructor(private _markerManager: MarkerManager) {
+  constructor(private markerManager: MarkerManager) {
     this._id = (markerId++).toString();
   }
 
@@ -240,7 +240,7 @@ export class NgMapsMarkerComponent
       return;
     }
     if (!this._markerAddedToManger) {
-      this._markerManager.addMarker(this).then(() => {
+      this.markerManager.addMarker(this).then(() => {
         this._updateFitBoundsDetails();
         this._markerAddedToManger = true;
         this._addEventListeners();
@@ -248,35 +248,35 @@ export class NgMapsMarkerComponent
       return;
     }
     if (changes.latitude || changes.longitude) {
-      this._markerManager.updateMarkerPosition(this);
+      this.markerManager.updateMarkerPosition(this);
       this._updateFitBoundsDetails();
     }
     if (changes.title) {
-      this._markerManager.updateTitle(this);
+      this.markerManager.updateTitle(this);
     }
     if (changes.label) {
-      this._markerManager.updateLabel(this);
+      this.markerManager.updateLabel(this);
     }
     if (changes.draggable) {
-      this._markerManager.updateDraggable(this);
+      this.markerManager.updateDraggable(this);
     }
     if (changes.iconUrl) {
-      this._markerManager.updateIcon(this);
+      this.markerManager.updateIcon(this);
     }
     if (changes.opacity) {
-      this._markerManager.updateOpacity(this);
+      this.markerManager.updateOpacity(this);
     }
     if (changes.visible) {
-      this._markerManager.updateVisible(this);
+      this.markerManager.updateVisible(this);
     }
     if (changes.zIndex) {
-      this._markerManager.updateZIndex(this);
+      this.markerManager.updateZIndex(this);
     }
     if (changes.clickable) {
-      this._markerManager.updateClickable(this);
+      this.markerManager.updateClickable(this);
     }
     if (changes.animation) {
-      this._markerManager.updateAnimation(this);
+      this.markerManager.updateAnimation(this);
     }
   }
 
@@ -294,7 +294,7 @@ export class NgMapsMarkerComponent
   }
 
   private _addEventListeners() {
-    const cs = this._markerManager
+    const cs = this.markerManager
       .createEventObservable('click', this)
       .subscribe(() => {
         if (this.openInfoWindow) {
@@ -304,47 +304,47 @@ export class NgMapsMarkerComponent
       });
     this._observableSubscriptions.push(cs);
 
-    const rc = this._markerManager
+    const rc = this.markerManager
       .createEventObservable('rightclick', this)
       .subscribe(() => {
         this.markerRightClick.emit(null);
       });
     this._observableSubscriptions.push(rc);
 
-    const ds = this._markerManager
+    const ds = this.markerManager
       .createEventObservable<google.maps.MouseEvent>('dragstart', this)
       .subscribe((e: google.maps.MouseEvent) => {
         this.dragStart.emit(e);
       });
     this._observableSubscriptions.push(ds);
 
-    const d = this._markerManager
+    const d = this.markerManager
       .createEventObservable<google.maps.MouseEvent>('drag', this)
       .subscribe((e: google.maps.MouseEvent) => {
         this.drag.emit(e);
       });
     this._observableSubscriptions.push(d);
 
-    const de = this._markerManager
+    const dragend = this.markerManager
       .createEventObservable<google.maps.MouseEvent>('dragend', this)
       .subscribe((e: google.maps.MouseEvent) => {
         this.dragEnd.emit(e);
       });
-    this._observableSubscriptions.push(de);
+    this._observableSubscriptions.push(dragend);
 
-    const mover = this._markerManager
+    const mouseover = this.markerManager
       .createEventObservable<google.maps.MouseEvent>('mouseover', this)
       .subscribe((e: google.maps.MouseEvent) => {
         this.mouseOver.emit(e);
       });
-    this._observableSubscriptions.push(mover);
+    this._observableSubscriptions.push(mouseover);
 
-    const mout = this._markerManager
+    const mouseout = this.markerManager
       .createEventObservable<google.maps.MouseEvent>('mouseout', this)
       .subscribe((e: google.maps.MouseEvent) => {
         this.mouseOut.emit(e);
       });
-    this._observableSubscriptions.push(mout);
+    this._observableSubscriptions.push(mouseout);
   }
 
   /** @internal */
@@ -354,12 +354,12 @@ export class NgMapsMarkerComponent
 
   /** @internal */
   toString(): string {
-    return `AgmMarker-${this._id}`;
+    return `NgMapsMarker-${this._id}`;
   }
 
   /** @internal */
   ngOnDestroy() {
-    this._markerManager.deleteMarker(this);
+    this.markerManager.deleteMarker(this);
     // unsubscribe all registered observable subscriptions
     this._observableSubscriptions.forEach((s) => s.unsubscribe());
   }

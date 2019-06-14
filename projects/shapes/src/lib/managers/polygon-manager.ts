@@ -26,7 +26,6 @@ export class PolygonManager {
       fillColor: path.fillColor,
       fillOpacity: path.fillOpacity,
       geodesic: path.geodesic,
-      // @ts-ignore
       paths: path.paths,
       strokeColor: path.strokeColor,
       strokeOpacity: path.strokeOpacity,
@@ -37,17 +36,13 @@ export class PolygonManager {
     this._polygons.set(path, polygonPromise);
   }
 
-  updatePolygon(polygon: NgMapsPolygon): Promise<void> {
-    const m = this._polygons.get(polygon);
-    if (m == null) {
-      return Promise.resolve();
-    }
-    // @ts-ignore
-    return m.then((l: google.maps.Polygon) =>
+  async updatePolygon(polygon: NgMapsPolygon): Promise<void> {
+    const item = await this._polygons.get(polygon);
+    if (item != null) {
       this._zone.run(() => {
-        l.setPaths(polygon.paths);
-      }),
-    );
+        item.setPaths(polygon.paths);
+      });
+    }
   }
 
   setPolygonOptions(
