@@ -223,6 +223,11 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     | boolean = false;
 
   /**
+   * Padding amount for bounds. This optional parameter is undefined by default.
+   */
+  @Input() boundsPadding: number | google.maps.Padding;
+
+  /**
    * The initial enabled/disabled state of the Scale control. This is disabled by default.
    */
   @Input() scaleControl: boolean = false;
@@ -546,9 +551,9 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       newBounds.union(bounds);
       bounds = newBounds;
       if (this.usePanning) {
-        return this._mapsWrapper.panToBounds(bounds);
+        return this._mapsWrapper.panToBounds(bounds, this.boundsPadding);
       } else {
-        return this._mapsWrapper.fitBounds(bounds);
+        return this._mapsWrapper.fitBounds(bounds, this.boundsPadding);
       }
     }
   }

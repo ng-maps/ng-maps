@@ -183,15 +183,17 @@ export class GoogleMapsAPIWrapper {
 
   async fitBounds(
     latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+    padding?: number | google.maps.Padding,
   ): Promise<void> {
     const map = await this._map;
-    return map.fitBounds(latLng);
+    return map.fitBounds(latLng, padding);
   }
 
   panToBounds(
     latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+    padding?: number | google.maps.Padding,
   ): Promise<void> {
-    return this._map.then((map) => map.panToBounds(latLng));
+    return this._map.then((map) => map.panToBounds(latLng, padding));
   }
 
   /**

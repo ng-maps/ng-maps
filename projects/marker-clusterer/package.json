@@ -2,8 +2,8 @@
   "name": "@ng-maps/marker-clusterer",
   "version": "0.0.4",
   "peerDependencies": {
-    "@angular/common": "^8.0.0 || ^7.0.0 || ^6.0.0",
-    "@angular/core": "^8.0.0 || ^7.0.0 || ^6.0.0",
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
     "@ng-maps/core": "^0.0.7",
     "@google/markerclusterer": "^1.0.3"
   }
