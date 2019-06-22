@@ -457,7 +457,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     optionKeys.forEach((k) => {
       options[k] = changes[k].currentValue;
     });
-    this._mapsWrapper.setMapOptions(options);
+    return this._mapsWrapper.setMapOptions(options);
   }
 
   /**
@@ -480,7 +480,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     });
   }
 
-  private _updatePosition(changes: SimpleChanges) {
+  private async _updatePosition(changes: SimpleChanges) {
     if (
       changes.latitude == null &&
       changes.longitude == null &&
@@ -492,17 +492,16 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
 
     // we prefer fitBounds in changes
     if ('fitBounds' in changes) {
-      this._fitBounds();
+      await this._fitBounds();
       return;
     }
 
     if (
-      typeof this.latitude !== 'number' ||
-      typeof this.longitude !== 'number'
+      !(typeof this.latitude !== 'number' || typeof this.longitude !== 'number')
     ) {
+      await this._setCenter();
       return;
     }
-    this._setCenter();
   }
 
   private _setCenter() {
@@ -537,7 +536,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       this._fitBoundsSubscription = this._fitBoundsService
         .getBounds$()
         .subscribe((b) => {
-          this._zone.run(() => this._updateBounds(b));
+          return this._zone.run(() => this._updateBounds(b));
         });
     });
   }
@@ -545,16 +544,20 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   protected async _updateBounds(
     bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
   ) {
+    /**
+     * await map to not update bounds till map is initialized
+     */
     await this._mapsWrapper.getNativeMap();
+    /**
+     * merge bounds if possible
+     */
     if (this._isLatLngBoundsLiteral(bounds)) {
-      const newBounds = new google.maps.LatLngBounds();
-      newBounds.union(bounds);
-      bounds = newBounds;
-      if (this.usePanning) {
-        return this._mapsWrapper.panToBounds(bounds, this.boundsPadding);
-      } else {
-        return this._mapsWrapper.fitBounds(bounds, this.boundsPadding);
-      }
+      bounds = new google.maps.LatLngBounds().union(bounds);
+    }
+    if (this.usePanning) {
+      return this._mapsWrapper.panToBounds(bounds, this.boundsPadding);
+    } else {
+      return this._mapsWrapper.fitBounds(bounds, this.boundsPadding);
     }
   }
 

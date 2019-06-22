@@ -22,7 +22,7 @@ import {
  * <map-marker [mapFitBounds]="true"></map-marker>
  */
 @Directive({
-  selector: '[agmFitBounds], [mapFitBounds]',
+  selector: '[mapFitBounds]',
 })
 export class NgMapsFitBounds implements OnInit, OnDestroy, OnChanges {
   /**
