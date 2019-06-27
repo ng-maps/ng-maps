@@ -1,5 +1,5 @@
 import { NgZone } from '@angular/core';
-import { inject, TestBed } from '@angular/core/testing';
+import { fakeAsync, inject, TestBed } from '@angular/core/testing';
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 
 import { NgMapsPolyline } from '../directives/polyline';
@@ -56,22 +56,27 @@ describe('PolylineManager', () => {
       polylineInstance = jasmine.createSpyObj('polylineInstance', ['setMap']);
     });
 
-    it('should set the map to null when deleting a existing polyline', inject(
-      [PolylineManager, GoogleMapsAPIWrapper],
-      (polylineManager: PolylineManager, apiWrapper: GoogleMapsAPIWrapper) => {
-        const newPolyline = new NgMapsPolyline(polylineManager);
+    it('should set the map to null when deleting a existing polyline', fakeAsync(
+      inject(
+        [PolylineManager, GoogleMapsAPIWrapper],
+        (
+          polylineManager: PolylineManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
+          const newPolyline = new NgMapsPolyline(polylineManager);
 
-        (apiWrapper as jasmine.SpyObj<
-          GoogleMapsAPIWrapper
-        >).createPolyline.and.returnValue(
-          Promise.resolve(polylineInstance as any),
-        );
+          (apiWrapper as jasmine.SpyObj<
+            GoogleMapsAPIWrapper
+          >).createPolyline.and.returnValue(
+            Promise.resolve(polylineInstance as any),
+          );
 
-        polylineManager.addPolyline(newPolyline);
-        polylineManager.deletePolyline(newPolyline).then(() => {
-          expect(polylineInstance.setMap).toHaveBeenCalledWith(null);
-        });
-      },
+          polylineManager.addPolyline(newPolyline);
+          polylineManager.deletePolyline(newPolyline).then(() => {
+            expect(polylineInstance.setMap).toHaveBeenCalledWith(null);
+          });
+        },
+      ),
     ));
   });
 });

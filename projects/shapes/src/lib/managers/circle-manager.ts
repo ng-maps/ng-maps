@@ -30,7 +30,6 @@ export class CircleManager {
         radius: circle.radius,
         strokeColor: circle.strokeColor,
         strokeOpacity: circle.strokeOpacity,
-        // @ts-ignore
         strokePosition: circle.strokePosition,
         strokeWeight: circle.strokeWeight,
         visible: circle.visible,
@@ -48,11 +47,23 @@ export class CircleManager {
     this._circles.delete(circle);
   }
 
-  setOptions(
+  /**
+   * @todo check how to improve type casting
+   * @param circle
+   * @param options
+   */
+  async setOptions(
     circle: NgMapsCircle,
     options: google.maps.CircleOptions,
   ): Promise<void> {
-    return this._circles.get(circle).then((c) => c.setOptions(options));
+    const c = await this._circles.get(circle);
+
+    if (typeof options.strokePosition === 'string') {
+      options.strokePosition = (google.maps.StrokePosition[
+        options.strokePosition
+      ] as any) as google.maps.StrokePosition;
+    }
+    return c.setOptions(options);
   }
 
   getBounds(circle: NgMapsCircle): Promise<google.maps.LatLngBounds> {

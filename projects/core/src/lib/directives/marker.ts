@@ -102,8 +102,10 @@ export class NgMapsMarkerComponent
 
   /**
    * Icon (the URL of the image) for the foreground.
+   * Can also be a MarkerIcon (google.maps.Icon in Google Maps Javascript api)
+   * @see <a href="https://developers.google.com/maps/documentation/javascript/reference/marker#Icon">google.maps.Icon</a>
    */
-  @Input() iconUrl: string;
+  @Input() iconUrl: string | google.maps.Icon;
 
   /**
    * If true, the marker is visible

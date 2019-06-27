@@ -70,11 +70,17 @@ export class GoogleMapsAPIWrapper {
 
   /**
    * Creates a google.map.Circle for the current map.
+   * @todo check how to improve type casting
    */
   async createCircle(
     options: google.maps.CircleOptions,
   ): Promise<google.maps.Circle> {
     options.map = await this._map;
+    if (typeof options.strokePosition === 'string') {
+      options.strokePosition = (google.maps.StrokePosition[
+        options.strokePosition
+      ] as any) as google.maps.StrokePosition;
+    }
     return new google.maps.Circle(options);
   }
 

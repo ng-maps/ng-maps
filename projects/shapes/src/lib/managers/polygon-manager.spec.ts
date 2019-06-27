@@ -1,5 +1,5 @@
 import { NgZone } from '@angular/core';
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, fakeAsync } from '@angular/core/testing';
 
 import { NgMapsPolygon } from '../directives/polygon';
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
@@ -53,26 +53,28 @@ describe('PolygonManager', () => {
   });
 
   describe('Delete a polygon', () => {
-    it('should set the map to null when deleting a existing polygon', inject(
-      [PolygonManager, GoogleMapsAPIWrapper],
-      (polygonManager: PolygonManager, apiWrapper: GoogleMapsAPIWrapper) => {
-        const newPolygon = new NgMapsPolygon(polygonManager);
+    it('should set the map to null when deleting a existing polygon', fakeAsync(
+      inject(
+        [PolygonManager, GoogleMapsAPIWrapper],
+        (polygonManager: PolygonManager, apiWrapper: GoogleMapsAPIWrapper) => {
+          const newPolygon = new NgMapsPolygon(polygonManager);
 
-        const polygonInstance: Partial<
-          google.maps.Rectangle
-        > = jasmine.createSpyObj('polygonInstance', ['setMap']);
+          const polygonInstance: Partial<
+            google.maps.Rectangle
+          > = jasmine.createSpyObj('polygonInstance', ['setMap']);
 
-        (apiWrapper as jasmine.SpyObj<
-          GoogleMapsAPIWrapper
-        >).createPolygon.and.returnValue(
-          Promise.resolve(polygonInstance as any),
-        );
+          (apiWrapper as jasmine.SpyObj<
+            GoogleMapsAPIWrapper
+          >).createPolygon.and.returnValue(
+            Promise.resolve(polygonInstance as any),
+          );
 
-        polygonManager.addPolygon(newPolygon);
-        polygonManager.deletePolygon(newPolygon).then(() => {
-          expect(polygonInstance.setMap).toHaveBeenCalledWith(null);
-        });
-      },
+          polygonManager.addPolygon(newPolygon);
+          polygonManager.deletePolygon(newPolygon).then(() => {
+            expect(polygonInstance.setMap).toHaveBeenCalledWith(null);
+          });
+        },
+      ),
     ));
   });
 });

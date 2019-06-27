@@ -1,5 +1,5 @@
 import { NgZone } from '@angular/core';
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, async, inject, fakeAsync } from '@angular/core/testing';
 
 import { NgMapsRectangle } from '../directives/rectangle';
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
@@ -64,33 +64,35 @@ describe('RectangleManager', () => {
   });
 
   describe('Delete a rectangle', () => {
-    it('should set the map to null when deleting a existing rectangle', inject(
-      [RectangleManager, GoogleMapsAPIWrapper],
-      (
-        rectangleManager: RectangleManager,
-        apiWrapper: GoogleMapsAPIWrapper,
-      ) => {
-        const newRectangle = new NgMapsRectangle(rectangleManager);
-        newRectangle.north = 12.7;
-        newRectangle.east = 56.6;
-        newRectangle.south = 89.2;
-        newRectangle.west = 52.6;
+    it('should set the map to null when deleting a existing rectangle', fakeAsync(
+      inject(
+        [RectangleManager, GoogleMapsAPIWrapper],
+        (
+          rectangleManager: RectangleManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
+          const newRectangle = new NgMapsRectangle(rectangleManager);
+          newRectangle.north = 12.7;
+          newRectangle.east = 56.6;
+          newRectangle.south = 89.2;
+          newRectangle.west = 52.6;
 
-        const rectangleInstance: Partial<
-          google.maps.Rectangle
-        > = jasmine.createSpyObj('rectangleInstance', ['setMap']);
+          const rectangleInstance: Partial<
+            google.maps.Rectangle
+          > = jasmine.createSpyObj('rectangleInstance', ['setMap']);
 
-        (apiWrapper as jasmine.SpyObj<
-          GoogleMapsAPIWrapper
-        >).createRectangle.and.returnValue(
-          Promise.resolve(rectangleInstance as any),
-        );
+          (apiWrapper as jasmine.SpyObj<
+            GoogleMapsAPIWrapper
+          >).createRectangle.and.returnValue(
+            Promise.resolve(rectangleInstance as any),
+          );
 
-        rectangleManager.addRectangle(newRectangle);
-        rectangleManager.removeRectangle(newRectangle).then(() => {
-          expect(rectangleInstance.setMap).toHaveBeenCalledWith(null);
-        });
-      },
+          rectangleManager.addRectangle(newRectangle);
+          rectangleManager.removeRectangle(newRectangle).then(() => {
+            expect(rectangleInstance.setMap).toHaveBeenCalledWith(null);
+          });
+        },
+      ),
     ));
   });
 

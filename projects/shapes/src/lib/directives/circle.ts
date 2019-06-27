@@ -1,12 +1,12 @@
 import {
   Directive,
   EventEmitter,
+  Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChange,
-  Input,
   Output,
+  SimpleChange,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CircleManager } from '../managers/circle-manager';
@@ -85,7 +85,8 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
    * The stroke position. Defaults to CENTER.
    * This property is not supported on Internet Explorer 8 and earlier.
    */
-  @Input() strokePosition: 'CENTER' | 'INSIDE' | 'OUTSIDE' = 'CENTER';
+  @Input() strokePosition: google.maps.StrokePosition =
+    google.maps.StrokePosition.CENTER;
 
   /**
    * The stroke width in pixels.
