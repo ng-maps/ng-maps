@@ -13,5 +13,20 @@
         "projects/snazzy-info-window/package.json"
       ]
     }
-  }
+  },
+  "ignore": [
+    "@angular/animations",
+    "@angular/common",
+    "@angular/compiler",
+    "@angular/core",
+    "@angular/forms",
+    "@angular/platform-browser",
+    "@angular/platform-browser-dynamic",
+    "@angular/router",
+    "@angular-devkit/build-angular",
+    "@angular-devkit/build-ng-packagr",
+    "@angular/cli",
+    "@angular/compiler-cli",
+    "@angular/language-service"
+  ]
 }
