@@ -495,9 +495,13 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       await this._fitBounds();
       return;
     }
-
+    const center = await this._mapsWrapper.getCenter();
     if (
-      !(typeof this.latitude !== 'number' || typeof this.longitude !== 'number')
+      !(
+        typeof this.latitude !== 'number' || typeof this.longitude !== 'number'
+      ) &&
+      this.latitude !== center.lat() &&
+      this.longitude !== center.lng()
     ) {
       await this._setCenter();
       return;
