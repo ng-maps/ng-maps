@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ClusterComponent } from './cluster/cluster.component';
 import { FitBoundsComponent } from './fit-bounds/fit-bounds.component';
 import { InfoWindowComponent } from './info-window/info-window.component';
+import { LayersComponent } from './layers/layers.component';
 import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
 
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'fit-bounds',
     component: FitBoundsComponent,
+  },
+  {
+    path: 'layers',
+    component: LayersComponent,
   },
 ];
 

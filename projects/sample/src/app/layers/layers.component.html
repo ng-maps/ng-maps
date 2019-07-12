@@ -1,0 +1,15 @@
+<form [formGroup]="layerForm">
+  <label>
+    <input type="checkbox" formControlName="TrafficLayer" />
+    TrafficLayer
+  </label>
+  <label>
+    <input type="checkbox" formControlName="TransitLayer" />
+    TransitLayer
+  </label>
+  <label>
+    <input type="checkbox" formControlName="BicyclingLayer" />
+    BicyclingLayer
+  </label>
+</form>
+<map-view [latitude]="lat" [longitude]="lng" [layers]="layers"></map-view>

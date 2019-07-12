@@ -3,6 +3,7 @@
  */
 
 // main modules
+export * from './lib/interface/layers';
 export * from './lib/directives';
 export * from './lib/services';
 

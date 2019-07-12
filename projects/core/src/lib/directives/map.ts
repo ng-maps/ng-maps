@@ -12,6 +12,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { LayerTypes } from '../interface/layers';
 import { FitBoundsService } from '../services/fit-bounds';
 import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
 import { MarkerManager } from '../services/managers/marker-manager';
@@ -284,6 +285,18 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     'roadmap';
 
   /**
+   * Add layers https://developers.google.com/maps/documentation/javascript/trafficlayer to map
+   */
+  @Input() layers: Array<LayerTypes> | LayerTypes;
+
+  private _layerInstance: Map<
+    LayerTypes,
+    | google.maps.TrafficLayer
+    | google.maps.TransitLayer
+    | google.maps.BicyclingLayer
+  > = new Map();
+
+  /**
    * When false, map icons are not clickable. A map icon represents a point of interest,
    * also known as a POI. By default map icons are clickable.
    */
@@ -447,6 +460,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     this._updateMapOptionsChanges(changes);
     this._updatePosition(changes);
+    this._layerChanges(changes);
   }
 
   private _updateMapOptionsChanges(changes: SimpleChanges) {
@@ -458,6 +472,30 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       options[k] = changes[k].currentValue;
     });
     return this._mapsWrapper.setMapOptions(options);
+  }
+
+  private async _layerChanges(changes: SimpleChanges) {
+    if (changes.layers) {
+      const map = await this._mapsWrapper.getNativeMap();
+      const layers = Array.isArray(this.layers) ? this.layers : [this.layers];
+      layers.forEach((layer) => {
+        if (!this._layerInstance.has(layer)) {
+          const i:
+            | google.maps.TrafficLayer
+            | google.maps.TransitLayer
+            | google.maps.BicyclingLayer = new google.maps[layer]();
+          i.setMap(map);
+          this._layerInstance.set(layer, i);
+        }
+      });
+      Array.from(this._layerInstance.keys()).forEach((layer) => {
+        if (!layers.includes(layer)) {
+          const i = this._layerInstance.get(layer);
+          i.setMap(null);
+          this._layerInstance.delete(layer);
+        }
+      });
+    }
   }
 
   /**
@@ -548,20 +586,19 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   protected async _updateBounds(
     bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
   ) {
-    /**
-     * await map to not update bounds till map is initialized
-     */
-    await this._mapsWrapper.getNativeMap();
-    /**
-     * merge bounds if possible
-     */
-    if (this._isLatLngBoundsLiteral(bounds)) {
-      bounds = new google.maps.LatLngBounds().union(bounds);
-    }
-    if (this.usePanning) {
-      return this._mapsWrapper.panToBounds(bounds, this.boundsPadding);
-    } else {
-      return this._mapsWrapper.fitBounds(bounds, this.boundsPadding);
+    if (bounds != null) {
+      /**
+       * await map to not update bounds till map is initialized
+       */
+      await this._mapsWrapper.getNativeMap();
+      if (this._isLatLngBoundsLiteral(bounds)) {
+        bounds = new google.maps.LatLngBounds().union(bounds);
+      }
+      if (this.usePanning) {
+        return this._mapsWrapper.panToBounds(bounds, this.boundsPadding);
+      } else {
+        return this._mapsWrapper.fitBounds(bounds, this.boundsPadding);
+      }
     }
   }
 

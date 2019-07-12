@@ -27,6 +27,13 @@ map-view {
 }
 ```
 
+#### Input options
+
+| Name   | Type            | Values                                               | Description                                                                                                                            |
+| ------ | --------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| layers | Array or String | `TrafficLayer` or `TransitLayer` or `BicyclingLayer` | Activates layer as described in [TrafficLayer Documentation](https://developers.google.com/maps/documentation/javascript/trafficlayer) |
+| zoom   | Number          | Between 0 and MaxZoom, typically 18                  |
+
 ### Marker
 
 Additionally you can add markers
