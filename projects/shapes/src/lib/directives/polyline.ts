@@ -3,49 +3,24 @@ import {
   ContentChildren,
   Directive,
   EventEmitter,
+  Input,
   OnChanges,
   OnDestroy,
+  Output,
   QueryList,
   SimpleChanges,
-  Input,
-  Output,
-  Component,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PolylineManager } from '../managers/polyline-manager';
 import { NgMapsPolylinePoint } from './polyline-point';
 
 let polylineId = 0;
+
 /**
- * NgMapsPolyline renders a polyline on a {@link AgmMap}
- *
- * ### Example
- * ```typescript
- * import { Component } from '@angular/core';
- *
- * @Component({
- *  selector: 'my-map-cmp',
- *  styles: [`
- *    .agm-map-container {
- *      height: 300px;
- *    }
- * `],
- *  template: `
- *    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
- *      <agm-polyline>
- *          <agm-polyline-point [latitude]="latA" [longitude]="lngA">
- *          </agm-polyline-point>
- *          <agm-polyline-point [latitude]="latB" [longitude]="lngB">
- *          </agm-polyline-point>
- *      </agm-polyline>
- *    </agm-map>
- *  `
- * })
- * ```
+ * NgMapsPolyline renders a polyline on a {@link https://ng-maps.github.io/core/components/NgMapsViewComponent.html|NgMapsView}
  */
-@Component({
-  selector: 'agm-polyline, map-polyline',
-  template: '<ng-content></ng-content>',
+@Directive({
+  selector: 'map-polyline',
   providers: [PolylineManager],
 })
 export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {

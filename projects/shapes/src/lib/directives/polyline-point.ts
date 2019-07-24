@@ -9,10 +9,10 @@ import {
 
 /**
  * NgMapsPolylinePoint represents one element of a polyline within a  {@link
- * SembGoogleMapPolyline}
+ * NgMapsPolyline}
  */
 @Directive({
-  selector: 'agm-polyline-point, map-polyline-point',
+  selector: 'map-polyline-point',
 })
 export class NgMapsPolylinePoint implements OnChanges {
   /**

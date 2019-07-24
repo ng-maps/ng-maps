@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { RectangleManager } from '../managers/rectangle-manager';
 
 @Directive({
-  selector: 'agm-rectangle, map-rectangle',
+  selector: 'map-rectangle',
   providers: [RectangleManager],
 })
 export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {

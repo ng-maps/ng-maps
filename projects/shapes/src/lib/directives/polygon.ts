@@ -12,56 +12,10 @@ import { Subscription } from 'rxjs';
 import { PolygonManager } from '../managers/polygon-manager';
 
 /**
- * NgMapsPolygon renders a polygon on a {@link AgmMap}
- *
- * ### Example
- * ```typescript
- * import { Component } from '@angular/core';
- *
- * @Component({
- *  selector: 'my-map-cmp',
- *  styles: [`
- *    agm-map {
- *      height: 300px;
- *    }
- * `],
- *  template: `
- *    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
- *      <agm-polygon [paths]="paths">
- *      </agm-polygon>
- *    </agm-map>
- *  `
- * })
- * export class MyMapCmp {
- *   lat: number = 0;
- *   lng: number = 0;
- *   zoom: number = 10;
- *   paths: Array<LatLngLiteral> = [
- *     { lat: 0,  lng: 10 },
- *     { lat: 0,  lng: 20 },
- *     { lat: 10, lng: 20 },
- *     { lat: 10, lng: 10 },
- *     { lat: 0,  lng: 10 }
- *   ]
- *   // Nesting paths will create a hole where they overlap;
- *   nestedPaths: Array<Array<LatLngLiteral>> = [[
- *     { lat: 0,  lng: 10 },
- *     { lat: 0,  lng: 20 },
- *     { lat: 10, lng: 20 },
- *     { lat: 10, lng: 10 },
- *     { lat: 0,  lng: 10 }
- *   ], [
- *     { lat: 0, lng: 15 },
- *     { lat: 0, lng: 20 },
- *     { lat: 5, lng: 20 },
- *     { lat: 5, lng: 15 },
- *     { lat: 0, lng: 15 }
- *   ]]
- * }
- * ```
+ * NgMapsPolygon renders a polygon on a {@link https://ng-maps.github.io/core/components/NgMapsViewComponent.html|NgMapsView}
  */
 @Directive({
-  selector: 'agm-polygon, map-polygon',
+  selector: 'map-polygon',
   providers: [PolygonManager],
 })
 export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {

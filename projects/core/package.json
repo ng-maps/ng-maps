@@ -19,7 +19,10 @@
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0"
   },
-  "homepage": "https://github.com/ng-maps/ng-maps",
+  "homepage": "https://ng-maps.github.io/core",
+  "bugs": {
+    "url": "https://github.com/ng-maps/ng-maps/issues"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",

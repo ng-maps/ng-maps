@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 import { CircleManager } from '../managers/circle-manager';
 
 @Directive({
-  selector: 'agm-circle, map-circle',
+  selector: 'map-circle',
   providers: [CircleManager],
 })
 export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
