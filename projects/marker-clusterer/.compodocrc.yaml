@@ -1,0 +1,4 @@
+name: '@ng-maps/marker-clusterer'
+tsconfig: tsconfig.lib.json
+disableRoutesGraph: true
+output: ../../docs/marker-clusterer

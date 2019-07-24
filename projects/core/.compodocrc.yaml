@@ -1,0 +1,4 @@
+name: '@ng-maps/core'
+tsconfig: tsconfig.lib.json
+disableRoutesGraph: true
+output: ../../docs/core

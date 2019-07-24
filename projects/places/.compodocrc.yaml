@@ -1,0 +1,4 @@
+name: '@ng-maps/places'
+tsconfig: tsconfig.lib.json
+disableRoutesGraph: true
+output: ../../docs/places

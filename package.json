@@ -26,10 +26,11 @@
     "test:all-ci": "npm run test:ci && npm run test:ci:drawing-layer && npm run test:ci:marker-clusterer && npm run test:ci:shapes",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "doc:core": "npx compodoc -p projects/core/tsconfig.lib.json -n '@ng-maps/core' -d docs/core --disableRoutesGraph",
-    "doc:marker-clusterer": "npx compodoc -p projects/marker-clusterer/tsconfig.lib.json -n '@ng-maps/marker-clusterer' -d docs/marker-clusterer --disableRoutesGraph",
-    "doc:places": "npx compodoc -p projects/places/tsconfig.lib.json -n '@ng-maps/places' -d docs/places --disableRoutesGraph",
-    "doc:shapes": "npx compodoc -p projects/shapes/tsconfig.lib.json -n '@ng-maps/shapes' -d docs/shapes --disableRoutesGraph"
+    "doc:core": "cd projects/core && npx compodoc",
+    "doc:drawing-layer": "cd projects/drawing-layer && npx compodoc",
+    "doc:marker-clusterer": "cd projects/marker-clusterer && npx compodoc",
+    "doc:places": "cd projects/places && npx compodoc",
+    "doc:shapes": "cd projects/shapes && npx compodoc"
   },
   "husky": {
     "hooks": {
@@ -57,6 +58,7 @@
     "@angular/cli": "~8.1.0",
     "@angular/compiler-cli": "~8.1.0",
     "@angular/language-service": "~8.1.0",
+    "@compodoc/compodoc": "^1.1.10",
     "@types/googlemaps": "^3.36.2",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",

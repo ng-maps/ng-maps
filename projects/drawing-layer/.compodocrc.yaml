@@ -1,0 +1,4 @@
+name: '@ng-maps/drawing-layer'
+tsconfig: tsconfig.lib.json
+disableRoutesGraph: true
+output: ../../docs/drawing-layer
