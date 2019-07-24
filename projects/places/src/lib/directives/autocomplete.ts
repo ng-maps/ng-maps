@@ -13,6 +13,10 @@ import {
 import { MapsAPILoader } from '@ng-maps/core';
 import { fromEventPattern, Subscription } from 'rxjs';
 
+/**
+ * @example
+ * <input [mapAutocomplete]='options' (placeResult)='onPlacesResult($event)' />
+ */
 @Directive({
   selector: '[mapAutocomplete]',
 })
@@ -105,6 +109,7 @@ export class NgMapsAutocompleteDirective
     }
   }
 
+  /** @internal */
   public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

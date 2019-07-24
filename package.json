@@ -25,7 +25,11 @@
     "test:ci:snazzy-info-window": "ng test snazzy-info-window -c ci",
     "test:all-ci": "npm run test:ci && npm run test:ci:drawing-layer && npm run test:ci:marker-clusterer && npm run test:ci:shapes",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "doc:core": "npx compodoc -p projects/core/tsconfig.lib.json -n '@ng-maps/core' -d docs/core --disableRoutesGraph",
+    "doc:marker-clusterer": "npx compodoc -p projects/marker-clusterer/tsconfig.lib.json -n '@ng-maps/marker-clusterer' -d docs/marker-clusterer --disableRoutesGraph",
+    "doc:places": "npx compodoc -p projects/places/tsconfig.lib.json -n '@ng-maps/places' -d docs/places --disableRoutesGraph",
+    "doc:shapes": "npx compodoc -p projects/shapes/tsconfig.lib.json -n '@ng-maps/shapes' -d docs/shapes --disableRoutesGraph"
   },
   "husky": {
     "hooks": {
@@ -56,6 +60,7 @@
     "@types/googlemaps": "^3.36.2",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/markerclustererplus": "^2.1.33",
     "@types/node": "~12.6.0",
     "codelyzer": "^5.0.0",
     "husky": "^3.0.0",

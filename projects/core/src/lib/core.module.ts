@@ -25,6 +25,8 @@ export function coreDirectives() {
 /**
  * The angular-google-maps core module. Contains all Directives/Services/Pipes
  * of the core module. Please use `NgMapsCoreModule.forRoot()` in your app module.
+ *
+ * Provide configuration with values defined by {@link LazyMapsAPILoaderConfigLiteral}
  */
 @NgModule({
   declarations: coreDirectives(),

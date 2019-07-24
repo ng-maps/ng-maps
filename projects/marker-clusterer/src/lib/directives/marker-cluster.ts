@@ -1,5 +1,4 @@
 import {
-  Component,
   Directive,
   Inject,
   Input,
@@ -7,15 +6,12 @@ import {
   OnDestroy,
   OnInit,
   Optional,
-  SimpleChange,
   SimpleChanges,
 } from '@angular/core';
 import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
 import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from '../config';
 
 import { ClusterManager } from '../services/managers/cluster-manager';
-
-import { ClusterOptions, ClusterStyle } from '../types';
 
 /**
  * MarkerClusterComponent clusters map marker if they are near together
@@ -45,7 +41,7 @@ import { ClusterOptions, ClusterStyle } from '../types';
  * ```
  */
 @Directive({
-  selector: 'agm-marker-cluster, map-marker-cluster',
+  selector: 'map-marker-cluster',
   providers: [
     ClusterManager,
     { provide: MarkerManager, useExisting: ClusterManager },
@@ -53,7 +49,7 @@ import { ClusterOptions, ClusterStyle } from '../types';
   ],
 })
 export class MarkerClusterComponent
-  implements OnDestroy, OnChanges, OnInit, ClusterOptions {
+  implements OnDestroy, OnChanges, OnInit, MarkerClustererOptions {
   /**
    * The grid size of a cluster in pixels
    */
@@ -82,7 +78,7 @@ export class MarkerClusterComponent
   /**
    * An object that has style properties.
    */
-  @Input() styles: ClusterStyle;
+  @Input() styles: Array<ClusterIconStyle>;
 
   @Input() imagePath: string;
   @Input() imageExtension: string;

@@ -29,10 +29,16 @@ map-view {
 
 #### Input options
 
-| Name   | Type            | Values                                               | Description                                                                                                                            |
-| ------ | --------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| layers | Array or String | `TrafficLayer` or `TransitLayer` or `BicyclingLayer` | Activates layer as described in [TrafficLayer Documentation](https://developers.google.com/maps/documentation/javascript/trafficlayer) |
-| zoom   | Number          | Between 0 and MaxZoom, typically 18                  |
+| Name      | Type                                                                                                                                                                                                                                                    | Values                                                                   | Description                                                                                                                            |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| longitude | Number                                                                                                                                                                                                                                                  |
+| latitude  | Number                                                                                                                                                                                                                                                  |
+| minZoom   | Number                                                                                                                                                                                                                                                  |
+| maxZoom   | Number                                                                                                                                                                                                                                                  |
+| zoom      | Number                                                                                                                                                                                                                                                  | Between 0 and MaxZoom, typically 18                                      |
+| fitBounds | [LatLngBoundsLiteral](https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBoundsLiteral), [LatLngBounds](https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds) or Boolean | If set to `true` attaches to `mapFitBounds` directives on `<map-marker>` |
+| mapTypeId | `roadmap`, `hybrid`, `satellite`, `terrain`                                                                                                                                                                                                             |
+| layers    | Array or String                                                                                                                                                                                                                                         | `TrafficLayer` or `TransitLayer` or `BicyclingLayer`                     | Activates layer as described in [TrafficLayer Documentation](https://developers.google.com/maps/documentation/javascript/trafficlayer) |
 
 ### Marker
 
@@ -43,6 +49,19 @@ Additionally you can add markers
   <map-marker [latitude]="48.858222" [longitude]="2.2945"></map-marker>
 </map-view>
 ```
+
+#### Input options
+
+| Name      | Type   | Values | Description |
+| --------- | ------ | ------ | ----------- |
+| longitude | Number |
+| latitude  | Number |
+
+#### Outputs
+
+| Name        | Value     | Description |
+| ----------- | --------- | ----------- |
+| markerClick | Component |
 
 ## Additional features
 

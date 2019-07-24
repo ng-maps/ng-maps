@@ -54,6 +54,7 @@ export interface LazyMapsAPILoaderConfigLiteral {
 
   /**
    * Defines which Google Maps libraries should get loaded.
+   * For available libraries see: https://developers.google.com/maps/documentation/javascript/libraries
    */
   libraries?: string[];
 

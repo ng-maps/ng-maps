@@ -21,25 +21,10 @@ let markerId = 0;
 /**
  * NgMapsMarkerComponent renders a map marker inside a {@link NgMapsViewComponent}.
  *
- * ### Example
- * ```typescript
- * import { Component } from '@angular/core';
- *
- * @Component({
- *  selector: 'my-map-cmp',
- *  styles: [`
- *    .agm-map-container {
- *      height: 300px;
- *    }
- * `],
- *  template: `
- *    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
- *      <agm-marker [latitude]="lat" [longitude]="lng" [label]="'M'">
- *      </agm-marker>
- *    </agm-map>
- *  `
- * })
- * ```
+ * @example
+ * <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+ *               <agm-marker [latitude]="lat" [longitude]="lng" label="M"></agm-marker>
+ * </agm-map>
  */
 @Component({
   selector: 'agm-marker, map-marker',

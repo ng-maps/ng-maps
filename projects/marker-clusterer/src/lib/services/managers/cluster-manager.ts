@@ -9,13 +9,12 @@ import {
   NgMapsViewComponent,
 } from '@ng-maps/core';
 import { MarkerClusterComponent } from '../../directives/marker-cluster';
-import { ClusterOptions, MarkerClustererInstance } from '../../types';
 
 @Injectable({
   providedIn: NgMapsViewComponent,
 })
 export class ClusterManager extends MarkerManager {
-  private _clustererInstance: Promise<MarkerClustererInstance>;
+  private _clustererInstance: Promise<MarkerClusterer>;
   private _resolver: Function;
 
   constructor(
@@ -23,20 +22,18 @@ export class ClusterManager extends MarkerManager {
     protected _zone: NgZone,
   ) {
     super(_mapsWrapper, _zone);
-    this._clustererInstance = new Promise<MarkerClustererInstance>(
-      (resolver) => {
-        this._resolver = resolver;
-      },
-    );
+    this._clustererInstance = new Promise<MarkerClusterer>((resolver) => {
+      this._resolver = resolver;
+    });
   }
 
-  async init(options: ClusterOptions): Promise<void> {
+  async init(options: MarkerClustererOptions): Promise<void> {
     const map = await this._mapsWrapper.getNativeMap();
     this._resolver(new MarkerClusterer(map, [], options));
   }
 
   async addMarker(marker: NgMapsMarkerComponent): Promise<void> {
-    const cluster: MarkerClustererInstance = await this._clustererInstance;
+    const cluster: MarkerClusterer = await this._clustererInstance;
     const markers = await this._mapsWrapper.createMarker(
       {
         position: {

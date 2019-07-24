@@ -1,25 +1,28 @@
-# Places
+# @ng-maps/places
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.0.
+Components related
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project places` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project places`.
+- Npm: `npm install @ng-maps/places`
+- Yarn: `yarn add @ng-maps/places`
 
-> Note: Don't forget to add `--project places` or else it will be added to the default project in your `angular.json` file.
+Add `NgMapsPlacesModule` to the module you want to use this module in.
 
-## Build
+Add `places` to libraries of `NgMapsCoreModule.forRoot()`.
 
-Run `ng build places` to build the project. The build artifacts will be stored in the `dist/` directory.
+```ts
+NgMapsCoreModule.forRoot({
+  libraries: ['places'],
+});
+```
 
-## Publishing
+## Directives
 
-After building your library with `ng build places`, go to the dist folder `cd dist/places` and run `npm publish`.
+### Autocomplete
 
-## Running unit tests
+Add `mapAutocomplete` to an input field like `<input mapAutocomplete />` or with options `<input [mapAutocomplete]="options" />`
 
-Run `ng test places` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Options are from [AutocompleteOptions](https://developers.google.com/maps/documentation/javascript/reference/3.exp/places-widget#AutocompleteOptions)
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Attach to result by adding listener for `placeResult` which returns a [PlaceResult](https://developers.google.com/maps/documentation/javascript/reference/3.exp/places-service#PlaceResult)

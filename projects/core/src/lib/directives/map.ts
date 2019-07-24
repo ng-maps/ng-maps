@@ -22,23 +22,8 @@ import { MarkerManager } from '../services/managers/marker-manager';
  * **Important note**: To be able see a map in the browser, you have to define a height for the
  * element `map-view`.
  *
- * ### Example
- * ```typescript
- * import { Component } from '@angular/core';
- *
- * @Component({
- *  selector: 'my-map-cmp',
- *  styles: [`
- *    map-view {
- *      height: 300px;
- *    }
- * `],
- *  template: `
- *    <map-view [latitude]="lat" [longitude]="lng" [zoom]="zoom">
- *    </map-view>
- *  `
- * })
- * ```
+ * @example
+ * <map-view [latitude]="lat" [longitude]="lng" [zoom]="zoom"></map-view>
  */
 @Component({
   selector: 'agm-map, map-view',
