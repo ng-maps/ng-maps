@@ -1,44 +1,23 @@
 import {
   Directive,
+  EventEmitter,
   Inject,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
   Optional,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
+import { Subscription } from 'rxjs';
 import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from '../config';
 
 import { ClusterManager } from '../services/managers/cluster-manager';
 
 /**
  * MarkerClusterComponent clusters map marker if they are near together
- *
- * ### Example
- * ```typescript
- * import { Component } from '@angular/core';
- *
- * @Component({
- *  selector: 'my-map-cmp',
- *  styles: [`
- *    agm-map {
- *      height: 300px;
- *    }
- * `],
- *  template: `
- *    <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
- *      <agm-marker-cluster>
- *        <agm-marker [latitude]="lat" [longitude]="lng" [label]="'M'">
- *        </agm-marker>
- *        <agm-marker [latitude]="lat2" [longitude]="lng2" [label]="'N'">
- *        </agm-marker>
- *      </agm-marker-cluster>
- *    </agm-map>
- *  `
- * })
- * ```
  */
 @Directive({
   selector: 'map-marker-cluster',
@@ -51,24 +30,27 @@ import { ClusterManager } from '../services/managers/cluster-manager';
 export class MarkerClusterComponent
   implements OnDestroy, OnChanges, OnInit, MarkerClustererOptions {
   /**
+   * Whether the center of each cluster should be the average of all markers in the cluster.
+   */
+  @Input() averageCenter: boolean;
+
+  /**
+   * A function that calculates the cluster style and text based on the markers in the cluster.
+   */
+  @Input() calculator: Calculator;
+
+  /**
    * The grid size of a cluster in pixels
    */
   @Input() gridSize: number;
+
+  @Input() imageExtension: string;
+  @Input() imagePath: string;
 
   /**
    * The maximum zoom level that a marker can be part of a cluster.
    */
   @Input() maxZoom: number;
-
-  /**
-   * Whether the default behaviour of clicking on a cluster is to zoom into it.
-   */
-  @Input() zoomOnClick: boolean;
-
-  /**
-   * Whether the center of each cluster should be the average of all markers in the cluster.
-   */
-  @Input() averageCenter: boolean;
 
   /**
    * The minimum number of markers to be in a cluster before the markers are hidden and a count is shown.
@@ -80,8 +62,16 @@ export class MarkerClusterComponent
    */
   @Input() styles: Array<ClusterIconStyle>;
 
-  @Input() imagePath: string;
-  @Input() imageExtension: string;
+  /**
+   * Whether the default behaviour of clicking on a cluster is to zoom into it.
+   */
+  @Input() zoomOnClick: boolean;
+
+  @Output() clusterClick: EventEmitter<
+    google.maps.MouseEvent
+  > = new EventEmitter<google.maps.MouseEvent>();
+
+  private _observableSubscriptions: Array<Subscription> = [];
 
   constructor(
     @Optional()
@@ -93,24 +83,25 @@ export class MarkerClusterComponent
   /** @internal */
   ngOnDestroy() {
     this._clusterManager.clearMarkers();
+    this._observableSubscriptions.forEach((s) => s.unsubscribe());
   }
 
   /** @internal */
   ngOnChanges(changes: SimpleChanges) {
+    if (changes.averageCenter) {
+      this._clusterManager.setAverageCenter(this);
+    }
     if (changes.gridSize) {
       this._clusterManager.setGridSize(this);
     }
+    if (changes.imageExtension) {
+      this._clusterManager.setImageExtension(this);
+    }
+    if (changes.imagePath) {
+      this._clusterManager.setImagePath(this);
+    }
     if (changes.maxZoom) {
       this._clusterManager.setMaxZoom(this);
-    }
-    if (changes.styles) {
-      this._clusterManager.setStyles(this);
-    }
-    if (changes.zoomOnClick) {
-      this._clusterManager.setZoomOnClick(this);
-    }
-    if (changes.averageCenter) {
-      this._clusterManager.setAverageCenter(this);
     }
     if (changes.minimumClusterSize) {
       this._clusterManager.setMinimumClusterSize(this);
@@ -118,28 +109,42 @@ export class MarkerClusterComponent
     if (changes.styles) {
       this._clusterManager.setStyles(this);
     }
-    if (changes.imagePath) {
-      this._clusterManager.setImagePath(this);
+    if (changes.zoomOnClick) {
+      this._clusterManager.setZoomOnClick(this);
     }
-    if (changes.imageExtension) {
-      this._clusterManager.setImageExtension(this);
-    }
+  }
+
+  private _addEventListeners() {
+    const handlers = [
+      {
+        name: 'clusterclick',
+        handler: (ev: google.maps.MouseEvent) => this.clusterClick.emit(ev),
+      },
+    ];
+    handlers.forEach((obj) => {
+      const os = this._clusterManager
+        .createClusterEventObservable(obj.name, this)
+        .subscribe(obj.handler);
+      this._observableSubscriptions.push(os);
+    });
   }
 
   /** @internal */
   ngOnInit() {
+    this._addEventListeners();
     this._clusterManager.init({
-      gridSize: this.gridSize,
-      maxZoom: this.maxZoom,
-      zoomOnClick: this.zoomOnClick,
       averageCenter: this.averageCenter,
-      minimumClusterSize: this.minimumClusterSize,
-      styles: this.styles,
+      calculator: this.calculator,
+      gridSize: this.gridSize,
+      imageExtension: this.imageExtension,
       imagePath:
         this.imagePath == null && this._config != null
           ? this._config.imagePath
           : this.imagePath,
-      imageExtension: this.imageExtension,
+      maxZoom: this.maxZoom,
+      minimumClusterSize: this.minimumClusterSize,
+      styles: this.styles,
+      zoomOnClick: this.zoomOnClick,
     });
   }
 }

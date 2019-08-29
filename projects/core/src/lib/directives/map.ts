@@ -57,7 +57,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * Map option attributes that can change over time
    */
-  private static _mapOptionsAttributes: string[] = [
+  private static _mapOptionsAttributes: Array<string> = [
     'disableDoubleClickZoom',
     'scrollwheel',
     'draggable',
@@ -167,7 +167,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * The enabled/disabled state of the Zoom control.
    */
-  @Input() zoomControl: boolean = true;
+  @Input() zoomControl: boolean;
 
   /**
    * Options for the Zoom control.
@@ -178,7 +178,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
    * Styles to apply to each of the default map types. Note that for Satellite/Hybrid and Terrain
    * modes, these styles will only apply to labels and geometry.
    */
-  @Input() styles: google.maps.MapTypeStyle[] = [];
+  @Input() styles: Array<google.maps.MapTypeStyle> = [];
 
   /**
    * When true and the latitude and/or longitude values changes, the Google Maps panTo method is
@@ -192,7 +192,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
    * This control is part of the default UI, and should be set to false when displaying a map type
    * on which the Street View road overlay should not appear (e.g. a non-Earth map type).
    */
-  @Input() streetViewControl: boolean = true;
+  @Input() streetViewControl: boolean;
 
   /**
    * Options for the Street View control.
@@ -266,8 +266,13 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * The map mapTypeId. Defaults to 'roadmap'.
    */
-  @Input() mapTypeId: 'roadmap' | 'hybrid' | 'satellite' | 'terrain' | string =
-    'roadmap';
+  @Input() mapTypeId:
+    | 'roadmap'
+    | 'hybrid'
+    | 'satellite'
+    | 'terrain'
+    | string
+    | google.maps.MapTypeId = 'roadmap';
 
   /**
    * Add layers https://developers.google.com/maps/documentation/javascript/trafficlayer to map
@@ -313,30 +318,32 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
    */
   @Input() tilt: number = 0;
 
-  private _observableSubscriptions: Subscription[] = [];
+  private _observableSubscriptions: Array<Subscription> = [];
   private _fitBoundsSubscription: Subscription;
 
   /**
    * This event emitter gets emitted when the user clicks on the map (but not when they click on a
    * marker or infoWindow).
    */
-  @Output() mapClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() mapClick: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
+    google.maps.MouseEvent
+  >();
 
   /**
    * This event emitter gets emitted when the user right-clicks on the map (but not when they click
    * on a marker or infoWindow).
    */
-  @Output() mapRightClick: EventEmitter<MouseEvent> = new EventEmitter<
-    MouseEvent
-  >();
+  @Output() mapRightClick: EventEmitter<
+    google.maps.MouseEvent
+  > = new EventEmitter<google.maps.MouseEvent>();
 
   /**
    * This event emitter gets emitted when the user double-clicks on the map (but not when they click
    * on a marker or infoWindow).
    */
-  @Output() mapDblClick: EventEmitter<MouseEvent> = new EventEmitter<
-    MouseEvent
-  >();
+  @Output() mapDblClick: EventEmitter<
+    google.maps.MouseEvent
+  > = new EventEmitter<google.maps.MouseEvent>();
 
   /**
    * This event emitter is fired when the map center changes.
@@ -373,7 +380,14 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
    * This event is fired when the google map is fully initialized.
    * You get the google.maps.Map instance as a result of this EventEmitter.
    */
-  @Output() mapReady: EventEmitter<any> = new EventEmitter<any>();
+  @Output() mapReady: EventEmitter<google.maps.Map> = new EventEmitter<
+    google.maps.Map
+  >();
+
+  /**
+   * This event is fired when the visible tiles have finished loading.
+   */
+  @Output() tilesLoaded: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('container', { static: true }) container: ElementRef;
 
@@ -411,8 +425,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       rotateControlOptions: this.rotateControlOptions,
       fullscreenControl: this.fullscreenControl,
       fullscreenControlOptions: this.fullscreenControlOptions,
-      // @ts-ignore
-      mapTypeId: this.mapTypeId,
+      mapTypeId: this.mapTypeId as google.maps.MapTypeId,
       clickableIcons: this.clickableIcons,
       gestureHandling: this.gestureHandling,
       tilt: this.tilt,
@@ -426,6 +439,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this._handleMapMouseEvents();
     this._handleBoundsChange();
     this._handleMapTypeIdChange();
+    this._handleTilesLoadedEvent();
     this._handleIdleEvent();
   }
 
@@ -656,6 +670,13 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this._observableSubscriptions.push(s);
   }
 
+  private _handleTilesLoadedEvent() {
+    const s = this._mapsWrapper
+      .subscribeToMapEvent<void>('tilesloaded')
+      .subscribe(() => this.tilesLoaded.emit(void 0));
+    this._observableSubscriptions.push(s);
+  }
+
   private _handleMapMouseEvents() {
     interface Emitter {
       emit(value: any): void;
@@ -666,7 +687,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       emitter: Emitter;
     }
 
-    const events: Event[] = [
+    const events: Array<Event> = [
       { name: 'click', emitter: this.mapClick },
       { name: 'rightclick', emitter: this.mapRightClick },
       { name: 'dblclick', emitter: this.mapDblClick },

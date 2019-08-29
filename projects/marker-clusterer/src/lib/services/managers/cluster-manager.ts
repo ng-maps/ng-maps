@@ -8,6 +8,7 @@ import {
   NgMapsMarkerComponent,
   NgMapsViewComponent,
 } from '@ng-maps/core';
+import { Observable, Observer } from 'rxjs';
 import { MarkerClusterComponent } from '../../directives/marker-cluster';
 
 @Injectable({
@@ -131,6 +132,19 @@ export class ClusterManager extends MarkerManager {
       if (c.imageExtension !== undefined) {
         cluster.imageExtension_ = c.imageExtension;
       }
+    });
+  }
+
+  createClusterEventObservable<T>(
+    eventName: string,
+    marker: MarkerClusterComponent,
+  ): Observable<T> {
+    return new Observable<T>((observer: Observer<T>) => {
+      this._clustererInstance.then((m: MarkerClusterer) => {
+        m.addListener(eventName, (e: T) =>
+          this._zone.run(() => observer.next(e)),
+        );
+      });
     });
   }
 }

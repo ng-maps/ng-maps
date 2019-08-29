@@ -9,18 +9,15 @@ import {
   Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-
 import { KmlLayerManager } from './kml-layer-manager';
 
 let layerId = 0;
 
 @Directive({
-  selector: 'agm-kml-layer',
+  selector: 'map-kml-layer',
 })
-export class AgmKmlLayer implements OnInit, OnDestroy, OnChanges {
-  private _addedToManager: boolean = false;
-  private _id: string = (layerId++).toString();
-  private _subscriptions: Subscription[] = [];
+export class NgMapsKmlLayer implements OnInit, OnDestroy, OnChanges {
+  constructor(private _manager: KmlLayerManager) {}
   private static _kmlLayerOptions: string[] = [
     'clickable',
     'preserveViewport',
@@ -29,6 +26,9 @@ export class AgmKmlLayer implements OnInit, OnDestroy, OnChanges {
     'url',
     'zIndex',
   ];
+  private _addedToManager: boolean = false;
+  private _id: string = (layerId++).toString();
+  private _subscriptions: Subscription[] = [];
 
   /**
    * If true, the layer receives mouse events. Default value is true.
@@ -84,8 +84,6 @@ export class AgmKmlLayer implements OnInit, OnDestroy, OnChanges {
    */
   @Output() statusChange: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(private _manager: KmlLayerManager) {}
-
   ngOnInit() {
     if (this._addedToManager) {
       return;
@@ -104,7 +102,7 @@ export class AgmKmlLayer implements OnInit, OnDestroy, OnChanges {
 
   private _updatePolygonOptions(changes: SimpleChanges) {
     const options = Object.keys(changes)
-      .filter((k) => AgmKmlLayer._kmlLayerOptions.indexOf(k) !== -1)
+      .filter((k) => NgMapsKmlLayer._kmlLayerOptions.indexOf(k) !== -1)
       .reduce((obj: any, k: string) => {
         obj[k] = changes[k].currentValue;
         return obj;

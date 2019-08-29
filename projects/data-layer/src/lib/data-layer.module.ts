@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { AgmDataLayer } from './data-layer';
-import { DataLayerManager } from './data-layer-manager';
+import { NgMapsDataLayer } from './data-layer';
 
 @NgModule({
-  declarations: [AgmDataLayer],
+  declarations: [NgMapsDataLayer],
   imports: [],
-  exports: [AgmDataLayer],
-  providers: [DataLayerManager],
+  exports: [NgMapsDataLayer],
+  providers: [],
 })
-export class DataLayerModule {}
+export class NgMapsDataLayerModule {}

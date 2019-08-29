@@ -6,7 +6,9 @@ extends:
 rulesDirectory:
   - codelyzer
 rules:
-  array-type: false
+  array-type:
+    - true
+    - generic
   arrow-parens: false
   deprecation:
     severity: warn
@@ -34,6 +36,7 @@ rules:
     - time
     - timeEnd
     - trace
+  no-duplicate-imports: true
   no-empty: false
   no-inferrable-types:
     - true
@@ -67,3 +70,8 @@ rules:
   template-no-negated-async: true
   use-lifecycle-interface: true
   use-pipe-transform-interface: true
+  variable-name:
+    - true
+    - "ban-keywords"
+    - "check-format"
+    - "allow-leading-underscore"

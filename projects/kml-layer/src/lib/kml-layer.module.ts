@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { AgmKmlLayer } from './kml-layer';
-import { KmlLayerManager } from './kml-layer-manager';
+import { NgMapsKmlLayer } from './kml-layer';
 
 @NgModule({
-  declarations: [AgmKmlLayer],
+  declarations: [NgMapsKmlLayer],
   imports: [],
-  providers: [KmlLayerManager],
-  exports: [AgmKmlLayer],
+  providers: [],
+  exports: [NgMapsKmlLayer],
 })
-export class KmlLayerModule {}
+export class NgMapsKmlLayerModule {}

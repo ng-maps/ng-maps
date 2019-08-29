@@ -1,0 +1,4 @@
+name: '@ng-maps/kml-layer'
+tsconfig: tsconfig.lib.json
+disableRoutesGraph: true
+output: ../../docs/kml-layer
