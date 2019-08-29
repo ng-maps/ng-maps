@@ -1,0 +1,4 @@
+name: '@ng-maps/data-layer'
+tsconfig: tsconfig.lib.json
+disableRoutesGraph: true
+output: ../../docs/data-layer

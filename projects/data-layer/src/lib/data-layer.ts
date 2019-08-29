@@ -9,23 +9,22 @@ import {
   Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-
 import { DataLayerManager } from './data-layer-manager';
 
 let layerId = 0;
 
 /**
- * AgmDataLayer enables the user to add data layers to the map.
+ * NgMapsDataLayer enables the user to add data layers to the map.
  *
  * ### Example
  * ```typescript
  * import { Component } from 'angular2/core';
- * import { NgMapsViewComponent, AgmDataLayer } from
+ * import { NgMapsViewComponent, NgMapsDataLayer } from
  * 'angular-google-maps/core';
  *
  * @Component({
  *  selector: 'my-map-cmp',
- *  directives: [NgMapsViewComponent, AgmDataLayer],
+ *  directives: [NgMapsViewComponent, NgMapsDataLayer],
  *  styles: [`
  *    .agm-container {
  *      height: 300px;
@@ -205,9 +204,9 @@ let layerId = 0;
  * ```
  */
 @Directive({
-  selector: 'agm-data-layer',
+  selector: 'map-data-layer',
 })
-export class AgmDataLayer implements OnInit, OnDestroy, OnChanges {
+export class NgMapsDataLayer implements OnInit, OnDestroy, OnChanges {
   private static _dataOptionsAttributes: Array<string> = ['style'];
 
   private _addedToManager: boolean = false;
@@ -264,7 +263,7 @@ export class AgmDataLayer implements OnInit, OnDestroy, OnChanges {
 
   /** @internal */
   toString(): string {
-    return `AgmDataLayer-${this._id.toString()}`;
+    return `NgMapsDataLayer-${this._id.toString()}`;
   }
 
   /** @internal */
@@ -287,7 +286,7 @@ export class AgmDataLayer implements OnInit, OnDestroy, OnChanges {
 
     const dataOptions: google.maps.Data.DataOptions = {};
 
-    AgmDataLayer._dataOptionsAttributes.forEach(
+    NgMapsDataLayer._dataOptionsAttributes.forEach(
       (k) =>
         ((dataOptions as any)[k] = changes.hasOwnProperty(k)
           ? changes[k].currentValue

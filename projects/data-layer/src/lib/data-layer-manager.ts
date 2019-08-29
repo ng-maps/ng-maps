@@ -1,18 +1,17 @@
 import { Injectable, NgZone } from '@angular/core';
+import { GoogleMapsAPIWrapper, NgMapsViewComponent } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
-
-import { AgmDataLayer } from './data-layer';
-import { GoogleMapsAPIWrapper } from '../../../core/src/lib/services/google-maps-api-wrapper';
-
-declare var google: any;
+import { NgMapsDataLayer } from './data-layer';
 
 /**
  * Manages all Data Layers for a Google Map instance.
  */
-@Injectable()
+@Injectable({
+  providedIn: NgMapsViewComponent,
+})
 export class DataLayerManager {
-  private _layers: Map<AgmDataLayer, Promise<google.maps.Data>> = new Map<
-    AgmDataLayer,
+  private _layers: Map<NgMapsDataLayer, Promise<google.maps.Data>> = new Map<
+    NgMapsDataLayer,
     Promise<google.maps.Data>
   >();
 
@@ -21,46 +20,45 @@ export class DataLayerManager {
   /**
    * Adds a new Data Layer to the map.
    */
-  async addDataLayer(layer: AgmDataLayer) {
+  async addDataLayer(layer: NgMapsDataLayer) {
     const d = await this._wrapper.createDataLayer({
       style: layer.style,
     } as google.maps.Data.DataOptions);
     if (layer.geoJson) {
-      const features = await this.getDataFeatures(d, layer.geoJson);
       // @ts-ignore
-      d.features = features;
+      d.features = await this.getDataFeatures(d, layer.geoJson);
     }
     // @ts-ignore
     this._layers.set(layer, d);
   }
 
-  deleteDataLayer(layer: AgmDataLayer) {
+  deleteDataLayer(layer: NgMapsDataLayer) {
     this._layers.get(layer).then((l) => {
       l.setMap(null);
       this._layers.delete(layer);
     });
   }
 
-  updateGeoJson(layer: AgmDataLayer, geoJson: Object | string) {
-    this._layers.get(layer).then((l) => {
-      l.forEach(function(feature: google.maps.Data.Feature) {
-        l.remove(feature);
+  async updateGeoJson(layer: NgMapsDataLayer, geoJson: Object | string) {
+    const l = await this._layers.get(layer);
+    l.forEach((feature: google.maps.Data.Feature) => {
+      l.remove(feature);
 
-        // @ts-ignore
-        let index = l.features.indexOf(feature, 0);
-        if (index > -1) {
-          // @ts-ignore
-          l.features.splice(index, 1);
-        }
-      });
       // @ts-ignore
-      this.getDataFeatures(l, geoJson).then(
-        (features) => (l.features = features),
-      );
+      const index = l.features.indexOf(feature, 0);
+      if (index > -1) {
+        // @ts-ignore
+        l.features.splice(index, 1);
+      }
     });
+    // @ts-ignore
+    l.features = await this.getDataFeatures(l, geoJson);
   }
 
-  setDataOptions(layer: AgmDataLayer, options: google.maps.Data.DataOptions) {
+  setDataOptions(
+    layer: NgMapsDataLayer,
+    options: google.maps.Data.DataOptions,
+  ) {
     this._layers.get(layer).then((l) => {
       l.setControlPosition(options.controlPosition);
       l.setControls(options.controls);
@@ -74,7 +72,7 @@ export class DataLayerManager {
    */
   createEventObservable<T>(
     eventName: string,
-    layer: AgmDataLayer,
+    layer: NgMapsDataLayer,
   ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
       this._layers.get(layer).then((d: google.maps.Data) => {

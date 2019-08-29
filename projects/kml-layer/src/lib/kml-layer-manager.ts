@@ -1,18 +1,18 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
-
-import { AgmKmlLayer } from './kml-layer';
-import { GoogleMapsAPIWrapper } from '../../../core/src/lib/services/google-maps-api-wrapper';
-
-declare var google: any;
+import { NgMapsViewComponent } from '@ng-maps/core';
+import { NgMapsKmlLayer } from './kml-layer';
+import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 
 /**
  * Manages all KML Layers for a Google Map instance.
  */
-@Injectable()
+@Injectable({
+  providedIn: NgMapsViewComponent,
+})
 export class KmlLayerManager {
-  private _layers: Map<AgmKmlLayer, Promise<google.maps.KmlLayer>> = new Map<
-    AgmKmlLayer,
+  private _layers: Map<NgMapsKmlLayer, Promise<google.maps.KmlLayer>> = new Map<
+    NgMapsKmlLayer,
     Promise<google.maps.KmlLayer>
   >();
 
@@ -21,9 +21,9 @@ export class KmlLayerManager {
   /**
    * Adds a new KML Layer to the map.
    */
-  addKmlLayer(layer: AgmKmlLayer) {
+  addKmlLayer(layer: NgMapsKmlLayer) {
     const newLayer = this._wrapper.getNativeMap().then((m) => {
-      return new google.maps.KmlLayer(<google.maps.KmlLayerOptions>{
+      return new google.maps.KmlLayer({
         clickable: layer.clickable,
         map: m,
         preserveViewport: layer.preserveViewport,
@@ -31,16 +31,16 @@ export class KmlLayerManager {
         suppressInfoWindows: layer.suppressInfoWindows,
         url: layer.url,
         zIndex: layer.zIndex,
-      });
+      } as google.maps.KmlLayerOptions);
     });
     this._layers.set(layer, newLayer);
   }
 
-  setOptions(layer: AgmKmlLayer, options: google.maps.KmlLayerOptions) {
+  setOptions(layer: NgMapsKmlLayer, options: google.maps.KmlLayerOptions) {
     this._layers.get(layer).then((l) => l.setOptions(options));
   }
 
-  deleteKmlLayer(layer: AgmKmlLayer) {
+  deleteKmlLayer(layer: NgMapsKmlLayer) {
     this._layers.get(layer).then((l) => {
       l.setMap(null);
       this._layers.delete(layer);
@@ -52,7 +52,7 @@ export class KmlLayerManager {
    */
   createEventObservable<T>(
     eventName: string,
-    layer: AgmKmlLayer,
+    layer: NgMapsKmlLayer,
   ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
       this._layers.get(layer).then((m: google.maps.KmlLayer) => {

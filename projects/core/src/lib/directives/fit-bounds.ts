@@ -62,12 +62,28 @@ export class NgMapsFitBounds implements OnInit, OnDestroy, OnChanges {
       .subscribe((details) => this._updateBounds(details));
   }
 
+  /**
+   * Either the location changed, or visible status changed.
+   * Possible state changes are
+   * invisible -> visible
+   * visible -> invisible
+   * visible -> visible (new location)
+   */
   private _updateBounds(newFitBoundsDetails?: FitBoundsDetails) {
+    // either visibility will change, or location, so remove the old one anyway
+    if (this._latestFitBoundsDetails) {
+      this._fitBoundsService.removeFromBounds(
+        this._latestFitBoundsDetails.latLng,
+      );
+      // don't set latestFitBoundsDetails to null, because we can toggle visibility from
+      // true -> false -> true, in which case we still need old value cached here
+    }
+
     if (newFitBoundsDetails) {
       this._latestFitBoundsDetails = newFitBoundsDetails;
     }
     if (this._latestFitBoundsDetails) {
-      if (this.mapFitBounds) {
+      if (this.mapFitBounds === true) {
         this._fitBoundsService.addToBounds(this._latestFitBoundsDetails.latLng);
       } else {
         this._fitBoundsService.removeFromBounds(
