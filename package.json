@@ -64,7 +64,7 @@
     "@compodoc/compodoc": "^1.1.10",
     "@ngneat/spectator": "^4.0.0",
     "@types/googlemaps": "^3.36.2",
-    "@types/jasmine": "~3.4.0",
+    "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash-es": "^4.17.3",
     "@types/markerclustererplus": "^2.1.33",
