@@ -5,9 +5,12 @@ import { NgMapsMarkerComponent } from '../../directives/marker';
 import { GoogleMapsAPIWrapper } from '../google-maps-api-wrapper';
 import { MarkerManager } from './marker-manager';
 
+import { isEqual } from 'lodash-es';
+
 describe('MarkerManager', () => {
   let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
   beforeEach(() => {
+    jasmine.addCustomEqualityTester(isEqual);
     apiWrapperMock = jasmine.createSpyObj('GoogleMapsAPIWrapper', [
       'createMarker',
     ]);

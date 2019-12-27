@@ -13,6 +13,7 @@ export class LazyMapsAPILoader extends MapsAPILoader {
   protected _scriptLoadingPromise: Promise<void>;
   protected _config: LazyMapsAPILoaderConfigLiteral;
   protected _document: Document;
+  protected _window: Window;
   protected readonly _SCRIPT_ID: string = 'GoogleMapsApiScript';
   protected readonly callbackName: string = `LazyMapsAPILoader`;
 
@@ -25,10 +26,11 @@ export class LazyMapsAPILoader extends MapsAPILoader {
     super();
     this._config = config || {};
     this._document = document as Document;
+    this._window = this._document.defaultView;
   }
 
   load(): Promise<void> {
-    if ((window as any).google && (window as any).google.maps) {
+    if ((this._window as any).google && (this._window as any).google.maps) {
       // Google maps already loaded on the page.
       return Promise.resolve();
     }
@@ -57,7 +59,7 @@ export class LazyMapsAPILoader extends MapsAPILoader {
 
   private _assignScriptLoadingPromise(scriptElem: HTMLElement) {
     this._scriptLoadingPromise = new Promise<void>((resolve, reject) => {
-      window[this.callbackName] = () => {
+      this._window[this.callbackName] = () => {
         resolve();
       };
 

@@ -19,7 +19,8 @@
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0",
     "@ng-maps/core": "^1.0.0",
-    "@google/markerclusterer": "^2.0.0"
+    "@google/markerclusterer": "^2.0.0",
+    "@types/markerclustererplus": "^2.1.0"
   },
   "homepage": "https://ng-maps.github.io/marker-clusterer",
   "license": "MIT",

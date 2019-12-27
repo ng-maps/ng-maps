@@ -1,6 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
-import { NgMapsViewComponent } from '../../directives/map';
 
 import { NgMapsMarkerComponent } from '../../directives/marker';
 
@@ -92,6 +91,7 @@ export class MarkerManager {
       draggable: marker.draggable,
       icon: marker.iconUrl,
       opacity: marker.opacity,
+      optimized: marker.optimized,
       visible: marker.visible,
       zIndex: marker.zIndex,
       title: marker.title,

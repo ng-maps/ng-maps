@@ -43,6 +43,7 @@ let markerId = 0;
     'iconUrl',
     'openInfoWindow',
     'opacity',
+    'optimized',
     'visible',
     'zIndex',
     'animation',
@@ -106,6 +107,12 @@ export class NgMapsMarkerComponent
    * The marker's opacity between 0.0 and 1.0.
    */
   @Input() opacity: number = 1;
+
+  /**
+   * Marker optimize flag. If it is false then it prevent duplicate rendering.
+   * Default it is true
+   */
+  @Input() optimized: boolean = true;
 
   /**
    * All markers are displayed on the map in order of their zIndex, with higher values displaying in

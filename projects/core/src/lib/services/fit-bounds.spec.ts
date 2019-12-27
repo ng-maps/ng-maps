@@ -18,7 +18,9 @@ describe('FitBoundsService', () => {
   beforeEach(fakeAsync(() => {
     loader = {
       load: jasmine.createSpy().and.returnValue(Promise.resolve()),
-    };
+      _window: window,
+      _document: document,
+    } as any;
 
     latLngBoundsConstructs = 0;
     latLngBoundsExtend = jasmine.createSpy();
