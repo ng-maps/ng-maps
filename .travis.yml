@@ -4,8 +4,9 @@ node_js:
   - '10'
 
 env:
-  - NG_CLI_ANALYTICS=ci
-  - CC_TEST_REPORTER_ID=e53df554d307390611b128da0f5f0d0c6b799fa9ef767b1a011ceab8e3ebee90
+  global:
+    - CC_TEST_REPORTER_ID=e53df554d307390611b128da0f5f0d0c6b799fa9ef767b1a011ceab8e3ebee90
+    - NG_CLI_ANALYTICS=ci
 
 addons:
   chrome: stable
