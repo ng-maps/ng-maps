@@ -1,21 +1,6 @@
-import { InjectionToken } from '@angular/core';
-export enum GoogleMapsScriptProtocol {
-  HTTP = 1,
-  HTTPS = 2,
-  AUTO = 3,
-}
+import { GoogleMapsScriptProtocol } from '../../../core/src/lib/services/maps-api-loader/lazy-maps-api-loader-config';
 
-/**
- * Token for the config of the LazyMapsAPILoader. Please provide an object of type {@link LazyMapsAPILoaderConfig}.
- */
-export const LAZY_MAPS_API_CONFIG = new InjectionToken<
-  LazyMapsAPILoaderConfigLiteral
->('angular-google-maps LAZY_MAPS_API_CONFIG');
-
-/**
- * Configuration for the {@link LazyMapsAPILoader}.
- */
-export interface LazyMapsAPILoaderConfigLiteral {
+export interface GoogleMapsLoaderConfig {
   /**
    * The Google Maps API Key (see:
    * https://developers.google.com/maps/documentation/javascript/get-api-key)

@@ -450,6 +450,41 @@
           }
         }
       }
+    },
+    "google-maps-loader": {
+      "projectType": "library",
+      "root": "projects/google-maps-loader",
+      "sourceRoot": "projects/google-maps-loader/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/google-maps-loader/tsconfig.lib.json",
+            "project": "projects/google-maps-loader/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/google-maps-loader/src/test.ts",
+            "tsConfig": "projects/google-maps-loader/tsconfig.spec.json",
+            "karmaConfig": "projects/google-maps-loader/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/google-maps-loader/tsconfig.lib.json",
+              "projects/google-maps-loader/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "core"
 }

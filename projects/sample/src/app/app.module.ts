@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgMapsCoreModule } from '@ng-maps/core';
+import { LAZY_MAPS_API_CONFIG, NgMapsCoreModule } from '@ng-maps/core';
 import { NgMapsMarkerClustererModule } from '@ng-maps/marker-clusterer';
 import { NgMapsShapesModule } from '@ng-maps/shapes';
 import { NgMapsPlacesModule } from '@ng-maps/places';
@@ -12,6 +12,7 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { ClusterComponent } from './cluster/cluster.component';
 import { FitBoundsComponent } from './fit-bounds/fit-bounds.component';
 import { InfoWindowComponent } from './info-window/info-window.component';
+import { configFactory } from './maps-config-factory';
 import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
 import { LayersComponent } from './layers/layers.component';
@@ -31,16 +32,19 @@ import { LayersComponent } from './layers/layers.component';
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    NgMapsCoreModule.forRoot({
-      apiKey: 'AIzaSyAtee0zgzh-_8JgWoRXFf2Lac61vkk0GZc',
-    }),
+    NgMapsCoreModule.forRoot(),
     NgMapsMarkerClustererModule.forRoot({
       imagePath: '/assets/images/m',
     }),
     NgMapsShapesModule,
     NgMapsPlacesModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LAZY_MAPS_API_CONFIG,
+      useFactory: configFactory,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

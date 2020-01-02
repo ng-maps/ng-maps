@@ -66,6 +66,12 @@
       ],
       "@ng-maps/drawing-layer/*": [
         "dist/drawing-layer/*"
+      ],
+      "@ng-maps/google-maps-loader": [
+        "dist/google-maps-loader"
+      ],
+      "@ng-maps/google-maps-loader/*": [
+        "dist/google-maps-loader/*"
       ]
     }
   }

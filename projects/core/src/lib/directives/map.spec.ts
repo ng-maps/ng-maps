@@ -25,7 +25,9 @@ describe('NgMapsViewComponent', () => {
             { provide: ElementRef, useClass: MockElementRef },
             mockProvider(GoogleMapsAPIWrapper, {
               subscribeToMapEvent: () => EMPTY,
-              fitBounds: () => Promise.resolve({}),
+              fitBounds: jasmine.createSpy('fitBounds', () =>
+                Promise.resolve({}),
+              ),
             }),
             mockProvider(FitBoundsService),
           ],

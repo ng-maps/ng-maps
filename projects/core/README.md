@@ -14,6 +14,12 @@ Then you will need to install typings for google maps as a dev dependency
 
 Now you are ready to start. Add `NgMapsCoreModule.forRoot({apiKey: 'YOUR_API_KEY'})` to your _AppModule_. Now you can use map components.
 
+### Lazy loading configuration
+
+If you can not provide configuration at module import level you can load it at a later time.
+
+You just need to inject `MapsAPILoader` into a component or service and call the method `configure(config)` with a valid configuration.
+
 ## Usage
 
 ### Simple Map

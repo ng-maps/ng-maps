@@ -1,0 +1,9 @@
+{
+  "name": "@ng-maps/google-maps-loader",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^8.2.3",
+    "@angular/core": "^8.2.3",
+    "@ng-maps/core": "^1.0.0"
+  }
+}

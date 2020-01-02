@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 import {
   GoogleMapsScriptProtocol,
   LAZY_MAPS_API_CONFIG,
@@ -11,7 +12,9 @@ import { MapsAPILoader } from './maps-api-loader';
 @Injectable()
 export class LazyMapsAPILoader extends MapsAPILoader {
   protected _scriptLoadingPromise: Promise<void>;
-  protected _config: LazyMapsAPILoaderConfigLiteral;
+  protected _config: ReplaySubject<
+    LazyMapsAPILoaderConfigLiteral
+  > = new ReplaySubject<LazyMapsAPILoaderConfigLiteral>(1);
   protected _document: Document;
   protected _window: Window;
   protected readonly _SCRIPT_ID: string = 'GoogleMapsApiScript';
@@ -24,54 +27,73 @@ export class LazyMapsAPILoader extends MapsAPILoader {
     @Inject(DOCUMENT) document: any,
   ) {
     super();
-    this._config = config || {};
+    if (config != null) {
+      this._config.next(config);
+      this._config.complete();
+    }
     this._document = document as Document;
     this._window = this._document.defaultView;
   }
 
-  load(): Promise<void> {
+  /**
+   * If no configuration is provided at load time you can use this function to provide configuration at any time.
+   * Loading scripts will be postponed until a configuration is provided
+   * @param config
+   */
+  public configure(config: LazyMapsAPILoaderConfigLiteral) {
+    this._config.next(config);
+    this._config.complete();
+  }
+
+  public load(): Promise<void> {
     if ((this._window as any).google && (this._window as any).google.maps) {
       // Google maps already loaded on the page.
       return Promise.resolve();
-    }
-
-    if (this._scriptLoadingPromise) {
+    } else if (this._scriptLoadingPromise) {
       return this._scriptLoadingPromise;
+    } else {
+      return this.checkScriptElement();
     }
+  }
 
-    // this can happen in HMR situations or Stackblitz.io editors.
-    const scriptOnPage = this._document.getElementById(this._SCRIPT_ID);
-    if (scriptOnPage) {
-      this._assignScriptLoadingPromise(scriptOnPage);
-      return this._scriptLoadingPromise;
+  protected async checkScriptElement() {
+    let scriptElement: HTMLScriptElement = this._document.getElementById(
+      this._SCRIPT_ID,
+    ) as HTMLScriptElement;
+    if (scriptElement == null) {
+      scriptElement = await this.createScriptElement();
     }
-
-    const script = this._document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.defer = true;
-    script.id = this._SCRIPT_ID;
-    script.src = this._getScriptSrc(this.callbackName);
-    this._assignScriptLoadingPromise(script);
-    this._document.body.appendChild(script);
+    this._scriptLoadingPromise = this.assignScriptLoadingPromise(scriptElement);
     return this._scriptLoadingPromise;
   }
 
-  private _assignScriptLoadingPromise(scriptElem: HTMLElement) {
-    this._scriptLoadingPromise = new Promise<void>((resolve, reject) => {
+  protected async assignScriptLoadingPromise(scriptElement: HTMLScriptElement) {
+    this._document.body.appendChild(scriptElement);
+    return new Promise<void>((resolve, reject) => {
       this._window[this.callbackName] = () => {
         resolve();
       };
 
-      scriptElem.onerror = (error: Event) => {
+      scriptElement.onerror = (error: Event) => {
         reject(error);
       };
     });
   }
 
-  protected _getScriptSrc(callbackName: string): string {
+  protected async createScriptElement() {
+    const script = this._document.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.defer = true;
+    script.id = this._SCRIPT_ID;
+    script.src = await this._getScriptSrc(this.callbackName);
+    return script;
+  }
+
+  protected async _getScriptSrc(callbackName: string): Promise<string> {
+    const config = await this._config.toPromise();
     const protocolType: GoogleMapsScriptProtocol =
-      (this._config && this._config.protocol) || GoogleMapsScriptProtocol.HTTPS;
+      (config && config.protocol) || GoogleMapsScriptProtocol.HTTPS;
     let protocol: string;
 
     switch (protocolType) {
@@ -87,16 +109,16 @@ export class LazyMapsAPILoader extends MapsAPILoader {
     }
 
     const hostAndPath: string =
-      this._config.hostAndPath || 'maps.googleapis.com/maps/api/js';
+      config.hostAndPath || 'maps.googleapis.com/maps/api/js';
     const queryParams: { [key: string]: string | Array<string> } = {
-      v: this._config.apiVersion || 'quarterly',
+      v: config.apiVersion || 'quarterly',
       callback: callbackName,
-      key: this._config.apiKey,
-      client: this._config.clientId,
-      channel: this._config.channel,
-      libraries: this._config.libraries,
-      region: this._config.region,
-      language: this._config.language,
+      key: config.apiKey,
+      client: config.clientId,
+      channel: config.channel,
+      libraries: config.libraries,
+      region: config.region,
+      language: config.language,
     };
     const params: string = Object.keys(queryParams)
       .filter((k: string) => queryParams[k] != null)
