@@ -4,7 +4,8 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
-      "@ng-maps/core": "ng-maps.core"
+      "@ng-maps/core": "ng-maps.core",
+      "snazzy-info-window": "SnazzyInfoWindow"
     }
   }
 }

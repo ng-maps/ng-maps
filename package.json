@@ -10,7 +10,7 @@
     "build:places": "ng build places",
     "build:shapes": "ng build shapes",
     "build:snazzy-info-window": "ng build snazzy-info-window",
-    "build:all": "npm run build && npm run build:drawing-layer && npm run build:marker-clusterer && npm run build:places && npm run build:shapes",
+    "build:all": "npm run build && npm run build:drawing-layer && npm run build:marker-clusterer && npm run build:places && npm run build:shapes && npm run build:snazzy-info-window",
     "test": "ng test",
     "test:ci": "ng test core -c ci",
     "test:drawing-layer": "ng test drawing-layer",
@@ -51,6 +51,7 @@
     "lodash-es": "^4.17.15",
     "ngx-script-loader": "^1.2.0",
     "rxjs": "~6.5.2",
+    "snazzy-info-window": "^1.1.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

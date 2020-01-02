@@ -5,6 +5,7 @@ import { LAZY_MAPS_API_CONFIG, NgMapsCoreModule } from '@ng-maps/core';
 import { NgMapsMarkerClustererModule } from '@ng-maps/marker-clusterer';
 import { NgMapsShapesModule } from '@ng-maps/shapes';
 import { NgMapsPlacesModule } from '@ng-maps/places';
+import { NgMapsSnazzyInfoWindowModule } from '@ng-maps/snazzy-info-window';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { configFactory } from './maps-config-factory';
 import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
 import { LayersComponent } from './layers/layers.component';
+import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-window.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { LayersComponent } from './layers/layers.component';
     FitBoundsComponent,
     AutocompleteComponent,
     LayersComponent,
+    SnazzyInfoWindowComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { LayersComponent } from './layers/layers.component';
     }),
     NgMapsShapesModule,
     NgMapsPlacesModule,
+    NgMapsSnazzyInfoWindowModule,
   ],
   providers: [
     {

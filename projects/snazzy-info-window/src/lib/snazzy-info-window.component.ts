@@ -222,7 +222,7 @@ export class NgMapsSnazzyInfoWindowComponent
         : null;
     this._snazzyInfoWindowInitialized = this._loader
       .load()
-      .then(() => require('snazzy-info-window.component'))
+      .then(() => require('snazzy-info-window'))
       .then((module: any) =>
         Promise.all([module, m, this._wrapper.getNativeMap()]),
       )

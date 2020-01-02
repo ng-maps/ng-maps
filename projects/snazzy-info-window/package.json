@@ -1,9 +1,29 @@
 {
   "name": "@ng-maps/snazzy-info-window",
-  "version": "0.0.1",
+  "version": "0.9.0",
+  "keywords": [
+    "angular-google-maps",
+    "angular",
+    "snazzy-info-window",
+    "info-window",
+    "google-maps",
+    "angular",
+    "ng",
+    "angular8",
+    "angular 8",
+    "google maps",
+    "googlemaps",
+    "maps",
+    "map",
+    "google",
+    "ng2",
+    "angular2",
+    "agm"
+  ],
   "peerDependencies": {
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0",
-    "@ng-maps/core": "^1.0.0"
+    "@ng-maps/core": "^1.0.0",
+    "snazzy-info-window": "^1.1.0"
   }
 }

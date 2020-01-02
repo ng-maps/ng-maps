@@ -6,6 +6,7 @@ import { InfoWindowComponent } from './info-window/info-window.component';
 import { LayersComponent } from './layers/layers.component';
 import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
+import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-window.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'layers',
     component: LayersComponent,
+  },
+  {
+    path: 'snazzy-info-window',
+    component: SnazzyInfoWindowComponent,
   },
 ];
 
