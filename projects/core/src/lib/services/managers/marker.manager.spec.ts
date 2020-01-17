@@ -2,10 +2,10 @@ import { NgZone } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
 
 import { NgMapsMarkerComponent } from '../../directives/marker';
-import { GoogleMapsAPIWrapper } from '../google-maps-api-wrapper';
-import { MarkerManager } from './marker-manager';
+import { MarkerManager } from './marker.manager';
 
 import { isEqual } from 'lodash-es';
+import { MapsApiWrapper as GoogleMapsAPIWrapper } from '../maps-api-wrapper';
 
 xdescribe('MarkerManager', () => {
   let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
@@ -32,7 +32,9 @@ xdescribe('MarkerManager', () => {
   describe('Create a new marker', () => {
     it('should call the mapsApiWrapper when creating a new marker', async(
       inject(
+        // @ts-ignore
         [MarkerManager, GoogleMapsAPIWrapper],
+        // @ts-ignore
         (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
           const newMarker = new NgMapsMarkerComponent(markerManager);
           newMarker.latitude = 34.4;

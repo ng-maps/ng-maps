@@ -3,6 +3,7 @@ extends:
   - tslint:recommended
   - tslint-config-prettier
   - tslint-plugin-prettier
+  - tslint-etc
 rulesDirectory:
   - codelyzer
 rules:
@@ -75,3 +76,14 @@ rules:
     - "ban-keywords"
     - "check-format"
     - "allow-leading-underscore"
+  whitespace:
+    - true
+    - check-branch
+    - check-decl
+    - check-operator
+    - check-module
+    - check-separator
+    - check-type
+    - check-typecast
+  # tslint-etc
+  no-unused-declaration: true

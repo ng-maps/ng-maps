@@ -3,25 +3,23 @@ import { Injectable, NgZone } from '@angular/core';
 import * as MarkerClusterer from '@google/markerclusterer';
 
 import {
-  GoogleMapsAPIWrapper,
+  MapsApiWrapper,
   MarkerManager,
   NgMapsMarkerComponent,
   NgMapsViewComponent,
 } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
 import { MarkerClusterComponent } from '../../directives/marker-cluster';
+import { GoogleMapsMarkerManager } from '@ng-maps/google';
 
 @Injectable({
   providedIn: NgMapsViewComponent,
 })
-export class ClusterManager extends MarkerManager {
+export class ClusterManager extends GoogleMapsMarkerManager {
   private _clustererInstance: Promise<MarkerClusterer>;
   private _resolver: Function;
 
-  constructor(
-    protected _mapsWrapper: GoogleMapsAPIWrapper,
-    protected _zone: NgZone,
-  ) {
+  constructor(protected _mapsWrapper: MapsApiWrapper, protected _zone: NgZone) {
     super(_mapsWrapper, _zone);
     this._clustererInstance = new Promise<MarkerClusterer>((resolver) => {
       this._resolver = resolver;

@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { GoogleMapsAPIWrapper, NgMapsViewComponent } from '@ng-maps/core';
+import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
 
 import { NgMapsPolyline } from '../directives/polyline';
@@ -14,10 +14,7 @@ export class PolylineManager {
     Promise<google.maps.Polyline>
   > = new Map<NgMapsPolyline, Promise<google.maps.Polyline>>();
 
-  constructor(
-    private _mapsWrapper: GoogleMapsAPIWrapper,
-    private _zone: NgZone,
-  ) {}
+  constructor(private _mapsWrapper: MapsApiWrapper, private _zone: NgZone) {}
 
   private _convertPoints(
     line: NgMapsPolyline,

@@ -18,7 +18,7 @@ import {
 } from '@angular/core';
 import {
   NgMapsMarkerComponent,
-  GoogleMapsAPIWrapper,
+  MapsApiWrapper,
   MarkerManager,
   MapsAPILoader,
 } from '@ng-maps/core';
@@ -187,7 +187,7 @@ export class NgMapsSnazzyInfoWindowComponent
 
   constructor(
     @Optional() @Host() @SkipSelf() private _marker: NgMapsMarkerComponent,
-    private _wrapper: GoogleMapsAPIWrapper,
+    private _wrapper: MapsApiWrapper,
     private _manager: MarkerManager,
     private _loader: MapsAPILoader,
   ) {}

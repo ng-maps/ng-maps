@@ -4,8 +4,8 @@ import { Injectable, NgZone } from '@angular/core';
 import { NgMapsInfoWindowComponent } from '../../directives/info-window';
 import { NgMapsViewComponent } from '../../directives/map';
 
-import { GoogleMapsAPIWrapper } from '../google-maps-api-wrapper';
-import { MarkerManager } from './marker-manager';
+import { MarkerManager } from './marker.manager';
+import { MapsApiWrapper } from '../maps-api-wrapper';
 
 @Injectable({
   providedIn: NgMapsViewComponent,
@@ -17,7 +17,7 @@ export class InfoWindowManager {
   > = new Map<NgMapsInfoWindowComponent, google.maps.InfoWindow>();
 
   constructor(
-    private _mapsWrapper: GoogleMapsAPIWrapper,
+    private _mapsWrapper: MapsApiWrapper,
     private _zone: NgZone,
     private _markerManager: MarkerManager,
   ) {}

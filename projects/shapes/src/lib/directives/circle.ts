@@ -18,7 +18,7 @@ import { CircleManager } from '../managers/circle-manager';
 export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   constructor(private _manager: CircleManager) {}
 
-  private static _mapOptions: string[] = [
+  private static _mapOptions: Array<string> = [
     'fillColor',
     'fillOpacity',
     'strokeColor',
@@ -186,7 +186,7 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
 
   private _circleAddedToManager: boolean = false;
 
-  private _eventSubscriptions: Subscription[] = [];
+  private _eventSubscriptions: Array<Subscription> = [];
 
   /** @internal */
   ngOnInit() {

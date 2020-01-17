@@ -1,4 +1,4 @@
 export { NgMapsViewComponent } from './directives/map';
 export { NgMapsInfoWindowComponent } from './directives/info-window';
 export { NgMapsMarkerComponent } from './directives/marker';
-export { NgMapsFitBounds } from './directives/fit-bounds';
+export { NgMapsFitBoundsDirective } from './directives/fit-bounds';

@@ -2,18 +2,17 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable, timer } from 'rxjs';
 import { flatMap, map, sample, shareReplay, switchMap } from 'rxjs/operators';
 import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
+import { BoundsLiteral } from '../interface/bounds';
+import { GeoPoint } from '../interface/geo-point';
 
 export interface FitBoundsDetails {
-  latLng: google.maps.LatLng | google.maps.LatLngLiteral;
+  latLng: GeoPoint;
 }
 
 /**
  * @internal
  */
-export type BoundsMap = Map<
-  string,
-  google.maps.LatLng | google.maps.LatLngLiteral
->;
+export type BoundsMap = Map<string, GeoPoint>;
 
 /**
  * Class to implement when you what to be able to make it work with the auto fit bounds feature
@@ -27,13 +26,13 @@ export abstract class FitBoundsAccessor {
  * The FitBoundsService is responsible for computing the bounds of the a single map.
  */
 @Injectable()
-export class FitBoundsService {
-  protected readonly bounds$: Observable<google.maps.LatLngBounds>;
+export abstract class FitBoundsService {
+  protected readonly bounds$: Observable<BoundsLiteral>;
   protected readonly _boundsChangeSampleTime$ = new BehaviorSubject<number>(
     200,
   );
   protected readonly _includeInBounds$ = new BehaviorSubject<BoundsMap>(
-    new Map<string, google.maps.LatLng | google.maps.LatLngLiteral>(),
+    new Map<string, GeoPoint>(),
   );
 
   constructor(loader: MapsAPILoader) {
@@ -42,23 +41,16 @@ export class FitBoundsService {
       sample(
         this._boundsChangeSampleTime$.pipe(switchMap((time) => timer(0, time))),
       ),
-      map((includeInBounds) => this._generateBounds(includeInBounds)),
+      map((includeInBounds) => this.generateBounds(includeInBounds)),
       shareReplay(1),
     );
   }
 
-  private _generateBounds(
-    includeInBounds: Map<
-      string,
-      google.maps.LatLng | google.maps.LatLngLiteral
-    >,
-  ) {
-    const bounds = new google.maps.LatLngBounds();
-    includeInBounds.forEach((b) => bounds.extend(b));
-    return bounds;
-  }
+  protected abstract generateBounds(
+    includeInBounds: Map<string, GeoPoint>,
+  ): BoundsLiteral;
 
-  addToBounds(latLng: google.maps.LatLng | google.maps.LatLngLiteral) {
+  addToBounds(latLng: GeoPoint) {
     const id = this._createIdentifier(latLng);
     if (this._includeInBounds$.value.has(id)) {
       return;
@@ -78,7 +70,7 @@ export class FitBoundsService {
     this._boundsChangeSampleTime$.next(timeMs);
   }
 
-  getBounds$(): Observable<google.maps.LatLngBounds> {
+  getBounds$(): Observable<BoundsLiteral> {
     return this.bounds$;
   }
 

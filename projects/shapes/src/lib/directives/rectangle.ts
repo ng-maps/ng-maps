@@ -15,10 +15,10 @@ import { RectangleManager } from '../managers/rectangle-manager';
   selector: 'map-rectangle',
   providers: [RectangleManager],
 })
-export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {
+export class NgMapsRectangleDirective implements OnInit, OnChanges, OnDestroy {
   constructor(private _manager: RectangleManager) {}
 
-  private static _mapOptions: string[] = [
+  private static _mapOptions: Array<string> = [
     'fillColor',
     'fillOpacity',
     'strokeColor',
@@ -179,7 +179,7 @@ export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {
 
   private _rectangleAddedToManager: boolean = false;
 
-  private _eventSubscriptions: Subscription[] = [];
+  private _eventSubscriptions: Array<Subscription> = [];
 
   /** @internal */
   ngOnInit() {
@@ -213,7 +213,7 @@ export class NgMapsRectangle implements OnInit, OnChanges, OnDestroy {
   }) {
     const options: { [propName: string]: any } = {};
     const optionKeys = Object.keys(changes).filter(
-      (k) => NgMapsRectangle._mapOptions.indexOf(k) !== -1,
+      (k) => NgMapsRectangleDirective._mapOptions.indexOf(k) !== -1,
     );
     optionKeys.forEach((k) => {
       options[k] = changes[k].currentValue;

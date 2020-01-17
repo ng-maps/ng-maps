@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
 import { FitBoundsAccessor, FitBoundsDetails } from '../services/fit-bounds';
-import { MarkerManager } from '../services/managers/marker-manager';
+import { MarkerManager } from '../services/managers/marker.manager';
 import { NgMapsInfoWindowComponent } from './info-window';
 
 let markerId = 0;
@@ -190,7 +190,7 @@ export class NgMapsMarkerComponent
 
   private _markerAddedToManger: boolean = false;
   private _id: string;
-  private _observableSubscriptions: Subscription[] = [];
+  private _observableSubscriptions: Array<Subscription> = [];
 
   protected readonly _fitBoundsDetails$: ReplaySubject<
     FitBoundsDetails

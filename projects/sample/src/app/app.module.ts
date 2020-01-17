@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { LAZY_MAPS_API_CONFIG, NgMapsCoreModule } from '@ng-maps/core';
 import { NgMapsMarkerClustererModule } from '@ng-maps/marker-clusterer';
@@ -18,6 +18,7 @@ import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
 import { LayersComponent } from './layers/layers.component';
 import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-window.component';
+import { NgMapsGoogleModule } from '@ng-maps/google';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-wind
     ReactiveFormsModule,
     AppRoutingModule,
     NgMapsCoreModule.forRoot(),
+    NgMapsGoogleModule.forRoot(),
     NgMapsMarkerClustererModule.forRoot({
       imagePath: '/assets/images/m',
     }),

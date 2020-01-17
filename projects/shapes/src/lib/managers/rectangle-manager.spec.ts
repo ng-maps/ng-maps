@@ -1,7 +1,7 @@
 import { NgZone } from '@angular/core';
 import { TestBed, async, inject, fakeAsync } from '@angular/core/testing';
 
-import { NgMapsRectangle } from '../directives/rectangle';
+import { NgMapsRectangleDirective } from '../directives/rectangle';
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 import { RectangleManager } from './rectangle-manager';
 
@@ -33,7 +33,7 @@ describe('RectangleManager', () => {
         rectangleManager: RectangleManager,
         apiWrapper: GoogleMapsAPIWrapper,
       ) => {
-        const newRectangle = new NgMapsRectangle(rectangleManager);
+        const newRectangle = new NgMapsRectangleDirective(rectangleManager);
         newRectangle.north = 12.7;
         newRectangle.east = 56.6;
         newRectangle.south = 89.2;
@@ -71,7 +71,7 @@ describe('RectangleManager', () => {
           rectangleManager: RectangleManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
-          const newRectangle = new NgMapsRectangle(rectangleManager);
+          const newRectangle = new NgMapsRectangleDirective(rectangleManager);
           newRectangle.north = 12.7;
           newRectangle.east = 56.6;
           newRectangle.south = 89.2;
@@ -104,7 +104,7 @@ describe('RectangleManager', () => {
           rectangleManager: RectangleManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
-          const newRectangle = new NgMapsRectangle(rectangleManager);
+          const newRectangle = new NgMapsRectangleDirective(rectangleManager);
           newRectangle.north = 12.7;
           newRectangle.east = 56.6;
           newRectangle.south = 89.2;
@@ -171,7 +171,7 @@ describe('RectangleManager', () => {
           rectangleManager: RectangleManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
-          const newRectangle = new NgMapsRectangle(rectangleManager);
+          const newRectangle = new NgMapsRectangleDirective(rectangleManager);
           newRectangle.north = 12.7;
           newRectangle.east = 56.6;
           newRectangle.south = 89.2;
@@ -236,7 +236,7 @@ describe('RectangleManager', () => {
           rectangleManager: RectangleManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
-          const newRectangle = new NgMapsRectangle(rectangleManager);
+          const newRectangle = new NgMapsRectangleDirective(rectangleManager);
           newRectangle.north = 12.7;
           newRectangle.east = 56.6;
           newRectangle.south = 89.2;
@@ -300,7 +300,7 @@ describe('RectangleManager', () => {
           rectangleManager: RectangleManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
-          const newRectangle = new NgMapsRectangle(rectangleManager);
+          const newRectangle = new NgMapsRectangleDirective(rectangleManager);
           newRectangle.north = 12.7;
           newRectangle.east = 56.6;
           newRectangle.south = 89.2;

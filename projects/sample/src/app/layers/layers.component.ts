@@ -22,7 +22,6 @@ export class LayersComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.layerForm.valueChanges.subscribe({
       next: (values) => {
-        console.log('changes', values);
         Object.entries(values).forEach((entry) => {
           const layer = entry[0];
           if (entry[1]) {

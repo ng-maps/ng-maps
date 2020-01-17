@@ -24,7 +24,7 @@ import {
 @Directive({
   selector: '[mapFitBounds]',
 })
-export class NgMapsFitBounds implements OnInit, OnDestroy, OnChanges {
+export class NgMapsFitBoundsDirective implements OnInit, OnDestroy, OnChanges {
   /**
    * If the value is true, the element gets added to the bounds of the map.
    * Default: true.

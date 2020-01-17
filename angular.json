@@ -485,6 +485,194 @@
           }
         }
       }
+    },
+    "google": {
+      "projectType": "library",
+      "root": "projects/google",
+      "sourceRoot": "projects/google/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/google/tsconfig.lib.json",
+            "project": "projects/google/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/google/src/test.ts",
+            "tsConfig": "projects/google/tsconfig.spec.json",
+            "karmaConfig": "projects/google/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/google/tsconfig.lib.json",
+              "projects/google/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "here": {
+      "projectType": "library",
+      "root": "projects/here",
+      "sourceRoot": "projects/here/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/here/tsconfig.lib.json",
+            "project": "projects/here/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/here/src/test.ts",
+            "tsConfig": "projects/here/tsconfig.spec.json",
+            "karmaConfig": "projects/here/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/here/tsconfig.lib.json",
+              "projects/here/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "sample-here": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/sample-here",
+      "sourceRoot": "projects/sample-here/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/sample-here",
+            "index": "projects/sample-here/src/index.html",
+            "main": "projects/sample-here/src/main.ts",
+            "polyfills": "projects/sample-here/src/polyfills.ts",
+            "tsConfig": "projects/sample-here/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/sample-here/src/favicon.ico",
+              "projects/sample-here/src/assets"
+            ],
+            "styles": [
+              "projects/sample-here/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/sample-here/src/environments/environment.ts",
+                  "with": "projects/sample-here/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "sample-here:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "sample-here:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "sample-here:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/sample-here/src/test.ts",
+            "polyfills": "projects/sample-here/src/polyfills.ts",
+            "tsConfig": "projects/sample-here/tsconfig.spec.json",
+            "karmaConfig": "projects/sample-here/karma.conf.js",
+            "assets": [
+              "projects/sample-here/src/favicon.ico",
+              "projects/sample-here/src/assets"
+            ],
+            "styles": [
+              "projects/sample-here/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/sample-here/tsconfig.app.json",
+              "projects/sample-here/tsconfig.spec.json",
+              "projects/sample-here/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/sample-here/e2e/protractor.conf.js",
+            "devServerTarget": "sample-here:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "sample-here:serve:production"
+            }
+          }
+        }
+      }
     }},
   "defaultProject": "core"
 }

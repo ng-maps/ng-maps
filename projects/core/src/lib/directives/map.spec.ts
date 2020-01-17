@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { mockProvider } from '@ngneat/spectator';
 import { EMPTY } from 'rxjs';
 import { FitBoundsService } from '../services/fit-bounds';
-import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
+import { MapsApiWrapper as GoogleMapsAPIWrapper } from '../services/maps-api-wrapper';
 import { NgMapsViewComponent } from './map';
 
 @Injectable()
@@ -23,6 +23,7 @@ describe('NgMapsViewComponent', () => {
         set: {
           providers: [
             { provide: ElementRef, useClass: MockElementRef },
+            // @ts-ignore
             mockProvider(GoogleMapsAPIWrapper, {
               subscribeToMapEvent: () => EMPTY,
               fitBounds: jasmine.createSpy('fitBounds', () =>

@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { GoogleMapsAPIWrapper, NgMapsViewComponent } from '@ng-maps/core';
+import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
 import { NgMapsDrawingLayer } from '../directives/drawing-layer';
 
@@ -15,7 +15,7 @@ export class DrawingManager {
 
   // tslint:disable-next-line:variable-name
   constructor(
-    protected _mapsWrapper: GoogleMapsAPIWrapper,
+    protected _mapsWrapper: MapsApiWrapper,
     protected _zone: NgZone,
   ) {}
 

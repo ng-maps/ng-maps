@@ -14,8 +14,8 @@ import {
 import { Subscription } from 'rxjs';
 import { LayerTypes } from '../interface/layers';
 import { FitBoundsService } from '../services/fit-bounds';
-import { GoogleMapsAPIWrapper } from '../services/google-maps-api-wrapper';
-import { MarkerManager } from '../services/managers/marker-manager';
+import { MapsApiWrapper } from '../services/maps-api-wrapper';
+import { BoundsLiteral } from '../interface/bounds';
 
 /**
  * NgMapsViewComponent renders a Google Map.
@@ -26,8 +26,6 @@ import { MarkerManager } from '../services/managers/marker-manager';
  * <map-view [latitude]="lat" [longitude]="lng" [zoom]="zoom"></map-view>
  */
 @Component({
-  selector: 'agm-map, map-view',
-  providers: [GoogleMapsAPIWrapper, FitBoundsService, MarkerManager],
   styles: [
     `
       .map-container-inner {
@@ -49,7 +47,7 @@ import { MarkerManager } from '../services/managers/marker-manager';
 })
 export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   constructor(
-    protected _mapsWrapper: GoogleMapsAPIWrapper,
+    protected _mapsWrapper: MapsApiWrapper,
     protected _fitBoundsService: FitBoundsService,
     protected _zone: NgZone,
   ) {}
@@ -203,10 +201,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
    * Sets the viewport to contain the given bounds.
    * If this option to `true`, the bounds get automatically computed from all elements that use the {@link NgMapsFitBounds} directive.
    */
-  @Input() fitBounds:
-    | google.maps.LatLngBoundsLiteral
-    | google.maps.LatLngBounds
-    | boolean = false;
+  @Input() fitBounds: BoundsLiteral | boolean = false;
 
   /**
    * Padding amount for bounds. This optional parameter is undefined by default.
@@ -355,9 +350,9 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * This event is fired when the viewport bounds have changed.
    */
-  @Output() boundsChange: EventEmitter<
-    google.maps.LatLngBounds
-  > = new EventEmitter<google.maps.LatLngBounds>();
+  @Output() boundsChange: EventEmitter<BoundsLiteral> = new EventEmitter<
+    BoundsLiteral
+  >();
 
   /**
    * This event is fired when the mapTypeId property changes.
@@ -582,29 +577,18 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     });
   }
 
-  protected async _updateBounds(
-    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
-  ) {
+  protected async _updateBounds(bounds: BoundsLiteral) {
     if (bounds != null) {
       /**
        * await map to not update bounds till map is initialized
        */
       await this._mapsWrapper.getNativeMap();
-      if (this._isLatLngBoundsLiteral(bounds)) {
-        bounds = new google.maps.LatLngBounds().union(bounds);
-      }
       if (this.usePanning) {
         return this._mapsWrapper.panToBounds(bounds, this.boundsPadding);
       } else {
         return this._mapsWrapper.fitBounds(bounds, this.boundsPadding);
       }
     }
-  }
-
-  protected _isLatLngBoundsLiteral(
-    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
-  ): bounds is google.maps.LatLngBoundsLiteral {
-    return bounds != null && (bounds as any).extend === undefined;
   }
 
   private _handleMapCenterChange() {
@@ -627,11 +611,9 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     const s = this._mapsWrapper
       .subscribeToMapEvent<void>('bounds_changed')
       .subscribe(() => {
-        this._mapsWrapper
-          .getBounds()
-          .then((bounds: google.maps.LatLngBounds) => {
-            this.boundsChange.emit(bounds);
-          });
+        this._mapsWrapper.getBounds().then((bounds) => {
+          this.boundsChange.emit(bounds);
+        });
       });
     this._observableSubscriptions.push(s);
   }

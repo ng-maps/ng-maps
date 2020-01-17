@@ -2,7 +2,7 @@ import { Injectable, NgZone } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 
 import { NgMapsPolygon } from '../directives/polygon';
-import { GoogleMapsAPIWrapper, NgMapsViewComponent } from '@ng-maps/core';
+import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
 
 @Injectable({
   providedIn: NgMapsViewComponent,
@@ -13,10 +13,7 @@ export class PolygonManager {
     Promise<google.maps.Polygon>
   >();
 
-  constructor(
-    private _mapsWrapper: GoogleMapsAPIWrapper,
-    private _zone: NgZone,
-  ) {}
+  constructor(private _mapsWrapper: MapsApiWrapper, private _zone: NgZone) {}
 
   addPolygon(path: NgMapsPolygon) {
     const polygonPromise = this._mapsWrapper.createPolygon({

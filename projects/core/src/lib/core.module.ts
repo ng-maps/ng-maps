@@ -1,5 +1,5 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { NgMapsFitBounds } from './directives/fit-bounds';
+import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import { NgMapsFitBoundsDirective } from './directives/fit-bounds';
 import { NgMapsInfoWindowComponent } from './directives/info-window';
 import { NgMapsViewComponent } from './directives/map';
 import { NgMapsMarkerComponent } from './directives/marker';
@@ -10,6 +10,16 @@ import {
 } from './services/maps-api-loader/lazy-maps-api-loader-config';
 import { MapsAPILoader } from './services/maps-api-loader/maps-api-loader';
 
+export const MAP_PROVIDER = new InjectionToken<string>('Map Provider');
+
+export function isGoogleMaps(token: string) {
+  return token === 'GoogleMaps';
+}
+
+export function isHereMaps(token: string) {
+  return token === 'HereMaps';
+}
+
 /**
  * @internal
  */
@@ -18,7 +28,7 @@ export function coreDirectives() {
     NgMapsViewComponent,
     NgMapsMarkerComponent,
     NgMapsInfoWindowComponent,
-    NgMapsFitBounds,
+    NgMapsFitBoundsDirective,
   ];
 }
 

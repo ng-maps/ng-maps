@@ -3,7 +3,7 @@ import { NgMapsCircle } from './directives/circle';
 import { NgMapsPolygon } from './directives/polygon';
 import { NgMapsPolyline } from './directives/polyline';
 import { NgMapsPolylinePoint } from './directives/polyline-point';
-import { NgMapsRectangle } from './directives/rectangle';
+import { NgMapsRectangleDirective } from './directives/rectangle';
 
 /**
  * @internal
@@ -14,7 +14,7 @@ export function shapesDirectives() {
     NgMapsPolygon,
     NgMapsPolyline,
     NgMapsPolylinePoint,
-    NgMapsRectangle,
+    NgMapsRectangleDirective,
   ];
 }
 

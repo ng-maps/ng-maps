@@ -72,6 +72,18 @@
       ],
       "@ng-maps/google-maps-loader/*": [
         "dist/google-maps-loader/*"
+      ],
+      "@ng-maps/google": [
+        "dist/google"
+      ],
+      "@ng-maps/google/*": [
+        "dist/google/*"
+      ],
+      "@ng-maps/here": [
+        "dist/here"
+      ],
+      "@ng-maps/here/*": [
+        "dist/here/*"
       ]
     }
   }

@@ -1,21 +1,22 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
-import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
+import {
+  NgMapsViewComponent,
+  MapsApiWrapper,
+  BoundsLiteral,
+  MarkerOptions,
+} from '@ng-maps/core';
 
 /**
  * Wrapper class that handles the communication with the Google Maps Javascript
  * API v3
  */
-@Injectable()
-export class GoogleMapsAPIWrapper {
-  private _map: Promise<google.maps.Map>;
-  private _mapResolver: (value?: google.maps.Map) => void;
-
-  constructor(private _loader: MapsAPILoader, private _zone: NgZone) {
-    this._map = new Promise<google.maps.Map>((resolve: () => void) => {
-      this._mapResolver = resolve;
-    });
-  }
+@Injectable({
+  providedIn: NgMapsViewComponent,
+})
+export class GoogleMapsAPIWrapper extends MapsApiWrapper<google.maps.Map> {
+  protected _api: Promise<google.maps.Map>;
+  protected _mapResolver: (value?: google.maps.Map) => void;
 
   createMap(
     el: HTMLElement,
@@ -29,7 +30,7 @@ export class GoogleMapsAPIWrapper {
   }
 
   async setMapOptions(options: google.maps.MapOptions) {
-    const map = await this._map;
+    const map = await this._api;
     map.setOptions(options);
   }
 
@@ -40,7 +41,7 @@ export class GoogleMapsAPIWrapper {
     options: google.maps.drawing.DrawingManagerOptions = {},
     addToMap: boolean = true,
   ): Promise<google.maps.drawing.DrawingManager> {
-    const map = await this._map;
+    const map = await this._api;
     if (addToMap) {
       options.map = map;
     }
@@ -51,10 +52,10 @@ export class GoogleMapsAPIWrapper {
    * Creates a google map marker with the map context
    */
   async createMarker(
-    options: google.maps.MarkerOptions = {},
+    options: MarkerOptions = {},
     addToMap: boolean = true,
   ): Promise<google.maps.Marker> {
-    const map = await this._map;
+    const map = await this._api;
     if (addToMap) {
       options.map = map;
     }
@@ -64,7 +65,7 @@ export class GoogleMapsAPIWrapper {
   async createInfoWindow(
     options?: google.maps.InfoWindowOptions,
   ): Promise<google.maps.InfoWindow> {
-    await this._map;
+    await this._api;
     return new google.maps.InfoWindow(options);
   }
 
@@ -75,7 +76,7 @@ export class GoogleMapsAPIWrapper {
   async createCircle(
     options: google.maps.CircleOptions,
   ): Promise<google.maps.Circle> {
-    options.map = await this._map;
+    options.map = await this._api;
     if (typeof options.strokePosition === 'string') {
       options.strokePosition = (google.maps.StrokePosition[
         options.strokePosition
@@ -90,7 +91,7 @@ export class GoogleMapsAPIWrapper {
   createRectangle(
     options: google.maps.RectangleOptions,
   ): Promise<google.maps.Rectangle> {
-    return this._map.then((map: google.maps.Map) => {
+    return this._api.then((map: google.maps.Map) => {
       options.map = map;
       return new google.maps.Rectangle(options);
     });
@@ -122,7 +123,7 @@ export class GoogleMapsAPIWrapper {
   createDataLayer(
     options?: google.maps.Data.DataOptions,
   ): Promise<google.maps.Data> {
-    return this._map.then((m) => {
+    return this._api.then((m) => {
       const data = new google.maps.Data(options);
       data.setMap(m);
       return data;
@@ -141,7 +142,7 @@ export class GoogleMapsAPIWrapper {
 
   subscribeToMapEvent<E>(eventName: string): Observable<E> {
     return new Observable((observer: Observer<E>) => {
-      this._map.then((m: google.maps.Map) => {
+      this._api.then((m: google.maps.Map) => {
         m.addListener(eventName, (arg: E) => {
           this._zone.run(() => observer.next(arg));
         });
@@ -150,69 +151,70 @@ export class GoogleMapsAPIWrapper {
   }
 
   clearInstanceListeners() {
-    this._map.then((map: google.maps.Map) => {
+    this._api.then((map: google.maps.Map) => {
       google.maps.event.clearInstanceListeners(map);
     });
   }
 
   setCenter(latLng: google.maps.LatLngLiteral): Promise<void> {
-    return this._map.then((map: google.maps.Map) => map.setCenter(latLng));
+    return this._api.then((map: google.maps.Map) => map.setCenter(latLng));
   }
 
   getZoom(): Promise<number> {
-    return this._map.then((map: google.maps.Map) => map.getZoom());
+    return this._api.then((map: google.maps.Map) => map.getZoom());
   }
 
-  getBounds(): Promise<google.maps.LatLngBounds> {
-    return this._map.then((map: google.maps.Map) => map.getBounds());
+  async getBounds(): Promise<BoundsLiteral> {
+    const map = await this._api;
+    return map.getBounds().toJSON();
   }
 
   getMapTypeId(): Promise<google.maps.MapTypeId | string> {
-    return this._map.then((map: google.maps.Map) => map.getMapTypeId());
+    return this._api.then((map: google.maps.Map) => map.getMapTypeId());
   }
 
   setZoom(zoom: number): Promise<void> {
-    return this._map.then((map: google.maps.Map) => map.setZoom(zoom));
+    return this._api.then((map: google.maps.Map) => map.setZoom(zoom));
   }
 
   getCenter(): Promise<google.maps.LatLng> {
-    return this._map.then((map: google.maps.Map) => map.getCenter());
+    return this._api.then((map: google.maps.Map) => map.getCenter());
   }
 
   panTo(latLng: google.maps.LatLng | google.maps.LatLngLiteral): Promise<void> {
-    return this._map.then((map) => map.panTo(latLng));
+    return this._api.then((map) => map.panTo(latLng));
   }
 
   panBy(x: number, y: number): Promise<void> {
-    return this._map.then((map) => map.panBy(x, y));
+    return this._api.then((map) => map.panBy(x, y));
   }
 
   async fitBounds(
-    latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+    latLng: BoundsLiteral,
     padding?: number | google.maps.Padding,
   ): Promise<void> {
-    const map = await this._map;
+    const map = await this._api;
     return map.fitBounds(latLng, padding);
   }
 
-  panToBounds(
-    latLng: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+  async panToBounds(
+    latLng: BoundsLiteral,
     padding?: number | google.maps.Padding,
   ): Promise<void> {
-    return this._map.then((map) => map.panToBounds(latLng, padding));
-  }
-
-  /**
-   * Returns the native Google Maps Map instance. Be careful when using this instance directly.
-   */
-  getNativeMap(): Promise<google.maps.Map> {
-    return this._map;
+    const map = await this._api;
+    return map.panToBounds(latLng, padding);
   }
 
   /**
    * Triggers the given event name on the map instance.
    */
   triggerMapEvent(eventName: string): Promise<void> {
-    return this._map.then((m) => google.maps.event.trigger(m, eventName));
+    return this._api.then((m) => google.maps.event.trigger(m, eventName));
+  }
+
+  protected _isLatLngBoundsLiteral(
+    bounds: google.maps.LatLngBounds | google.maps.LatLngBoundsLiteral,
+  ): bounds is google.maps.LatLngBoundsLiteral {
+    return bounds != null && (bounds as any).extend === undefined;
   }
 }

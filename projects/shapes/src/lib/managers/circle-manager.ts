@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { GoogleMapsAPIWrapper, NgMapsViewComponent } from '@ng-maps/core';
+import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
 import { NgMapsCircle } from '../directives/circle';
 
@@ -12,10 +12,7 @@ export class CircleManager {
     Promise<google.maps.Circle>
   >();
 
-  constructor(
-    private _apiWrapper: GoogleMapsAPIWrapper,
-    private _zone: NgZone,
-  ) {}
+  constructor(private _apiWrapper: MapsApiWrapper, private _zone: NgZone) {}
 
   addCircle(circle: NgMapsCircle) {
     this._circles.set(
