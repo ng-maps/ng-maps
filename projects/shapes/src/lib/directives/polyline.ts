@@ -177,7 +177,7 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
 
   private _id: string;
   private _polylineAddedToManager: boolean = false;
-  private _subscriptions: Subscription[] = [];
+  private subscription: Subscription = new Subscription();
 
   /** @internal */
   ngAfterContentInit() {
@@ -186,7 +186,7 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
         const subscription = point.positionChanged.subscribe(() => {
           this._polylineManager.updatePolylinePoints(this);
         });
-        this._subscriptions.push(subscription);
+        this.subscription.add(subscription);
       });
     }
     if (!this._polylineAddedToManager) {
@@ -195,7 +195,7 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
     const s = this.points.changes.subscribe(() =>
       this._polylineManager.updatePolylinePoints(this),
     );
-    this._subscriptions.push(s);
+    this.subscription.add(s);
     this._polylineManager.updatePolylinePoints(this);
   }
 
@@ -271,7 +271,7 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
       const os = this._polylineManager
         .createEventObservable(obj.name, this)
         .subscribe(obj.handler);
-      this._subscriptions.push(os);
+      this.subscription.add(os);
     });
   }
 
@@ -292,6 +292,6 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
   ngOnDestroy() {
     this._polylineManager.deletePolyline(this);
     // unsubscribe all registered observable subscriptions
-    this._subscriptions.forEach((s) => s.unsubscribe());
+    this.subscription.unsubscribe();
   }
 }

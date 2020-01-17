@@ -45,6 +45,32 @@
       "pre-commit": "pretty-quick --staged"
     }
   },
+  "lint-staged": {
+    "projects/core/**/*.ts": [
+      "ng-lint-staged lint core --force --fix --",
+      "git add"
+    ],
+    "projects/google/**/*.ts": [
+      "ng-lint-staged lint google --force --fix --",
+      "git add"
+    ],
+    "projects/here/**/*.ts": [
+      "ng-lint-staged lint here --force --fix --",
+      "git add"
+    ],
+    "projects/marker-clusterer/**/*.ts": [
+      "ng-lint-staged lint marker-clusterer --force --fix --",
+      "git add"
+    ],
+    "projects/places/**/*.ts": [
+      "ng-lint-staged lint places --force --fix --",
+      "git add"
+    ],
+    "projects/shapes/**/*.ts": [
+      "ng-lint-staged lint shapes --force --fix --",
+      "git add"
+    ]
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.4",
@@ -87,6 +113,8 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~3.1.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "lint-staged": "^9.2.1",
+    "ng-lint-staged": "^0.1.6",
     "ng-mocks": "^9.0.0",
     "ng-packagr": "^5.5.0",
     "prettier": "^1.18.2",

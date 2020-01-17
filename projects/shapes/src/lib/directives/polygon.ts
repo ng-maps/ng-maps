@@ -19,6 +19,27 @@ import { PolygonManager } from '../managers/polygon-manager';
   providers: [PolygonManager],
 })
 export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
+  constructor(private _polygonManager: PolygonManager) {}
+
+  private static _polygonOptionsAttributes: Array<string> = [
+    'clickable',
+    'draggable',
+    'editable',
+    'fillColor',
+    'fillOpacity',
+    'geodesic',
+    'icon',
+    'map',
+    'paths',
+    'strokeColor',
+    'strokeOpacity',
+    'strokeWeight',
+    'visible',
+    'zIndex',
+    'draggable',
+    'editable',
+    'visible',
+  ];
   /**
    * Indicates whether this Polygon handles mouse events. Defaults to true.
    */
@@ -175,31 +196,9 @@ export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
     google.maps.PolyMouseEvent
   > = new EventEmitter<google.maps.PolyMouseEvent>();
 
-  private static _polygonOptionsAttributes: Array<string> = [
-    'clickable',
-    'draggable',
-    'editable',
-    'fillColor',
-    'fillOpacity',
-    'geodesic',
-    'icon',
-    'map',
-    'paths',
-    'strokeColor',
-    'strokeOpacity',
-    'strokeWeight',
-    'visible',
-    'zIndex',
-    'draggable',
-    'editable',
-    'visible',
-  ];
-
   private _id: string;
   private _polygonAddedToManager: boolean = false;
-  private _subscriptions: Subscription[] = [];
-
-  constructor(private _polygonManager: PolygonManager) {}
+  private subscription: Subscription = new Subscription();
 
   /** @internal */
   ngAfterContentInit() {
@@ -278,7 +277,7 @@ export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
       const os = this._polygonManager
         .createEventObservable(obj.name, this)
         .subscribe(obj.handler);
-      this._subscriptions.push(os);
+      this.subscription.add(os);
     });
   }
 
@@ -302,6 +301,6 @@ export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
   ngOnDestroy() {
     this._polygonManager.deletePolygon(this);
     // unsubscribe all registered observable subscriptions
-    this._subscriptions.forEach((s) => s.unsubscribe());
+    this.subscription.unsubscribe();
   }
 }

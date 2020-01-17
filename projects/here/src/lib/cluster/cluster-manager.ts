@@ -2,7 +2,6 @@ import { Injectable, NgZone } from '@angular/core';
 
 import {
   MapsApiWrapper,
-  MarkerManager,
   NgMapsMarkerComponent,
   NgMapsViewComponent,
 } from '@ng-maps/core';

@@ -46,8 +46,8 @@ export class CircleManager {
 
   /**
    * @todo check how to improve type casting
-   * @param circle
-   * @param options
+   * @param circle instance of {@link NgMapsCircle}
+   * @param options options for the circle
    */
   async setOptions(
     circle: NgMapsCircle,

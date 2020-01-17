@@ -55,7 +55,7 @@ let infoWindowId = 0;
 export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   constructor(private _infoWindowManager: InfoWindowManager) {}
 
-  private static _infoWindowOptionsInputs: string[] = [
+  private static _infoWindowOptionsInputs: Array<string> = [
     'disableAutoPan',
     'maxWidth',
   ];

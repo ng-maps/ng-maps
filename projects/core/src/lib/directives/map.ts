@@ -313,7 +313,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
    */
   @Input() tilt: number = 0;
 
-  private _observableSubscriptions: Array<Subscription> = [];
+  private subscription: Subscription = new Subscription();
   private _fitBoundsSubscription: Subscription;
 
   /**
@@ -441,7 +441,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   /** @internal */
   ngOnDestroy() {
     // unsubscribe all registered observable subscriptions
-    this._observableSubscriptions.forEach((s) => s.unsubscribe());
+    this.subscription.unsubscribe();
 
     // remove all listeners from the map instance
     this._mapsWrapper.clearInstanceListeners();
@@ -604,7 +604,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
           } as google.maps.LatLngLiteral);
         });
       });
-    this._observableSubscriptions.push(s);
+    this.subscription.add(s);
   }
 
   private _handleBoundsChange() {
@@ -615,7 +615,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
           this.boundsChange.emit(bounds);
         });
       });
-    this._observableSubscriptions.push(s);
+    this.subscription.add(s);
   }
 
   private _handleMapTypeIdChange() {
@@ -628,7 +628,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
             this.mapTypeIdChange.emit(mapTypeId);
           });
       });
-    this._observableSubscriptions.push(s);
+    this.subscription.add(s);
   }
 
   private _handleMapZoomChange() {
@@ -640,7 +640,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
           this.zoomChange.emit(z);
         });
       });
-    this._observableSubscriptions.push(s);
+    this.subscription.add(s);
   }
 
   private _handleIdleEvent() {
@@ -649,14 +649,14 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       .subscribe(() => {
         this.idle.emit(void 0);
       });
-    this._observableSubscriptions.push(s);
+    this.subscription.add(s);
   }
 
   private _handleTilesLoadedEvent() {
     const s = this._mapsWrapper
       .subscribeToMapEvent<void>('tilesloaded')
       .subscribe(() => this.tilesLoaded.emit(void 0));
-    this._observableSubscriptions.push(s);
+    this.subscription.add(s);
   }
 
   private _handleMapMouseEvents() {
@@ -685,7 +685,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
           } as MouseEvent;
           e.emitter.emit(value);
         });
-      this._observableSubscriptions.push(s);
+      this.subscription.add(s);
     });
   }
 }

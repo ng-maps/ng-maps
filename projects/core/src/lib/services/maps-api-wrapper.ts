@@ -1,7 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 import { Observable } from 'rxjs';
-import { NgMapsViewComponent } from '../directives/map';
 import { BoundsLiteral } from '../interface/bounds';
 import { GeoPoint } from '../interface/geo-point';
 import { MarkerOptions } from '../interface/marker';

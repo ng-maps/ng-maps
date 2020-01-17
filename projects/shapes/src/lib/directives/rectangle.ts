@@ -179,7 +179,7 @@ export class NgMapsRectangleDirective implements OnInit, OnChanges, OnDestroy {
 
   private _rectangleAddedToManager: boolean = false;
 
-  private _eventSubscriptions: Array<Subscription> = [];
+  private subscription: Subscription = new Subscription();
 
   /** @internal */
   ngOnInit() {
@@ -242,7 +242,7 @@ export class NgMapsRectangleDirective implements OnInit, OnChanges, OnDestroy {
     events.set('rightclick', this.rightClick);
 
     events.forEach((eventEmitter, eventName) => {
-      this._eventSubscriptions.push(
+      this.subscription.add(
         this._manager
           .createEventObservable<google.maps.MouseEvent>(eventName, this)
           .subscribe((value) => {
@@ -267,10 +267,7 @@ export class NgMapsRectangleDirective implements OnInit, OnChanges, OnDestroy {
 
   /** @internal */
   ngOnDestroy() {
-    this._eventSubscriptions.forEach((s: Subscription) => {
-      s.unsubscribe();
-    });
-    this._eventSubscriptions = null;
+    this.subscription.unsubscribe();
     this._manager.removeRectangle(this);
   }
 
