@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CircleManager } from '../managers/circle-manager';
+import { GeoPoint } from '@ng-maps/core';
 
 @Directive({
   selector: 'map-circle',
@@ -106,9 +107,7 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   /**
    * This event is fired when the circle's center is changed.
    */
-  @Output() centerChange: EventEmitter<
-    google.maps.LatLngLiteral
-  > = new EventEmitter<google.maps.LatLngLiteral>();
+  @Output() centerChange: EventEmitter<GeoPoint> = new EventEmitter<GeoPoint>();
 
   /**
    * This event emitter gets emitted when the user clicks on the circle.

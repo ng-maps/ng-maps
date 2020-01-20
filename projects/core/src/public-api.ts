@@ -7,7 +7,10 @@ export * from './lib/interface/layers';
 export * from './lib/interface/bounds';
 export * from './lib/interface/geo-point';
 export * from './lib/interface/marker';
+export * from './lib/interface/circle-options';
+// directives
 export * from './lib/directives';
+// services
 export * from './lib/services';
 
 // core module

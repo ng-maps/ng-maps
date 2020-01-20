@@ -18,6 +18,7 @@ export enum HereMapsLibraries {
 export interface HereModuleOptions {
   libraries?: Array<HereMapsLibraries>;
   version?: string;
+  platformOptions?: H.service.Platform.Options;
 }
 
 export function optionsFactory(options?: HereModuleOptions) {

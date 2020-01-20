@@ -17,21 +17,23 @@ export class CircleManager {
   addCircle(circle: NgMapsCircle) {
     this._circles.set(
       circle,
-      this._apiWrapper.createCircle({
-        center: { lat: circle.latitude, lng: circle.longitude },
-        clickable: circle.clickable,
-        draggable: circle.draggable,
-        editable: circle.editable,
-        fillColor: circle.fillColor,
-        fillOpacity: circle.fillOpacity,
-        radius: circle.radius,
-        strokeColor: circle.strokeColor,
-        strokeOpacity: circle.strokeOpacity,
-        strokePosition: circle.strokePosition,
-        strokeWeight: circle.strokeWeight,
-        visible: circle.visible,
-        zIndex: circle.zIndex,
-      }),
+      this._apiWrapper.createCircle(
+        { lat: circle.latitude, lng: circle.longitude },
+        {
+          clickable: circle.clickable,
+          draggable: circle.draggable,
+          editable: circle.editable,
+          fillColor: circle.fillColor,
+          fillOpacity: circle.fillOpacity,
+          radius: circle.radius,
+          strokeColor: circle.strokeColor,
+          strokeOpacity: circle.strokeOpacity,
+          strokePosition: circle.strokePosition,
+          strokeWeight: circle.strokeWeight,
+          visible: circle.visible,
+          zIndex: circle.zIndex,
+        },
+      ),
     );
   }
 

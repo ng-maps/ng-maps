@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { BoundsLiteral } from '../interface/bounds';
 import { GeoPoint } from '../interface/geo-point';
 import { MarkerOptions } from '../interface/marker';
+import { CircleOptions } from '../interface/circle-options';
 
 @Injectable()
 export abstract class MapsApiWrapper<T = any> {
@@ -65,7 +66,10 @@ export abstract class MapsApiWrapper<T = any> {
 
   public abstract async createDrawingManager(param: any, addToMap?: boolean);
 
-  public abstract async createCircle(options: any): Promise<any>;
+  public abstract async createCircle(
+    center: GeoPoint,
+    options: CircleOptions,
+  ): Promise<any>;
 
   public abstract async createRectangle(options: any): Promise<any>;
 

@@ -19,7 +19,7 @@ export class ClusterManager extends GoogleMapsMarkerManager {
   private _clustererInstance: Promise<MarkerClusterer>;
   private _resolver: Function;
 
-  constructor(protected _mapsWrapper: MapsApiWrapper, protected _zone: NgZone) {
+  constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
     super(_mapsWrapper, _zone);
     this._clustererInstance = new Promise<MarkerClusterer>((resolver) => {
       this._resolver = resolver;
@@ -31,6 +31,10 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     this._resolver(new MarkerClusterer(map, [], options));
   }
 
+  /**
+   * @todo fix commented options
+   * @param marker
+   */
   async addMarker(marker: NgMapsMarkerComponent): Promise<void> {
     const cluster: MarkerClusterer = await this._clustererInstance;
     const markers = await this._mapsWrapper.createMarker(
@@ -40,13 +44,13 @@ export class ClusterManager extends GoogleMapsMarkerManager {
           lng: marker.longitude,
         },
         label: marker.label,
-        draggable: marker.draggable,
-        icon: marker.iconUrl,
-        opacity: marker.opacity,
+        // draggable: marker.draggable,
+        // icon: marker.iconUrl,
+        // opacity: marker.opacity,
         visible: marker.visible,
         zIndex: marker.zIndex,
         title: marker.title,
-        clickable: marker.clickable,
+        // clickable: marker.clickable,
       },
       false,
     );

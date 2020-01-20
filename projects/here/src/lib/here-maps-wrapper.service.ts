@@ -1,19 +1,46 @@
-import { Injectable } from '@angular/core';
-import { BoundsLiteral, MapsApiWrapper, MarkerOptions } from '@ng-maps/core';
+import { Inject, Injectable, NgZone } from '@angular/core';
+import {
+  BoundsLiteral,
+  MapsApiWrapper,
+  MarkerOptions,
+  GeoPoint,
+  CircleOptions,
+  MapsAPILoader,
+} from '@ng-maps/core';
 import { EMPTY, Observable } from 'rxjs';
 import { boundsFromRect } from './convert';
+import { HERE_MAPS_MODULE_OPTIONS, HereModuleOptions } from './options';
 
 @Injectable()
 export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   private platform: H.service.Platform;
   private defaultLayers: any;
 
-  async createCircle(options: any): Promise<H.map.Circle> {
+  constructor(
+    @Inject(HERE_MAPS_MODULE_OPTIONS) private options: HereModuleOptions,
+    _loader: MapsAPILoader,
+    _zone: NgZone,
+  ) {
+    super(_loader, _zone);
+  }
+
+  async createCircle(
+    center: GeoPoint,
+    options: CircleOptions,
+  ): Promise<H.map.Circle> {
     const map = await this.getNativeMap();
     // Instantiate a circle object (using the default style):
     const { lat, lng } = options.center;
-    const circle = new H.map.Circle({ lat, lng }, options.radius);
-
+    const style = new H.map.SpatialStyle({
+      fillColor: options.fillColor,
+      strokeColor: options.strokeColor,
+      lineWidth: options.strokeWeight,
+    });
+    const circle = new H.map.Circle(center, options.radius, {
+      zIndex: options.zIndex,
+      visibility: options.visible,
+      style,
+    });
     // Add the circle to the map:
     map.addObject(circle);
     return circle;
@@ -120,10 +147,7 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
 
   private createPlatform() {
     // Create a Platform object (one per application):
-    this.platform = new H.service.Platform({
-      app_id: 'SU2sKxocvnItjhSLqpe2',
-      apikey: 'NIetcbVFNgfAE7pK2CPNf5hqXiBVNyIfNgFqZha1BL4',
-    } as any);
+    this.platform = new H.service.Platform(this.options.platformOptions);
 
     // Get an object containing the default map layers:
     this.defaultLayers = this.platform.createDefaultLayers();

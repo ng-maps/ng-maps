@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:google": "ng serve sample",
+    "start:here": "ng serve sample-here",
     "build": "ng build",
     "build:drawing-layer": "ng build drawing-layer",
     "build:google": "ng build google",
@@ -98,7 +100,7 @@
     "@compodoc/compodoc": "^1.1.10",
     "@ngneat/spectator": "^4.0.0",
     "@types/googlemaps": "^3.36.2",
-    "@types/heremaps": "^3.0.15",
+    "@types/heremaps": "github:ng-maps/heremaps-typings",
     "@types/jasmine": "~3.4.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash-es": "^4.17.3",

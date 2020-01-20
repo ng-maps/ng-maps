@@ -1,6 +1,6 @@
 {
   "name": "@ng-maps/core",
-  "version": "1.1.0",
+  "version": "2.0.0-alpha.2",
   "keywords": [
     "angular",
     "ng",
@@ -17,8 +17,7 @@
   ],
   "peerDependencies": {
     "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0",
-    "@types/googlemaps": "^3.37.0"
+    "@angular/core": "^8.0.0"
   },
   "homepage": "https://ng-maps.github.io/core",
   "bugs": {

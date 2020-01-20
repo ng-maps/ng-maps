@@ -1,6 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
-import { NgMapsMarkerComponent, MarkerManager } from '@ng-maps/core';
+import {
+  NgMapsMarkerComponent,
+  MarkerManager,
+  MapsApiWrapper,
+} from '@ng-maps/core';
 
 @Injectable()
 export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
@@ -8,6 +12,10 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
     NgMapsMarkerComponent,
     google.maps.Marker
   >();
+
+  constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
+    super(_mapsWrapper, _zone);
+  }
 
   deleteMarker(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);

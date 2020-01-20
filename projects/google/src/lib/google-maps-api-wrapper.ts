@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import {
-  NgMapsViewComponent,
-  MapsApiWrapper,
   BoundsLiteral,
-  MarkerOptions,
+  CircleOptions,
+  GeoPoint,
+  MapsApiWrapper,
+  NgMapsViewComponent,
 } from '@ng-maps/core';
 
 /**
@@ -52,7 +53,7 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<google.maps.Map> {
    * Creates a google map marker with the map context
    */
   async createMarker(
-    options: MarkerOptions = {},
+    options: google.maps.MarkerOptions,
     addToMap: boolean = true,
   ): Promise<google.maps.Marker> {
     const map = await this._api;
@@ -74,15 +75,20 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<google.maps.Map> {
    * @todo check how to improve type casting
    */
   async createCircle(
-    options: google.maps.CircleOptions,
+    center: GeoPoint,
+    options: CircleOptions,
   ): Promise<google.maps.Circle> {
-    options.map = await this._api;
-    if (typeof options.strokePosition === 'string') {
-      options.strokePosition = (google.maps.StrokePosition[
-        options.strokePosition
+    const opt: google.maps.CircleOptions = {
+      ...options,
+      center,
+      map: await this._api,
+    };
+    if (typeof opt.strokePosition === 'string') {
+      opt.strokePosition = (google.maps.StrokePosition[
+        opt.strokePosition
       ] as any) as google.maps.StrokePosition;
     }
-    return new google.maps.Circle(options);
+    return new google.maps.Circle(opt);
   }
 
   /**

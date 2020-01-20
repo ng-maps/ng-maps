@@ -12,9 +12,10 @@ import {
 } from '@angular/core';
 import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
 import { Subscription } from 'rxjs';
-import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from '../config';
+import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from './cluster-config';
 
-import { ClusterManager } from '../services/managers/cluster-manager';
+import { ClusterManager } from './cluster-manager';
+import { MarkerClustererOptions, Calculator } from './cluster-options';
 
 /**
  * MarkerClusterComponent clusters map marker if they are near together
@@ -59,8 +60,9 @@ export class MarkerClusterComponent
 
   /**
    * An object that has style properties.
+   * @todo specify type
    */
-  @Input() styles: Array<ClusterIconStyle>;
+  @Input() styles: Array<any>;
 
   /**
    * Whether the default behaviour of clicking on a cluster is to zoom into it.
@@ -124,12 +126,17 @@ export class MarkerClusterComponent
     handlers.forEach((obj) => {
       const os = this._clusterManager
         .createClusterEventObservable(obj.name, this)
+        // @fixme
+        // @ts-ignore
         .subscribe(obj.handler);
       this._observableSubscriptions.push(os);
     });
   }
 
-  /** @internal */
+  /**
+   * @todo rework typings
+   * @internal
+   */
   ngOnInit() {
     this._addEventListeners();
     this._clusterManager.init({
@@ -145,6 +152,6 @@ export class MarkerClusterComponent
       minimumClusterSize: this.minimumClusterSize,
       styles: this.styles,
       zoomOnClick: this.zoomOnClick,
-    });
+    } as any);
   }
 }

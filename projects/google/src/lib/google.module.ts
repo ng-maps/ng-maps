@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { GoogleComponent } from './google.component';
 import { GoogleModuleOptions } from './options';
-import { MAP_PROVIDER } from '../../../core/src/lib/core.module';
+import { MAP_PROVIDER } from '@ng-maps/core';
 
 @NgModule({
   declarations: [GoogleComponent],

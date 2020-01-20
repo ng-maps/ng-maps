@@ -5,11 +5,11 @@ export interface MarkerOptions {
   /**
    * not supported by here maps
    */
-  label: string | google.maps.MarkerLabel;
+  label?: string | google.maps.MarkerLabel;
   /**
    * not supported by here maps
    */
-  title: string;
-  visible: boolean;
-  zIndex: number;
+  title?: string;
+  visible?: boolean;
+  zIndex?: number;
 }

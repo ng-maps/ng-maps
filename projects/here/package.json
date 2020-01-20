@@ -1,11 +1,10 @@
 {
   "name": "@ng-maps/here",
-  "version": "0.0.1",
+  "version": "2.0.0-alpha.4",
   "peerDependencies": {
     "@angular/common": "^8.2.3",
     "@angular/core": "^8.2.3",
-    "@ng-maps/core": "^1.0.0",
-    "@types/heremaps": "^3.0.15",
-    "ngx-script-loader": "^1.2.0"
+    "@ng-maps/core": "^2.0.0-alpha.2",
+    "@types/heremaps": "github:ng-maps/heremaps-typings"
   }
 }

@@ -28,6 +28,10 @@ export class ClusterManager extends HereMapsMarkerManager {
     this._resolver(new H.clustering.Provider([], options));
   }
 
+  /**
+   * @todo fix commented options
+   * @param marker
+   */
   async addMarker(marker: NgMapsMarkerComponent): Promise<void> {
     const cluster: H.clustering.Provider = await this._clustererInstance;
     const markers: H.map.Marker = await this._mapsWrapper.createMarker(
@@ -37,13 +41,13 @@ export class ClusterManager extends HereMapsMarkerManager {
           lng: marker.longitude,
         },
         label: marker.label,
-        draggable: marker.draggable,
-        icon: marker.iconUrl,
-        opacity: marker.opacity,
+        // draggable: marker.draggable,
+        // icon: marker.iconUrl,
+        // opacity: marker.opacity,
         visible: marker.visible,
         zIndex: marker.zIndex,
         title: marker.title,
-        clickable: marker.clickable,
+        // clickable: marker.clickable,
       },
       false,
     );

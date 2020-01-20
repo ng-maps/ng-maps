@@ -331,7 +331,7 @@ export class NgMapsMarkerComponent
       .subscribe((e: google.maps.MouseEvent) => {
         this.mouseOver.emit(e);
       });
-    this.subscription.push(mouseover);
+    this.subscription.add(mouseover);
 
     const mouseout = this.markerManager
       .createEventObservable<google.maps.MouseEvent>('mouseout', this)

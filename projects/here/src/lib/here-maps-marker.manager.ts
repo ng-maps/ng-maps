@@ -47,7 +47,7 @@ export class HereMapsMarkerManager extends MarkerManager<H.map.Marker> {
   updateMarkerPosition(marker: NgMapsMarkerComponent): void {
     const m: H.map.Marker = this._markers.get(marker);
     const { latitude, longitude } = marker;
-    m.setPosition({ lat: latitude, lng: longitude });
+    m.setGeometry({ lat: latitude, lng: longitude });
   }
 
   updateOpacity(marker: NgMapsMarkerComponent): void {}
