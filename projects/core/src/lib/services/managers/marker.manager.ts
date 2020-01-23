@@ -1,6 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
-
 import { NgMapsMarkerComponent } from '../../directives/marker';
 import { MapsApiWrapper } from '../maps-api-wrapper';
 

@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
 import {
   BoundsLiteral,
   CircleOptions,
   GeoPoint,
   MapsApiWrapper,
   NgMapsViewComponent,
+  RectangleOptions,
 } from '@ng-maps/core';
+import { Observable, Observer } from 'rxjs';
 
 /**
  * Wrapper class that handles the communication with the Google Maps Javascript
  * API v3
  */
-@Injectable({
-  providedIn: NgMapsViewComponent,
-})
-export class GoogleMapsAPIWrapper extends MapsApiWrapper<google.maps.Map> {
+@Injectable()
+export class GoogleMapsAPIWrapper extends MapsApiWrapper<
+  google.maps.Map,
+  google.maps.Circle,
+  google.maps.Rectangle
+> {
   protected _api: Promise<google.maps.Map>;
   protected _mapResolver: (value?: google.maps.Map) => void;
 
@@ -94,12 +97,15 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<google.maps.Map> {
   /**
    * Creates a google.map.Rectangle for the current map.
    */
-  createRectangle(
-    options: google.maps.RectangleOptions,
+  async createRectangle(
+    bounds: BoundsLiteral,
+    options: RectangleOptions,
   ): Promise<google.maps.Rectangle> {
-    return this._api.then((map: google.maps.Map) => {
-      options.map = map;
-      return new google.maps.Rectangle(options);
+    const map = await this._api;
+    return new google.maps.Rectangle({
+      ...options,
+      bounds,
+      map,
     });
   }
 

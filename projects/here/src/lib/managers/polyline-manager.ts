@@ -1,22 +1,14 @@
-import { Injectable, NgZone } from '@angular/core';
-import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
+import { Injectable } from '@angular/core';
+import {
+  NgMapsPolyline,
+  NgMapsPolylinePoint,
+  PolylineManager,
+} from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
 
-import { NgMapsPolyline } from '../directives/polyline';
-import { NgMapsPolylinePoint } from '../directives/polyline-point';
-
-@Injectable({
-  providedIn: NgMapsViewComponent,
-})
-export class PolylineManager {
-  private _polylines: Map<
-    NgMapsPolyline,
-    Promise<google.maps.Polyline>
-  > = new Map<NgMapsPolyline, Promise<google.maps.Polyline>>();
-
-  constructor(private _mapsWrapper: MapsApiWrapper, private _zone: NgZone) {}
-
-  private _convertPoints(
+@Injectable()
+export class HerePolylineManager extends PolylineManager<H.map.Polyline> {
+  protected _convertPoints(
     line: NgMapsPolyline,
   ): Array<google.maps.LatLngLiteral> {
     return line._getPoints().map((point: NgMapsPolylinePoint) => {
@@ -51,20 +43,21 @@ export class PolylineManager {
     if (m == null) {
       return Promise.resolve();
     }
+    /*
     return m.then((l: google.maps.Polyline) =>
       this._zone.run(() => {
         l.setPath(path);
       }),
     );
+     */
   }
 
-  setPolylineOptions(
+  async setPolylineOptions(
     line: NgMapsPolyline,
     options: { [propName: string]: any },
   ): Promise<void> {
-    return this._polylines.get(line).then((l: google.maps.Polyline) => {
-      l.setOptions(options);
-    });
+    const pl = await this._polylines.get(line);
+    // pl.setOptions(options)
   }
 
   deletePolyline(line: NgMapsPolyline): Promise<void> {
@@ -72,23 +65,27 @@ export class PolylineManager {
     if (m == null) {
       return Promise.resolve();
     }
-    return m.then((l: google.maps.Polyline) => {
+    /*
+    return m.then((l: H.map.Polyline) => {
       return this._zone.run(() => {
         l.setMap(null);
         this._polylines.delete(line);
       });
     });
+     */
   }
 
-  createEventObservable<T>(
+  // @fixme
+  // @ts-ignore
+  createEventObservable(
     eventName: string,
     line: NgMapsPolyline,
-  ): Observable<T> {
-    return new Observable((observer: Observer<T>) => {
-      this._polylines.get(line).then((l: google.maps.Polyline) => {
-        l.addListener(eventName, (e: T) =>
-          this._zone.run(() => observer.next(e)),
-        );
+  ): Observable<void> {
+    return new Observable((observer: Observer<void>) => {
+      this._polylines.get(line).then((l: H.map.Polyline) => {
+        l.addEventListener(eventName, () => {
+          this._zone.run(() => observer.next());
+        });
       });
     });
   }

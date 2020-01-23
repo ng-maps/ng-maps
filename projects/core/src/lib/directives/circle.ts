@@ -9,12 +9,12 @@ import {
   SimpleChange,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CircleManager } from '../managers/circle-manager';
-import { GeoPoint } from '@ng-maps/core';
+import { BoundsLiteral } from '../interface/bounds';
+import { GeoPoint } from '../interface/geo-point';
+import { CircleManager } from '../services/managers/circle-manager';
 
 @Directive({
   selector: 'map-circle',
-  providers: [CircleManager],
 })
 export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   constructor(private _manager: CircleManager) {}
@@ -265,9 +265,8 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
               case 'center_changed':
                 this._manager.getCenter(this).then((center) =>
                   eventEmitter.emit({
-                    lat: center.lat(),
-                    lng: center.lng(),
-                  } as google.maps.LatLngLiteral),
+                    ...center,
+                  }),
                 );
                 break;
               default:
@@ -287,11 +286,11 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   /**
    * Gets the LatLngBounds of this Circle.
    */
-  getBounds(): Promise<google.maps.LatLngBounds> {
+  getBounds(): Promise<BoundsLiteral> {
     return this._manager.getBounds(this);
   }
 
-  getCenter(): Promise<google.maps.LatLng> {
+  getCenter(): Promise<GeoPoint> {
     return this._manager.getCenter(this);
   }
 }

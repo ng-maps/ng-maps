@@ -2,3 +2,8 @@ export { NgMapsViewComponent } from './directives/map';
 export { NgMapsInfoWindowComponent } from './directives/info-window';
 export { NgMapsMarkerComponent } from './directives/marker';
 export { NgMapsFitBoundsDirective } from './directives/fit-bounds';
+export { NgMapsCircle } from './directives/circle';
+export { NgMapsPolygon } from './directives/polygon';
+export { NgMapsPolyline } from './directives/polyline';
+export { NgMapsPolylinePoint } from './directives/polyline-point';
+export { NgMapsRectangleDirective } from './directives/rectangle';

@@ -12,10 +12,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { BoundsLiteral } from '../interface/bounds';
+import { GeoPoint } from '../interface/geo-point';
 import { LayerTypes } from '../interface/layers';
+import { Padding } from '../interface/padding';
 import { FitBoundsService } from '../services/fit-bounds';
 import { MapsApiWrapper } from '../services/maps-api-wrapper';
-import { BoundsLiteral } from '../interface/bounds';
 
 /**
  * NgMapsViewComponent renders a Google Map.
@@ -206,7 +208,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * Padding amount for bounds. This optional parameter is undefined by default.
    */
-  @Input() boundsPadding: number | google.maps.Padding;
+  @Input() boundsPadding: number | Padding;
 
   /**
    * The initial enabled/disabled state of the Scale control. This is disabled by default.
@@ -343,9 +345,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
   /**
    * This event emitter is fired when the map center changes.
    */
-  @Output() centerChange: EventEmitter<
-    google.maps.LatLngLiteral
-  > = new EventEmitter<google.maps.LatLngLiteral>();
+  @Output() centerChange: EventEmitter<GeoPoint> = new EventEmitter<GeoPoint>();
 
   /**
    * This event is fired when the viewport bounds have changed.
@@ -391,7 +391,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this._initMapInstance(this.container.nativeElement);
   }
 
-  private async _initMapInstance(el: HTMLElement) {
+  protected async _initMapInstance(el: HTMLElement) {
     await this._mapsWrapper.createMap(el, {
       center: { lat: this.latitude || 0, lng: this.longitude || 0 },
       zoom: this.zoom,
@@ -457,7 +457,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this._layerChanges(changes);
   }
 
-  private _updateMapOptionsChanges(changes: SimpleChanges) {
+  protected _updateMapOptionsChanges(changes: SimpleChanges) {
     const options: SimpleChanges = {};
     const optionKeys = Object.keys(changes).filter((k) =>
       NgMapsViewComponent._mapOptionsAttributes.includes(k),
@@ -468,7 +468,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     return this._mapsWrapper.setMapOptions(options);
   }
 
-  private async _layerChanges(changes: SimpleChanges) {
+  protected async _layerChanges(changes: SimpleChanges) {
     if (changes.layers) {
       const map = await this._mapsWrapper.getNativeMap();
       const layers = Array.isArray(this.layers) ? this.layers : [this.layers];
@@ -512,7 +512,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     });
   }
 
-  private async _updatePosition(changes: SimpleChanges) {
+  protected async _updatePosition(changes: SimpleChanges) {
     if (
       changes.latitude == null &&
       changes.longitude == null &&
@@ -527,6 +527,12 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
       await this._fitBounds();
       return;
     }
+    if (typeof this.latitude === 'string') {
+      this.latitude = parseFloat(this.latitude);
+    }
+    if (typeof this.longitude === 'string') {
+      this.longitude = parseFloat(this.longitude);
+    }
     const center = await this._mapsWrapper.getCenter();
     if (
       !(
@@ -540,7 +546,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
-  private _setCenter() {
+  protected _setCenter() {
     const newCenter = {
       lat: this.latitude,
       lng: this.longitude,
@@ -552,7 +558,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
-  private _fitBounds() {
+  protected _fitBounds() {
     switch (this.fitBounds) {
       case true:
         this._subscribeToFitBoundsUpdates();
@@ -567,7 +573,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
-  private _subscribeToFitBoundsUpdates() {
+  protected _subscribeToFitBoundsUpdates() {
     this._zone.runOutsideAngular(() => {
       this._fitBoundsSubscription = this._fitBoundsService
         .getBounds$()
@@ -591,7 +597,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
-  private _handleMapCenterChange() {
+  protected _handleMapCenterChange() {
     const s = this._mapsWrapper
       .subscribeToMapEvent<void>('center_changed')
       .subscribe(() => {
@@ -607,7 +613,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this.subscription.add(s);
   }
 
-  private _handleBoundsChange() {
+  protected _handleBoundsChange() {
     const s = this._mapsWrapper
       .subscribeToMapEvent<void>('bounds_changed')
       .subscribe(() => {
@@ -618,7 +624,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this.subscription.add(s);
   }
 
-  private _handleMapTypeIdChange() {
+  protected _handleMapTypeIdChange() {
     const s = this._mapsWrapper
       .subscribeToMapEvent<void>('maptypeid_changed')
       .subscribe(() => {
@@ -631,7 +637,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this.subscription.add(s);
   }
 
-  private _handleMapZoomChange() {
+  protected _handleMapZoomChange() {
     const s = this._mapsWrapper
       .subscribeToMapEvent<void>('zoom_changed')
       .subscribe(() => {
@@ -643,7 +649,7 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this.subscription.add(s);
   }
 
-  private _handleIdleEvent() {
+  protected _handleIdleEvent() {
     const s = this._mapsWrapper
       .subscribeToMapEvent<void>('idle')
       .subscribe(() => {
@@ -652,14 +658,14 @@ export class NgMapsViewComponent implements OnChanges, OnInit, OnDestroy {
     this.subscription.add(s);
   }
 
-  private _handleTilesLoadedEvent() {
+  protected _handleTilesLoadedEvent() {
     const s = this._mapsWrapper
       .subscribeToMapEvent<void>('tilesloaded')
       .subscribe(() => this.tilesLoaded.emit(void 0));
     this.subscription.add(s);
   }
 
-  private _handleMapMouseEvents() {
+  protected _handleMapMouseEvents() {
     interface Emitter {
       emit(value: any): void;
     }

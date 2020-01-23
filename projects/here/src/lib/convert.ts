@@ -7,3 +7,7 @@ export function boundsFromRect(rect: H.geo.Rect): BoundsLiteral {
   const west = rect.getLeft();
   return { east, north, south, west };
 }
+
+export function rectFromBounds(bounds: BoundsLiteral) {
+  return new H.geo.Rect(bounds.north, bounds.west, bounds.south, bounds.east);
+}

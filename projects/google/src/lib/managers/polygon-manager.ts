@@ -1,20 +1,12 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { NgMapsPolygon, PolygonManager } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
-
-import { NgMapsPolygon } from '../directives/polygon';
-import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
+import { GoogleComponent } from '../google.component';
 
 @Injectable({
-  providedIn: NgMapsViewComponent,
+  providedIn: GoogleComponent,
 })
-export class PolygonManager {
-  private _polygons: Map<NgMapsPolygon, Promise<google.maps.Polygon>> = new Map<
-    NgMapsPolygon,
-    Promise<google.maps.Polygon>
-  >();
-
-  constructor(private _mapsWrapper: MapsApiWrapper, private _zone: NgZone) {}
-
+export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
   addPolygon(path: NgMapsPolygon) {
     const polygonPromise = this._mapsWrapper.createPolygon({
       clickable: path.clickable,

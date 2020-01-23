@@ -1,14 +1,16 @@
 import { Inject, Injectable, NgZone } from '@angular/core';
 import {
   BoundsLiteral,
+  CircleOptions,
+  GeoPoint,
+  MapsAPILoader,
   MapsApiWrapper,
   MarkerOptions,
-  GeoPoint,
-  CircleOptions,
-  MapsAPILoader,
+  Padding,
+  RectangleOptions,
 } from '@ng-maps/core';
-import { EMPTY, Observable } from 'rxjs';
-import { boundsFromRect } from './convert';
+import { Observable } from 'rxjs';
+import { boundsFromRect, rectFromBounds } from './convert';
 import { HERE_MAPS_MODULE_OPTIONS, HereModuleOptions } from './options';
 
 @Injectable()
@@ -30,7 +32,6 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   ): Promise<H.map.Circle> {
     const map = await this.getNativeMap();
     // Instantiate a circle object (using the default style):
-    const { lat, lng } = options.center;
     const style = new H.map.SpatialStyle({
       fillColor: options.fillColor,
       strokeColor: options.strokeColor,
@@ -54,8 +55,24 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     return undefined;
   }
 
-  async createRectangle(options: any): Promise<any> {
-    return undefined;
+  async createRectangle(
+    bounds: BoundsLiteral,
+    options: RectangleOptions,
+  ): Promise<any> {
+    const map = await this.getNativeMap();
+    const style = new H.map.SpatialStyle({
+      fillColor: options.fillColor,
+      strokeColor: options.strokeColor,
+      lineWidth: options.strokeWeight,
+    });
+    const rect = new H.map.Rect(rectFromBounds(bounds), {
+      zIndex: options.zIndex,
+      visibility: options.visible,
+      style,
+    });
+    // Add the rectangle to map
+    map.addObject(rect);
+    return rect;
   }
 
   createDrawingManager(param: any, addToMap: boolean): any {}
@@ -68,15 +85,24 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     return undefined;
   }
 
-  fitBounds(
+  /**
+   * @todo implement padding
+   * @param bounds
+   * @param boundsPadding
+   */
+  async fitBounds(
     bounds: BoundsLiteral,
-    boundsPadding: number | google.maps.Padding,
-  ): any {}
+    boundsPadding?: number | Padding,
+  ): Promise<void> {
+    const map = await this.getNativeMap();
+    const box = rectFromBounds(bounds);
+    map.getViewModel().setLookAtData({ bounds: box });
+  }
 
   async getBounds(): Promise<BoundsLiteral> {
     const map = await this.getNativeMap();
-    const bounds = map.getViewBounds();
-    return boundsFromRect(bounds);
+    const lookAtData = map.getViewModel().getLookAtData();
+    return boundsFromRect(lookAtData.bounds.getBoundingBox());
   }
 
   async getCenter(): Promise<any> {
@@ -93,14 +119,24 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     return map.getZoom();
   }
 
-  panTo(newCenter: { lng: number; lat: number }): Promise<void> {
-    return undefined;
+  async panTo(newCenter: { lng: number; lat: number }): Promise<void> {
+    const map = await this.getNativeMap();
+    map.setCenter(newCenter, true);
   }
 
-  panToBounds(
+  /**
+   * @todo implement padding
+   * @param bounds
+   * @param boundsPadding
+   */
+  async panToBounds(
     bounds: BoundsLiteral,
-    boundsPadding: number | google.maps.Padding,
-  ): any {}
+    boundsPadding?: number | Padding,
+  ): Promise<void> {
+    const map = await this.getNativeMap();
+    const box = rectFromBounds(bounds);
+    map.getViewModel().setLookAtData({ bounds: box }, true);
+  }
 
   async setCenter(newCenter: { lng: number; lat: number }): Promise<void> {
     const map = await this.getNativeMap();
@@ -113,7 +149,13 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   }
 
   subscribeToMapEvent<E>(eventName: string): Observable<E> {
-    return EMPTY;
+    return new Observable((observer) => {
+      this._api.then((m: H.Map) => {
+        m.addEventListener(eventName, (arg: Event) => {
+          this._zone.run(() => observer.next(arg as any));
+        });
+      });
+    });
   }
 
   triggerMapEvent(eventName: string): Promise<void> {

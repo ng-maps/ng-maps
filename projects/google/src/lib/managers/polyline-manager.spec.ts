@@ -3,7 +3,7 @@ import { fakeAsync, inject, TestBed } from '@angular/core/testing';
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 
 import { NgMapsPolyline } from '../directives/polyline';
-import { PolylineManager } from './polyline-manager';
+import { GooglePolylineManager } from './polyline-manager';
 
 describe('PolylineManager', () => {
   let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
@@ -17,7 +17,7 @@ describe('PolylineManager', () => {
           provide: NgZone,
           useFactory: () => new NgZone({ enableLongStackTrace: true }),
         },
-        PolylineManager,
+        GooglePolylineManager,
         {
           provide: GoogleMapsAPIWrapper,
           useValue: apiWrapperMock,
@@ -28,8 +28,11 @@ describe('PolylineManager', () => {
 
   describe('Create a new polyline', () => {
     it('should call the mapsApiWrapper when creating a new polyline', inject(
-      [PolylineManager, GoogleMapsAPIWrapper],
-      (polylineManager: PolylineManager, apiWrapper: GoogleMapsAPIWrapper) => {
+      [GooglePolylineManager, GoogleMapsAPIWrapper],
+      (
+        polylineManager: GooglePolylineManager,
+        apiWrapper: GoogleMapsAPIWrapper,
+      ) => {
         const newPolyline = new NgMapsPolyline(polylineManager);
         polylineManager.addPolyline(newPolyline);
 
@@ -58,9 +61,9 @@ describe('PolylineManager', () => {
 
     it('should set the map to null when deleting a existing polyline', fakeAsync(
       inject(
-        [PolylineManager, GoogleMapsAPIWrapper],
+        [GooglePolylineManager, GoogleMapsAPIWrapper],
         (
-          polylineManager: PolylineManager,
+          polylineManager: GooglePolylineManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
           const newPolyline = new NgMapsPolyline(polylineManager);

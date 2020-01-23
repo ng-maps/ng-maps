@@ -73,9 +73,10 @@ xdescribe('MarkerManager', () => {
           newMarker.longitude = 22.3;
           newMarker.label = 'A';
 
-          const markerInstance: Partial<
-            google.maps.Marker
-          > = jasmine.createSpyObj('markerInstance', ['setMap']);
+          const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj(
+            'markerInstance',
+            ['setMap'],
+          );
 
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper
@@ -102,9 +103,10 @@ xdescribe('MarkerManager', () => {
           newMarker.longitude = 22.3;
           newMarker.label = 'A';
 
-          const markerInstance: Partial<
-            google.maps.Marker
-          > = jasmine.createSpyObj('markerInstance', ['setMap', 'setIcon']);
+          const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj(
+            'markerInstance',
+            ['setMap', 'setIcon'],
+          );
 
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper
@@ -148,9 +150,10 @@ xdescribe('MarkerManager', () => {
           newMarker.longitude = 22.3;
           newMarker.label = 'A';
 
-          const markerInstance: Partial<
-            google.maps.Marker
-          > = jasmine.createSpyObj('markerInstance', ['setMap', 'setOpacity']);
+          const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj(
+            'markerInstance',
+            ['setMap', 'setOpacity'],
+          );
 
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper
@@ -195,9 +198,10 @@ xdescribe('MarkerManager', () => {
           newMarker.label = 'A';
           newMarker.visible = false;
 
-          const markerInstance: Partial<
-            google.maps.Marker
-          > = jasmine.createSpyObj('markerInstance', ['setMap', 'setVisible']);
+          const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj(
+            'markerInstance',
+            ['setMap', 'setVisible'],
+          );
 
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper
@@ -241,9 +245,10 @@ xdescribe('MarkerManager', () => {
           newMarker.label = 'A';
           newMarker.visible = false;
 
-          const markerInstance: Partial<
-            google.maps.Marker
-          > = jasmine.createSpyObj('markerInstance', ['setMap', 'setZIndex']);
+          const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj(
+            'markerInstance',
+            ['setMap', 'setZIndex'],
+          );
 
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper

@@ -3,7 +3,7 @@ import { TestBed, inject, fakeAsync } from '@angular/core/testing';
 
 import { NgMapsPolygon } from '../directives/polygon';
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
-import { PolygonManager } from './polygon-manager';
+import { GooglePolygonManager } from './polygon-manager';
 
 describe('PolygonManager', () => {
   let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
@@ -17,7 +17,7 @@ describe('PolygonManager', () => {
           provide: NgZone,
           useFactory: () => new NgZone({ enableLongStackTrace: true }),
         },
-        PolygonManager,
+        GooglePolygonManager,
         NgMapsPolygon,
         {
           provide: GoogleMapsAPIWrapper,
@@ -29,8 +29,11 @@ describe('PolygonManager', () => {
 
   describe('Create a new polygon', () => {
     it('should call the mapsApiWrapper when creating a new polygon', inject(
-      [PolygonManager, GoogleMapsAPIWrapper],
-      (polygonManager: PolygonManager, apiWrapper: GoogleMapsAPIWrapper) => {
+      [GooglePolygonManager, GoogleMapsAPIWrapper],
+      (
+        polygonManager: GooglePolygonManager,
+        apiWrapper: GoogleMapsAPIWrapper,
+      ) => {
         const newPolygon = new NgMapsPolygon(polygonManager);
         polygonManager.addPolygon(newPolygon);
 
@@ -55,13 +58,17 @@ describe('PolygonManager', () => {
   describe('Delete a polygon', () => {
     it('should set the map to null when deleting a existing polygon', fakeAsync(
       inject(
-        [PolygonManager, GoogleMapsAPIWrapper],
-        (polygonManager: PolygonManager, apiWrapper: GoogleMapsAPIWrapper) => {
+        [GooglePolygonManager, GoogleMapsAPIWrapper],
+        (
+          polygonManager: GooglePolygonManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
           const newPolygon = new NgMapsPolygon(polygonManager);
 
-          const polygonInstance: Partial<
-            google.maps.Rectangle
-          > = jasmine.createSpyObj('polygonInstance', ['setMap']);
+          const polygonInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
+            'polygonInstance',
+            ['setMap'],
+          );
 
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper

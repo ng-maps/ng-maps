@@ -1,10 +1,5 @@
-export interface CircleOptions extends google.maps.CircleLiteral {
+import { ShapeOptions } from './shape-options';
+
+export interface CircleOptions extends ShapeOptions {
   radius?: number;
-  fillColor?: string;
-  fillOpacity?: number;
-  strokeColor?: string;
-  strokeOpacity?: number;
-  strokeWeight?: number;
-  visible?: boolean;
-  zIndex?: number;
 }

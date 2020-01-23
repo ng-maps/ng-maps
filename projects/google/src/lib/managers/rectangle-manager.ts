@@ -1,44 +1,45 @@
 import { Injectable, NgZone } from '@angular/core';
-import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
+import {
+  BoundsLiteral,
+  MapsApiWrapper,
+  NgMapsRectangleDirective,
+  RectangleManager,
+} from '@ng-maps/core';
 
 import { Observable, Observer } from 'rxjs';
 
-import { NgMapsRectangleDirective } from '../directives/rectangle';
+import { GoogleComponent } from '../google.component';
 
 @Injectable({
-  providedIn: NgMapsViewComponent,
+  providedIn: GoogleComponent,
 })
-export class RectangleManager {
-  private _rectangles: Map<
-    NgMapsRectangleDirective,
-    Promise<google.maps.Rectangle>
-  > = new Map<NgMapsRectangleDirective, Promise<google.maps.Rectangle>>();
-
-  constructor(private _apiWrapper: MapsApiWrapper, private _zone: NgZone) {}
-
+export class GoogleRectangleManager extends RectangleManager<
+  google.maps.Rectangle
+> {
   addRectangle(rectangle: NgMapsRectangleDirective) {
     this._rectangles.set(
       rectangle,
-      this._apiWrapper.createRectangle({
-        bounds: {
+      this._apiWrapper.createRectangle(
+        {
           north: rectangle.north,
           east: rectangle.east,
           south: rectangle.south,
           west: rectangle.west,
         },
-        clickable: rectangle.clickable,
-        draggable: rectangle.draggable,
-        editable: rectangle.editable,
-        fillColor: rectangle.fillColor,
-        fillOpacity: rectangle.fillOpacity,
-        strokeColor: rectangle.strokeColor,
-        strokeOpacity: rectangle.strokeOpacity,
-        // @ts-ignore
-        strokePosition: rectangle.strokePosition,
-        strokeWeight: rectangle.strokeWeight,
-        visible: rectangle.visible,
-        zIndex: rectangle.zIndex,
-      }),
+        {
+          // clickable: rectangle.clickable,
+          // draggable: rectangle.draggable,
+          // editable: rectangle.editable,
+          fillColor: rectangle.fillColor,
+          fillOpacity: rectangle.fillOpacity,
+          strokeColor: rectangle.strokeColor,
+          strokeOpacity: rectangle.strokeOpacity,
+          // strokePosition: rectangle.strokePosition,
+          strokeWeight: rectangle.strokeWeight,
+          visible: rectangle.visible,
+          zIndex: rectangle.zIndex,
+        },
+      ),
     );
   }
 
@@ -59,10 +60,9 @@ export class RectangleManager {
     return this._rectangles.get(rectangle).then((r) => r.setOptions(options));
   }
 
-  getBounds(
-    rectangle: NgMapsRectangleDirective,
-  ): Promise<google.maps.LatLngBounds> {
-    return this._rectangles.get(rectangle).then((r) => r.getBounds());
+  async getBounds(rectangle: NgMapsRectangleDirective): Promise<BoundsLiteral> {
+    const r = await this._rectangles.get(rectangle);
+    return r.getBounds().toJSON();
   }
 
   setBounds(rectangle: NgMapsRectangleDirective): Promise<void> {

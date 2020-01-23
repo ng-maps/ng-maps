@@ -9,14 +9,13 @@ import {
   Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PolygonManager } from '../managers/polygon-manager';
+import { PolygonManager } from '../services/managers/polygon-manager';
 
 /**
  * NgMapsPolygon renders a polygon on a {@link https://ng-maps.github.io/core/components/NgMapsViewComponent.html|NgMapsView}
  */
 @Directive({
   selector: 'map-polygon',
-  providers: [PolygonManager],
 })
 export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
   constructor(private _polygonManager: PolygonManager) {}

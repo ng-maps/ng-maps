@@ -2,7 +2,7 @@ import { NgZone } from '@angular/core';
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 import { NgMapsCircle } from '../directives/circle';
-import { CircleManager } from './circle-manager';
+import { GoogleCircleManager } from './circle-manager';
 
 describe('CircleManager', () => {
   beforeEach(() => {
@@ -17,7 +17,7 @@ describe('CircleManager', () => {
           provide: NgZone,
           useFactory: () => new NgZone({ enableLongStackTrace: true }),
         },
-        CircleManager,
+        GoogleCircleManager,
         {
           provide: GoogleMapsAPIWrapper,
           useValue: jasmine.createSpyObj('GoogleMapsAPIWrapper', [
@@ -30,9 +30,9 @@ describe('CircleManager', () => {
 
   describe('Create a new circle', () => {
     it('should call the mapsApiWrapper when creating a new circle', inject(
-      [CircleManager, GoogleMapsAPIWrapper],
+      [GoogleCircleManager, GoogleMapsAPIWrapper],
       (
-        circleManager: CircleManager,
+        circleManager: GoogleCircleManager,
         apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
       ) => {
         const newCircle = new NgMapsCircle(circleManager);
@@ -48,9 +48,9 @@ describe('CircleManager', () => {
 
   describe('Create a new circle', () => {
     it('should call the mapsApiWrapper createCircle with correct args', inject(
-      [CircleManager, GoogleMapsAPIWrapper],
+      [GoogleCircleManager, GoogleMapsAPIWrapper],
       (
-        circleManager: CircleManager,
+        circleManager: GoogleCircleManager,
         apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
       ) => {
         const newCircle = new NgMapsCircle(circleManager);
@@ -83,9 +83,9 @@ describe('CircleManager', () => {
   describe('Delete a circle', () => {
     it('should set the map to null when deleting a existing circle', fakeAsync(
       inject(
-        [CircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, GoogleMapsAPIWrapper],
         (
-          circleManager: CircleManager,
+          circleManager: GoogleCircleManager,
           apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
         ) => {
           const newCircle = new NgMapsCircle(circleManager);
@@ -113,9 +113,9 @@ describe('CircleManager', () => {
   describe('Set radius option', () => {
     it('should update that circle via setRadius method when the radius changes', fakeAsync(
       inject(
-        [CircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, GoogleMapsAPIWrapper],
         (
-          circleManager: CircleManager,
+          circleManager: GoogleCircleManager,
           apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
         ) => {
           const newCircle = new NgMapsCircle(circleManager);
@@ -144,9 +144,9 @@ describe('CircleManager', () => {
   describe('Set options', () => {
     it('should update that circle via setOptions method when the opacity options change', fakeAsync(
       inject(
-        [CircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, GoogleMapsAPIWrapper],
         (
-          circleManager: CircleManager,
+          circleManager: GoogleCircleManager,
           apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
         ) => {
           const newCircle = new NgMapsCircle(circleManager);
@@ -184,9 +184,9 @@ describe('CircleManager', () => {
 
     it('should update that circle via setOptions method when the color options change', fakeAsync(
       inject(
-        [CircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, GoogleMapsAPIWrapper],
         (
-          circleManager: CircleManager,
+          circleManager: GoogleCircleManager,
           apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
         ) => {
           const newCircle = new NgMapsCircle(circleManager);
@@ -223,9 +223,9 @@ describe('CircleManager', () => {
 
     it('should update that circle via setOptions method when the strokeWeight/position change', fakeAsync(
       inject(
-        [CircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, GoogleMapsAPIWrapper],
         (
-          circleManager: CircleManager,
+          circleManager: GoogleCircleManager,
           apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
         ) => {
           const newCircle = new NgMapsCircle(circleManager);
@@ -263,9 +263,9 @@ describe('CircleManager', () => {
 
     it('should update that circle via setVisible method when the visible changes', fakeAsync(
       inject(
-        [CircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, GoogleMapsAPIWrapper],
         (
-          circleManager: CircleManager,
+          circleManager: GoogleCircleManager,
           apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
         ) => {
           const newCircle = new NgMapsCircle(circleManager);

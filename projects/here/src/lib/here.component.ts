@@ -1,13 +1,21 @@
 import { Component } from '@angular/core';
 import {
-  MapsApiWrapper,
-  NgMapsViewComponent,
-  MarkerManager,
+  CircleManager,
   FitBoundsService,
+  MapsApiWrapper,
+  MarkerManager,
+  NgMapsViewComponent,
+  PolygonManager,
+  PolylineManager,
+  RectangleManager,
 } from '@ng-maps/core';
-import { HereMapsWrapperService } from './here-maps-wrapper.service';
-import { HereMapsMarkerManager } from './here-maps-marker.manager';
 import { HereMapsFitBoundsService } from './here-maps-fit-bounds.service';
+import { HereMapsMarkerManager } from './here-maps-marker.manager';
+import { HereMapsWrapperService } from './here-maps-wrapper.service';
+import { HereCircleManager } from './managers/circle-manager';
+import { HerePolygonManager } from './managers/polygon-manager';
+import { HerePolylineManager } from './managers/polyline-manager';
+import { HereRectangleManager } from './managers/rectangle-manager';
 
 @Component({
   selector: 'agm-map, map-view',
@@ -15,6 +23,10 @@ import { HereMapsFitBoundsService } from './here-maps-fit-bounds.service';
     { provide: MapsApiWrapper, useClass: HereMapsWrapperService },
     { provide: FitBoundsService, useClass: HereMapsFitBoundsService },
     { provide: MarkerManager, useClass: HereMapsMarkerManager },
+    { provide: CircleManager, useClass: HereCircleManager },
+    { provide: PolygonManager, useClass: HerePolygonManager },
+    { provide: PolylineManager, useClass: HerePolylineManager },
+    { provide: RectangleManager, useClass: HereRectangleManager },
   ],
   styles: [
     `

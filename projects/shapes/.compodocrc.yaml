@@ -1,4 +1,0 @@
-name: '@ng-maps/shapes'
-tsconfig: tsconfig.lib.json
-disableRoutesGraph: true
-output: ../../docs/shapes

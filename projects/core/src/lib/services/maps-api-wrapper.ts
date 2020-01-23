@@ -1,13 +1,15 @@
 import { Injectable, NgZone } from '@angular/core';
-import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 import { Observable } from 'rxjs';
 import { BoundsLiteral } from '../interface/bounds';
+import { CircleOptions } from '../interface/circle-options';
 import { GeoPoint } from '../interface/geo-point';
 import { MarkerOptions } from '../interface/marker';
-import { CircleOptions } from '../interface/circle-options';
+import { Padding } from '../interface/padding';
+import { RectangleOptions } from '../interface/rectangle-options';
+import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 
 @Injectable()
-export abstract class MapsApiWrapper<T = any> {
+export abstract class MapsApiWrapper<T = any, C = any, R = any> {
   protected _api: Promise<T>;
   protected _mapResolver: (value?: T) => void;
 
@@ -42,12 +44,12 @@ export abstract class MapsApiWrapper<T = any> {
 
   public abstract panToBounds(
     bounds: BoundsLiteral,
-    boundsPadding: number | google.maps.Padding,
+    boundsPadding?: number | Padding,
   );
 
   public abstract fitBounds(
     bounds: BoundsLiteral,
-    boundsPadding: number | google.maps.Padding,
+    boundsPadding?: number | Padding,
   );
 
   public abstract getBounds(): Promise<BoundsLiteral>;
@@ -69,9 +71,12 @@ export abstract class MapsApiWrapper<T = any> {
   public abstract async createCircle(
     center: GeoPoint,
     options: CircleOptions,
-  ): Promise<any>;
+  ): Promise<C>;
 
-  public abstract async createRectangle(options: any): Promise<any>;
+  public abstract async createRectangle(
+    box: BoundsLiteral,
+    options: RectangleOptions,
+  ): Promise<R>;
 
   public abstract async createPolyline(options: any): Promise<any>;
 

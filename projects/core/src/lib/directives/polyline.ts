@@ -11,8 +11,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PolylineManager } from '../managers/polyline-manager';
 import { NgMapsPolylinePoint } from './polyline-point';
+import { PolylineManager } from '../services/managers/polyline-manager';
 
 let polylineId = 0;
 
@@ -21,7 +21,6 @@ let polylineId = 0;
  */
 @Directive({
   selector: 'map-polyline',
-  providers: [PolylineManager],
 })
 export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
   constructor(private _polylineManager: PolylineManager) {

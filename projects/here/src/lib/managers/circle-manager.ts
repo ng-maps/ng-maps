@@ -1,34 +1,35 @@
 import { Injectable, NgZone } from '@angular/core';
-import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
+import {
+  BoundsLiteral,
+  GeoPoint,
+  MapsApiWrapper,
+  NgMapsViewComponent,
+  NgMapsCircle,
+  CircleManager,
+} from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
-import { NgMapsCircle } from '../directives/circle';
 
-@Injectable({
-  providedIn: NgMapsViewComponent,
-})
-export class CircleManager {
-  private _circles: Map<NgMapsCircle, Promise<google.maps.Circle>> = new Map<
-    NgMapsCircle,
-    Promise<google.maps.Circle>
-  >();
-
-  constructor(private _apiWrapper: MapsApiWrapper, private _zone: NgZone) {}
-
+@Injectable()
+export class HereCircleManager extends CircleManager<H.map.Circle> {
+  /**
+   * @fixme implement commented properties
+   * @param circle
+   */
   addCircle(circle: NgMapsCircle) {
     this._circles.set(
       circle,
       this._apiWrapper.createCircle(
         { lat: circle.latitude, lng: circle.longitude },
         {
-          clickable: circle.clickable,
-          draggable: circle.draggable,
-          editable: circle.editable,
+          // clickable: circle.clickable,
+          // draggable: circle.draggable,
+          // editable: circle.editable,
           fillColor: circle.fillColor,
           fillOpacity: circle.fillOpacity,
           radius: circle.radius,
           strokeColor: circle.strokeColor,
           strokeOpacity: circle.strokeOpacity,
-          strokePosition: circle.strokePosition,
+          // strokePosition: circle.strokePosition,
           strokeWeight: circle.strokeWeight,
           visible: circle.visible,
           zIndex: circle.zIndex,
@@ -65,12 +66,14 @@ export class CircleManager {
     return c.setOptions(options);
   }
 
-  getBounds(circle: NgMapsCircle): Promise<google.maps.LatLngBounds> {
-    return this._circles.get(circle).then((c) => c.getBounds());
+  async getBounds(circle: NgMapsCircle): Promise<BoundsLiteral> {
+    const c = await this._circles.get(circle);
+    return c.getBounds();
   }
 
-  getCenter(circle: NgMapsCircle): Promise<google.maps.LatLng> {
-    return this._circles.get(circle).then((c) => c.getCenter());
+  async getCenter(circle: NgMapsCircle): Promise<GeoPoint> {
+    const c = await this._circles.get(circle);
+    return c.getCenter();
   }
 
   getRadius(circle: NgMapsCircle): Promise<number> {

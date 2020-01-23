@@ -1,12 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
+import {
+  MapsApiWrapper,
+  MarkerManager,
+  NgMapsInfoWindowComponent,
+} from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
-import { NgMapsInfoWindowComponent } from '../../directives/info-window';
-import { NgMapsViewComponent } from '../../directives/map';
-import { MapsApiWrapper } from '../maps-api-wrapper';
-import { MarkerManager } from './marker.manager';
+import { GoogleComponent } from '../google.component';
 
 @Injectable({
-  providedIn: NgMapsViewComponent,
+  providedIn: GoogleComponent,
 })
 export class InfoWindowManager {
   private _infoWindows: Map<

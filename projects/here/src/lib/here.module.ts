@@ -1,13 +1,13 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { MAP_PROVIDER, MapsAPILoader } from '@ng-maps/core';
+import { MarkerClusterComponent } from './cluster/marker-cluster';
+import { HereMapsLoaderService } from './here-maps-loader.service';
 import { HereComponent } from './here.component';
-import { MapsAPILoader, MAP_PROVIDER } from '@ng-maps/core';
 import {
   HERE_MAPS_MODULE_OPTIONS,
   HereModuleOptions,
   optionsFactory,
 } from './options';
-import { HereMapsLoaderService } from './here-maps-loader.service';
-import { MarkerClusterComponent } from './cluster/marker-cluster';
 
 @NgModule({
   declarations: [HereComponent, MarkerClusterComponent],

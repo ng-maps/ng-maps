@@ -213,48 +213,6 @@
         }
       }
     },
-    "shapes": {
-      "projectType": "library",
-      "root": "projects/shapes",
-      "sourceRoot": "projects/shapes/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/shapes/tsconfig.lib.json",
-            "project": "projects/shapes/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/shapes/src/test.ts",
-            "tsConfig": "projects/shapes/tsconfig.spec.json",
-            "karmaConfig": "projects/shapes/karma.conf.js"
-          },
-          "configurations": {
-            "ci": {
-              "browsers": "ChromeCI",
-              "codeCoverage": true,
-              "watch": false
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/shapes/tsconfig.lib.json",
-              "projects/shapes/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "places": {
       "projectType": "library",
       "root": "projects/places",

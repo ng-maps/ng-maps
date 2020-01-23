@@ -1,19 +1,19 @@
 import {
   Directive,
   EventEmitter,
+  Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  SimpleChange,
-  Input,
   Output,
+  SimpleChange,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { RectangleManager } from '../managers/rectangle-manager';
+import { BoundsLiteral } from '../interface/bounds';
+import { RectangleManager } from '../services/managers/rectangle-manager';
 
 @Directive({
   selector: 'map-rectangle',
-  providers: [RectangleManager],
 })
 export class NgMapsRectangleDirective implements OnInit, OnChanges, OnDestroy {
   constructor(private _manager: RectangleManager) {}
@@ -248,14 +248,9 @@ export class NgMapsRectangleDirective implements OnInit, OnChanges, OnDestroy {
           .subscribe((value) => {
             switch (eventName) {
               case 'bounds_changed':
-                this._manager.getBounds(this).then((bounds) =>
-                  eventEmitter.emit({
-                    north: bounds.getNorthEast().lat(),
-                    east: bounds.getNorthEast().lng(),
-                    south: bounds.getSouthWest().lat(),
-                    west: bounds.getSouthWest().lng(),
-                  } as google.maps.LatLngBoundsLiteral),
-                );
+                this._manager
+                  .getBounds(this)
+                  .then((bounds) => eventEmitter.emit(bounds));
                 break;
               default:
                 eventEmitter.emit(value);
@@ -274,7 +269,7 @@ export class NgMapsRectangleDirective implements OnInit, OnChanges, OnDestroy {
   /**
    * Gets the LatLngBounds of this Rectangle.
    */
-  getBounds(): Promise<google.maps.LatLngBounds> {
+  getBounds(): Promise<BoundsLiteral> {
     return this._manager.getBounds(this);
   }
 }

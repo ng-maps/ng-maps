@@ -35,14 +35,15 @@ after_script:
   - greenkeeper-lockfile-upload
   # Pipe the coverage data to Code Climate
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.core.json coverage/core/lcov.info
+  - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.google.json coverage/google/lcov.info
+  - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.here.json coverage/here/lcov.info
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.data-layer.json coverage/data-layer/lcov.info
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.drawing-layer.json coverage/drawing-layer/lcov.info
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.js-marker-clusterer.json coverage/js-marker-clusterer/lcov.info
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.kml-layer.json coverage/kml-layer/lcov.info
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.places.json coverage/playces/lcov.info
-  - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.shapes.json coverage/shapes/lcov.info
   - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.snazzy-info-window.json coverage/snazzy-info-window/lcov.info
-  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 8 # Sum both coverage parts into coverage/codeclimate.json
+  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json -p 9 # Sum both coverage parts into coverage/codeclimate.json
   - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi # Upload coverage/codeclimate.json
 
 after_success:

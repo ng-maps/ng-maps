@@ -3,7 +3,7 @@ import { TestBed, async, inject, fakeAsync } from '@angular/core/testing';
 
 import { NgMapsRectangleDirective } from '../directives/rectangle';
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
-import { RectangleManager } from './rectangle-manager';
+import { GoogleRectangleManager } from './rectangle-manager';
 
 describe('RectangleManager', () => {
   let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
@@ -17,7 +17,7 @@ describe('RectangleManager', () => {
           provide: NgZone,
           useFactory: () => new NgZone({ enableLongStackTrace: true }),
         },
-        RectangleManager,
+        GoogleRectangleManager,
         {
           provide: GoogleMapsAPIWrapper,
           useValue: apiWrapperMock,
@@ -28,9 +28,9 @@ describe('RectangleManager', () => {
 
   describe('Create a new rectangle', () => {
     it('should call the mapsApiWrapper when creating a new rectangle', inject(
-      [RectangleManager, GoogleMapsAPIWrapper],
+      [GoogleRectangleManager, GoogleMapsAPIWrapper],
       (
-        rectangleManager: RectangleManager,
+        rectangleManager: GoogleRectangleManager,
         apiWrapper: GoogleMapsAPIWrapper,
       ) => {
         const newRectangle = new NgMapsRectangleDirective(rectangleManager);
@@ -66,9 +66,9 @@ describe('RectangleManager', () => {
   describe('Delete a rectangle', () => {
     it('should set the map to null when deleting a existing rectangle', fakeAsync(
       inject(
-        [RectangleManager, GoogleMapsAPIWrapper],
+        [GoogleRectangleManager, GoogleMapsAPIWrapper],
         (
-          rectangleManager: RectangleManager,
+          rectangleManager: GoogleRectangleManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
           const newRectangle = new NgMapsRectangleDirective(rectangleManager);
@@ -77,9 +77,10 @@ describe('RectangleManager', () => {
           newRectangle.south = 89.2;
           newRectangle.west = 52.6;
 
-          const rectangleInstance: Partial<
-            google.maps.Rectangle
-          > = jasmine.createSpyObj('rectangleInstance', ['setMap']);
+          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
+            'rectangleInstance',
+            ['setMap'],
+          );
 
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper
@@ -99,9 +100,9 @@ describe('RectangleManager', () => {
   describe('Set bounds option', () => {
     it('should update that rectangle via setBounds method when the bounds changes', async(
       inject(
-        [RectangleManager, GoogleMapsAPIWrapper],
+        [GoogleRectangleManager, GoogleMapsAPIWrapper],
         (
-          rectangleManager: RectangleManager,
+          rectangleManager: GoogleRectangleManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
           const newRectangle = new NgMapsRectangleDirective(rectangleManager);
@@ -110,12 +111,10 @@ describe('RectangleManager', () => {
           newRectangle.south = 89.2;
           newRectangle.west = 52.6;
 
-          const rectangleInstance: Partial<
-            google.maps.Rectangle
-          > = jasmine.createSpyObj('rectangleInstance', [
-            'setMap',
-            'setBounds',
-          ]);
+          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
+            'rectangleInstance',
+            ['setMap', 'setBounds'],
+          );
 
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper
@@ -166,9 +165,9 @@ describe('RectangleManager', () => {
   describe('Set fill/stroke opacity option', () => {
     it('should update that rectangle via setOptions method when the options changes', async(
       inject(
-        [RectangleManager, GoogleMapsAPIWrapper],
+        [GoogleRectangleManager, GoogleMapsAPIWrapper],
         (
-          rectangleManager: RectangleManager,
+          rectangleManager: GoogleRectangleManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
           const newRectangle = new NgMapsRectangleDirective(rectangleManager);
@@ -179,12 +178,10 @@ describe('RectangleManager', () => {
           newRectangle.fillOpacity = 0.4;
           newRectangle.strokeOpacity = 0.4;
 
-          const rectangleInstance: Partial<
-            google.maps.Rectangle
-          > = jasmine.createSpyObj('rectangleInstance', [
-            'setMap',
-            'setOptions',
-          ]);
+          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
+            'rectangleInstance',
+            ['setMap', 'setOptions'],
+          );
 
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper
@@ -231,9 +228,9 @@ describe('RectangleManager', () => {
   describe('Set fill/stroke color option', () => {
     it('should update that rectangle via setOptions method when the options changes', async(
       inject(
-        [RectangleManager, GoogleMapsAPIWrapper],
+        [GoogleRectangleManager, GoogleMapsAPIWrapper],
         (
-          rectangleManager: RectangleManager,
+          rectangleManager: GoogleRectangleManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
           const newRectangle = new NgMapsRectangleDirective(rectangleManager);
@@ -244,12 +241,10 @@ describe('RectangleManager', () => {
           newRectangle.fillColor = '#FF7F50';
           newRectangle.strokeColor = '#FF7F50';
 
-          const rectangleInstance: Partial<
-            google.maps.Rectangle
-          > = jasmine.createSpyObj('rectangleInstance', [
-            'setMap',
-            'setOptions',
-          ]);
+          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
+            'rectangleInstance',
+            ['setMap', 'setOptions'],
+          );
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper
           >).createRectangle.and.returnValue(
@@ -295,9 +290,9 @@ describe('RectangleManager', () => {
   describe('Set visible option', () => {
     it('should update that rectangle via setVisible method when the visible changes', async(
       inject(
-        [RectangleManager, GoogleMapsAPIWrapper],
+        [GoogleRectangleManager, GoogleMapsAPIWrapper],
         (
-          rectangleManager: RectangleManager,
+          rectangleManager: GoogleRectangleManager,
           apiWrapper: GoogleMapsAPIWrapper,
         ) => {
           const newRectangle = new NgMapsRectangleDirective(rectangleManager);
@@ -307,12 +302,10 @@ describe('RectangleManager', () => {
           newRectangle.west = 52.6;
           newRectangle.visible = false;
 
-          const rectangleInstance: Partial<
-            google.maps.Rectangle
-          > = jasmine.createSpyObj('rectangleInstance', [
-            'setMap',
-            'setVisible',
-          ]);
+          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
+            'rectangleInstance',
+            ['setMap', 'setVisible'],
+          );
           (apiWrapper as jasmine.SpyObj<
             GoogleMapsAPIWrapper
           >).createRectangle.and.returnValue(
