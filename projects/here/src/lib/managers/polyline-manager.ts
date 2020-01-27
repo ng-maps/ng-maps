@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
 import {
+  GeoPoint,
   NgMapsPolyline,
   NgMapsPolylinePoint,
   PolylineManager,
 } from '@ng-maps/core';
-import { Observable, Observer } from 'rxjs';
+import { EMPTY, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class HerePolylineManager extends PolylineManager<H.map.Polyline> {
-  protected _convertPoints(
-    line: NgMapsPolyline,
-  ): Array<google.maps.LatLngLiteral> {
-    return line._getPoints().map((point: NgMapsPolylinePoint) => {
-      return {
-        lat: point.latitude,
-        lng: point.longitude,
-      } as google.maps.LatLngLiteral;
-    });
+  protected _convertPoints(line: NgMapsPolyline): Array<GeoPoint> {
+    return line._getPoints().map((point: NgMapsPolylinePoint) => ({
+      lat: point.latitude,
+      lng: point.longitude,
+    }));
   }
 
   addPolyline(line: NgMapsPolyline) {
@@ -37,19 +34,16 @@ export class HerePolylineManager extends PolylineManager<H.map.Polyline> {
     this._polylines.set(line, polylinePromise);
   }
 
-  updatePolylinePoints(line: NgMapsPolyline): Promise<void> {
+  async updatePolylinePoints(line: NgMapsPolyline): Promise<void> {
     const path = this._convertPoints(line);
-    const m = this._polylines.get(line);
-    if (m == null) {
-      return Promise.resolve();
+    const lineString = new H.geo.LineString();
+    path.forEach((item) => {
+      lineString.pushPoint(item);
+    });
+    const m = await this._polylines.get(line);
+    if (m != null) {
+      m.setGeometry(lineString);
     }
-    /*
-    return m.then((l: google.maps.Polyline) =>
-      this._zone.run(() => {
-        l.setPath(path);
-      }),
-    );
-     */
   }
 
   async setPolylineOptions(
@@ -60,33 +54,25 @@ export class HerePolylineManager extends PolylineManager<H.map.Polyline> {
     // pl.setOptions(options)
   }
 
-  deletePolyline(line: NgMapsPolyline): Promise<void> {
-    const m = this._polylines.get(line);
-    if (m == null) {
-      return Promise.resolve();
+  async deletePolyline(line: NgMapsPolyline): Promise<void> {
+    const m = await this._polylines.get(line);
+    if (m != null) {
+      m.dispose();
+      this._polylines.delete(line);
     }
-    /*
-    return m.then((l: H.map.Polyline) => {
-      return this._zone.run(() => {
-        l.setMap(null);
-        this._polylines.delete(line);
-      });
-    });
-     */
   }
 
-  // @fixme
-  // @ts-ignore
   createEventObservable(
     eventName: string,
     line: NgMapsPolyline,
-  ): Observable<void> {
-    return new Observable((observer: Observer<void>) => {
-      this._polylines.get(line).then((l: H.map.Polyline) => {
-        l.addEventListener(eventName, () => {
-          this._zone.run(() => observer.next());
-        });
-      });
-    });
+  ): Observable<any> {
+    // return new Observable((observer: Observer<void>) => {
+    //   this._polylines.get(line).then((l: H.map.Polyline) => {
+    //     l.addEventListener(eventName, () => {
+    //       this._zone.run(() => observer.next());
+    //     });
+    //   });
+    // });
+    return EMPTY;
   }
 }

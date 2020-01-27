@@ -11,7 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { InfoWindowManager } from '../services/managers/info-window-manager';
+import { InfoWindowManager } from '../services/managers/info-window.manager';
 
 import { NgMapsMarkerComponent } from './marker';
 

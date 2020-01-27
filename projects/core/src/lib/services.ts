@@ -1,4 +1,4 @@
-export { InfoWindowManager } from './services/managers/info-window-manager';
+export { InfoWindowManager } from './services/managers/info-window.manager';
 export { MarkerManager } from './services/managers/marker.manager';
 export { LazyMapsAPILoader } from './services/maps-api-loader/lazy-maps-api-loader';
 export {

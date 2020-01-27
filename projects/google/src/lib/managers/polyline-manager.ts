@@ -7,9 +7,7 @@ import {
 import { Observable, Observer } from 'rxjs';
 import { GoogleComponent } from '../google.component';
 
-@Injectable({
-  providedIn: GoogleComponent,
-})
+@Injectable()
 export class GooglePolylineManager extends PolylineManager<
   google.maps.Polyline
 > {

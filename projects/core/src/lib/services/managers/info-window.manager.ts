@@ -79,17 +79,21 @@ export class InfoWindowManager {
       zIndex: infoWindow.zIndex,
       disableAutoPan: infoWindow.disableAutoPan,
     };
+    let position;
     if (
       typeof infoWindow.latitude === 'number' &&
       typeof infoWindow.longitude === 'number'
     ) {
-      options.position = {
+      position = {
         lat: infoWindow.latitude,
         lng: infoWindow.longitude,
       };
     }
-    const instance = await this._mapsWrapper.createInfoWindow(options);
-    this._infoWindows.set(infoWindow, instance);
+    const instance = await this._mapsWrapper.createInfoWindow(
+      position,
+      options,
+    );
+    this._infoWindows.set(infoWindow, instance as any);
   }
 
   /**

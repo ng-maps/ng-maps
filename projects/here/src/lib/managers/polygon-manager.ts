@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NgMapsPolygon, PolygonManager } from '@ng-maps/core';
-import { Observable, Observer } from 'rxjs';
+import { EMPTY, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class HerePolygonManager extends PolygonManager<H.map.Polygon> {
@@ -24,32 +24,27 @@ export class HerePolygonManager extends PolygonManager<H.map.Polygon> {
 
   async updatePolygon(polygon: NgMapsPolygon): Promise<void> {
     const item = await this._polygons.get(polygon);
-    if (item != null) {
-      this._zone.run(() => {
-        item.setPaths(polygon.paths);
-      });
-    }
+    const lineString = new H.geo.LineString();
+    polygon.paths.forEach((path) => {
+      lineString.pushPoint(path);
+    });
+    const newPolygon = new H.geo.Polygon(lineString);
+    item.setGeometry(newPolygon);
   }
 
-  setPolygonOptions(
+  async setPolygonOptions(
     path: NgMapsPolygon,
     options: { [propName: string]: any },
-  ): Promise<void> {
-    return this._polygons.get(path).then((l: google.maps.Polygon) => {
-      l.setOptions(options);
-    });
-  }
+  ): Promise<void> {}
 
-  deletePolygon(paths: NgMapsPolygon): Promise<void> {
-    const m = this._polygons.get(paths);
-    if (m == null) {
+  async deletePolygon(polygon: NgMapsPolygon): Promise<void> {
+    const p = await this._polygons.get(polygon);
+    if (p == null) {
       return Promise.resolve();
     }
-    return m.then((l: google.maps.Polygon) => {
-      return this._zone.run(() => {
-        l.setMap(null);
-        this._polygons.delete(paths);
-      });
+    this._zone.run(() => {
+      p.dispose();
+      this._polygons.delete(polygon);
     });
   }
 
@@ -57,12 +52,13 @@ export class HerePolygonManager extends PolygonManager<H.map.Polygon> {
     eventName: string,
     path: NgMapsPolygon,
   ): Observable<T> {
-    return new Observable((observer: Observer<T>) => {
-      this._polygons.get(path).then((l: google.maps.Polygon) => {
-        l.addListener(eventName, (e: T) =>
-          this._zone.run(() => observer.next(e)),
-        );
-      });
-    });
+    // return new Observable((observer: Observer<T>) => {
+    //   this._polygons.get(path).then((l: google.maps.Polygon) => {
+    //     l.addListener(eventName, (e: T) =>
+    //       this._zone.run(() => observer.next(e)),
+    //     );
+    //   });
+    // });
+    return EMPTY;
   }
 }

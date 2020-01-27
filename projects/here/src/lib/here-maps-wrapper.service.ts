@@ -11,12 +11,17 @@ import {
 } from '@ng-maps/core';
 import { Observable } from 'rxjs';
 import { boundsFromRect, rectFromBounds } from './convert';
-import { HERE_MAPS_MODULE_OPTIONS, HereModuleOptions } from './options';
+import {
+  HERE_MAPS_MODULE_OPTIONS,
+  HereMapsLibraries,
+  HereModuleOptions,
+} from './options';
 
 @Injectable()
 export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   private platform: H.service.Platform;
   private defaultLayers: any;
+  private ui: H.ui.UI;
 
   constructor(
     @Inject(HERE_MAPS_MODULE_OPTIONS) private options: HereModuleOptions,
@@ -79,10 +84,22 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
 
   clearInstanceListeners(): void {}
 
-  createInfoWindow(
-    options: google.maps.InfoWindowOptions,
-  ): Promise<google.maps.InfoWindow> {
-    return undefined;
+  async createInfoWindow(
+    center: GeoPoint,
+    options: H.ui.InfoBubble.Options,
+  ): Promise<H.ui.InfoBubble> {
+    if (this.ui != null) {
+      // Create an info bubble object at a specific geographic location:
+      const bubble = new H.ui.InfoBubble(center, options);
+
+      // Add info bubble to the UI:
+      this.ui.addBubble(bubble);
+      return bubble;
+    } else {
+      throw new Error(
+        'Add HereMapsLibraries.UI to NgMapsHereModule.forRoot() libraries',
+      );
+    }
   }
 
   /**
@@ -166,9 +183,11 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     return this._zone.runOutsideAngular(async () => {
       await this._loader.load();
       this.createPlatform();
-      this._mapResolver(
-        new H.Map(el, this.defaultLayers.vector.normal.map, options),
-      );
+      const map = new H.Map(el, this.defaultLayers.vector.normal.map, options);
+      this._mapResolver(map);
+      if (this.options.libraries.includes(HereMapsLibraries.UI)) {
+        this.ui = H.ui.UI.createDefault(map, this.defaultLayers);
+      }
       return;
     });
   }

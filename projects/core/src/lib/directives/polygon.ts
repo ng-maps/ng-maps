@@ -9,6 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { GeoPoint } from '../interface/geo-point';
 import { PolygonManager } from '../services/managers/polygon-manager';
 
 /**
@@ -88,11 +89,7 @@ export class NgMapsPolygon implements OnDestroy, OnChanges, AfterContentInit {
    * Inserting or removing LatLngs from the Array will automatically update
    * the polygon on the map.
    */
-  @Input() paths:
-    | Array<google.maps.LatLng>
-    | Array<google.maps.LatLngLiteral>
-    | Array<Array<google.maps.LatLng>>
-    | Array<Array<google.maps.LatLngLiteral>> = [];
+  @Input() paths: Array<GeoPoint> | Array<Array<GeoPoint>> = [];
 
   /**
    * The stroke color. All CSS3 colors are supported except for extended

@@ -1,6 +1,6 @@
 {
   "name": "@ng-maps/here",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.5",
   "peerDependencies": {
     "@angular/common": "^8.2.3",
     "@angular/core": "^8.2.3",

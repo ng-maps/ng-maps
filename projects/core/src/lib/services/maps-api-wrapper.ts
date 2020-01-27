@@ -9,7 +9,7 @@ import { RectangleOptions } from '../interface/rectangle-options';
 import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 
 @Injectable()
-export abstract class MapsApiWrapper<T = any, C = any, R = any> {
+export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
   protected _api: Promise<T>;
   protected _mapResolver: (value?: T) => void;
 
@@ -63,8 +63,9 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any> {
   public abstract subscribeToMapEvent<E>(eventName: string): Observable<E>;
 
   public abstract async createInfoWindow(
-    options: google.maps.InfoWindowOptions,
-  ): Promise<google.maps.InfoWindow>;
+    center: GeoPoint,
+    options: any,
+  ): Promise<I>;
 
   public abstract async createDrawingManager(param: any, addToMap?: boolean);
 

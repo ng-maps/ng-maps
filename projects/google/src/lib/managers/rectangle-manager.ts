@@ -10,9 +10,7 @@ import { Observable, Observer } from 'rxjs';
 
 import { GoogleComponent } from '../google.component';
 
-@Injectable({
-  providedIn: GoogleComponent,
-})
+@Injectable()
 export class GoogleRectangleManager extends RectangleManager<
   google.maps.Rectangle
 > {

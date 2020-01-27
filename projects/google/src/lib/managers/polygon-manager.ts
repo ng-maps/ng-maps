@@ -3,9 +3,7 @@ import { NgMapsPolygon, PolygonManager } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
 import { GoogleComponent } from '../google.component';
 
-@Injectable({
-  providedIn: GoogleComponent,
-})
+@Injectable()
 export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
   addPolygon(path: NgMapsPolygon) {
     const polygonPromise = this._mapsWrapper.createPolygon({

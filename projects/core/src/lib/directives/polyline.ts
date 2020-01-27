@@ -278,8 +278,9 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
   _getPoints(): Array<NgMapsPolylinePoint> {
     if (this.points) {
       return this.points.toArray();
+    } else {
+      return [];
     }
-    return [];
   }
 
   /** @internal */
