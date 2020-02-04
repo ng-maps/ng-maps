@@ -8,15 +8,17 @@ import { EMPTY, Observable, Observer } from 'rxjs';
 export class ScriptLoaderService {
   document: Document;
   private head: HTMLHeadElement;
-  private alreadyLoaded = new Set<string>();
+  private alreadyLoaded: Map<string, Promise<any>> = new Map();
 
   constructor(@Inject(DOCUMENT) document: any) {
     this.document = document as Document;
     this.head = this.document.head;
   }
 
-  private observeLoad(element: HTMLElement): Observable<UIEvent> {
-    return new Observable((observer: Observer<UIEvent>) => {
+  private observeLoad(
+    element: HTMLScriptElement | HTMLLinkElement,
+  ): Promise<UIEvent> {
+    return new Promise((resolve, reject) => {
       function successHandler(event: UIEvent) {
         const readyState: string = (element as any).readyState;
         // For IE we have readyState, other browsers just call the load event and we proccede
@@ -25,13 +27,12 @@ export class ScriptLoaderService {
           readyState === 'loaded' ||
           event.type === 'load'
         ) {
-          observer.next(event);
-          observer.complete();
+          resolve(event);
         }
       }
 
       function errorHandler(event: UIEvent) {
-        observer.error(event);
+        reject(event);
       }
 
       element.addEventListener('readystatechange', successHandler);
@@ -43,6 +44,9 @@ export class ScriptLoaderService {
   private createScriptElement(src: string): HTMLScriptElement {
     const script = document.createElement('script');
     script.src = src;
+    script.type = 'text/javascript';
+    script.async = true;
+    script.defer = true;
     return script;
   }
 
@@ -63,15 +67,15 @@ export class ScriptLoaderService {
    * @param integrity set integrity check value
    * @returns Observable<UIEvent> Observable that will be resolved once the script has been loaded.
    */
-  public loadScript(src: string, integrity?: string): Observable<UIEvent> {
+  public loadScript(src: string, integrity?: string): Promise<UIEvent | void> {
     if (this.alreadyLoaded.has(src)) {
-      return EMPTY;
+      return this.alreadyLoaded.get(src);
     } else {
       const script = this.createScriptElement(src);
-      const observable = this.observeLoad(script);
+      const promise = this.observeLoad(script);
       this.head.appendChild(script);
-      this.alreadyLoaded.add(src);
-      return observable;
+      this.alreadyLoaded.set(src, promise);
+      return promise;
     }
   }
 
@@ -80,25 +84,16 @@ export class ScriptLoaderService {
    * @param href The url of the CSS to load dynamically
    * @returns Observable<UIEvent> Promise that will be resolved once the CSS file has been loaded.
    */
-  public loadCSS(href: string): Observable<UIEvent> {
+  public loadCSS(href: string): Promise<UIEvent | void> {
     // tslint:disable-line:naming-convention
     if (this.alreadyLoaded.has(href)) {
-      return EMPTY;
+      return this.alreadyLoaded.get(href);
     } else {
       const style = this.createCSSElement(href);
-      const observable = this.observeLoad(style);
+      const promise = this.observeLoad(style);
       this.head.appendChild(style);
-      this.alreadyLoaded.add(href);
-      return observable;
+      this.alreadyLoaded.set(href, promise);
+      return promise;
     }
-  }
-
-  private checkAlreadyLoadedScripts() {
-    const scripts = this.head.getElementsByTagName('script');
-    Array.from(scripts)
-      .filter((script) => typeof script.src !== 'undefined')
-      .forEach((script) => {
-        this.alreadyLoaded.add(script.src);
-      });
   }
 }

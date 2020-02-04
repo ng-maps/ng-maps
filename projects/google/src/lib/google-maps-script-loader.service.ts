@@ -1,20 +1,19 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
+import { MapsAPILoader } from '@ng-maps/core';
 import { ReplaySubject } from 'rxjs';
 import {
+  GOOFLE_MAPS_API_CONFIG,
   GoogleMapsScriptProtocol,
-  LAZY_MAPS_API_CONFIG,
-  LazyMapsAPILoaderConfigLiteral,
-} from './lazy-maps-api-loader-config';
-
-import { MapsAPILoader } from './maps-api-loader';
+  GoogleModuleOptions,
+} from './options';
 
 @Injectable()
-export class LazyMapsAPILoader extends MapsAPILoader {
+export class GoogleMapsScriptLoader extends MapsAPILoader {
   protected _scriptLoadingPromise: Promise<void>;
-  protected _config: ReplaySubject<
-    LazyMapsAPILoaderConfigLiteral
-  > = new ReplaySubject<LazyMapsAPILoaderConfigLiteral>(1);
+  protected _config: ReplaySubject<GoogleModuleOptions> = new ReplaySubject<
+    GoogleModuleOptions
+  >(1);
   protected _document: Document;
   protected _window: Window;
   protected readonly _SCRIPT_ID: string = 'GoogleMapsApiScript';
@@ -22,8 +21,8 @@ export class LazyMapsAPILoader extends MapsAPILoader {
 
   constructor(
     @Optional()
-    @Inject(LAZY_MAPS_API_CONFIG)
-    config: LazyMapsAPILoaderConfigLiteral = null,
+    @Inject(GOOFLE_MAPS_API_CONFIG)
+    config: GoogleModuleOptions = null,
     @Inject(DOCUMENT) document: any,
   ) {
     super();
@@ -38,9 +37,9 @@ export class LazyMapsAPILoader extends MapsAPILoader {
   /**
    * If no configuration is provided at load time you can use this function to provide configuration at any time.
    * Loading scripts will be postponed until a configuration is provided
-   * @param config
+   * @param config - {@link GoogleModuleOptions} configuration needed for bootstrapping
    */
-  public configure(config: LazyMapsAPILoaderConfigLiteral) {
+  public configure(config: GoogleModuleOptions) {
     this._config.next(config);
     this._config.complete();
   }

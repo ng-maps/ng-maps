@@ -5,7 +5,6 @@ import {
   PolylineManager,
 } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
-import { GoogleComponent } from '../google.component';
 
 @Injectable()
 export class GooglePolylineManager extends PolylineManager<

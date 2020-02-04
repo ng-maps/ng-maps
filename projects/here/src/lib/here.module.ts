@@ -5,8 +5,8 @@ import { HereMapsLoaderService } from './here-maps-loader.service';
 import { HereComponent } from './here.component';
 import {
   HERE_MAPS_MODULE_OPTIONS,
+  HereMapsLibraries,
   HereModuleOptions,
-  optionsFactory,
 } from './options';
 
 @NgModule({
@@ -27,7 +27,7 @@ export class NgMapsHereModule {
         },
         {
           provide: HERE_MAPS_MODULE_OPTIONS,
-          useFactory: optionsFactory(options),
+          useValue: options,
         },
         {
           provide: MAP_PROVIDER,

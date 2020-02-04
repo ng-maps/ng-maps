@@ -4,7 +4,7 @@ import {
   CircleManager,
   GeoPoint,
   MapsApiWrapper,
-  NgMapsCircle,
+  NgMapsCircleDirective,
 } from '@ng-maps/core';
 import { EMPTY, Observable, Observer } from 'rxjs';
 import { boundsFromRect } from '../convert';
@@ -15,7 +15,7 @@ export class HereCircleManager extends CircleManager<H.map.Circle> {
    * @fixme implement commented properties
    * @param circle
    */
-  addCircle(circle: NgMapsCircle) {
+  addCircle(circle: NgMapsCircleDirective) {
     this._circles.set(
       circle,
       this._apiWrapper.createCircle(
@@ -41,7 +41,7 @@ export class HereCircleManager extends CircleManager<H.map.Circle> {
   /**
    * Removes the given circle from the map.
    */
-  async removeCircle(circle: NgMapsCircle): Promise<void> {
+  async removeCircle(circle: NgMapsCircleDirective): Promise<void> {
     const c = await this._circles.get(circle);
     c.dispose();
     this._circles.delete(circle);
@@ -53,7 +53,7 @@ export class HereCircleManager extends CircleManager<H.map.Circle> {
    * @param options options for the circle
    */
   async setOptions(
-    circle: NgMapsCircle,
+    circle: NgMapsCircleDirective,
     options: google.maps.CircleOptions,
   ): Promise<void> {
     const c = await this._circles.get(circle);
@@ -66,41 +66,41 @@ export class HereCircleManager extends CircleManager<H.map.Circle> {
     // return c.setOptions(options);
   }
 
-  async getBounds(circle: NgMapsCircle): Promise<BoundsLiteral> {
+  async getBounds(circle: NgMapsCircleDirective): Promise<BoundsLiteral> {
     const c = await this._circles.get(circle);
     return boundsFromRect(c.getBoundingBox());
   }
 
-  async getCenter(circle: NgMapsCircle): Promise<GeoPoint> {
+  async getCenter(circle: NgMapsCircleDirective): Promise<GeoPoint> {
     const c = await this._circles.get(circle);
     return c.getCenter();
   }
 
-  getRadius(circle: NgMapsCircle): Promise<number> {
+  getRadius(circle: NgMapsCircleDirective): Promise<number> {
     return this._circles.get(circle).then((c) => c.getRadius());
   }
 
-  async setCenter(circle: NgMapsCircle): Promise<void> {
+  async setCenter(circle: NgMapsCircleDirective): Promise<void> {
     const c = await this._circles.get(circle);
     c.setCenter({ lat: circle.latitude, lng: circle.longitude });
   }
 
-  async setEditable(circle: NgMapsCircle): Promise<void> {}
+  async setEditable(circle: NgMapsCircleDirective): Promise<void> {}
 
-  async setDraggable(circle: NgMapsCircle): Promise<void> {}
+  async setDraggable(circle: NgMapsCircleDirective): Promise<void> {}
 
-  async setVisible(circle: NgMapsCircle): Promise<void> {
+  async setVisible(circle: NgMapsCircleDirective): Promise<void> {
     const c = await this._circles.get(circle);
     c.setVisibility(circle.visible);
   }
 
-  setRadius(circle: NgMapsCircle): Promise<void> {
+  setRadius(circle: NgMapsCircleDirective): Promise<void> {
     return this._circles.get(circle).then((c) => c.setRadius(circle.radius));
   }
 
   createEventObservable<T>(
     eventName: string,
-    circle: NgMapsCircle,
+    circle: NgMapsCircleDirective,
   ): Observable<T> {
     // return new Observable((observer: Observer<T>) => {
     //   let listener: google.maps.MapsEventListener = null;

@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject } from '@angular/core';
-import { LazyMapsAPILoaderConfigLiteral } from '../../services';
 import { MapsAPILoader } from './maps-api-loader';
 
 /**
@@ -19,13 +18,8 @@ export class NoOpMapsAPILoader extends MapsAPILoader {
   }
 
   load(): Promise<void> {
-    if (!(this._window as any).google || !(this._window as any).google.maps) {
-      throw new Error(
-        'Google Maps API not loaded on page. Make sure window.google.maps is available!',
-      );
-    }
     return Promise.resolve();
   }
 
-  public configure(config: LazyMapsAPILoaderConfigLiteral): void {}
+  public configure(config: any): void {}
 }

@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 import { BoundsLiteral } from '../interface/bounds';
 import { CircleOptions } from '../interface/circle-options';
 import { GeoPoint } from '../interface/geo-point';
-import { MarkerOptions } from '../interface/marker';
+import { MapOptions } from '../interface/map-options';
+import { MarkerOptions } from '../interface/marker-options';
 import { Padding } from '../interface/padding';
 import { RectangleOptions } from '../interface/rectangle-options';
 import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
@@ -19,14 +20,19 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
     });
   }
 
-  public abstract createMap(el: HTMLElement, options: any);
+  public abstract createMap(
+    el: HTMLElement,
+    center: GeoPoint,
+    options: MapOptions,
+  );
 
-  public abstract async setMapOptions(options: any);
+  public abstract async setMapOptions(options: MapOptions);
 
   public abstract async createMarker(
-    options: MarkerOptions,
+    position: GeoPoint,
+    options?: MarkerOptions,
     addToMap?: boolean,
-  );
+  ): Promise<any>;
 
   public abstract clearInstanceListeners(): void;
 
@@ -36,7 +42,7 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
 
   public abstract async triggerMapEvent(eventName: string): Promise<void>;
 
-  public abstract async getCenter(): Promise<any>;
+  public abstract async getCenter(): Promise<GeoPoint>;
 
   public abstract setCenter(newCenter: GeoPoint): Promise<void>;
 

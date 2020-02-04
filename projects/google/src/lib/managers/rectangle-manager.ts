@@ -1,14 +1,11 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   BoundsLiteral,
-  MapsApiWrapper,
   NgMapsRectangleDirective,
   RectangleManager,
 } from '@ng-maps/core';
 
 import { Observable, Observer } from 'rxjs';
-
-import { GoogleComponent } from '../google.component';
 
 @Injectable()
 export class GoogleRectangleManager extends RectangleManager<

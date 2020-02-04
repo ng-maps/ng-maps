@@ -3,6 +3,7 @@ import {
   BoundsLiteral,
   CircleOptions,
   GeoPoint,
+  MapOptions,
   MapsAPILoader,
   MapsApiWrapper,
   MarkerOptions,
@@ -38,8 +39,7 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     const map = await this.getNativeMap();
     // Instantiate a circle object (using the default style):
     const style = new H.map.SpatialStyle({
-      fillColor: options.fillColor,
-      strokeColor: options.strokeColor,
+      ...options,
       lineWidth: options.strokeWeight,
     });
     const circle = new H.map.Circle(center, options.radius, {
@@ -47,6 +47,7 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
       visibility: options.visible,
       style,
     });
+    console.log(circle);
     // Add the circle to the map:
     map.addObject(circle);
     return circle;
@@ -179,28 +180,88 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     return undefined;
   }
 
-  createMap(el: HTMLElement, options?: H.Map.Options) {
-    return this._zone.runOutsideAngular(async () => {
-      await this._loader.load();
-      this.createPlatform();
-      const map = new H.Map(el, this.defaultLayers.vector.normal.map, options);
-      this._mapResolver(map);
-      if (this.options.libraries.includes(HereMapsLibraries.UI)) {
-        this.ui = H.ui.UI.createDefault(map, this.defaultLayers);
-      }
-      return;
+  async createMap(el: HTMLElement, center: GeoPoint, options: MapOptions) {
+    await this._loader.load();
+    this.createPlatform();
+    console.log('map options', options);
+    const map = new H.Map(el, this.defaultLayers.vector.normal.map, {
+      ...options,
+      center,
+      fixedCenter: false,
     });
+    this._mapResolver(map);
+    this.updateBehaviour(options);
+    if (this.options.libraries.includes(HereMapsLibraries.UI)) {
+      this.ui = H.ui.UI.createDefault(map, this.defaultLayers);
+    }
   }
 
-  async createMarker(options: MarkerOptions): Promise<H.map.Marker> {
+  private async updateBehaviour(options: MapOptions) {
     const map = await this.getNativeMap();
-    const { lat, lng } = options.position;
-    const opts: H.map.Marker.Options = {
-      visibility: options.visible,
-      zIndex: options.zIndex,
-    };
+    if (H.mapevents) {
+      const mapEvents = new H.mapevents.MapEvents(map);
+      const behavior = new H.mapevents.Behavior(mapEvents);
+      if (options) {
+        if (options.scrollwheel) {
+          behavior.enable(H.mapevents.Behavior.WHEELZOOM);
+        } else {
+          behavior.disable(H.mapevents.Behavior.WHEELZOOM);
+        }
+        if (options.disableDoubleClickZoom) {
+          behavior.disable(H.mapevents.Behavior.DBLTAPZOOM);
+        } else {
+          behavior.enable(H.mapevents.Behavior.DBLTAPZOOM);
+        }
+        if (options.draggable) {
+          behavior.enable(H.mapevents.Behavior.DRAGGING);
+        } else {
+          behavior.disable(H.mapevents.Behavior.DRAGGING);
+        }
+      }
+    } else {
+      throw new Error('You need to add mapevents to your libraries');
+    }
+  }
+
+  private async updateUi(options: MapOptions) {
+    const ui = this.ui;
+    if (options && ui) {
+      if (!options.mapTypeControl) {
+        ui.removeControl('mapsettings');
+      }
+      if (!options.zoomControl) {
+        ui.removeControl('zoom');
+      }
+      if (!options.scaleControl) {
+        ui.removeControl('scalebar');
+      }
+      if (!options.streetViewControl && (H as any).PanoramaView) {
+        ui.removeControl('panorama');
+      }
+    } else {
+      throw new Error('You need to add ui to your libraries');
+    }
+  }
+
+  async createMarker(
+    { lat, lng }: GeoPoint,
+    options: MarkerOptions,
+    addToMap: boolean = true,
+  ): Promise<H.map.Marker> {
+    const map = await this.getNativeMap();
+    console.log(lat, lng);
+    let opts: H.map.Marker.Options;
+    if (options) {
+      opts = {
+        visibility: options.visible,
+        zIndex: options.zIndex,
+      };
+    }
+
     const m = new H.map.Marker({ lat, lng }, opts);
-    map.addObject(m);
+    if (addToMap) {
+      map.addObject(m);
+    }
     return m;
   }
 
@@ -208,6 +269,7 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
 
   private createPlatform() {
     // Create a Platform object (one per application):
+    console.log(this.options);
     this.platform = new H.service.Platform(this.options.platformOptions);
 
     // Get an object containing the default map layers:

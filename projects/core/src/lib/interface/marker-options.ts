@@ -1,7 +1,4 @@
-import { GeoPoint } from './geo-point';
-
 export interface MarkerOptions {
-  position: GeoPoint;
   /**
    * not supported by here maps
    */

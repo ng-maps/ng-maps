@@ -3,8 +3,9 @@ import {
   BoundsLiteral,
   CircleOptions,
   GeoPoint,
+  MapOptions,
   MapsApiWrapper,
-  NgMapsViewComponent,
+  MarkerOptions,
   RectangleOptions,
 } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
@@ -24,11 +25,12 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
 
   createMap(
     el: HTMLElement,
-    mapOptions: google.maps.MapOptions,
+    center: GeoPoint,
+    options: MapOptions,
   ): Promise<void> {
     return this._zone.runOutsideAngular(async () => {
       await this._loader.load();
-      this._mapResolver(new google.maps.Map(el, mapOptions));
+      this._mapResolver(new google.maps.Map(el, { center, ...options }));
       return;
     });
   }
@@ -56,21 +58,25 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
    * Creates a google map marker with the map context
    */
   async createMarker(
-    options: google.maps.MarkerOptions,
+    position: GeoPoint,
+    options: MarkerOptions,
     addToMap: boolean = true,
   ): Promise<google.maps.Marker> {
-    const map = await this._api;
+    let map;
     if (addToMap) {
-      options.map = map;
+      map = await this._api;
+    } else {
+      map = {};
     }
-    return new google.maps.Marker(options);
+    return new google.maps.Marker({ position, map, ...options });
   }
 
   async createInfoWindow(
+    center: GeoPoint,
     options?: google.maps.InfoWindowOptions,
   ): Promise<google.maps.InfoWindow> {
     await this._api;
-    return new google.maps.InfoWindow(options);
+    return new google.maps.InfoWindow({ position: center, ...options });
   }
 
   /**
@@ -189,8 +195,9 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
     return this._api.then((map: google.maps.Map) => map.setZoom(zoom));
   }
 
-  getCenter(): Promise<google.maps.LatLng> {
-    return this._api.then((map: google.maps.Map) => map.getCenter());
+  async getCenter(): Promise<GeoPoint> {
+    const map = await this._api;
+    return map.getCenter().toJSON();
   }
 
   panTo(latLng: google.maps.LatLng | google.maps.LatLngLiteral): Promise<void> {

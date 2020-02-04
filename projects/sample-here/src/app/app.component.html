@@ -1,3 +1,28 @@
-<map-view latitude="51.499767" longitude="7.455198">
+<map-view
+  latitude="51.499767"
+  longitude="7.455198"
+  (centerChange)="onCenterChange($event)"
+  (zoomChange)="onZoomChange($event)"
+  (boundsChange)="onBoundsChange($event)"
+  [fitBounds]="boundaries"
+>
   <map-marker latitude="51.499767" longitude="7.455198"></map-marker>
+  <map-circle
+    [latitude]="latA"
+    [longitude]="lngA"
+    [radius]="50250"
+    fillColor="red"
+    [fillOpacity]="0.5"
+    strokeColor="blue"
+    [zIndex]="10"
+  ></map-circle>
+  <map-circle
+    [latitude]="latB"
+    [longitude]="lngB"
+    [radius]="50250"
+    fillColor="red"
+    [fillOpacity]="0.5"
+    strokeColor="blue"
+    [zIndex]="10"
+  ></map-circle>
 </map-view>

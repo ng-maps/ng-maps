@@ -10,12 +10,14 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BoundsLiteral } from '../interface/bounds';
+import { RectangleOptions } from '../interface/rectangle-options';
 import { RectangleManager } from '../services/managers/rectangle-manager';
 
 @Directive({
   selector: 'map-rectangle',
 })
-export class NgMapsRectangleDirective implements OnInit, OnChanges, OnDestroy {
+export class NgMapsRectangleDirective
+  implements OnInit, OnChanges, OnDestroy, RectangleOptions {
   constructor(private _manager: RectangleManager) {}
 
   private static _mapOptions: Array<string> = [

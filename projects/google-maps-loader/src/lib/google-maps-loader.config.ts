@@ -1,4 +1,4 @@
-import { GoogleMapsScriptProtocol } from '../../../core/src/lib/services/maps-api-loader/lazy-maps-api-loader-config';
+import { GoogleMapsScriptProtocol } from '../../../google/src/lib/lazy-maps-api-loader-config';
 
 export interface GoogleMapsLoaderConfig {
   /**

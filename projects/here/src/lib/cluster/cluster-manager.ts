@@ -36,10 +36,10 @@ export class ClusterManager extends HereMapsMarkerManager {
     const cluster: H.clustering.Provider = await this._clustererInstance;
     const markers: H.map.Marker = await this._mapsWrapper.createMarker(
       {
-        position: {
-          lat: marker.latitude,
-          lng: marker.longitude,
-        },
+        lat: marker.latitude,
+        lng: marker.longitude,
+      },
+      {
         label: marker.label,
         // draggable: marker.draggable,
         // icon: marker.iconUrl,

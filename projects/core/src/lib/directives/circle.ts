@@ -10,13 +10,15 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BoundsLiteral } from '../interface/bounds';
+import { CircleOptions } from '../interface/circle-options';
 import { GeoPoint } from '../interface/geo-point';
 import { CircleManager } from '../services/managers/circle-manager';
 
 @Directive({
   selector: 'map-circle',
 })
-export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
+export class NgMapsCircleDirective
+  implements OnInit, OnChanges, OnDestroy, CircleOptions {
   constructor(private _manager: CircleManager) {}
 
   private static _mapOptions: Array<string> = [
@@ -48,8 +50,7 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   /**
    * If set to true, the user can drag this circle over the map. Defaults to false.
    */
-  // tslint:disable-next-line:no-input-rename
-  @Input('circleDraggable') draggable: boolean = false;
+  @Input() draggable: boolean = false;
 
   /**
    * If set to true, the user can edit this circle by dragging the control points shown at
@@ -85,9 +86,10 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   /**
    * The stroke position. Defaults to CENTER.
    * This property is not supported on Internet Explorer 8 and earlier.
+   * @fixme
    */
-  @Input() strokePosition: google.maps.StrokePosition =
-    google.maps.StrokePosition.CENTER;
+  // @Input() strokePosition: google.maps.StrokePosition =
+  //   google.maps.StrokePosition.CENTER;
 
   /**
    * The stroke width in pixels.
@@ -222,7 +224,7 @@ export class NgMapsCircle implements OnInit, OnChanges, OnDestroy {
   }) {
     const options: { [propName: string]: any } = {};
     const optionKeys = Object.keys(changes).filter(
-      (k) => NgMapsCircle._mapOptions.indexOf(k) !== -1,
+      (k) => NgMapsCircleDirective._mapOptions.indexOf(k) !== -1,
     );
     optionKeys.forEach((k) => {
       options[k] = changes[k].currentValue;

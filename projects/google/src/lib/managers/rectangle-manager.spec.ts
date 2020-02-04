@@ -1,8 +1,8 @@
 import { NgZone } from '@angular/core';
-import { TestBed, async, inject, fakeAsync } from '@angular/core/testing';
+import { async, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 
 import { NgMapsRectangleDirective } from '../directives/rectangle';
-import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 import { GoogleRectangleManager } from './rectangle-manager';
 
 describe('RectangleManager', () => {

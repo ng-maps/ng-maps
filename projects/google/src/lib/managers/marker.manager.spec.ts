@@ -1,11 +1,11 @@
 import { NgZone } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
 
-import { NgMapsMarkerComponent } from '../../directives/marker';
-import { MarkerManager } from './marker.manager';
-
 import { isEqual } from 'lodash-es';
+
+import { NgMapsMarkerComponent } from '../../directives/marker';
 import { MapsApiWrapper as GoogleMapsAPIWrapper } from '../maps-api-wrapper';
+import { MarkerManager } from './marker.manager';
 
 xdescribe('MarkerManager', () => {
   let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;

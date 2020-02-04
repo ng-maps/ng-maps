@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable, timer } from 'rxjs';
 import { flatMap, map, sample, shareReplay, switchMap } from 'rxjs/operators';
-import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 import { BoundsLiteral } from '../interface/bounds';
 import { GeoPoint } from '../interface/geo-point';
+import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 
 export interface FitBoundsDetails {
   latLng: GeoPoint;

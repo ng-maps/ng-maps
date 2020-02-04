@@ -1,13 +1,11 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { MapsAPILoader, ScriptLoaderService } from '@ng-maps/core';
+import { ReplaySubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import {
-  LazyMapsAPILoaderConfigLiteral,
-  MapsAPILoader,
-  ScriptLoaderService,
-} from '@ng-maps/core';
-import {
+  HERE_MAPS_MODULE_OPTIONS,
   HereMapsLibraries,
   HereModuleOptions,
-  HERE_MAPS_MODULE_OPTIONS,
 } from './options';
 
 @Injectable({
@@ -24,45 +22,64 @@ export class HereMapsLoaderService extends MapsAPILoader {
     [HereMapsLibraries.PLACES, ['js']],
     [HereMapsLibraries.PANO, ['js']],
   ]);
-  private libraries: Array<HereMapsLibraries>;
+  protected _configResolver: (config: HereModuleOptions) => void;
+  protected config: Promise<HereModuleOptions>;
 
   constructor(
-    @Inject(HERE_MAPS_MODULE_OPTIONS) private options: HereModuleOptions,
+    @Optional()
+    @Inject(HERE_MAPS_MODULE_OPTIONS)
+    config: HereModuleOptions,
     private loader: ScriptLoaderService,
   ) {
     super();
-    this.libraries = this.options.libraries;
+    this.config = new Promise(
+      (resolve, reject) => (this._configResolver = resolve),
+    );
+    if (config != null) {
+      this._configResolver(config);
+    }
   }
 
-  configure(config: LazyMapsAPILoaderConfigLiteral): void {}
+  configure(config: HereModuleOptions): void {
+    this._configResolver(config);
+  }
 
   load(): Promise<void> {
-    return this.loadModules();
+    if (typeof H !== 'undefined') {
+      return Promise.resolve();
+    } else {
+      return this.loadModules();
+    }
   }
 
-  private async loadModules(): Promise<any> {
-    // Load the Core first then the rest of the files
-    await this.loadModule(HereMapsLibraries.CORE);
-    return Promise.all(
-      this.libraries
-        .reduce(this.distinct, [])
-        .map((moduleName) => this.loadModule(moduleName)),
+  private async loadModules(): Promise<void> {
+    const config = await this.config;
+    const libraries = config.libraries;
+    const version = config.version;
+    // Load the Core first, Service second and then the rest of the files
+    await this.loadModule(HereMapsLibraries.CORE, version);
+    await this.loadModule(HereMapsLibraries.SERVICE, version);
+    await Promise.all(
+      Array.isArray(libraries)
+        ? libraries.map((moduleName) => this.loadModule(moduleName, version))
+        : [],
     );
   }
 
   private async loadModule(
     moduleName: HereMapsLibraries,
-  ): Promise<UIEvent | Error> {
+    version?: string,
+  ): Promise<any> {
     const mod = this._modules.get(moduleName);
     if (mod === void 0) {
-      return new Error(`Unknown module ${moduleName}`);
+      throw new Error(`Unknown module ${moduleName}`);
     }
     if (mod.includes('css')) {
-      const cssurl = this.createModuleUrl(moduleName, 'css');
-      await this.loader.loadCSS(cssurl).toPromise();
+      const cssurl = this.createModuleUrl(moduleName, version, 'css');
+      await this.loader.loadCSS(cssurl);
     }
-    const jsurl = this.createModuleUrl(moduleName);
-    return this.loader.loadScript(jsurl).toPromise();
+    const jsurl = this.createModuleUrl(moduleName, version);
+    await this.loader.loadScript(jsurl);
   }
 
   private distinct(acc: Array<HereMapsLibraries>, next: HereMapsLibraries) {
@@ -72,9 +89,12 @@ export class HereMapsLoaderService extends MapsAPILoader {
     return [...acc, next];
   }
 
-  private createModuleUrl(module: HereMapsLibraries, ext = 'js'): string {
+  private createModuleUrl(
+    module: HereMapsLibraries,
+    version: string = '3.1',
+    ext = 'js',
+  ): string {
     const protocol = 'https:'; // (document.location as any).protocol,
-    const version = this.options.version || '3.1';
     return `${protocol}//js.api.here.com/v3/${version}/mapsjs-${module}.${ext}`;
   }
 }

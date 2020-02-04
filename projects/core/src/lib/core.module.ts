@@ -1,5 +1,5 @@
 import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { NgMapsCircle } from './directives/circle';
+import { NgMapsCircleDirective } from './directives/circle';
 import { NgMapsFitBoundsDirective } from './directives/fit-bounds';
 import { NgMapsInfoWindowComponent } from './directives/info-window';
 import { NgMapsViewComponent } from './directives/map';
@@ -8,12 +8,6 @@ import { NgMapsPolygon } from './directives/polygon';
 import { NgMapsPolyline } from './directives/polyline';
 import { NgMapsPolylinePoint } from './directives/polyline-point';
 import { NgMapsRectangleDirective } from './directives/rectangle';
-import { LazyMapsAPILoader } from './services/maps-api-loader/lazy-maps-api-loader';
-import {
-  LAZY_MAPS_API_CONFIG,
-  LazyMapsAPILoaderConfigLiteral,
-} from './services/maps-api-loader/lazy-maps-api-loader-config';
-import { MapsAPILoader } from './services/maps-api-loader/maps-api-loader';
 
 export const MAP_PROVIDER = new InjectionToken<string>('Map Provider');
 
@@ -34,7 +28,7 @@ export function coreDirectives() {
     NgMapsMarkerComponent,
     NgMapsInfoWindowComponent,
     NgMapsFitBoundsDirective,
-    NgMapsCircle,
+    NgMapsCircleDirective,
     NgMapsPolygon,
     NgMapsPolyline,
     NgMapsPolylinePoint,
@@ -56,15 +50,10 @@ export class NgMapsCoreModule {
   /**
    * Please use this method when you register the module at the root level.
    */
-  static forRoot(
-    lazyMapsAPILoaderConfig?: LazyMapsAPILoaderConfigLiteral,
-  ): ModuleWithProviders<NgMapsCoreModule> {
+  static forRoot(): ModuleWithProviders<NgMapsCoreModule> {
     return {
       ngModule: NgMapsCoreModule,
-      providers: [
-        { provide: MapsAPILoader, useClass: LazyMapsAPILoader },
-        { provide: LAZY_MAPS_API_CONFIG, useValue: lazyMapsAPILoaderConfig },
-      ],
+      providers: [],
     };
   }
 }

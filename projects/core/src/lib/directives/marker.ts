@@ -12,6 +12,8 @@ import {
   SimpleChange,
 } from '@angular/core';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
+import { MapOptions } from '../interface/map-options';
+import { MarkerOptions } from '../interface/marker-options';
 import { FitBoundsAccessor, FitBoundsDetails } from '../services/fit-bounds';
 import { MarkerManager } from '../services/managers/marker.manager';
 import { NgMapsInfoWindowComponent } from './info-window';
@@ -27,7 +29,7 @@ let markerId = 0;
  * </agm-map>
  */
 @Component({
-  selector: 'agm-marker, map-marker',
+  selector: 'map-marker',
   providers: [
     {
       provide: FitBoundsAccessor,
@@ -59,7 +61,12 @@ let markerId = 0;
   template: '<ng-content></ng-content>',
 })
 export class NgMapsMarkerComponent
-  implements OnDestroy, OnChanges, AfterContentInit, FitBoundsAccessor {
+  implements
+    OnDestroy,
+    OnChanges,
+    AfterContentInit,
+    FitBoundsAccessor,
+    MarkerOptions {
   /**
    * The latitude position of the marker.
    */

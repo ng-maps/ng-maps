@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NgMapsPolygon, PolygonManager } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
-import { GoogleComponent } from '../google.component';
 
 @Injectable()
 export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {

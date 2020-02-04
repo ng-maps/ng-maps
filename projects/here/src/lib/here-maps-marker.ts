@@ -6,4 +6,4 @@ const svgMarkup =
   'font-family="Arial" font-weight="bold" text-anchor="middle" ' +
   'fill="white">H</text></svg>';
 
-export const defaultMakerIcon = new H.map.Icon(svgMarkup);
+// export const defaultMakerIcon = new H.map.Icon(svgMarkup);

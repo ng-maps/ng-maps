@@ -1,10 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
+import { NgMapsCoreModule } from '@ng-maps/core';
+import { HereMapsLibraries, NgMapsHereModule } from '@ng-maps/here';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgMapsCoreModule } from '@ng-maps/core';
-import { NgMapsHereModule } from '@ng-maps/here';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,7 +12,12 @@ import { NgMapsHereModule } from '@ng-maps/here';
     BrowserModule,
     AppRoutingModule,
     NgMapsCoreModule.forRoot(),
-    NgMapsHereModule.forRoot({}),
+    NgMapsHereModule.forRoot({
+      platformOptions: {
+        apikey: 'NIetcbVFNgfAE7pK2CPNf5hqXiBVNyIfNgFqZha1BL4',
+      },
+      libraries: [HereMapsLibraries.MAPEVENTS, HereMapsLibraries.UI],
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
