@@ -62,7 +62,7 @@
     "@angular/compiler-cli": "~8.2.4",
     "@angular/language-service": "~8.2.4",
     "@compodoc/compodoc": "^1.1.10",
-    "@ngneat/spectator": "^4.0.0",
+    "@ngneat/spectator": "^5.0.0",
     "@types/googlemaps": "^3.36.2",
     "@types/jasmine": "~3.4.0",
     "@types/jasminewd2": "~2.0.3",
