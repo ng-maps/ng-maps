@@ -14,6 +14,11 @@
           "options": {
             "tsConfig": "projects/core/tsconfig.lib.json",
             "project": "projects/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/core/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -56,6 +61,11 @@
           "options": {
             "tsConfig": "projects/marker-clusterer/tsconfig.lib.json",
             "project": "projects/marker-clusterer/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/marker-clusterer/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -98,6 +108,11 @@
           "options": {
             "tsConfig": "projects/snazzy-info-window/tsconfig.lib.json",
             "project": "projects/snazzy-info-window/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/snazzy-info-window/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -140,6 +155,11 @@
           "options": {
             "tsConfig": "projects/data-layer/tsconfig.lib.json",
             "project": "projects/data-layer/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/data-layer/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -182,6 +202,11 @@
           "options": {
             "tsConfig": "projects/kml-layer/tsconfig.lib.json",
             "project": "projects/kml-layer/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/kml-layer/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -224,6 +249,11 @@
           "options": {
             "tsConfig": "projects/places/tsconfig.lib.json",
             "project": "projects/places/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/places/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -301,6 +331,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -378,6 +412,11 @@
           "options": {
             "tsConfig": "projects/drawing-layer/tsconfig.lib.json",
             "project": "projects/drawing-layer/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/drawing-layer/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -420,6 +459,11 @@
           "options": {
             "tsConfig": "projects/google-maps-loader/tsconfig.lib.json",
             "project": "projects/google-maps-loader/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/google-maps-loader/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -455,6 +499,11 @@
           "options": {
             "tsConfig": "projects/google/tsconfig.lib.json",
             "project": "projects/google/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/google/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -490,6 +539,11 @@
           "options": {
             "tsConfig": "projects/here/tsconfig.lib.json",
             "project": "projects/here/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/here/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -529,7 +583,7 @@
             "main": "projects/sample-here/src/main.ts",
             "polyfills": "projects/sample-here/src/polyfills.ts",
             "tsConfig": "projects/sample-here/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/sample-here/src/favicon.ico",
               "projects/sample-here/src/assets"
@@ -552,7 +606,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -631,6 +684,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "core"
+    }
+  },
+  "defaultProject": "core",
+  "cli": {
+    "analytics": false
+  }
 }

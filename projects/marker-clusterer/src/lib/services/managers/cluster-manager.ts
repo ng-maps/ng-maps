@@ -1,16 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
-
 import * as MarkerClusterer from '@google/markerclusterer';
-
 import {
   MapsApiWrapper,
   MarkerManager,
   NgMapsMarkerComponent,
   NgMapsViewComponent,
 } from '@ng-maps/core';
+import { GoogleMapsMarkerManager } from '@ng-maps/google';
 import { Observable, Observer } from 'rxjs';
 import { MarkerClusterComponent } from '../../directives/marker-cluster';
-import { GoogleMapsMarkerManager } from '@ng-maps/google';
 
 @Injectable({
   providedIn: NgMapsViewComponent,
@@ -39,10 +37,10 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     const cluster: MarkerClusterer = await this._clustererInstance;
     const markers = await this._mapsWrapper.createMarker(
       {
-        position: {
-          lat: marker.latitude,
-          lng: marker.longitude,
-        },
+        lat: marker.latitude,
+        lng: marker.longitude,
+      },
+      {
         label: marker.label,
         // draggable: marker.draggable,
         // icon: marker.iconUrl,
