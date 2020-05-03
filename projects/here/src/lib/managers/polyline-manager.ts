@@ -9,6 +9,8 @@ import { EMPTY, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class HerePolylineManager extends PolylineManager<H.map.Polyline> {
+  constructor() {}
+
   protected _convertPoints(line: NgMapsPolyline): Array<GeoPoint> {
     return line._getPoints().map((point: NgMapsPolylinePoint) => ({
       lat: point.latitude,

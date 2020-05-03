@@ -11,6 +11,8 @@ import { boundsFromRect } from '../convert';
 
 @Injectable()
 export class HereCircleManager extends CircleManager<H.map.Circle> {
+  constructor() {}
+
   /**
    * @fixme implement commented properties
    * @param circle

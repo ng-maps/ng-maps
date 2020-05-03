@@ -9,6 +9,8 @@ import { Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class GoogleCircleManager extends CircleManager<google.maps.Circle> {
+  constructor() {}
+
   /**
    * @fixme implement commented properties
    * @param circle

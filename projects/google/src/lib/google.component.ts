@@ -19,7 +19,8 @@ import { GooglePolylineManager } from './managers/polyline-manager';
 import { GoogleRectangleManager } from './managers/rectangle-manager';
 
 @Component({
-  selector: 'agm-map, map-view',
+  selector: 'map-view',
+  inputs: [],
   providers: [
     { provide: MapsApiWrapper, useClass: GoogleMapsAPIWrapper },
     { provide: FitBoundsService, useClass: GoogleMapsFitBoundsService },
@@ -49,6 +50,8 @@ import { GoogleRectangleManager } from './managers/rectangle-manager';
   `,
 })
 export class GoogleComponent extends NgMapsViewComponent {
+  constructor() {}
+
   protected async _handleMapCenterChange() {
     const s = this._mapsWrapper
       .subscribeToMapEvent<void>('center_changed')

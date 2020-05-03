@@ -13,27 +13,15 @@ import {
   declarations: [HereComponent, MarkerClusterComponent],
   imports: [],
   exports: [HereComponent, MarkerClusterComponent],
+  providers: [
+    {
+      provide: MapsAPILoader,
+      useClass: HereMapsLoaderService,
+    },
+    {
+      provide: MAP_PROVIDER,
+      useValue: 'HereMaps',
+    },
+  ],
 })
-export class NgMapsHereModule {
-  static forRoot(
-    options: HereModuleOptions,
-  ): ModuleWithProviders<NgMapsHereModule> {
-    return {
-      ngModule: NgMapsHereModule,
-      providers: [
-        {
-          provide: MapsAPILoader,
-          useClass: HereMapsLoaderService,
-        },
-        {
-          provide: HERE_MAPS_MODULE_OPTIONS,
-          useValue: options,
-        },
-        {
-          provide: MAP_PROVIDER,
-          useValue: 'HereMaps',
-        },
-      ],
-    };
-  }
-}
+export class NgMapsHereModule {}

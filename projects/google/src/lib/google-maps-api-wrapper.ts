@@ -20,6 +20,8 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
   google.maps.Circle,
   google.maps.Rectangle
 > {
+  constructor() {}
+
   protected _api: Promise<google.maps.Map>;
   protected _mapResolver: (value?: google.maps.Map) => void;
 

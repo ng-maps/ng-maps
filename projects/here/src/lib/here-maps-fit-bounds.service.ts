@@ -4,6 +4,8 @@ import { boundsFromRect } from './convert';
 
 @Injectable()
 export class HereMapsFitBoundsService extends FitBoundsService {
+  constructor() {}
+
   protected generateBounds(
     includeInBounds: Map<string, GeoPoint>,
   ): BoundsLiteral {

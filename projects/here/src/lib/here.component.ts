@@ -51,6 +51,8 @@ import { HereRectangleManager } from './managers/rectangle-manager';
   `,
 })
 export class HereComponent extends NgMapsViewComponent {
+  constructor() {}
+
   protected async _handleMapCenterChange(): Promise<void> {
     const s = this._mapsWrapper
       .subscribeToMapEvent('mapviewchangeend')

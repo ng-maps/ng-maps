@@ -1,11 +1,11 @@
 {
   "name": "@ng-maps/core",
-  "version": "2.0.0-alpha.5",
+  "version": "2.0.0-alpha.6",
   "keywords": [
     "angular",
     "ng",
-    "angular8",
-    "angular 8",
+    "angular9",
+    "angular 9",
     "maps",
     "map",
     "ng2",
@@ -22,7 +22,7 @@
     "url": "https://github.com/ng-maps/ng-maps.git"
   },
   "peerDependencies": {
-    "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0"
+    "@angular/common": "^9.0.0",
+    "@angular/core": "^9.0.0"
   }
 }

@@ -1,8 +1,8 @@
 import { InjectionToken } from '@angular/core';
 
-export const HERE_MAPS_MODULE_OPTIONS = new InjectionToken<HereModuleOptions>(
-  'NgHereMaps ModuleOptions',
-);
+export const HERE_MAPS_MODULE_OPTIONS = new InjectionToken<
+  HereModuleOptions | Promise<HereModuleOptions>
+>('NgHereMaps ModuleOptions');
 
 export enum HereMapsLibraries {
   CORE = 'core',

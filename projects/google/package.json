@@ -1,11 +1,11 @@
 {
   "name": "@ng-maps/google",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-alpha.3",
   "keywords": [
     "angular",
     "ng",
-    "angular8",
-    "angular 8",
+    "angular9",
+    "angular 9",
     "google maps",
     "googlemaps",
     "maps",
@@ -25,9 +25,9 @@
     "url": "https://github.com/ng-maps/ng-maps.git"
   },
   "peerDependencies": {
-    "@angular/common": "^8.2.3",
-    "@angular/core": "^8.2.3",
-    "@types/googlemaps": "^3.37.0",
+    "@angular/common": "^9.0.0",
+    "@angular/core": "^9.0.0",
+    "@types/googlemaps": "^9.0.0",
     "@ng-maps/core": "^2.0.0-alpha.3"
   }
 }

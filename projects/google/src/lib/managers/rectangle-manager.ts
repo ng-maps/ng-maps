@@ -11,6 +11,8 @@ import { Observable, Observer } from 'rxjs';
 export class GoogleRectangleManager extends RectangleManager<
   google.maps.Rectangle
 > {
+  constructor() {}
+
   addRectangle(rectangle: NgMapsRectangleDirective) {
     this._rectangles.set(
       rectangle,

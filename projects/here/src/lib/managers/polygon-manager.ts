@@ -4,6 +4,8 @@ import { EMPTY, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class HerePolygonManager extends PolygonManager<H.map.Polygon> {
+  constructor() {}
+
   addPolygon(path: NgMapsPolygon) {
     const polygonPromise = this._mapsWrapper.createPolygon({
       clickable: path.clickable,

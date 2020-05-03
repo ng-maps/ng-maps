@@ -25,7 +25,8 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   private ui: H.ui.UI;
 
   constructor(
-    @Inject(HERE_MAPS_MODULE_OPTIONS) private options: HereModuleOptions,
+    @Inject(HERE_MAPS_MODULE_OPTIONS)
+    private options: HereModuleOptions | Promise<HereModuleOptions>,
     _loader: MapsAPILoader,
     _zone: NgZone,
   ) {
@@ -182,16 +183,16 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
 
   async createMap(el: HTMLElement, center: GeoPoint, options: MapOptions) {
     await this._loader.load();
-    this.createPlatform();
-    console.log('map options', options);
+    await this.createPlatform();
     const map = new H.Map(el, this.defaultLayers.vector.normal.map, {
       ...options,
       center,
       fixedCenter: false,
     });
     this._mapResolver(map);
-    this.updateBehaviour(options);
-    if (this.options.libraries.includes(HereMapsLibraries.UI)) {
+    await this.updateBehaviour(options);
+    const libraries = (await this.options).libraries;
+    if (libraries.includes(HereMapsLibraries.UI)) {
       this.ui = H.ui.UI.createDefault(map, this.defaultLayers);
     }
   }
@@ -267,10 +268,11 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
 
   setMapOptions(options: any): any {}
 
-  private createPlatform() {
+  private async createPlatform() {
     // Create a Platform object (one per application):
-    console.log(this.options);
-    this.platform = new H.service.Platform(this.options.platformOptions);
+    this.platform = new H.service.Platform(
+      (await this.options).platformOptions,
+    );
 
     // Get an object containing the default map layers:
     this.defaultLayers = this.platform.createDefaultLayers();

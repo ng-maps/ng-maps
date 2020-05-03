@@ -28,14 +28,18 @@ export class HereMapsLoaderService extends MapsAPILoader {
   constructor(
     @Optional()
     @Inject(HERE_MAPS_MODULE_OPTIONS)
-    config: HereModuleOptions,
+    config: HereModuleOptions | Promise<HereModuleOptions>,
     private loader: ScriptLoaderService,
   ) {
     super();
     this.config = new Promise(
       (resolve, reject) => (this._configResolver = resolve),
     );
-    if (config != null) {
+    if (config instanceof Promise) {
+      config.then((c) => {
+        this._configResolver(c);
+      });
+    } else if (typeof config === 'object') {
       this._configResolver(config);
     }
   }

@@ -4,6 +4,8 @@ import { Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
+  constructor() {}
+
   addPolygon(path: NgMapsPolygon) {
     const polygonPromise = this._mapsWrapper.createPolygon({
       clickable: path.clickable,

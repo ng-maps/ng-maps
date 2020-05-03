@@ -6,6 +6,8 @@ import { BoundsLiteral, FitBoundsService, GeoPoint } from '@ng-maps/core';
  */
 @Injectable()
 export class GoogleMapsFitBoundsService extends FitBoundsService {
+  constructor() {}
+
   protected generateBounds(
     includeInBounds: Map<string, GeoPoint>,
   ): BoundsLiteral {

@@ -4,6 +4,8 @@ import { EMPTY, Observable } from 'rxjs';
 
 @Injectable()
 export class HereMapsMarkerManager extends MarkerManager<H.map.Marker> {
+  constructor() {}
+
   createEventObservable<E>(
     eventName:
       | 'animation_changed'

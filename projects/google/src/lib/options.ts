@@ -7,11 +7,12 @@ export enum GoogleMapsScriptProtocol {
 }
 
 /**
- * Token for the config of the LazyMapsAPILoader. Please provide an object of type {@link GoogleModuleOptions}.
+ * Token for the config of google maps module
+ * Please provide an object of type {@link GoogleModuleOptions}.
  */
-export const GOOFLE_MAPS_API_CONFIG = new InjectionToken<GoogleModuleOptions>(
-  'angular-google-maps GOOFLE_MAPS_API_CONFIG',
-);
+export const GOOGLE_MAPS_API_CONFIG = new InjectionToken<
+  GoogleModuleOptions | Promise<GoogleModuleOptions>
+>('angular-google-maps GOOGLE_MAPS_API_CONFIG');
 
 export interface GoogleModuleOptions {
   /**

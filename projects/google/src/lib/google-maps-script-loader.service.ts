@@ -3,7 +3,7 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { MapsAPILoader } from '@ng-maps/core';
 import { ReplaySubject } from 'rxjs';
 import {
-  GOOFLE_MAPS_API_CONFIG,
+  GOOGLE_MAPS_API_CONFIG,
   GoogleMapsScriptProtocol,
   GoogleModuleOptions,
 } from './options';
@@ -21,14 +21,17 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
 
   constructor(
     @Optional()
-    @Inject(GOOFLE_MAPS_API_CONFIG)
-    config: GoogleModuleOptions = null,
+    @Inject(GOOGLE_MAPS_API_CONFIG)
+    config: GoogleModuleOptions,
     @Inject(DOCUMENT) document: any,
   ) {
     super();
-    if (config != null) {
-      this._config.next(config);
-      this._config.complete();
+    if (config instanceof Promise) {
+      config.then((c) => {
+        this.configure(c);
+      });
+    } else if (typeof config === 'object') {
+      this.configure(config);
     }
     this._document = document as Document;
     this._window = this._document.defaultView;
