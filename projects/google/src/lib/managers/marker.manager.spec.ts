@@ -3,9 +3,9 @@ import { async, inject, TestBed } from '@angular/core/testing';
 
 import { isEqual } from 'lodash-es';
 
-import { NgMapsMarkerComponent } from '../../directives/marker';
-import { MapsApiWrapper as GoogleMapsAPIWrapper } from '../maps-api-wrapper';
-import { MarkerManager } from './marker.manager';
+import { NgMapsMarkerComponent } from '@ng-maps/core';
+import { GoogleMapsAPIWrapper } from '../google-maps-api-wrapper';
+import { GoogleMapsMarkerManager } from './marker.manager';
 
 xdescribe('MarkerManager', () => {
   let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
@@ -20,7 +20,7 @@ xdescribe('MarkerManager', () => {
           provide: NgZone,
           useFactory: () => new NgZone({ enableLongStackTrace: true }),
         },
-        MarkerManager,
+        GoogleMapsMarkerManager,
         {
           provide: GoogleMapsAPIWrapper,
           useValue: apiWrapperMock,
@@ -66,8 +66,11 @@ xdescribe('MarkerManager', () => {
   describe('Delete a marker', () => {
     it('should set the map to null when deleting a existing marker', async(
       inject(
-        [MarkerManager, GoogleMapsAPIWrapper],
-        (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
+        [GoogleMapsMarkerManager, GoogleMapsAPIWrapper],
+        (
+          markerManager: GoogleMapsMarkerManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
           const newMarker = new NgMapsMarkerComponent(markerManager);
           newMarker.latitude = 34.4;
           newMarker.longitude = 22.3;
@@ -96,8 +99,11 @@ xdescribe('MarkerManager', () => {
   describe('set marker icon', () => {
     it('should update that marker via setIcon method when the markerUrl changes', async(
       inject(
-        [MarkerManager, GoogleMapsAPIWrapper],
-        (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
+        [GoogleMapsMarkerManager, GoogleMapsAPIWrapper],
+        (
+          markerManager: GoogleMapsMarkerManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
           const newMarker = new NgMapsMarkerComponent(markerManager);
           newMarker.latitude = 34.4;
           newMarker.longitude = 22.3;
@@ -143,8 +149,11 @@ xdescribe('MarkerManager', () => {
   describe('set marker opacity', () => {
     it('should update that marker via setOpacity method when the markerOpacity changes', async(
       inject(
-        [MarkerManager, GoogleMapsAPIWrapper],
-        (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
+        [GoogleMapsMarkerManager, GoogleMapsAPIWrapper],
+        (
+          markerManager: GoogleMapsMarkerManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
           const newMarker = new NgMapsMarkerComponent(markerManager);
           newMarker.latitude = 34.4;
           newMarker.longitude = 22.3;
@@ -190,8 +199,11 @@ xdescribe('MarkerManager', () => {
   describe('set visible option', () => {
     it('should update that marker via setVisible method when the visible changes', async(
       inject(
-        [MarkerManager, GoogleMapsAPIWrapper],
-        (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
+        [GoogleMapsMarkerManager, GoogleMapsAPIWrapper],
+        (
+          markerManager: GoogleMapsMarkerManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
           const newMarker = new NgMapsMarkerComponent(markerManager);
           newMarker.latitude = 34.4;
           newMarker.longitude = 22.3;
@@ -237,8 +249,11 @@ xdescribe('MarkerManager', () => {
   describe('set zIndex option', () => {
     it('should update that marker via setZIndex method when the zIndex changes', async(
       inject(
-        [MarkerManager, GoogleMapsAPIWrapper],
-        (markerManager: MarkerManager, apiWrapper: GoogleMapsAPIWrapper) => {
+        [GoogleMapsMarkerManager, GoogleMapsAPIWrapper],
+        (
+          markerManager: GoogleMapsMarkerManager,
+          apiWrapper: GoogleMapsAPIWrapper,
+        ) => {
           const newMarker = new NgMapsMarkerComponent(markerManager);
           newMarker.latitude = 34.4;
           newMarker.longitude = 22.3;

@@ -1,15 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import {
   BoundsLiteral,
   CircleManager,
   GeoPoint,
+  MapsApiWrapper,
   NgMapsCircleDirective,
 } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class GoogleCircleManager extends CircleManager<google.maps.Circle> {
-  constructor() {}
+  constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
+    super(_mapsWrapper, _zone);
+  }
 
   /**
    * @fixme implement commented properties

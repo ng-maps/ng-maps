@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import {
   CircleManager,
   FitBoundsService,
@@ -49,7 +49,13 @@ import { GoogleRectangleManager } from './managers/rectangle-manager';
   `,
 })
 export class GoogleComponent extends NgMapsViewComponent {
-  constructor() {}
+  constructor(
+    _mapsWrapper: MapsApiWrapper,
+    _fitBoundsService: FitBoundsService,
+    _zone: NgZone,
+  ) {
+    super(_mapsWrapper, _fitBoundsService, _zone);
+  }
 
   protected async _handleMapCenterChange() {
     const s = this._mapsWrapper

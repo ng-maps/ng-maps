@@ -17,7 +17,7 @@ export class ClusterManager extends HereMapsMarkerManager {
   private _resolver: Function;
 
   constructor(protected _mapsWrapper: MapsApiWrapper, protected _zone: NgZone) {
-    super(_mapsWrapper, _zone);
+    super();
     this._clustererInstance = new Promise<H.clustering.Provider>((resolver) => {
       this._resolver = resolver;
     });

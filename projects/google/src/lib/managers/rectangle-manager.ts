@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import {
   BoundsLiteral,
+  MapsApiWrapper,
   NgMapsRectangleDirective,
   RectangleManager,
 } from '@ng-maps/core';
@@ -11,7 +12,9 @@ import { Observable, Observer } from 'rxjs';
 export class GoogleRectangleManager extends RectangleManager<
   google.maps.Rectangle
 > {
-  constructor() {}
+  constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
+    super(_mapsWrapper, _zone);
+  }
 
   addRectangle(rectangle: NgMapsRectangleDirective) {
     this._rectangles.set(

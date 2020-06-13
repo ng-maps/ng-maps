@@ -11,8 +11,6 @@ import { boundsFromRect, rectFromBounds } from '../convert';
 
 @Injectable()
 export class HereRectangleManager extends RectangleManager<H.map.Rect> {
-  constructor() {}
-
   addRectangle(rectangle: NgMapsRectangleDirective) {
     this._rectangles.set(
       rectangle,

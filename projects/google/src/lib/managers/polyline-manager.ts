@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import {
   NgMapsPolyline,
   NgMapsPolylinePoint,
   PolylineManager,
+  MapsApiWrapper,
 } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
 
@@ -10,7 +11,9 @@ import { Observable, Observer } from 'rxjs';
 export class GooglePolylineManager extends PolylineManager<
   google.maps.Polyline
 > {
-  constructor() {}
+  constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
+    super(_mapsWrapper, _zone);
+  }
 
   protected _convertPoints(
     line: NgMapsPolyline,

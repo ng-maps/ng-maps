@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import {
   BoundsLiteral,
   CircleOptions,
   GeoPoint,
   MapOptions,
+  MapsAPILoader,
   MapsApiWrapper,
   MarkerOptions,
   RectangleOptions,
@@ -20,7 +21,9 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
   google.maps.Circle,
   google.maps.Rectangle
 > {
-  constructor() {}
+  constructor(_loader: MapsAPILoader, _zone: NgZone) {
+    super(_loader, _zone);
+  }
 
   protected _api: Promise<google.maps.Map>;
   protected _mapResolver: (value?: google.maps.Map) => void;
