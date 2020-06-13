@@ -20,7 +20,6 @@ import { GoogleRectangleManager } from './managers/rectangle-manager';
 
 @Component({
   selector: 'map-view',
-  inputs: [],
   providers: [
     { provide: MapsApiWrapper, useClass: GoogleMapsAPIWrapper },
     { provide: FitBoundsService, useClass: GoogleMapsFitBoundsService },

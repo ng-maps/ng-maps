@@ -54,31 +54,29 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
     } else if (this._scriptLoadingPromise) {
       return this._scriptLoadingPromise;
     } else {
-      return this.checkScriptElement();
+      this._scriptLoadingPromise = this.checkScriptElement();
+      return this._scriptLoadingPromise;
     }
   }
 
-  protected async checkScriptElement() {
+  protected async checkScriptElement(): Promise<void> {
     let scriptElement: HTMLScriptElement = this._document.getElementById(
       this._SCRIPT_ID,
     ) as HTMLScriptElement;
     if (scriptElement == null) {
       scriptElement = await this.createScriptElement();
     }
-    this._scriptLoadingPromise = this.assignScriptLoadingPromise(scriptElement);
-    return this._scriptLoadingPromise;
+    return this.assignScriptLoadingPromise(scriptElement);
   }
 
-  protected async assignScriptLoadingPromise(scriptElement: HTMLScriptElement) {
+  protected assignScriptLoadingPromise(
+    scriptElement: HTMLScriptElement,
+  ): Promise<void> {
     this._document.body.appendChild(scriptElement);
-    return new Promise<void>((resolve, reject) => {
-      this._window[this.callbackName] = () => {
-        resolve();
-      };
+    return new Promise((resolve, reject) => {
+      this._window[this.callbackName] = () => resolve();
 
-      scriptElement.onerror = (error: Event) => {
-        reject(error);
-      };
+      scriptElement.onerror = (error: Event) => reject(error);
     });
   }
 
