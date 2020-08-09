@@ -25,6 +25,7 @@ export abstract class MarkerManager<T = any> {
 
   public abstract updateDraggable(marker: NgMapsMarkerComponent): void;
 
+  public abstract updateIconLegacy(marker: NgMapsMarkerComponent): void;
   public abstract updateIcon(marker: NgMapsMarkerComponent): void;
 
   public abstract updateOpacity(marker: NgMapsMarkerComponent): void;

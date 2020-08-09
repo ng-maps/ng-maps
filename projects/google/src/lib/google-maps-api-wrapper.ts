@@ -67,12 +67,7 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
     options: MarkerOptions,
     addToMap: boolean = true,
   ): Promise<google.maps.Marker> {
-    let map;
-    if (addToMap) {
-      map = await this._api;
-    } else {
-      map = {};
-    }
+    const map = addToMap ? await this._api : null;
     return new google.maps.Marker({ position, map, ...options });
   }
 
@@ -189,7 +184,7 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
 
   async getBounds(): Promise<BoundsLiteral> {
     const map = await this._api;
-    return map.getBounds().toJSON();
+    return map.getBounds()?.toJSON();
   }
 
   getMapTypeId(): Promise<google.maps.MapTypeId | string> {

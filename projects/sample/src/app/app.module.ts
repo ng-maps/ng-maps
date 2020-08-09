@@ -19,6 +19,7 @@ import { SimpleMapComponent } from './simple-map/simple-map.component';
 import { LayersComponent } from './layers/layers.component';
 import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-window.component';
 import { NgMapsGoogleModule } from '@ng-maps/google';
+import { BoundsPaddingComponent } from './bounds-padding/bounds-padding.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NgMapsGoogleModule } from '@ng-maps/google';
     AutocompleteComponent,
     LayersComponent,
     SnazzyInfoWindowComponent,
+    BoundsPaddingComponent,
   ],
   imports: [
     BrowserModule,

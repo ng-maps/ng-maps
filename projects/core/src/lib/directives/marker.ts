@@ -12,11 +12,11 @@ import {
   SimpleChange,
 } from '@angular/core';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
-import { MapOptions } from '../interface/map-options';
 import { MarkerOptions } from '../interface/marker-options';
 import { FitBoundsAccessor, FitBoundsDetails } from '../services/fit-bounds';
 import { MarkerManager } from '../services/managers/marker.manager';
 import { NgMapsInfoWindowComponent } from './info-window';
+import { MarkerIcon } from '../interface/marker-icon';
 
 let markerId = 0;
 
@@ -43,6 +43,7 @@ let markerId = 0;
     'label',
     'draggable: markerDraggable',
     'iconUrl',
+    'icon',
     'openInfoWindow',
     'opacity',
     'optimized',
@@ -99,6 +100,8 @@ export class NgMapsMarkerComponent
    * @see <a href="https://developers.google.com/maps/documentation/javascript/reference/marker#Icon">google.maps.Icon</a>
    */
   @Input() iconUrl: string | google.maps.Icon;
+
+  @Input() icon: MarkerIcon;
 
   /**
    * If true, the marker is visible
@@ -262,6 +265,9 @@ export class NgMapsMarkerComponent
       this.markerManager.updateDraggable(this);
     }
     if (changes.iconUrl) {
+      this.markerManager.updateIconLegacy(this);
+    }
+    if (changes.icon) {
       this.markerManager.updateIcon(this);
     }
     if (changes.opacity) {

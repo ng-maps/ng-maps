@@ -50,7 +50,7 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
     m.setDraggable(marker.draggable);
   }
 
-  updateIcon(marker: NgMapsMarkerComponent): void {
+  updateIconLegacy(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     m.setIcon(marker.iconUrl);
   }
