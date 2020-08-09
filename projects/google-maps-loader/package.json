@@ -5,5 +5,8 @@
     "@angular/common": "^8.2.3",
     "@angular/core": "^8.2.3",
     "@ng-maps/core": "^1.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }

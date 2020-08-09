@@ -28,5 +28,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ng-maps/ng-maps.git"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }

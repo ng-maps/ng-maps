@@ -29,5 +29,8 @@
     "@angular/core": "^9.0.0",
     "@types/googlemaps": "^3.39.0",
     "@ng-maps/core": "^2.0.0-alpha.3"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }

@@ -30,5 +30,8 @@
     "@angular/core": "^8.2.3",
     "@ng-maps/core": "^2.0.0-alpha.2",
     "@types/heremaps": "github:ng-maps/heremaps-typings"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
   }
 }
