@@ -1,10 +1,16 @@
-import { Injectable } from '@angular/core';
-import { MarkerManager, NgMapsMarkerComponent } from '@ng-maps/core';
+import { Injectable, NgZone } from '@angular/core';
+import {
+  MapsApiWrapper,
+  MarkerManager,
+  NgMapsMarkerComponent,
+} from '@ng-maps/core';
 import { EMPTY, Observable } from 'rxjs';
 
 @Injectable()
 export class HereMapsMarkerManager extends MarkerManager<H.map.Marker> {
-  constructor() {}
+  constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
+    super(_mapsWrapper, _zone);
+  }
 
   createEventObservable<E>(
     eventName:

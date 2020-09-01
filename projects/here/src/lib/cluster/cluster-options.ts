@@ -12,7 +12,7 @@ interface ClusterIconInfo {
 }
 
 export type Calculator = (
-  markers: any[],
+  markers: Array<any>,
   clusterIconStylesCount: number,
 ) => ClusterIconInfo;
 /**
@@ -91,7 +91,7 @@ export interface MarkerClustererOptions {
    * from the values for <code>imagePath</code>, <code>imageExtension</code>, and
    * <code>imageSizes</code>.
    */
-  styles?: any[];
+  styles?: Array<any>;
   /**
    * [enableRetinaIcons=false] Whether to allow the use of cluster icons that
    * have sizes that are some multiple (typically double) of their actual display size. Icons such
@@ -133,5 +133,5 @@ export interface MarkerClustererOptions {
    * <code>imagePath</code>n.<code>imageExtension</code> image files.
    * (The images are assumed to be square.)
    */
-  imageSizes?: number[];
+  imageSizes?: Array<number>;
 }

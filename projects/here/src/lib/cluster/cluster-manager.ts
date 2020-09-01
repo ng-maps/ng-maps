@@ -6,8 +6,8 @@ import {
   NgMapsViewComponent,
 } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
-import { MarkerClusterComponent } from './marker-cluster';
 import { HereMapsMarkerManager } from '../here-maps-marker.manager';
+import { MarkerClusterComponent } from './marker-cluster';
 
 @Injectable({
   providedIn: NgMapsViewComponent,
@@ -17,7 +17,7 @@ export class ClusterManager extends HereMapsMarkerManager {
   private _resolver: Function;
 
   constructor(protected _mapsWrapper: MapsApiWrapper, protected _zone: NgZone) {
-    super();
+    super(_mapsWrapper, _zone);
     this._clustererInstance = new Promise<H.clustering.Provider>((resolver) => {
       this._resolver = resolver;
     });

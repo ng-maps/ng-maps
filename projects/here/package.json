@@ -1,6 +1,6 @@
 {
   "name": "@ng-maps/here",
-  "version": "2.0.0-alpha.7",
+  "version": "2.0.0-alpha.9",
   "keywords": [
     "angular",
     "ng",
@@ -26,10 +26,10 @@
     "url": "https://github.com/ng-maps/ng-maps.git"
   },
   "peerDependencies": {
-    "@angular/common": "^8.2.3",
-    "@angular/core": "^8.2.3",
+    "@angular/common": "^8.0.0 || ^9.0.0 || ^10.0.0",
+    "@angular/core": "^8.0.0 || ^9.0.0 || ^10.0.0",
     "@ng-maps/core": "^2.0.0-alpha.2",
-    "@types/heremaps": "github:ng-maps/heremaps-typings"
+    "@types/heremaps": "^3.1.1"
   },
   "dependencies": {
     "tslib": "^2.0.0"

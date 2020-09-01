@@ -11,7 +11,9 @@ import { boundsFromRect } from '../convert';
 
 @Injectable()
 export class HereCircleManager extends CircleManager<H.map.Circle> {
-  constructor() {}
+  constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
+    super(_mapsWrapper, _zone);
+  }
 
   /**
    * @fixme implement commented properties

@@ -1,11 +1,9 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { MapsAPILoader, ScriptLoaderService } from '@ng-maps/core';
-import { ReplaySubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import {
-  HERE_MAPS_MODULE_OPTIONS,
   HereMapsLibraries,
   HereModuleOptions,
+  HERE_MAPS_MODULE_OPTIONS,
 } from './options';
 
 @Injectable({
@@ -26,9 +24,10 @@ export class HereMapsLoaderService extends MapsAPILoader {
   protected config: Promise<HereModuleOptions>;
 
   constructor(
+    // This may be a Promise but that doesn't work with ngc
     @Optional()
     @Inject(HERE_MAPS_MODULE_OPTIONS)
-    config: HereModuleOptions | Promise<HereModuleOptions>,
+    config: any,
     private loader: ScriptLoaderService,
   ) {
     super();

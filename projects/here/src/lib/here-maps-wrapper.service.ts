@@ -12,21 +12,22 @@ import {
 } from '@ng-maps/core';
 import { Observable } from 'rxjs';
 import { boundsFromRect, rectFromBounds } from './convert';
+import { HereMapsPlatformProvider } from './here-maps-platform.provider';
 import {
-  HERE_MAPS_MODULE_OPTIONS,
   HereMapsLibraries,
   HereModuleOptions,
+  HERE_MAPS_MODULE_OPTIONS,
 } from './options';
 
 @Injectable()
 export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
-  private platform: H.service.Platform;
-  private defaultLayers: any;
+  private defaultLayers: H.service.DefaultLayers;
   private ui: H.ui.UI;
 
   constructor(
     @Inject(HERE_MAPS_MODULE_OPTIONS)
-    private options: HereModuleOptions | Promise<HereModuleOptions>,
+    private options: HereModuleOptions | any,
+    private platformProvider: HereMapsPlatformProvider,
     _loader: MapsAPILoader,
     _zone: NgZone,
   ) {
@@ -182,8 +183,8 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   }
 
   async createMap(el: HTMLElement, center: GeoPoint, options: MapOptions) {
-    await this._loader.load();
-    await this.createPlatform();
+    const platform = await this.platformProvider.getPlatform();
+    this.defaultLayers = platform.createDefaultLayers();
     const map = new H.Map(el, this.defaultLayers.vector.normal.map, {
       ...options,
       center,
@@ -250,7 +251,6 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     addToMap: boolean = true,
   ): Promise<H.map.Marker> {
     const map = await this.getNativeMap();
-    console.log(lat, lng);
     let opts: H.map.Marker.Options;
     if (options) {
       opts = {
@@ -267,14 +267,4 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   }
 
   setMapOptions(options: any): any {}
-
-  private async createPlatform() {
-    // Create a Platform object (one per application):
-    this.platform = new H.service.Platform(
-      (await this.options).platformOptions,
-    );
-
-    // Get an object containing the default map layers:
-    this.defaultLayers = this.platform.createDefaultLayers();
-  }
 }
