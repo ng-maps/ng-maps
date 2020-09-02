@@ -4,40 +4,33 @@ import {
   MarkerManager,
   NgMapsMarkerComponent,
 } from '@ng-maps/core';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class HereMapsMarkerManager extends MarkerManager<H.map.Marker> {
+  updateIconLegacy(marker: NgMapsMarkerComponent): void {
+    throw new Error('Method not implemented.');
+  }
   constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
     super(_mapsWrapper, _zone);
   }
 
   createEventObservable<E>(
-    eventName:
-      | 'animation_changed'
-      | 'clickable_changed'
-      | 'cursor_changed'
-      | 'draggable_changed'
-      | 'flat_changed'
-      | 'icon_changed'
-      | 'position_changed'
-      | 'shape_changed'
-      | 'title_changed'
-      | 'visible_changed'
-      | 'zindex_changed'
-      | 'click'
-      | 'dblclick'
-      | 'drag'
-      | 'dragend'
-      | 'dragstart'
-      | 'mousedown'
-      | 'mouseout'
-      | 'mouseover'
-      | 'mouseup'
-      | 'rightclick',
+    eventName: string | Array<string>,
     marker: NgMapsMarkerComponent,
   ): Observable<E> {
-    return EMPTY;
+    return new Observable((observer: Observer<E>) => {
+      const m = this._markers.get(marker);
+      if (typeof eventName === 'string') {
+        eventName = [eventName];
+      }
+      eventName.forEach((event) => {
+        m.addEventListener(event, (e: Event) => {
+          // @todo fix typings
+          return this._zone.run(() => observer.next((e as any) as E));
+        });
+      });
+    });
   }
 
   deleteMarker(marker: NgMapsMarkerComponent): void {}

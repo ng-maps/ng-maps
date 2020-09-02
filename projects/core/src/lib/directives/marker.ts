@@ -300,9 +300,9 @@ export class NgMapsMarkerComponent
     });
   }
 
-  private _addEventListeners() {
+  protected _addEventListeners() {
     const cs = this.markerManager
-      .createEventObservable('click', this)
+      .createEventObservable(['click', 'tap', 'pointerdown'], this)
       .subscribe(() => {
         if (this.openInfoWindow) {
           this.infoWindow.forEach((infoWindow) => infoWindow.open());
@@ -340,14 +340,20 @@ export class NgMapsMarkerComponent
     this.subscription.add(dragend);
 
     const mouseover = this.markerManager
-      .createEventObservable<google.maps.MouseEvent>('mouseover', this)
+      .createEventObservable<google.maps.MouseEvent>(
+        ['mouseover', 'pointerenter'],
+        this,
+      )
       .subscribe((e: google.maps.MouseEvent) => {
         this.mouseOver.emit(e);
       });
     this.subscription.add(mouseover);
 
     const mouseout = this.markerManager
-      .createEventObservable<google.maps.MouseEvent>('mouseout', this)
+      .createEventObservable<google.maps.MouseEvent>(
+        ['mouseout', 'pointerleave'],
+        this,
+      )
       .subscribe((e: google.maps.MouseEvent) => {
         this.mouseOut.emit(e);
       });

@@ -1,6 +1,6 @@
 {
   "name": "@ng-maps/here",
-  "version": "2.0.0-alpha.9",
+  "version": "2.0.0-alpha.10",
   "keywords": [
     "angular",
     "ng",
@@ -28,7 +28,7 @@
   "peerDependencies": {
     "@angular/common": "^8.0.0 || ^9.0.0 || ^10.0.0",
     "@angular/core": "^8.0.0 || ^9.0.0 || ^10.0.0",
-    "@ng-maps/core": "^2.0.0-alpha.2",
+    "@ng-maps/core": "^2.0.0-alpha.7",
     "@types/heremaps": "^3.1.1"
   },
   "dependencies": {

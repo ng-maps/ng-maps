@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {
   CircleManager,
   FitBoundsService,
-  GeoPoint,
   MapsApiWrapper,
   MarkerManager,
   NgMapsViewComponent,
@@ -21,7 +20,7 @@ import { HerePolylineManager } from './managers/polyline-manager';
 import { HereRectangleManager } from './managers/rectangle-manager';
 
 @Component({
-  selector: 'agm-map, map-view',
+  selector: 'map-view',
   providers: [
     { provide: MapsApiWrapper, useClass: HereMapsWrapperService },
     { provide: FitBoundsService, useClass: HereMapsFitBoundsService },

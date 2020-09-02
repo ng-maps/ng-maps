@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BoundsLiteral, GeoPoint } from '@ng-maps/core';
+import { BoundsLiteral, GeoPoint, NgMapsMarkerComponent } from '@ng-maps/core';
 import { MARKERS } from '../../../sample/src/app/shapes/markers';
 
 @Component({
@@ -38,6 +38,14 @@ export class AppComponent implements OnInit {
 
   onBoundsChange($event: BoundsLiteral) {
     console.log('Bounds Changed', $event);
+  }
+
+  markerClick($event: NgMapsMarkerComponent) {
+    console.log($event);
+  }
+
+  mouseOut($event: google.maps.MouseEvent) {
+    console.log('mouseOut', $event);
   }
 }
 

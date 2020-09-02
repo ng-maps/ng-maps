@@ -65,9 +65,7 @@ export abstract class MarkerManager<T = any> {
   }
 
   public abstract createEventObservable<E>(
-    eventName:
-      | google.maps.MarkerChangeOptionEventNames
-      | google.maps.MarkerMouseEventNames,
+    eventName: string | Array<string>,
     marker: NgMapsMarkerComponent,
   ): Observable<E>;
 }

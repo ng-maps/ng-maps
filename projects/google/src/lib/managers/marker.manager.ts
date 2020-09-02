@@ -85,16 +85,21 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
   }
 
   createEventObservable<T>(
-    eventName:
-      | google.maps.MarkerChangeOptionEventNames
-      | google.maps.MarkerMouseEventNames,
+    eventName: string | Array<string>,
     marker: NgMapsMarkerComponent,
   ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
       const m = this._markers.get(marker);
-      m.addListener(eventName, (e: T) =>
-        this._zone.run(() => observer.next(e)),
-      );
+      if (typeof eventName === 'string') {
+        eventName = [eventName];
+      }
+      eventName.forEach((event) => {
+        m.addListener(event, (e: T) => this._zone.run(() => observer.next(e)));
+      });
     });
+  }
+
+  updateIcon(marker: NgMapsMarkerComponent): void {
+    throw new Error('Method not implemented.');
   }
 }

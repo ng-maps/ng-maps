@@ -68,7 +68,6 @@ describe('NgMapsViewComponent', () => {
     const mockApiWrapper = fixture.debugElement.injector.get(
       GoogleMapsAPIWrapper,
     ) as jasmine.SpyObj<GoogleMapsAPIWrapper>;
-    console.log(mockApiWrapper);
     expect(mockApiWrapper.fitBounds).toHaveBeenCalledTimes(0);
   });
 });

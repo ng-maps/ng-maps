@@ -6,7 +6,12 @@
   (boundsChange)="onBoundsChange($event)"
   [fitBounds]="boundaries"
 >
-  <map-marker latitude="51.499767" longitude="7.455198"></map-marker>
+  <map-marker
+    latitude="51.499767"
+    longitude="7.455198"
+    (markerClick)="markerClick($event)"
+    (mouseOut)="mouseOut($event)"
+  ></map-marker>
   <map-circle
     [latitude]="latA"
     [longitude]="lngA"

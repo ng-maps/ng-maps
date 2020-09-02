@@ -49,7 +49,6 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
       visibility: options.visible,
       style,
     });
-    console.log(circle);
     // Add the circle to the map:
     map.addObject(circle);
     return circle;
