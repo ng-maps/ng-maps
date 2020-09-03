@@ -12,10 +12,9 @@ import {
 } from '@angular/core';
 import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
 import { Subscription } from 'rxjs';
-import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from './cluster-config';
-
+import { MarkerClusterConfig, MARKER_CLUSTER_CONFIG } from './cluster-config';
 import { ClusterManager } from './cluster-manager';
-import { MarkerClustererOptions, Calculator } from './cluster-options';
+import { Calculator, MarkerClustererOptions } from './cluster-options';
 
 /**
  * MarkerClusterComponent clusters map marker if they are near together
@@ -25,7 +24,6 @@ import { MarkerClustererOptions, Calculator } from './cluster-options';
   providers: [
     ClusterManager,
     { provide: MarkerManager, useExisting: ClusterManager },
-    InfoWindowManager,
   ],
 })
 export class MarkerClusterComponent

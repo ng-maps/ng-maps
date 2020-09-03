@@ -6,6 +6,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  Optional,
   Output,
   SimpleChanges,
   ViewChild,
@@ -50,10 +51,13 @@ let infoWindowId = 0;
       <ng-content></ng-content>
     </div>
   `,
-  providers: [InfoWindowManager],
 })
 export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
-  constructor(private _infoWindowManager: InfoWindowManager) {}
+  // @todo how to add correct typings?
+  constructor(
+    protected _infoWindowManager: InfoWindowManager<any>,
+    public readonly elementRef: ElementRef<HTMLElement>,
+  ) {}
 
   private static _infoWindowOptionsInputs: Array<string> = [
     'disableAutoPan',
@@ -171,8 +175,8 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   /**
    * Opens the info window.
    */
-  open(): Promise<void> {
-    return this._infoWindowManager.open(this);
+  open(event?: any): Promise<void> {
+    return this._infoWindowManager.open(this, event);
   }
 
   /**

@@ -5,109 +5,43 @@ import { NgMapsViewComponent } from '../../directives/map';
 import { MapsApiWrapper } from '../maps-api-wrapper';
 import { MarkerManager } from './marker.manager';
 
-@Injectable({
-  providedIn: NgMapsViewComponent,
-})
-export class InfoWindowManager {
-  private _infoWindows: Map<
-    NgMapsInfoWindowComponent,
-    google.maps.InfoWindow
-  > = new Map<NgMapsInfoWindowComponent, google.maps.InfoWindow>();
+@Injectable()
+export abstract class InfoWindowManager<T> {
+  protected _infoWindows: Map<NgMapsInfoWindowComponent, T> = new Map();
 
   constructor(
-    private _mapsWrapper: MapsApiWrapper,
-    private _zone: NgZone,
-    private _markerManager: MarkerManager,
+    protected _mapsWrapper: MapsApiWrapper,
+    protected _zone: NgZone,
+    protected _markerManager: MarkerManager,
   ) {}
 
-  async deleteInfoWindow(infoWindow: NgMapsInfoWindowComponent): Promise<void> {
-    const iWindow = await this._infoWindows.get(infoWindow);
-    if (iWindow == null) {
-      // info window already deleted
-      return;
-    } else {
-      return this._zone.run(() => {
-        iWindow.close();
-        this._infoWindows.delete(infoWindow);
-      });
-    }
-  }
+  abstract deleteInfoWindow(
+    infoWindow: NgMapsInfoWindowComponent,
+  ): Promise<void>;
 
-  setPosition(infoWindow: NgMapsInfoWindowComponent): void {
-    const i = this._infoWindows.get(infoWindow);
-    i.setPosition({
-      lat: infoWindow.latitude,
-      lng: infoWindow.longitude,
-    });
-  }
+  abstract setPosition(infoWindow: NgMapsInfoWindowComponent): void;
 
-  setZIndex(infoWindow: NgMapsInfoWindowComponent): void {
-    const i = this._infoWindows.get(infoWindow);
-    i.setZIndex(infoWindow.zIndex);
-  }
+  abstract setZIndex(infoWindow: NgMapsInfoWindowComponent): void;
 
-  async open(infoWindow: NgMapsInfoWindowComponent): Promise<void> {
-    const w = this._infoWindows.get(infoWindow);
-    const map = await this._mapsWrapper.getNativeMap();
-    if (infoWindow.hostMarker != null) {
-      const marker = await this._markerManager.getNativeMarker(
-        infoWindow.hostMarker,
-      );
-      w.open(map, marker);
-    } else {
-      w.open(map);
-    }
-  }
+  abstract open(
+    infoWindow: NgMapsInfoWindowComponent,
+    event?: any,
+  ): Promise<void>;
 
-  close(infoWindow: NgMapsInfoWindowComponent): void {
-    const w = this._infoWindows.get(infoWindow);
-    w.close();
-  }
+  abstract close(infoWindow: NgMapsInfoWindowComponent): void;
 
-  setOptions(
+  abstract setOptions(
     infoWindow: NgMapsInfoWindowComponent,
     options: google.maps.InfoWindowOptions,
-  ) {
-    const i = this._infoWindows.get(infoWindow);
-    i.setOptions(options);
-  }
+  );
 
-  async addInfoWindow(infoWindow: NgMapsInfoWindowComponent) {
-    const options: google.maps.InfoWindowOptions = {
-      content: infoWindow.content.nativeElement,
-      maxWidth: infoWindow.maxWidth,
-      zIndex: infoWindow.zIndex,
-      disableAutoPan: infoWindow.disableAutoPan,
-    };
-    let position;
-    if (
-      typeof infoWindow.latitude === 'number' &&
-      typeof infoWindow.longitude === 'number'
-    ) {
-      position = {
-        lat: infoWindow.latitude,
-        lng: infoWindow.longitude,
-      };
-    }
-    const instance = await this._mapsWrapper.createInfoWindow(
-      position,
-      options,
-    );
-    this._infoWindows.set(infoWindow, instance as any);
-  }
+  abstract addInfoWindow(infoWindow: NgMapsInfoWindowComponent): Promise<void>;
 
   /**
    * Creates a Google Maps event listener for the given InfoWindow as an Observable
    */
-  createEventObservable<T>(
+  abstract createEventObservable<E>(
     eventName: string,
     infoWindow: NgMapsInfoWindowComponent,
-  ): Observable<T> {
-    const i = this._infoWindows.get(infoWindow);
-    return new Observable((observer: Observer<T>) => {
-      i.addListener(eventName, (e: T) =>
-        this._zone.run(() => observer.next(e)),
-      );
-    });
-  }
+  ): Observable<E>;
 }

@@ -12,11 +12,11 @@ import {
   SimpleChange,
 } from '@angular/core';
 import { Observable, ReplaySubject, Subscription } from 'rxjs';
+import { MarkerIcon } from '../interface/marker-icon';
 import { MarkerOptions } from '../interface/marker-options';
 import { FitBoundsAccessor, FitBoundsDetails } from '../services/fit-bounds';
 import { MarkerManager } from '../services/managers/marker.manager';
 import { NgMapsInfoWindowComponent } from './info-window';
-import { MarkerIcon } from '../interface/marker-icon';
 
 let markerId = 0;
 
@@ -302,12 +302,14 @@ export class NgMapsMarkerComponent
 
   protected _addEventListeners() {
     const cs = this.markerManager
-      .createEventObservable(['click', 'tap', 'pointerdown'], this)
-      .subscribe(() => {
-        if (this.openInfoWindow) {
-          this.infoWindow.forEach((infoWindow) => infoWindow.open());
-        }
-        this.markerClick.emit(this);
+      .createEventObservable(['click', 'pointerdown'], this)
+      .subscribe({
+        next: (event) => {
+          if (this.openInfoWindow) {
+            this.infoWindow.forEach((infoWindow) => infoWindow.open(event));
+          }
+          this.markerClick.emit(this);
+        },
       });
     this.subscription.add(cs);
 

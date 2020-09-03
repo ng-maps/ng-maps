@@ -22,7 +22,7 @@ import {
 @Injectable()
 export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   private defaultLayers: H.service.DefaultLayers;
-  private ui: H.ui.UI;
+  private _ui: H.ui.UI;
 
   constructor(
     @Inject(HERE_MAPS_MODULE_OPTIONS)
@@ -32,6 +32,10 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     _zone: NgZone,
   ) {
     super(_loader, _zone);
+  }
+
+  get ui() {
+    return this._ui;
   }
 
   async createCircle(
@@ -90,12 +94,13 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     center: GeoPoint,
     options: H.ui.InfoBubble.Options,
   ): Promise<H.ui.InfoBubble> {
-    if (this.ui != null) {
+    await this.platformProvider.getPlatform();
+    if (this._ui != null) {
       // Create an info bubble object at a specific geographic location:
       const bubble = new H.ui.InfoBubble(center, options);
-
+      bubble.setState(H.ui.InfoBubble.State.CLOSED);
       // Add info bubble to the UI:
-      this.ui.addBubble(bubble);
+      this._ui.addBubble(bubble);
       return bubble;
     } else {
       throw new Error(
@@ -193,7 +198,7 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     await this.updateBehaviour(options);
     const libraries = (await this.options).libraries;
     if (libraries.includes(HereMapsLibraries.UI)) {
-      this.ui = H.ui.UI.createDefault(map, this.defaultLayers);
+      this._ui = H.ui.UI.createDefault(map, this.defaultLayers);
     }
   }
 
@@ -225,7 +230,7 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   }
 
   private async updateUi(options: MapOptions) {
-    const ui = this.ui;
+    const ui = this._ui;
     if (options && ui) {
       if (!options.mapTypeControl) {
         ui.removeControl('mapsettings');

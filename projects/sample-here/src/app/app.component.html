@@ -12,6 +12,11 @@
     (markerClick)="markerClick($event)"
     (mouseOut)="mouseOut($event)"
   ></map-marker>
+  <map-marker latitude="40.4125" longitude="-3.703889"
+    ><map-info-window>
+      <p>This is an info window text</p>
+    </map-info-window></map-marker
+  >
   <map-circle
     [latitude]="latA"
     [longitude]="lngA"

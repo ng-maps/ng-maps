@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import {
   CircleManager,
   FitBoundsService,
+  InfoWindowManager,
   MapsApiWrapper,
   MarkerManager,
   NgMapsViewComponent,
@@ -9,12 +10,13 @@ import {
   PolylineManager,
   RectangleManager,
 } from '@ng-maps/core';
-import { fromPromise } from 'rxjs/internal-compatibility';
+import { from } from 'rxjs';
 import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
 import { HereMapsFitBoundsService } from './here-maps-fit-bounds.service';
 import { HereMapsMarkerManager } from './here-maps-marker.manager';
 import { HereMapsWrapperService } from './here-maps-wrapper.service';
 import { HereCircleManager } from './managers/circle-manager';
+import { HereMapsInfoWindowManager } from './managers/info-window.manager';
 import { HerePolygonManager } from './managers/polygon-manager';
 import { HerePolylineManager } from './managers/polyline-manager';
 import { HereRectangleManager } from './managers/rectangle-manager';
@@ -29,6 +31,7 @@ import { HereRectangleManager } from './managers/rectangle-manager';
     { provide: PolygonManager, useClass: HerePolygonManager },
     { provide: PolylineManager, useClass: HerePolylineManager },
     { provide: RectangleManager, useClass: HereRectangleManager },
+    { provide: InfoWindowManager, useClass: HereMapsInfoWindowManager },
   ],
   styles: [
     `
@@ -50,11 +53,17 @@ import { HereRectangleManager } from './managers/rectangle-manager';
   `,
 })
 export class HereComponent extends NgMapsViewComponent {
+  @HostListener('window:resize')
+  onResize() {
+    this._mapsWrapper.getNativeMap().then((map) => {
+      map.getViewPort().resize();
+    });
+  }
   protected async _handleMapCenterChange(): Promise<void> {
     const s = this._mapsWrapper
       .subscribeToMapEvent('mapviewchangeend')
       .pipe(
-        mergeMap(() => fromPromise(this._mapsWrapper.getCenter())),
+        mergeMap(() => from(this._mapsWrapper.getCenter())),
         distinctUntilChanged(
           (p1, p2) => p1.lat === p2.lat && p1.lng === p2.lng,
         ),
@@ -69,7 +78,7 @@ export class HereComponent extends NgMapsViewComponent {
     const s = this._mapsWrapper
       .subscribeToMapEvent('mapviewchangeend')
       .pipe(
-        mergeMap(() => fromPromise(this._mapsWrapper.getZoom())),
+        mergeMap(() => from(this._mapsWrapper.getZoom())),
         distinctUntilChanged((z1, z2) => z1 === z2),
       )
       .subscribe((zoom) => {
@@ -88,7 +97,7 @@ export class HereComponent extends NgMapsViewComponent {
     const s = this._mapsWrapper
       .subscribeToMapEvent('mapviewchangeend')
       .pipe(
-        mergeMap(() => fromPromise(this._mapsWrapper.getBounds())),
+        mergeMap(() => from(this._mapsWrapper.getBounds())),
         distinctUntilChanged(
           (b1, b2) =>
             b1.east === b2.east &&
