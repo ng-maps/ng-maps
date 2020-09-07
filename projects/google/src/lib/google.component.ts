@@ -48,7 +48,7 @@ import { GoogleRectangleManager } from './managers/rectangle-manager';
     </div>
   `,
 })
-export class GoogleComponent extends NgMapsViewComponent {
+export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
   constructor(
     _mapsWrapper: MapsApiWrapper,
     _fitBoundsService: FitBoundsService,

@@ -47,6 +47,10 @@ export class AppComponent implements OnInit {
   mouseOut($event: google.maps.MouseEvent) {
     console.log('mouseOut', $event);
   }
+
+  getUi($event: H.ui.UI) {
+    console.log('ui', $event);
+  }
 }
 
 function getRandomMarker() {

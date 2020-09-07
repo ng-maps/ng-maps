@@ -1,4 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  NgZone,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import {
   CircleManager,
   FitBoundsService,
@@ -52,13 +59,28 @@ import { HereRectangleManager } from './managers/rectangle-manager';
     </div>
   `,
 })
-export class HereComponent extends NgMapsViewComponent {
+export class HereComponent extends NgMapsViewComponent<H.Map> {
   @HostListener('window:resize')
   onResize() {
     this._mapsWrapper.getNativeMap().then((map) => {
       map.getViewPort().resize();
     });
   }
+
+  /**
+   * Event that returns the UI object if available
+   */
+  @Output() public readonly ui: EventEmitter<H.ui.UI> = new EventEmitter();
+
+  constructor(
+    _mapsWrapper: MapsApiWrapper<H.Map>,
+    _fitBoundsService: FitBoundsService,
+    _zone: NgZone,
+  ) {
+    super(_mapsWrapper, _fitBoundsService, _zone);
+    (this._mapsWrapper as HereMapsWrapperService).ui$.subscribe(this.ui);
+  }
+
   protected async _handleMapCenterChange(): Promise<void> {
     const s = this._mapsWrapper
       .subscribeToMapEvent('mapviewchangeend')

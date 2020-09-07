@@ -10,7 +10,8 @@ import {
   Padding,
   RectangleOptions,
 } from '@ng-maps/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 import { boundsFromRect, rectFromBounds } from './convert';
 import { HereMapsPlatformProvider } from './here-maps-platform.provider';
 import {
@@ -22,7 +23,8 @@ import {
 @Injectable()
 export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   private defaultLayers: H.service.DefaultLayers;
-  private _ui: H.ui.UI;
+  private _ui: BehaviorSubject<H.ui.UI> = new BehaviorSubject(null);
+  public readonly ui$: Observable<H.ui.UI>;
 
   constructor(
     @Inject(HERE_MAPS_MODULE_OPTIONS)
@@ -32,10 +34,16 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     _zone: NgZone,
   ) {
     super(_loader, _zone);
+    this.ui$ = this._ui.asObservable();
   }
 
   get ui() {
-    return this._ui;
+    return this._ui
+      .pipe(
+        filter((ui) => ui != null),
+        take(1),
+      )
+      .toPromise();
   }
 
   async createCircle(
@@ -95,12 +103,12 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     options: H.ui.InfoBubble.Options,
   ): Promise<H.ui.InfoBubble> {
     await this.platformProvider.getPlatform();
-    if (this._ui != null) {
+    if (this._ui.value != null) {
       // Create an info bubble object at a specific geographic location:
       const bubble = new H.ui.InfoBubble(center, options);
       bubble.setState(H.ui.InfoBubble.State.CLOSED);
       // Add info bubble to the UI:
-      this._ui.addBubble(bubble);
+      this._ui.value.addBubble(bubble);
       return bubble;
     } else {
       throw new Error(
@@ -198,7 +206,7 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     await this.updateBehaviour(options);
     const libraries = (await this.options).libraries;
     if (libraries.includes(HereMapsLibraries.UI)) {
-      this._ui = H.ui.UI.createDefault(map, this.defaultLayers);
+      this._ui.next(H.ui.UI.createDefault(map, this.defaultLayers));
     }
   }
 
@@ -230,19 +238,13 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
   }
 
   private async updateUi(options: MapOptions) {
-    const ui = this._ui;
+    const ui = await this.ui;
     if (options && ui) {
-      if (!options.mapTypeControl) {
-        ui.removeControl('mapsettings');
-      }
-      if (!options.zoomControl) {
-        ui.removeControl('zoom');
-      }
-      if (!options.scaleControl) {
-        ui.removeControl('scalebar');
-      }
-      if (!options.streetViewControl && (H as any).PanoramaView) {
-        ui.removeControl('panorama');
+      ui.getControl('mapsettings').setVisibility(options.mapTypeControl);
+      ui.getControl('zoom').setVisibility(options.zoomControl);
+      ui.getControl('scalebar').setVisibility(options.scaleControl);
+      if ((H as any).PanoramaView) {
+        ui.getControl('panorama').setVisibility(options.streetViewControl);
       }
     } else {
       throw new Error('You need to add ui to your libraries');
@@ -270,5 +272,7 @@ export class HereMapsWrapperService extends MapsApiWrapper<H.Map> {
     return m;
   }
 
-  setMapOptions(options: any): any {}
+  setMapOptions(options: any): any {
+    this.updateUi(options);
+  }
 }

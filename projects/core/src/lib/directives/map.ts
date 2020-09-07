@@ -48,10 +48,10 @@ import { MapsApiWrapper } from '../services/maps-api-wrapper';
     </div>
   `,
 })
-export class NgMapsViewComponent
+export class NgMapsViewComponent<T>
   implements OnChanges, OnInit, OnDestroy, MapOptions {
   constructor(
-    protected _mapsWrapper: MapsApiWrapper,
+    protected _mapsWrapper: MapsApiWrapper<T>,
     protected _fitBoundsService: FitBoundsService,
     protected _zone: NgZone,
   ) {}
@@ -168,7 +168,7 @@ export class NgMapsViewComponent
   /**
    * The enabled/disabled state of the Zoom control.
    */
-  @Input() zoomControl: boolean;
+  @Input() zoomControl: boolean = true;
 
   /**
    * Options for the Zoom control.
@@ -214,7 +214,7 @@ export class NgMapsViewComponent
   /**
    * The initial enabled/disabled state of the Scale control. This is disabled by default.
    */
-  @Input() scaleControl: boolean = false;
+  @Input() scaleControl: boolean = true;
 
   /**
    * Options for the scale control.
@@ -224,7 +224,7 @@ export class NgMapsViewComponent
   /**
    * The initial enabled/disabled state of the Map type control.
    */
-  @Input() mapTypeControl: boolean = false;
+  @Input() mapTypeControl: boolean = true;
 
   /**
    * Options for the Map type control.
@@ -376,9 +376,7 @@ export class NgMapsViewComponent
    * This event is fired when the google map is fully initialized.
    * You get the google.maps.Map instance as a result of this EventEmitter.
    */
-  @Output() mapReady: EventEmitter<google.maps.Map> = new EventEmitter<
-    google.maps.Map
-  >();
+  @Output() mapReady: EventEmitter<T> = new EventEmitter<T>();
 
   /**
    * This event is fired when the visible tiles have finished loading.
@@ -500,6 +498,11 @@ export class NgMapsViewComponent
     return this._mapsWrapper.setMapOptions(options);
   }
 
+  /**
+   * @todo google specific
+   * @param changes
+   * @protected
+   */
   protected async _layerChanges(changes: SimpleChanges) {
     if (changes.layers) {
       const map = await this._mapsWrapper.getNativeMap();
@@ -510,7 +513,8 @@ export class NgMapsViewComponent
             | google.maps.TrafficLayer
             | google.maps.TransitLayer
             | google.maps.BicyclingLayer = new google.maps[layer]();
-          i.setMap(map);
+          // @todo typings
+          i.setMap((map as any) as google.maps.Map);
           this._layerInstance.set(layer, i);
         }
       });

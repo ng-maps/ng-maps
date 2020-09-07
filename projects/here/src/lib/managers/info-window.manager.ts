@@ -26,9 +26,11 @@ export class HereMapsInfoWindowManager extends InfoWindowManager<
       // info window already deleted
       return;
     } else {
-      return this._zone.run(() => {
+      return this._zone.run(async () => {
         iWindow.close();
-        (this._mapsWrapper as HereMapsWrapperService).ui.removeBubble(iWindow);
+        (await (this._mapsWrapper as HereMapsWrapperService).ui).removeBubble(
+          iWindow,
+        );
         this._infoWindows.delete(infoWindow);
       });
     }

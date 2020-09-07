@@ -5,6 +5,9 @@
   (zoomChange)="onZoomChange($event)"
   (boundsChange)="onBoundsChange($event)"
   [fitBounds]="boundaries"
+  (ui)="getUi($event)"
+  [scaleControl]="false"
+  [zoomControl]="false"
 >
   <map-marker
     latitude="51.499767"
