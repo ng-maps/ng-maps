@@ -47,7 +47,7 @@
     "@angular/platform-browser": "~8.2.4",
     "@angular/platform-browser-dynamic": "~8.2.4",
     "@angular/router": "~8.2.4",
-    "@google/markerclusterer": "^2.0.8",
+    "@google/markerclusterer": "^2.0.9",
     "lodash-es": "^4.17.15",
     "ngx-script-loader": "^1.2.0",
     "rxjs": "~6.5.2",
