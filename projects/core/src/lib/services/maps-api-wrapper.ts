@@ -66,7 +66,7 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
 
   public abstract async getMapTypeId(): Promise<google.maps.MapTypeId | string>;
 
-  public abstract subscribeToMapEvent<E>(eventName: string): Observable<E>;
+  public abstract subscribeToMapEvent(eventName: string): Observable<any>;
 
   public abstract async createInfoWindow(
     center: GeoPoint,

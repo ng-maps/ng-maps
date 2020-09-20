@@ -59,7 +59,7 @@ export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
 
   protected async _handleMapCenterChange() {
     const s = this._mapsWrapper
-      .subscribeToMapEvent<void>('center_changed')
+      .subscribeToMapEvent('center_changed')
       .subscribe(() => {
         this._mapsWrapper.getCenter().then((center: GeoPoint) => {
           this.latitude = center.lat;
@@ -75,7 +75,7 @@ export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
 
   protected _handleBoundsChange() {
     const s = this._mapsWrapper
-      .subscribeToMapEvent<void>('bounds_changed')
+      .subscribeToMapEvent('bounds_changed')
       .subscribe(() => {
         this._mapsWrapper.getBounds().then((bounds) => {
           this.boundsChange.emit(bounds);
@@ -86,7 +86,7 @@ export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
 
   protected _handleMapTypeIdChange() {
     const s = this._mapsWrapper
-      .subscribeToMapEvent<void>('maptypeid_changed')
+      .subscribeToMapEvent('maptypeid_changed')
       .subscribe(() => {
         this._mapsWrapper
           .getMapTypeId()
@@ -99,7 +99,7 @@ export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
 
   protected _handleMapZoomChange() {
     const s = this._mapsWrapper
-      .subscribeToMapEvent<void>('zoom_changed')
+      .subscribeToMapEvent('zoom_changed')
       .subscribe(() => {
         this._mapsWrapper.getZoom().then((z: number) => {
           this.zoom = z;
@@ -110,17 +110,15 @@ export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
   }
 
   protected _handleIdleEvent() {
-    const s = this._mapsWrapper
-      .subscribeToMapEvent<void>('idle')
-      .subscribe(() => {
-        this.idle.emit(void 0);
-      });
+    const s = this._mapsWrapper.subscribeToMapEvent('idle').subscribe(() => {
+      this.idle.emit(void 0);
+    });
     this.subscription.add(s);
   }
 
   protected _handleTilesLoadedEvent() {
     const s = this._mapsWrapper
-      .subscribeToMapEvent<void>('tilesloaded')
+      .subscribeToMapEvent('tilesloaded')
       .subscribe(() => this.tilesLoaded.emit(void 0));
     this.subscription.add(s);
   }
@@ -131,7 +129,7 @@ export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
     }
 
     interface Event {
-      name: string;
+      name: keyof google.maps.MapHandlerMap;
       emitter: Emitter;
     }
 
@@ -142,13 +140,12 @@ export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
     ];
 
     events.forEach((e: Event) => {
-      const s = this._mapsWrapper
-        .subscribeToMapEvent<{ latLng: google.maps.LatLng }>(e.name)
-        .subscribe((event: { latLng: google.maps.LatLng }) => {
-          // @ts-ignore
+      const s = (this._mapsWrapper as GoogleMapsAPIWrapper)
+        .subscribeToMapEvent(e.name)
+        .subscribe((event) => {
           const value = {
-            coords: { lat: event.latLng.lat(), lng: event.latLng.lng() },
-          } as MouseEvent;
+            coords: { lat: event[0].latLng.lat(), lng: event[0].latLng.lng() },
+          };
           e.emitter.emit(value);
         });
       this.subscription.add(s);

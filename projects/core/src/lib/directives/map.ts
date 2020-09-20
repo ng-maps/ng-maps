@@ -605,6 +605,9 @@ export class NgMapsViewComponent<T>
         }
         break;
       default:
+        if (this._fitBoundsSubscription) {
+          this._fitBoundsSubscription.unsubscribe();
+        }
         return this._updateBounds(this.fitBounds);
     }
   }

@@ -158,11 +158,13 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
     return google.maps.geometry.poly.containsLocation(latLng, polygon);
   }
 
-  subscribeToMapEvent<E>(eventName: string): Observable<E> {
-    return new Observable((observer: Observer<E>) => {
+  subscribeToMapEvent(
+    eventName: keyof google.maps.MapHandlerMap,
+  ): Observable<google.maps.MapHandlerMap[keyof google.maps.MapHandlerMap]> {
+    return new Observable((observer) => {
       this._api.then((m: google.maps.Map) => {
-        m.addListener(eventName, (arg: E) => {
-          this._zone.run(() => observer.next(arg));
+        m.addListener(eventName, (...args) => {
+          this._zone.run(() => observer.next(args));
         });
       });
     });
