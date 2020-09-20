@@ -3,6 +3,7 @@ import {
   CircleManager,
   FitBoundsService,
   GeoPoint,
+  InfoWindowManager,
   MapsApiWrapper,
   MarkerManager,
   NgMapsViewComponent,
@@ -13,6 +14,7 @@ import {
 import { GoogleMapsAPIWrapper } from './google-maps-api-wrapper';
 import { GoogleMapsFitBoundsService } from './google-maps-fit-bounds.service';
 import { GoogleCircleManager } from './managers/circle-manager';
+import { GoogleInfoWindowManager } from './managers/info-window-manager';
 import { GoogleMapsMarkerManager } from './managers/marker.manager';
 import { GooglePolygonManager } from './managers/polygon-manager';
 import { GooglePolylineManager } from './managers/polyline-manager';
@@ -28,6 +30,7 @@ import { GoogleRectangleManager } from './managers/rectangle-manager';
     { provide: PolygonManager, useClass: GooglePolygonManager },
     { provide: PolylineManager, useClass: GooglePolylineManager },
     { provide: RectangleManager, useClass: GoogleRectangleManager },
+    { provide: InfoWindowManager, useClass: GoogleInfoWindowManager },
   ],
   styles: [
     `

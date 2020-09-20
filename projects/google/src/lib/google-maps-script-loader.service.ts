@@ -49,7 +49,7 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
 
   public load(): Promise<void> {
     if ((this._window as any).google && (this._window as any).google.maps) {
-      // Google maps already loaded on the page.
+      // Google maps already loaded on the page
       return Promise.resolve();
     } else if (this._scriptLoadingPromise) {
       return this._scriptLoadingPromise;

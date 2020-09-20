@@ -1,6 +1,6 @@
 {
   "name": "@ng-maps/marker-clusterer",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0",
   "keywords": [
     "angular",
     "ng",
@@ -16,9 +16,9 @@
     "agm"
   ],
   "peerDependencies": {
-    "@angular/common": "^9.0.0",
-    "@angular/core": "^9.0.0",
-    "@ng-maps/core": "^2.0.0-alpha.5",
+    "@angular/common": "^9.0.0 || ^10.0.0",
+    "@angular/core": "^9.0.0 || ^10.0.0",
+    "@ng-maps/core": "^2.0.0",
     "@google/markerclusterer": "^2.0.0",
     "@types/markerclustererplus": "^2.1.0"
   },

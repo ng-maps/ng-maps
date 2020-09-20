@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { LAZY_MAPS_API_CONFIG, NgMapsCoreModule } from '@ng-maps/core';
-import { NgMapsMarkerClustererModule } from '@ng-maps/marker-clusterer';
-import { NgMapsShapesModule } from '@ng-maps/shapes';
+import { NgMapsCoreModule } from '@ng-maps/core';
+import { GOOGLE_MAPS_API_CONFIG, NgMapsGoogleModule } from '@ng-maps/google';
+import {
+  MARKER_CLUSTER_CONFIG,
+  NgMapsMarkerClustererModule,
+} from '@ng-maps/marker-clusterer';
 import { NgMapsPlacesModule } from '@ng-maps/places';
 import { NgMapsSnazzyInfoWindowModule } from '@ng-maps/snazzy-info-window';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { BoundsPaddingComponent } from './bounds-padding/bounds-padding.component';
 import { ClusterComponent } from './cluster/cluster.component';
 import { FitBoundsComponent } from './fit-bounds/fit-bounds.component';
 import { InfoWindowComponent } from './info-window/info-window.component';
-import { configFactory } from './maps-config-factory';
+import { LayersComponent } from './layers/layers.component';
 import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
-import { LayersComponent } from './layers/layers.component';
 import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-window.component';
-import { NgMapsGoogleModule } from '@ng-maps/google';
-import { BoundsPaddingComponent } from './bounds-padding/bounds-padding.component';
 
 @NgModule({
   declarations: [
@@ -38,19 +38,24 @@ import { BoundsPaddingComponent } from './bounds-padding/bounds-padding.componen
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    NgMapsCoreModule.forRoot(),
-    NgMapsGoogleModule.forRoot(),
-    NgMapsMarkerClustererModule.forRoot({
-      imagePath: '/assets/images/m',
-    }),
-    NgMapsShapesModule,
+    NgMapsCoreModule,
+    NgMapsGoogleModule,
+    NgMapsMarkerClustererModule,
     NgMapsPlacesModule,
     NgMapsSnazzyInfoWindowModule,
   ],
   providers: [
     {
-      provide: LAZY_MAPS_API_CONFIG,
-      useFactory: configFactory,
+      provide: GOOGLE_MAPS_API_CONFIG,
+      useValue: {
+        apiKey: 'AIzaSyAtee0zgzh-_8JgWoRXFf2Lac61vkk0GZc',
+      },
+    },
+    {
+      provide: MARKER_CLUSTER_CONFIG,
+      useValue: {
+        imagePath: '/assets/images/m',
+      },
     },
   ],
   bootstrap: [AppComponent],

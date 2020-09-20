@@ -24,7 +24,6 @@ import { ClusterManager } from '../services/managers/cluster-manager';
   providers: [
     ClusterManager,
     { provide: MarkerManager, useExisting: ClusterManager },
-    InfoWindowManager,
   ],
 })
 export class MarkerClusterComponent

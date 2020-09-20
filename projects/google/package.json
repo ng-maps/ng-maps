@@ -1,6 +1,6 @@
 {
   "name": "@ng-maps/google",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0",
   "keywords": [
     "angular",
     "ng",
@@ -28,7 +28,7 @@
     "@angular/common": "^9.0.0 || ^10.0.0",
     "@angular/core": "^9.0.0 || ^10.0.0",
     "@types/googlemaps": "^3.39.0",
-    "@ng-maps/core": "^2.0.0-alpha.3"
+    "@ng-maps/core": "^2.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

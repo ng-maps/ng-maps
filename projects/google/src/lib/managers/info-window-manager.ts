@@ -1,16 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 import {
+  GeoPoint,
   InfoWindowManager,
   MapsApiWrapper,
   MarkerManager,
   NgMapsInfoWindowComponent,
 } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
-import { GoogleComponent } from '../google.component';
 
-@Injectable({
-  providedIn: GoogleComponent,
-})
+@Injectable()
 export class GoogleInfoWindowManager extends InfoWindowManager<
   google.maps.InfoWindow
 > {
@@ -81,16 +79,15 @@ export class GoogleInfoWindowManager extends InfoWindowManager<
       zIndex: infoWindow.zIndex,
       disableAutoPan: infoWindow.disableAutoPan,
     };
-    if (
+    const center: GeoPoint =
       typeof infoWindow.latitude === 'number' &&
       typeof infoWindow.longitude === 'number'
-    ) {
-      options.position = {
-        lat: infoWindow.latitude,
-        lng: infoWindow.longitude,
-      };
-    }
-    const instance = await this._mapsWrapper.createInfoWindow(options);
+        ? {
+            lat: infoWindow.latitude,
+            lng: infoWindow.longitude,
+          }
+        : null;
+    const instance = await this._mapsWrapper.createInfoWindow(center, options);
     this._infoWindows.set(infoWindow, instance);
   }
 
