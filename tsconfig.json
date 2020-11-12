@@ -1,83 +1,90 @@
-/*
-  This is a "Solution Style" tsconfig.json file, and is used by editors and TypeScript’s language server to improve development experience.
-  It is not intended to be used to perform a compilation.
-
-  To learn more about this file see: https://angular.io/config/solution-tsconfig.
-*/
 {
-  "files": [],
-  "references": [
-    {
-      "path": "./projects/core/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/core/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/marker-clusterer/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/marker-clusterer/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/snazzy-info-window/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/snazzy-info-window/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/data-layer/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/data-layer/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/kml-layer/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/kml-layer/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/places/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/places/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/sample/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/sample/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/drawing-layer/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/drawing-layer/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/google-maps-loader/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/google-maps-loader/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/google/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/google/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/here/tsconfig.lib.json"
-    },
-    {
-      "path": "./projects/here/tsconfig.spec.json"
-    },
-    {
-      "path": "./projects/sample-here/tsconfig.app.json"
-    },
-    {
-      "path": "./projects/sample-here/tsconfig.spec.json"
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "es2020",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+      "@ng-maps/core": [
+        "dist/core"
+      ],
+      "@ng-maps/core/*": [
+        "dist/core/*"
+      ],
+      "@ng-maps/marker-clusterer": [
+        "dist/marker-clusterer"
+      ],
+      "@ng-maps/marker-clusterer/*": [
+        "dist/marker-clusterer/*"
+      ],
+      "@ng-maps/snazzy-info-window": [
+        "dist/snazzy-info-window"
+      ],
+      "@ng-maps/snazzy-info-window/*": [
+        "dist/snazzy-info-window/*"
+      ],
+      "@ng-maps/data-layer": [
+        "dist/data-layer"
+      ],
+      "@ng-maps/data-layer/*": [
+        "dist/data-layer/*"
+      ],
+      "@ng-maps/kml-layer": [
+        "dist/kml-layer"
+      ],
+      "@ng-maps/kml-layer/*": [
+        "dist/kml-layer/*"
+      ],
+      "@ng-maps/shapes": [
+        "dist/shapes"
+      ],
+      "@ng-maps/shapes/*": [
+        "dist/shapes/*"
+      ],
+      "@ng-maps/places": [
+        "dist/places"
+      ],
+      "@ng-maps/places/*": [
+        "dist/places/*"
+      ],
+      "@ng-maps/drawing-layer": [
+        "dist/drawing-layer"
+      ],
+      "@ng-maps/drawing-layer/*": [
+        "dist/drawing-layer/*"
+      ],
+      "@ng-maps/google-maps-loader": [
+        "dist/google-maps-loader"
+      ],
+      "@ng-maps/google-maps-loader/*": [
+        "dist/google-maps-loader/*"
+      ],
+      "@ng-maps/google": [
+        "dist/google"
+      ],
+      "@ng-maps/google/*": [
+        "dist/google/*"
+      ],
+      "@ng-maps/here": [
+        "dist/here"
+      ],
+      "@ng-maps/here/*": [
+        "dist/here/*"
+      ]
     }
-  ]
+  }
 }
