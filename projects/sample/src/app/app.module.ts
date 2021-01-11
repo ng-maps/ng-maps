@@ -20,6 +20,7 @@ import { LayersComponent } from './layers/layers.component';
 import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
 import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-window.component';
+import { ClusterWithWindowComponent } from './cluster-with-window/cluster-with-window.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-wind
     LayersComponent,
     SnazzyInfoWindowComponent,
     BoundsPaddingComponent,
+    ClusterWithWindowComponent,
   ],
   imports: [
     BrowserModule,

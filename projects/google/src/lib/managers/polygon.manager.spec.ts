@@ -3,7 +3,7 @@ import { fakeAsync, inject, TestBed } from '@angular/core/testing';
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 
 import { NgMapsPolygon } from '../directives/polygon';
-import { GooglePolygonManager } from './polygon-manager';
+import { GooglePolygonManager } from './polygon.manager';
 
 describe('PolygonManager', () => {
   let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;

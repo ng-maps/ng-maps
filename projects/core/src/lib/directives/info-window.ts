@@ -45,7 +45,7 @@ let infoWindowId = 0;
  * ```
  */
 @Component({
-  selector: 'agm-info-window, map-info-window',
+  selector: 'map-info-window',
   template: `
     <div class="info-window-content" #content>
       <ng-content></ng-content>

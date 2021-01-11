@@ -9,4 +9,5 @@ export interface MarkerOptions {
   title?: string;
   visible?: boolean;
   zIndex?: number;
+  clickable?: boolean;
 }

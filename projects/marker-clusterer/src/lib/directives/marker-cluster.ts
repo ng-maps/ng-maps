@@ -11,9 +11,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
+import { GoogleInfoWindowManager } from '@ng-maps/google';
 import { Subscription } from 'rxjs';
-import { MARKER_CLUSTER_CONFIG, MarkerClusterConfig } from '../config';
-
+import { MarkerClusterConfig, MARKER_CLUSTER_CONFIG } from '../config';
 import { ClusterManager } from '../services/managers/cluster-manager';
 
 /**
@@ -24,6 +24,7 @@ import { ClusterManager } from '../services/managers/cluster-manager';
   providers: [
     ClusterManager,
     { provide: MarkerManager, useExisting: ClusterManager },
+    { provide: InfoWindowManager, useClass: GoogleInfoWindowManager },
   ],
 })
 export class MarkerClusterComponent

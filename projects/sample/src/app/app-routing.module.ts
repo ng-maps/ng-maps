@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { BoundsPaddingComponent } from './bounds-padding/bounds-padding.component';
+import { ClusterWithWindowComponent } from './cluster-with-window/cluster-with-window.component';
 import { ClusterComponent } from './cluster/cluster.component';
 import { FitBoundsComponent } from './fit-bounds/fit-bounds.component';
 import { InfoWindowComponent } from './info-window/info-window.component';
@@ -7,7 +9,6 @@ import { LayersComponent } from './layers/layers.component';
 import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
 import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-window.component';
-import { BoundsPaddingComponent } from './bounds-padding/bounds-padding.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'cluster',
     component: ClusterComponent,
+  },
+  {
+    path: 'cluster-with-window',
+    component: ClusterWithWindowComponent,
   },
   {
     path: 'info-window',

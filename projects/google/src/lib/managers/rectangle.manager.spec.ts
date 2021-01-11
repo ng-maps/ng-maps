@@ -3,7 +3,7 @@ import { async, fakeAsync, inject, TestBed } from '@angular/core/testing';
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
 
 import { NgMapsRectangleDirective } from '../directives/rectangle';
-import { GoogleRectangleManager } from './rectangle-manager';
+import { GoogleRectangleManager } from './rectangle.manager';
 
 describe('RectangleManager', () => {
   let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;

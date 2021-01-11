@@ -47,7 +47,7 @@ export class ClusterManager extends GoogleMapsMarkerManager {
         visible: marker.visible,
         zIndex: marker.zIndex,
         title: marker.title,
-        // clickable: marker.clickable,
+        clickable: marker.clickable,
       },
       false,
     );

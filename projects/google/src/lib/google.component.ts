@@ -13,12 +13,12 @@ import {
 } from '@ng-maps/core';
 import { GoogleMapsAPIWrapper } from './google-maps-api-wrapper';
 import { GoogleMapsFitBoundsService } from './google-maps-fit-bounds.service';
-import { GoogleCircleManager } from './managers/circle-manager';
-import { GoogleInfoWindowManager } from './managers/info-window-manager';
+import { GoogleCircleManager } from './managers/circle.manager';
+import { GoogleInfoWindowManager } from './managers/info-window.manager';
 import { GoogleMapsMarkerManager } from './managers/marker.manager';
-import { GooglePolygonManager } from './managers/polygon-manager';
-import { GooglePolylineManager } from './managers/polyline-manager';
-import { GoogleRectangleManager } from './managers/rectangle-manager';
+import { GooglePolygonManager } from './managers/polygon.manager';
+import { GooglePolylineManager } from './managers/polyline.manager';
+import { GoogleRectangleManager } from './managers/rectangle.manager';
 
 @Component({
   selector: 'map-view',

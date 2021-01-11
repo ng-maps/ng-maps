@@ -15,7 +15,7 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
   protected _mapResolver: (value?: T) => void;
 
   constructor(protected _loader: MapsAPILoader, protected _zone: NgZone) {
-    this._api = new Promise<T>((resolve: () => void) => {
+    this._api = new Promise<T>((resolve) => {
       this._mapResolver = resolve;
     });
   }
@@ -26,9 +26,9 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
     options: MapOptions,
   );
 
-  public abstract async setMapOptions(options: MapOptions);
+  public abstract setMapOptions(options: MapOptions);
 
-  public abstract async createMarker(
+  public abstract createMarker(
     position: GeoPoint,
     options?: MarkerOptions,
     addToMap?: boolean,
@@ -40,9 +40,9 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
     return this._api;
   }
 
-  public abstract async triggerMapEvent(eventName: string): Promise<void>;
+  public abstract triggerMapEvent(eventName: string): Promise<void>;
 
-  public abstract async getCenter(): Promise<GeoPoint>;
+  public abstract getCenter(): Promise<GeoPoint>;
 
   public abstract setCenter(newCenter: GeoPoint): Promise<void>;
 
@@ -60,32 +60,29 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
 
   public abstract getBounds(): Promise<BoundsLiteral>;
 
-  public abstract async getZoom(): Promise<number>;
+  public abstract getZoom(): Promise<number>;
 
-  public abstract async setZoom(zoom: number): Promise<any>;
+  public abstract setZoom(zoom: number): Promise<any>;
 
-  public abstract async getMapTypeId(): Promise<google.maps.MapTypeId | string>;
+  public abstract getMapTypeId(): Promise<google.maps.MapTypeId | string>;
 
   public abstract subscribeToMapEvent(eventName: string): Observable<any>;
 
-  public abstract async createInfoWindow(
-    center: GeoPoint,
-    options: any,
-  ): Promise<I>;
+  public abstract createInfoWindow(center: GeoPoint, options: any): Promise<I>;
 
-  public abstract async createDrawingManager(param: any, addToMap?: boolean);
+  public abstract createDrawingManager(param: any, addToMap?: boolean);
 
-  public abstract async createCircle(
+  public abstract createCircle(
     center: GeoPoint,
     options: CircleOptions,
   ): Promise<C>;
 
-  public abstract async createRectangle(
+  public abstract createRectangle(
     box: BoundsLiteral,
     options: RectangleOptions,
   ): Promise<R>;
 
-  public abstract async createPolyline(options: any): Promise<any>;
+  public abstract createPolyline(options: any): Promise<any>;
 
-  public abstract async createPolygon(options: any): Promise<any>;
+  public abstract createPolygon(options: any): Promise<any>;
 }
