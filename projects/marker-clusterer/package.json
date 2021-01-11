@@ -4,8 +4,6 @@
   "keywords": [
     "angular",
     "ng",
-    "angular8",
-    "angular 8",
     "google maps",
     "googlemaps",
     "maps",
@@ -13,11 +11,12 @@
     "google",
     "ng2",
     "angular2",
+    "marker cluster",
     "agm"
   ],
   "peerDependencies": {
-    "@angular/common": "^9.0.0 || ^10.0.0",
-    "@angular/core": "^9.0.0 || ^10.0.0",
+    "@angular/common": "^9.0.0 || ^10.0.0  || ^11.0.0",
+    "@angular/core": "^9.0.0 || ^10.0.0  || ^11.0.0",
     "@ng-maps/core": "^2.0.0",
     "@google/markerclusterer": "^2.0.0",
     "@types/markerclustererplus": "^2.1.0"
