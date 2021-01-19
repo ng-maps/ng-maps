@@ -1,7 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NgMapsInfoWindowComponent } from '../../directives/info-window';
-import { NgMapsViewComponent } from '../../directives/map';
 import { MapsApiWrapper } from '../maps-api-wrapper';
 import { MarkerManager } from './marker.manager';
 
@@ -15,32 +14,34 @@ export abstract class InfoWindowManager<T> {
     protected _markerManager: MarkerManager,
   ) {}
 
-  abstract deleteInfoWindow(
+  public abstract deleteInfoWindow(
     infoWindow: NgMapsInfoWindowComponent,
   ): Promise<void>;
 
-  abstract setPosition(infoWindow: NgMapsInfoWindowComponent): void;
+  public abstract setPosition(infoWindow: NgMapsInfoWindowComponent): void;
 
-  abstract setZIndex(infoWindow: NgMapsInfoWindowComponent): void;
+  public abstract setZIndex(infoWindow: NgMapsInfoWindowComponent): void;
 
-  abstract open(
+  public abstract open(
     infoWindow: NgMapsInfoWindowComponent,
     event?: any,
   ): Promise<void>;
 
-  abstract close(infoWindow: NgMapsInfoWindowComponent): void;
+  public abstract close(infoWindow: NgMapsInfoWindowComponent): void;
 
-  abstract setOptions(
+  public abstract setOptions(
     infoWindow: NgMapsInfoWindowComponent,
     options: google.maps.InfoWindowOptions,
   );
 
-  abstract addInfoWindow(infoWindow: NgMapsInfoWindowComponent): Promise<void>;
+  public abstract addInfoWindow(
+    infoWindow: NgMapsInfoWindowComponent,
+  ): Promise<void>;
 
   /**
    * Creates a Google Maps event listener for the given InfoWindow as an Observable
    */
-  abstract createEventObservable<E>(
+  public abstract createEventObservable<E>(
     eventName: string,
     infoWindow: NgMapsInfoWindowComponent,
   ): Observable<E>;

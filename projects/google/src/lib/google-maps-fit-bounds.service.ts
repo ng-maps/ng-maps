@@ -1,10 +1,9 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   BoundsLiteral,
   FitBoundsService,
   GeoPoint,
   MapsAPILoader,
-  MapsApiWrapper,
 } from '@ng-maps/core';
 
 /**

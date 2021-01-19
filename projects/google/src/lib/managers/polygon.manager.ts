@@ -8,7 +8,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     super(_mapsWrapper, _zone);
   }
 
-  addPolygon(path: NgMapsPolygon) {
+  public addPolygon(path: NgMapsPolygon) {
     const polygonPromise = this._mapsWrapper.createPolygon({
       clickable: path.clickable,
       draggable: path.draggable,
@@ -26,7 +26,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     this._polygons.set(path, polygonPromise);
   }
 
-  async updatePolygon(polygon: NgMapsPolygon): Promise<void> {
+  public async updatePolygon(polygon: NgMapsPolygon): Promise<void> {
     const item = await this._polygons.get(polygon);
     if (item != null) {
       this._zone.run(() => {
@@ -35,7 +35,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     }
   }
 
-  setPolygonOptions(
+  public setPolygonOptions(
     path: NgMapsPolygon,
     options: { [propName: string]: any },
   ): Promise<void> {
@@ -44,7 +44,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     });
   }
 
-  deletePolygon(paths: NgMapsPolygon): Promise<void> {
+  public deletePolygon(paths: NgMapsPolygon): Promise<void> {
     const m = this._polygons.get(paths);
     if (m == null) {
       return Promise.resolve();
@@ -57,7 +57,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     });
   }
 
-  createEventObservable<T>(
+  public createEventObservable<T>(
     eventName: string,
     path: NgMapsPolygon,
   ): Observable<T> {

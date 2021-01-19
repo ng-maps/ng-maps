@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
 export abstract class MapsAPILoader {
   protected _window: Window;
   protected _document: Document;
-  abstract load(): Promise<void>;
-  abstract configure(config: any): void;
+  public abstract load(): Promise<void>;
+  public abstract configure(config: any): void;
 }

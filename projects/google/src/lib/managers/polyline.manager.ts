@@ -1,16 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 import {
+  MapsApiWrapper,
   NgMapsPolyline,
   NgMapsPolylinePoint,
   PolylineManager,
-  MapsApiWrapper,
 } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
 
 @Injectable()
-export class GooglePolylineManager extends PolylineManager<
-  google.maps.Polyline
-> {
+export class GooglePolylineManager extends PolylineManager<google.maps.Polyline> {
   constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
     super(_mapsWrapper, _zone);
   }
@@ -26,7 +24,7 @@ export class GooglePolylineManager extends PolylineManager<
     });
   }
 
-  addPolyline(line: NgMapsPolyline) {
+  public addPolyline(line: NgMapsPolyline) {
     const path = this._convertPoints(line);
     const polylinePromise = this._mapsWrapper.createPolyline({
       clickable: line.clickable,
@@ -44,7 +42,7 @@ export class GooglePolylineManager extends PolylineManager<
     this._polylines.set(line, polylinePromise);
   }
 
-  updatePolylinePoints(line: NgMapsPolyline): Promise<void> {
+  public updatePolylinePoints(line: NgMapsPolyline): Promise<void> {
     const path = this._convertPoints(line);
     const m = this._polylines.get(line);
     if (m == null) {
@@ -57,7 +55,7 @@ export class GooglePolylineManager extends PolylineManager<
     );
   }
 
-  setPolylineOptions(
+  public setPolylineOptions(
     line: NgMapsPolyline,
     options: { [propName: string]: any },
   ): Promise<void> {
@@ -66,7 +64,7 @@ export class GooglePolylineManager extends PolylineManager<
     });
   }
 
-  deletePolyline(line: NgMapsPolyline): Promise<void> {
+  public deletePolyline(line: NgMapsPolyline): Promise<void> {
     const m = this._polylines.get(line);
     if (m == null) {
       return Promise.resolve();
@@ -79,7 +77,7 @@ export class GooglePolylineManager extends PolylineManager<
     });
   }
 
-  createEventObservable<T>(
+  public createEventObservable<T>(
     eventName: string,
     line: NgMapsPolyline,
   ): Observable<T> {

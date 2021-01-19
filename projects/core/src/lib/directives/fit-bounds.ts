@@ -29,7 +29,7 @@ export class NgMapsFitBoundsDirective implements OnInit, OnDestroy, OnChanges {
    * If the value is true, the element gets added to the bounds of the map.
    * Default: true.
    */
-  @Input() mapFitBounds: boolean = true;
+  @Input() public mapFitBounds: boolean = true;
 
   private _destroyed$: Subject<void> = new Subject<void>();
   private _latestFitBoundsDetails: FitBoundsDetails | null = null;
@@ -42,14 +42,14 @@ export class NgMapsFitBoundsDirective implements OnInit, OnDestroy, OnChanges {
   /**
    * @internal
    */
-  ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     this._updateBounds();
   }
 
   /**
    * @internal
    */
-  ngOnInit() {
+  public ngOnInit() {
     this._fitBoundsAccessor
       .getFitBoundsDetails$()
       .pipe(
@@ -96,7 +96,7 @@ export class NgMapsFitBoundsDirective implements OnInit, OnDestroy, OnChanges {
   /**
    * @internal
    */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this._destroyed$.next();
     this._destroyed$.complete();
     if (this._latestFitBoundsDetails !== null) {

@@ -92,56 +92,56 @@ export class NgMapsViewComponent<T>
   /**
    * The longitude that defines the center of the map.
    */
-  @Input() longitude: number = 0;
+  @Input() public longitude: number = 0;
 
   /**
    * The latitude that defines the center of the map.
    */
-  @Input() latitude: number = 0;
+  @Input() public latitude: number = 0;
 
   /**
    * The zoom level of the map. The default zoom level is 8.
    */
-  @Input() zoom: number = 8;
+  @Input() public zoom: number = 8;
 
   /**
    * The minimal zoom level of the map allowed. When not provided, no restrictions to the zoom level
    * are enforced.
    */
-  @Input() minZoom: number;
+  @Input() public minZoom: number;
 
   /**
    * The maximal zoom level of the map allowed. When not provided, no restrictions to the zoom level
    * are enforced.
    */
-  @Input() maxZoom: number;
+  @Input() public maxZoom: number;
 
   /**
    * Enables/disables if map is draggable.
    */
-  @Input() draggable: boolean = true;
+  @Input() public draggable: boolean = true;
 
   /**
    * Enables/disables zoom and center on double click. Enabled by default.
    */
-  @Input() disableDoubleClickZoom: boolean = false;
+  @Input() public disableDoubleClickZoom: boolean = false;
 
   /**
    * Enables/disables all default UI of the Google map. Please note: When the map is created, this
    * value cannot get updated.
    */
-  @Input() disableDefaultUI: boolean = false;
+  @Input() public disableDefaultUI: boolean = false;
 
   /**
    * If false, disables scrollwheel zooming on the map. The scrollwheel is enabled by default.
    */
-  @Input() scrollwheel: boolean = true;
+  @Input() public scrollwheel: boolean = true;
 
   /**
    * Color used for the background of the Map div. This color will be visible when tiles have not
    * yet loaded as the user pans. This option can only be set when the map is initialized.
    */
-  @Input() backgroundColor: string;
+  @Input() public backgroundColor: string;
 
   /**
    * The name or url of the cursor to display when mousing over a draggable map. This property uses
@@ -149,7 +149,7 @@ export class NgMapsViewComponent<T>
    * least one fallback cursor that is not a URL. For example:
    * [draggableCursor]="'url(http://www.example.com/icon.png), auto;'"
    */
-  @Input() draggableCursor: string;
+  @Input() public draggableCursor: string;
 
   /**
    * The name or url of the cursor to display when the map is being dragged. This property uses the
@@ -157,114 +157,116 @@ export class NgMapsViewComponent<T>
    * one fallback cursor that is not a URL. For example:
    * [draggingCursor]="'url(http://www.example.com/icon.png), auto;'"
    */
-  @Input() draggingCursor: string;
+  @Input() public draggingCursor: string;
 
   /**
    * If false, prevents the map from being controlled by the keyboard. Keyboard shortcuts are
    * enabled by default.
    */
-  @Input() keyboardShortcuts: boolean = true;
+  @Input() public keyboardShortcuts: boolean = true;
 
   /**
    * The enabled/disabled state of the Zoom control.
    */
-  @Input() zoomControl: boolean = true;
+  @Input() public zoomControl: boolean = true;
 
   /**
    * Options for the Zoom control.
    */
-  @Input() zoomControlOptions: google.maps.ZoomControlOptions;
+  @Input() public zoomControlOptions: google.maps.ZoomControlOptions;
 
   /**
    * Styles to apply to each of the default map types. Note that for Satellite/Hybrid and Terrain
    * modes, these styles will only apply to labels and geometry.
    */
-  @Input() styles: Array<google.maps.MapTypeStyle> = [];
+  @Input() public styles: Array<google.maps.MapTypeStyle> = [];
 
   /**
    * When true and the latitude and/or longitude values changes, the Google Maps panTo method is
    * used to
    * center the map. See: https://developers.google.com/maps/documentation/javascript/reference#Map
    */
-  @Input() usePanning: boolean = false;
+  @Input() public usePanning: boolean = false;
 
   /**
    * The initial enabled/disabled state of the Street View Pegman control.
    * This control is part of the default UI, and should be set to false when displaying a map type
    * on which the Street View road overlay should not appear (e.g. a non-Earth map type).
    */
-  @Input() streetViewControl: boolean;
+  @Input() public streetViewControl: boolean;
 
   /**
    * Options for the Street View control.
    */
-  @Input() streetViewControlOptions: google.maps.StreetViewControlOptions;
+  @Input()
+  public streetViewControlOptions: google.maps.StreetViewControlOptions;
 
   /**
    * Sets the viewport to contain the given bounds.
    * If this option to `true`, the bounds get automatically computed from all elements that use the {@link NgMapsFitBounds} directive.
    */
-  @Input() fitBounds: BoundsLiteral | boolean = false;
+  @Input() public fitBounds: BoundsLiteral | boolean = false;
 
   /**
    * Padding amount for bounds. This optional parameter is undefined by default.
    */
-  @Input() boundsPadding: number | Padding;
+  @Input() public boundsPadding: number | Padding;
 
   /**
    * The initial enabled/disabled state of the Scale control. This is disabled by default.
    */
-  @Input() scaleControl: boolean = true;
+  @Input() public scaleControl: boolean = true;
 
   /**
    * Options for the scale control.
    */
-  @Input() scaleControlOptions: google.maps.ScaleControlOptions;
+  @Input() public scaleControlOptions: google.maps.ScaleControlOptions;
 
   /**
    * The initial enabled/disabled state of the Map type control.
    */
-  @Input() mapTypeControl: boolean = true;
+  @Input() public mapTypeControl: boolean = true;
 
   /**
    * Options for the Map type control.
    */
-  @Input() mapTypeControlOptions: google.maps.MapTypeControlOptions;
+  @Input() public mapTypeControlOptions: google.maps.MapTypeControlOptions;
 
   /**
    * The initial enabled/disabled state of the Pan control.
    */
-  @Input() panControl: boolean = false;
+  @Input() public panControl: boolean = false;
 
   /**
    * Options for the Pan control.
    */
-  @Input() panControlOptions: google.maps.PanControlOptions;
+  @Input() public panControlOptions: google.maps.PanControlOptions;
 
   /**
    * The initial enabled/disabled state of the Rotate control.
    */
-  @Input() rotateControl: boolean = false;
+  @Input() public rotateControl: boolean = false;
 
   /**
    * Options for the Rotate control.
    */
-  @Input() rotateControlOptions: google.maps.RotateControlOptions;
+  @Input() public rotateControlOptions: google.maps.RotateControlOptions;
 
   /**
    * The initial enabled/disabled state of the Fullscreen control.
    */
-  @Input() fullscreenControl: boolean = false;
+  @Input() public fullscreenControl: boolean = false;
 
   /**
    * Options for the Fullscreen control.
    */
-  @Input() fullscreenControlOptions: google.maps.FullscreenControlOptions;
+  @Input()
+  public fullscreenControlOptions: google.maps.FullscreenControlOptions;
 
   /**
    * The map mapTypeId. Defaults to 'roadmap'.
    */
-  @Input() mapTypeId:
+  @Input() public mapTypeId:
     | 'roadmap'
     | 'hybrid'
     | 'satellite'
@@ -275,7 +277,7 @@ export class NgMapsViewComponent<T>
   /**
    * Add layers https://developers.google.com/maps/documentation/javascript/trafficlayer to map
    */
-  @Input() layers: Array<LayerTypes> | LayerTypes;
+  @Input() public layers: Array<LayerTypes> | LayerTypes;
 
   private _layerInstance: Map<
     LayerTypes,
@@ -288,7 +290,7 @@ export class NgMapsViewComponent<T>
    * When false, map icons are not clickable. A map icon represents a point of interest,
    * also known as a POI. By default map icons are clickable.
    */
-  @Input() clickableIcons: boolean = true;
+  @Input() public clickableIcons: boolean = true;
 
   /**
    * This setting controls how gestures on the map are handled.
@@ -298,7 +300,8 @@ export class NgMapsViewComponent<T>
    * - 'none'        (The map cannot be panned or zoomed by user gestures.)
    * - 'auto'        [default] (Gesture handling is either cooperative or greedy, depending on whether the page is scrollable or not.
    */
-  @Input() gestureHandling: 'cooperative' | 'greedy' | 'none' | 'auto' = 'auto';
+  @Input() public gestureHandling: 'cooperative' | 'greedy' | 'none' | 'auto' =
+    'auto';
 
   /**
    * Controls the automatic switching behavior for the angle of incidence of
@@ -314,7 +317,7 @@ export class NgMapsViewComponent<T>
    * different things, do not bind() the tilt property; doing so may yield
    * unpredictable effects. (Default of AGM is 0 (disabled). Enable it with value 45.)
    */
-  @Input() tilt: number = 0;
+  @Input() public tilt: number = 0;
 
   protected subscription: Subscription = new Subscription();
   protected _fitBoundsSubscription: Subscription;
@@ -323,70 +326,67 @@ export class NgMapsViewComponent<T>
    * This event emitter gets emitted when the user clicks on the map (but not when they click on a
    * marker or infoWindow).
    */
-  @Output() mapClick: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
-    google.maps.MouseEvent
-  >();
+  @Output()
+  public mapClick: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
 
   /**
    * This event emitter gets emitted when the user right-clicks on the map (but not when they click
    * on a marker or infoWindow).
    */
-  @Output() mapRightClick: EventEmitter<
-    google.maps.MouseEvent
-  > = new EventEmitter<google.maps.MouseEvent>();
+  @Output()
+  public mapRightClick: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
 
   /**
    * This event emitter gets emitted when the user double-clicks on the map (but not when they click
    * on a marker or infoWindow).
    */
-  @Output() mapDblClick: EventEmitter<
-    google.maps.MouseEvent
-  > = new EventEmitter<google.maps.MouseEvent>();
+  @Output()
+  public mapDblClick: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
 
   /**
    * This event emitter is fired when the map center changes.
    */
-  @Output() centerChange: EventEmitter<GeoPoint> = new EventEmitter<GeoPoint>();
+  @Output()
+  public centerChange: EventEmitter<GeoPoint> = new EventEmitter<GeoPoint>();
 
   /**
    * This event is fired when the viewport bounds have changed.
    */
-  @Output() boundsChange: EventEmitter<BoundsLiteral> = new EventEmitter<
-    BoundsLiteral
-  >();
+  @Output()
+  public boundsChange: EventEmitter<BoundsLiteral> = new EventEmitter<BoundsLiteral>();
 
   /**
    * This event is fired when the mapTypeId property changes.
    */
-  @Output() mapTypeIdChange: EventEmitter<
-    google.maps.MapTypeId
-  > = new EventEmitter<google.maps.MapTypeId>();
+  @Output()
+  public mapTypeIdChange: EventEmitter<google.maps.MapTypeId> = new EventEmitter<google.maps.MapTypeId>();
 
   /**
    * This event is fired when the map becomes idle after panning or zooming.
    */
-  @Output() idle: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public idle: EventEmitter<void> = new EventEmitter<void>();
 
   /**
    * This event is fired when the zoom level has changed.
    */
-  @Output() zoomChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  public zoomChange: EventEmitter<number> = new EventEmitter<number>();
 
   /**
    * This event is fired when the google map is fully initialized.
    * You get the google.maps.Map instance as a result of this EventEmitter.
    */
-  @Output() mapReady: EventEmitter<T> = new EventEmitter<T>();
+  @Output() public mapReady: EventEmitter<T> = new EventEmitter<T>();
 
   /**
    * This event is fired when the visible tiles have finished loading.
    */
-  @Output() tilesLoaded: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public tilesLoaded: EventEmitter<void> = new EventEmitter<void>();
 
-  @ViewChild('container', { static: true }) container: ElementRef;
+  @ViewChild('container', { static: true }) public container: ElementRef;
 
   /** @internal */
-  ngOnInit() {
+  public ngOnInit() {
     this._initMapInstance(this.container.nativeElement);
   }
 
@@ -469,7 +469,7 @@ export class NgMapsViewComponent<T>
   }
 
   /** @internal */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     // unsubscribe all registered observable subscriptions
     this.subscription.unsubscribe();
 
@@ -481,7 +481,7 @@ export class NgMapsViewComponent<T>
   }
 
   /* @internal */
-  ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     this._updateMapOptionsChanges(changes);
     this._updatePosition(changes);
     this._layerChanges(changes);
@@ -533,7 +533,7 @@ export class NgMapsViewComponent<T>
    * When recenter is true, the of the google map gets called with the current lat/lng values or fitBounds value to recenter the map.
    * Returns a promise that gets resolved after the event was triggered.
    */
-  triggerResize(recenter: boolean = true): Promise<void> {
+  public triggerResize(recenter: boolean = true): Promise<void> {
     // Note: When we would trigger the resize event and show the map in the same turn (which is a
     // common case for triggering a resize event), then the resize event would not
     // work (to show the map), so we trigger the event in a timeout.

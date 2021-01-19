@@ -35,21 +35,19 @@ export class NgMapsAutocompleteDirective
    * The event contains a PlaceResult from GoogleMapsAPI
    * https://developers.google.com/maps/documentation/javascript/reference/3.exp/places-service#PlaceResult
    */
-  @Output() public placeResult: EventEmitter<
-    google.maps.places.PlaceResult
-  > = new EventEmitter<google.maps.places.PlaceResult>();
+  @Output()
+  public placeResult: EventEmitter<google.maps.places.PlaceResult> = new EventEmitter<google.maps.places.PlaceResult>();
 
   /**
    * This event is fired on selection of an element from the autocomplete list.
    * The event contains a LatLngBounds from GoogleMapsAPI
    * https://developers.google.com/maps/documentation/javascript/reference/3.exp/coordinates#LatLngBounds
    */
-  @Output() public bounds: EventEmitter<
-    google.maps.LatLngBounds
-  > = new EventEmitter<google.maps.LatLngBounds>();
+  @Output()
+  public bounds: EventEmitter<google.maps.LatLngBounds> = new EventEmitter<google.maps.LatLngBounds>();
 
   private autocomplete: google.maps.places.Autocomplete;
-  private subscription: Subscription;
+  private readonly subscription: Subscription = new Subscription();
 
   constructor(
     private element: ElementRef,
@@ -73,25 +71,27 @@ export class NgMapsAutocompleteDirective
   }
 
   /** @internal */
-  async init() {
+  public async init() {
     await this.mapsAPILoader.load();
     this.autocomplete = new google.maps.places.Autocomplete(
       this.element.nativeElement,
       this.config,
     );
-    this.subscription = fromEventPattern(
-      (handler: any) => this.addHandler(handler),
-      () => this.removeHandler(),
-    ).subscribe({
-      next: () => {
-        this.placeResult.emit(this.autocomplete.getPlace());
-        this.bounds.emit(this.autocomplete.getBounds());
-      },
-    });
+    this.subscription.add(
+      fromEventPattern(
+        (handler: any) => this.addHandler(handler),
+        () => this.removeHandler(),
+      ).subscribe({
+        next: () => {
+          this.placeResult.emit(this.autocomplete.getPlace());
+          this.bounds.emit(this.autocomplete.getBounds());
+        },
+      }),
+    );
   }
 
   /** @internal */
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     if (typeof changes.config !== 'undefined' && !changes.config.firstChange) {
       const config = changes.config
         .currentValue as google.maps.places.AutocompleteOptions;

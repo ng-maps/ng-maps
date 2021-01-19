@@ -23,7 +23,7 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     });
   }
 
-  async init(options: MarkerClustererOptions): Promise<void> {
+  public async init(options: MarkerClustererOptions): Promise<void> {
     const map = await this._mapsWrapper.getNativeMap();
     this._resolver(new MarkerClusterer(map, [], options));
   }
@@ -32,7 +32,7 @@ export class ClusterManager extends GoogleMapsMarkerManager {
    * @todo fix commented options
    * @param marker
    */
-  async addMarker(marker: NgMapsMarkerComponent): Promise<void> {
+  public async addMarker(marker: NgMapsMarkerComponent): Promise<void> {
     const cluster: MarkerClusterer = await this._clustererInstance;
     const markers = await this._mapsWrapper.createMarker(
       {
@@ -55,7 +55,7 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     this._markers.set(marker, markers);
   }
 
-  deleteMarker(marker: NgMapsMarkerComponent): Promise<void> {
+  public deleteMarker(marker: NgMapsMarkerComponent): Promise<void> {
     const m = this._markers.get(marker);
     if (m == null) {
       // marker already deleted
@@ -70,31 +70,31 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     });
   }
 
-  clearMarkers(): Promise<void> {
+  public clearMarkers(): Promise<void> {
     return this._clustererInstance.then((cluster) => {
       cluster.clearMarkers();
     });
   }
 
-  setGridSize(c: MarkerClusterComponent): void {
+  public setGridSize(c: MarkerClusterComponent): void {
     this._clustererInstance.then((cluster) => {
       cluster.setGridSize(c.gridSize);
     });
   }
 
-  setMaxZoom(c: MarkerClusterComponent): void {
+  public setMaxZoom(c: MarkerClusterComponent): void {
     this._clustererInstance.then((cluster) => {
       cluster.setMaxZoom(c.maxZoom);
     });
   }
 
-  setStyles(c: MarkerClusterComponent): void {
+  public setStyles(c: MarkerClusterComponent): void {
     this._clustererInstance.then((cluster) => {
       cluster.setStyles(c.styles);
     });
   }
 
-  setZoomOnClick(c: MarkerClusterComponent): void {
+  public setZoomOnClick(c: MarkerClusterComponent): void {
     this._clustererInstance.then((cluster) => {
       if (c.zoomOnClick !== undefined) {
         cluster.zoomOnClick_ = c.zoomOnClick;
@@ -102,7 +102,7 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     });
   }
 
-  setAverageCenter(c: MarkerClusterComponent): void {
+  public setAverageCenter(c: MarkerClusterComponent): void {
     this._clustererInstance.then((cluster) => {
       if (c.averageCenter !== undefined) {
         cluster.averageCenter_ = c.averageCenter;
@@ -110,7 +110,7 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     });
   }
 
-  setImagePath(c: MarkerClusterComponent): void {
+  public setImagePath(c: MarkerClusterComponent): void {
     this._clustererInstance.then((cluster) => {
       if (c.imagePath !== undefined) {
         cluster.imagePath_ = c.imagePath;
@@ -118,7 +118,7 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     });
   }
 
-  setMinimumClusterSize(c: MarkerClusterComponent): void {
+  public setMinimumClusterSize(c: MarkerClusterComponent): void {
     this._clustererInstance.then((cluster) => {
       if (c.minimumClusterSize !== undefined) {
         cluster.minimumClusterSize_ = c.minimumClusterSize;
@@ -126,7 +126,7 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     });
   }
 
-  setImageExtension(c: MarkerClusterComponent): void {
+  public setImageExtension(c: MarkerClusterComponent): void {
     this._clustererInstance.then((cluster) => {
       if (c.imageExtension !== undefined) {
         cluster.imageExtension_ = c.imageExtension;
@@ -134,7 +134,7 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     });
   }
 
-  createClusterEventObservable<T>(
+  public createClusterEventObservable<T>(
     eventName: string,
     marker: MarkerClusterComponent,
   ): Observable<T> {

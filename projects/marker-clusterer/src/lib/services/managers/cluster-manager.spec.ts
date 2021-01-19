@@ -1,7 +1,7 @@
 import { NgZone } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
 
-import { NgMapsMarkerComponent, GoogleMapsAPIWrapper } from '@ng-maps/core';
+import { GoogleMapsAPIWrapper, NgMapsMarkerComponent } from '@ng-maps/core';
 import { ClusterManager } from './cluster-manager';
 
 describe('ClusterManager', () => {
@@ -71,9 +71,7 @@ describe('ClusterManager', () => {
             ['setMap'],
           );
 
-          (apiWrapper as jasmine.SpyObj<
-            GoogleMapsAPIWrapper
-          >).createMarker.and.returnValue(
+          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(
             Promise.resolve(markerInstance as any),
           );
 
@@ -102,9 +100,7 @@ describe('ClusterManager', () => {
             ['setMap', 'setIcon'],
           );
 
-          (apiWrapper as jasmine.SpyObj<
-            GoogleMapsAPIWrapper
-          >).createMarker.and.returnValue(
+          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(
             Promise.resolve(markerInstance as any),
           );
 
@@ -148,9 +144,7 @@ describe('ClusterManager', () => {
             ['setMap', 'setOpacity'],
           );
 
-          (apiWrapper as jasmine.SpyObj<
-            GoogleMapsAPIWrapper
-          >).createMarker.and.returnValue(
+          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(
             Promise.resolve(markerInstance as any),
           );
 
@@ -195,9 +189,7 @@ describe('ClusterManager', () => {
             ['setMap', 'setVisible'],
           );
 
-          (apiWrapper as jasmine.SpyObj<
-            GoogleMapsAPIWrapper
-          >).createMarker.and.returnValue(
+          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(
             Promise.resolve(markerInstance as any),
           );
 
@@ -241,9 +233,7 @@ describe('ClusterManager', () => {
             ['setMap', 'setZIndex'],
           );
 
-          (apiWrapper as jasmine.SpyObj<
-            GoogleMapsAPIWrapper
-          >).createMarker.and.returnValue(
+          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(
             Promise.resolve(markerInstance as any),
           );
 

@@ -32,44 +32,43 @@ export class MarkerClusterComponent
   /**
    * Whether the center of each cluster should be the average of all markers in the cluster.
    */
-  @Input() averageCenter: boolean;
+  @Input() public averageCenter: boolean;
 
   /**
    * A function that calculates the cluster style and text based on the markers in the cluster.
    */
-  @Input() calculator: Calculator;
+  @Input() public calculator: Calculator;
 
   /**
    * The grid size of a cluster in pixels
    */
-  @Input() gridSize: number;
+  @Input() public gridSize: number;
 
-  @Input() imageExtension: string;
-  @Input() imagePath: string;
+  @Input() public imageExtension: string;
+  @Input() public imagePath: string;
 
   /**
    * The maximum zoom level that a marker can be part of a cluster.
    */
-  @Input() maxZoom: number;
+  @Input() public maxZoom: number;
 
   /**
    * The minimum number of markers to be in a cluster before the markers are hidden and a count is shown.
    */
-  @Input() minimumClusterSize: number;
+  @Input() public minimumClusterSize: number;
 
   /**
    * An object that has style properties.
    */
-  @Input() styles: Array<ClusterIconStyle>;
+  @Input() public styles: Array<ClusterIconStyle>;
 
   /**
    * Whether the default behaviour of clicking on a cluster is to zoom into it.
    */
-  @Input() zoomOnClick: boolean;
+  @Input() public zoomOnClick: boolean;
 
-  @Output() clusterClick: EventEmitter<
-    google.maps.MouseEvent
-  > = new EventEmitter<google.maps.MouseEvent>();
+  @Output()
+  public clusterClick: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
 
   private _observableSubscriptions: Array<Subscription> = [];
 
@@ -81,13 +80,13 @@ export class MarkerClusterComponent
   ) {}
 
   /** @internal */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this._clusterManager.clearMarkers();
     this._observableSubscriptions.forEach((s) => s.unsubscribe());
   }
 
   /** @internal */
-  ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     if (changes.averageCenter) {
       this._clusterManager.setAverageCenter(this);
     }
@@ -130,7 +129,7 @@ export class MarkerClusterComponent
   }
 
   /** @internal */
-  ngOnInit() {
+  public ngOnInit() {
     this._addEventListeners();
     this._clusterManager.init({
       averageCenter: this.averageCenter,

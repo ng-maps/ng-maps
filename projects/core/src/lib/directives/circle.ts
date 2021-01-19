@@ -35,53 +35,53 @@ export class NgMapsCircleDirective
   /**
    * The latitude position of the circle (required).
    */
-  @Input() latitude: number;
+  @Input() public latitude: number;
 
   /**
    * The clickable position of the circle (required).
    */
-  @Input() longitude: number;
+  @Input() public longitude: number;
 
   /**
    * Indicates whether this Circle handles mouse events. Defaults to true.
    */
-  @Input() clickable: boolean = true;
+  @Input() public clickable: boolean = true;
 
   /**
    * If set to true, the user can drag this circle over the map. Defaults to false.
    */
-  @Input() draggable: boolean = false;
+  @Input() public draggable: boolean = false;
 
   /**
    * If set to true, the user can edit this circle by dragging the control points shown at
    * the center and around the circumference of the circle. Defaults to false.
    */
-  @Input() editable: boolean = false;
+  @Input() public editable: boolean = false;
 
   /**
    * The fill color. All CSS3 colors are supported except for extended named colors.
    */
-  @Input() fillColor: string;
+  @Input() public fillColor: string;
 
   /**
    * The fill opacity between 0.0 and 1.0.
    */
-  @Input() fillOpacity: number;
+  @Input() public fillOpacity: number;
 
   /**
    * The radius in meters on the Earth's surface.
    */
-  @Input() radius: number = 0;
+  @Input() public radius: number = 0;
 
   /**
    * The stroke color. All CSS3 colors are supported except for extended named colors.
    */
-  @Input() strokeColor: string;
+  @Input() public strokeColor: string;
 
   /**
    * The stroke opacity between 0.0 and 1.0
    */
-  @Input() strokeOpacity: number;
+  @Input() public strokeOpacity: number;
 
   /**
    * The stroke position. Defaults to CENTER.
@@ -94,110 +94,109 @@ export class NgMapsCircleDirective
   /**
    * The stroke width in pixels.
    */
-  @Input() strokeWeight: number = 0;
+  @Input() public strokeWeight: number = 0;
 
   /**
    * Whether this circle is visible on the map. Defaults to true.
    */
-  @Input() visible: boolean = true;
+  @Input() public visible: boolean = true;
 
   /**
    * The zIndex compared to other polys.
    */
-  @Input() zIndex: number;
+  @Input() public zIndex: number;
 
   /**
    * This event is fired when the circle's center is changed.
    */
-  @Output() centerChange: EventEmitter<GeoPoint> = new EventEmitter<GeoPoint>();
+  @Output()
+  public centerChange: EventEmitter<GeoPoint> = new EventEmitter<GeoPoint>();
 
   /**
    * This event emitter gets emitted when the user clicks on the circle.
    */
-  @Output() circleClick: EventEmitter<MouseEvent> = new EventEmitter<
-    MouseEvent
-  >();
+  @Output()
+  public circleClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event emitter gets emitted when the user clicks on the circle.
    */
-  @Output() circleDblClick: EventEmitter<MouseEvent> = new EventEmitter<
-    MouseEvent
-  >();
+  @Output()
+  public circleDblClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is repeatedly fired while the user drags the circle.
    */
-  @Output() drag: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output()
+  public drag: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the user stops dragging the circle.
    */
-  @Output() dragEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output()
+  public dragEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the user starts dragging the circle.
    */
-  @Output() dragStart: EventEmitter<MouseEvent> = new EventEmitter<
-    MouseEvent
-  >();
+  @Output()
+  public dragStart: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the DOM mousedown event is fired on the circle.
    */
-  @Output() mouseDown: EventEmitter<MouseEvent> = new EventEmitter<
-    MouseEvent
-  >();
+  @Output()
+  public mouseDown: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the DOM mousemove event is fired on the circle.
    */
-  @Output() mouseMove: EventEmitter<MouseEvent> = new EventEmitter<
-    MouseEvent
-  >();
+  @Output()
+  public mouseMove: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired on circle mouseout.
    */
-  @Output() mouseOut: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output()
+  public mouseOut: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired on circle mouseover.
    */
-  @Output() mouseOver: EventEmitter<MouseEvent> = new EventEmitter<
-    MouseEvent
-  >();
+  @Output()
+  public mouseOver: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the DOM mouseup event is fired on the circle.
    */
-  @Output() mouseUp: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output()
+  public mouseUp: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the circle's radius is changed.
    */
-  @Output() radiusChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output()
+  public radiusChange: EventEmitter<number> = new EventEmitter<number>();
 
   /**
    * This event is fired when the circle is right-clicked on.
    */
-  @Output() rightClick: EventEmitter<MouseEvent> = new EventEmitter<
-    MouseEvent
-  >();
+  @Output()
+  public rightClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   private _circleAddedToManager: boolean = false;
 
   private subscription: Subscription = new Subscription();
 
   /** @internal */
-  ngOnInit() {
+  public ngOnInit() {
     this._manager.addCircle(this);
     this._circleAddedToManager = true;
     this._registerEventListeners();
   }
 
   /** @internal */
-  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+  public ngOnChanges(changes: { [key: string]: SimpleChange }) {
     if (!this._circleAddedToManager) {
       return;
     }
@@ -280,7 +279,7 @@ export class NgMapsCircleDirective
   }
 
   /** @internal */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.subscription.unsubscribe();
     this._manager.removeCircle(this);
   }
@@ -288,11 +287,11 @@ export class NgMapsCircleDirective
   /**
    * Gets the LatLngBounds of this Circle.
    */
-  getBounds(): Promise<BoundsLiteral> {
+  public getBounds(): Promise<BoundsLiteral> {
     return this._manager.getBounds(this);
   }
 
-  getCenter(): Promise<GeoPoint> {
+  public getCenter(): Promise<GeoPoint> {
     return this._manager.getCenter(this);
   }
 }

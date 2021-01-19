@@ -1,8 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NgMapsRectangleDirective } from '../../directives/rectangle';
 import { BoundsLiteral } from '../../interface/bounds';
-import { GeoPoint } from '../../interface/geo-point';
 import { MapsApiWrapper } from '../maps-api-wrapper';
 
 @Injectable()
@@ -14,37 +13,41 @@ export abstract class RectangleManager<T = any> {
 
   constructor(protected _apiWrapper: MapsApiWrapper, protected _zone: NgZone) {}
 
-  abstract addRectangle(rectangle: NgMapsRectangleDirective): void;
+  public abstract addRectangle(rectangle: NgMapsRectangleDirective): void;
 
   /**
    * Removes the given rectangle from the map.
    */
-  abstract async removeRectangle(
+  public abstract async removeRectangle(
     rectangle: NgMapsRectangleDirective,
   ): Promise<void>;
 
-  abstract async setOptions(
+  public abstract async setOptions(
     rectangle: NgMapsRectangleDirective,
     options: google.maps.RectangleOptions,
   ): Promise<void>;
 
-  abstract async getBounds(
+  public abstract async getBounds(
     rectangle: NgMapsRectangleDirective,
   ): Promise<BoundsLiteral>;
 
-  abstract async setBounds(rectangle: NgMapsRectangleDirective): Promise<void>;
-
-  abstract async setEditable(
+  public abstract async setBounds(
     rectangle: NgMapsRectangleDirective,
   ): Promise<void>;
 
-  abstract async setDraggable(
+  public abstract async setEditable(
     rectangle: NgMapsRectangleDirective,
   ): Promise<void>;
 
-  abstract async setVisible(rectangle: NgMapsRectangleDirective): Promise<void>;
+  public abstract async setDraggable(
+    rectangle: NgMapsRectangleDirective,
+  ): Promise<void>;
 
-  abstract createEventObservable<E>(
+  public abstract async setVisible(
+    rectangle: NgMapsRectangleDirective,
+  ): Promise<void>;
+
+  public abstract createEventObservable<E>(
     eventName: string,
     rectangle: NgMapsRectangleDirective,
   ): Observable<E>;

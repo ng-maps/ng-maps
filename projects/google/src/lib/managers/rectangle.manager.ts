@@ -9,14 +9,12 @@ import {
 import { Observable, Observer } from 'rxjs';
 
 @Injectable()
-export class GoogleRectangleManager extends RectangleManager<
-  google.maps.Rectangle
-> {
+export class GoogleRectangleManager extends RectangleManager<google.maps.Rectangle> {
   constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
     super(_mapsWrapper, _zone);
   }
 
-  addRectangle(rectangle: NgMapsRectangleDirective) {
+  public addRectangle(rectangle: NgMapsRectangleDirective) {
     this._rectangles.set(
       rectangle,
       this._apiWrapper.createRectangle(
@@ -46,26 +44,28 @@ export class GoogleRectangleManager extends RectangleManager<
   /**
    * Removes the given rectangle from the map.
    */
-  removeRectangle(rectangle: NgMapsRectangleDirective): Promise<void> {
+  public removeRectangle(rectangle: NgMapsRectangleDirective): Promise<void> {
     return this._rectangles.get(rectangle).then((r) => {
       r.setMap(null);
       this._rectangles.delete(rectangle);
     });
   }
 
-  setOptions(
+  public setOptions(
     rectangle: NgMapsRectangleDirective,
     options: google.maps.RectangleOptions,
   ): Promise<void> {
     return this._rectangles.get(rectangle).then((r) => r.setOptions(options));
   }
 
-  async getBounds(rectangle: NgMapsRectangleDirective): Promise<BoundsLiteral> {
+  public async getBounds(
+    rectangle: NgMapsRectangleDirective,
+  ): Promise<BoundsLiteral> {
     const r = await this._rectangles.get(rectangle);
     return r.getBounds().toJSON();
   }
 
-  setBounds(rectangle: NgMapsRectangleDirective): Promise<void> {
+  public setBounds(rectangle: NgMapsRectangleDirective): Promise<void> {
     return this._rectangles.get(rectangle).then((r) => {
       return r.setBounds({
         north: rectangle.north,
@@ -76,25 +76,25 @@ export class GoogleRectangleManager extends RectangleManager<
     });
   }
 
-  setEditable(rectangle: NgMapsRectangleDirective): Promise<void> {
+  public setEditable(rectangle: NgMapsRectangleDirective): Promise<void> {
     return this._rectangles.get(rectangle).then((r) => {
       return r.setEditable(rectangle.editable);
     });
   }
 
-  setDraggable(rectangle: NgMapsRectangleDirective): Promise<void> {
+  public setDraggable(rectangle: NgMapsRectangleDirective): Promise<void> {
     return this._rectangles.get(rectangle).then((r) => {
       return r.setDraggable(rectangle.draggable);
     });
   }
 
-  setVisible(rectangle: NgMapsRectangleDirective): Promise<void> {
+  public setVisible(rectangle: NgMapsRectangleDirective): Promise<void> {
     return this._rectangles.get(rectangle).then((r) => {
       return r.setVisible(rectangle.visible);
     });
   }
 
-  createEventObservable<T>(
+  public createEventObservable<T>(
     eventName: string,
     rectangle: NgMapsRectangleDirective,
   ): Observable<T> {

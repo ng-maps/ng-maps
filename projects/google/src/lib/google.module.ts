@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MAP_PROVIDER, MapsAPILoader } from '@ng-maps/core';
+import { MapsAPILoader, MAP_PROVIDER } from '@ng-maps/core';
 import { GoogleMapsScriptLoader } from './google-maps-script-loader.service';
 import { GoogleComponent } from './google.component';
 

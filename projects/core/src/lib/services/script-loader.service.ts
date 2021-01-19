@@ -1,12 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScriptLoaderService {
-  document: Document;
+  public document: Document;
   private head: HTMLHeadElement;
   private alreadyLoaded: Map<string, Promise<any>> = new Map();
 

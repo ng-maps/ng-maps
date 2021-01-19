@@ -17,7 +17,7 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
     super(_mapsWrapper, _zone);
   }
 
-  deleteMarker(marker: NgMapsMarkerComponent): void {
+  public deleteMarker(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     if (m == null) {
       // marker already deleted
@@ -30,52 +30,52 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
     }
   }
 
-  updateMarkerPosition(marker: NgMapsMarkerComponent): void {
+  public updateMarkerPosition(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     m.setPosition({ lat: marker.latitude, lng: marker.longitude });
   }
 
-  updateTitle(marker: NgMapsMarkerComponent): void {
+  public updateTitle(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     m.setTitle(marker.title);
   }
 
-  updateLabel(marker: NgMapsMarkerComponent): void {
+  public updateLabel(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     m.setLabel(marker.label);
   }
 
-  updateDraggable(marker: NgMapsMarkerComponent): void {
+  public updateDraggable(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     m.setDraggable(marker.draggable);
   }
 
-  updateIconLegacy(marker: NgMapsMarkerComponent): void {
+  public updateIconLegacy(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     m.setIcon(marker.iconUrl);
   }
 
-  updateOpacity(marker: NgMapsMarkerComponent): void {
+  public updateOpacity(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     m.setOpacity(marker.opacity);
   }
 
-  updateVisible(marker: NgMapsMarkerComponent): void {
+  public updateVisible(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     m.setVisible(marker.visible);
   }
 
-  updateZIndex(marker: NgMapsMarkerComponent): void {
+  public updateZIndex(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     m.setZIndex(marker.zIndex);
   }
 
-  updateClickable(marker: NgMapsMarkerComponent): void {
+  public updateClickable(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     m.setClickable(marker.clickable);
   }
 
-  updateAnimation(marker: NgMapsMarkerComponent): void {
+  public updateAnimation(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     if (typeof marker.animation === 'string') {
       m.setAnimation(google.maps.Animation[marker.animation]);
@@ -84,7 +84,7 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
     }
   }
 
-  createEventObservable<T>(
+  public createEventObservable<T>(
     eventName: string | Array<string>,
     marker: NgMapsMarkerComponent,
   ): Observable<T> {
@@ -99,7 +99,7 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
     });
   }
 
-  updateIcon(marker: NgMapsMarkerComponent): void {
+  public updateIcon(marker: NgMapsMarkerComponent): void {
     throw new Error('Method not implemented.');
   }
 }

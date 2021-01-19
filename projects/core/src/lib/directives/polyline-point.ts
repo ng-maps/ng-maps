@@ -28,13 +28,12 @@ export class NgMapsPolylinePoint implements OnChanges {
   /**
    * This event emitter gets emitted when the position of the point changed.
    */
-  @Output() positionChanged: EventEmitter<
-    google.maps.LatLngLiteral
-  > = new EventEmitter<google.maps.LatLngLiteral>();
+  @Output()
+  public positionChanged: EventEmitter<google.maps.LatLngLiteral> = new EventEmitter<google.maps.LatLngLiteral>();
 
   constructor() {}
 
-  ngOnChanges(changes: SimpleChanges): any {
+  public ngOnChanges(changes: SimpleChanges): any {
     if (changes.latitude || changes.longitude) {
       const position: google.maps.LatLngLiteral = {
         lat: changes.latitude ? changes.latitude.currentValue : this.latitude,

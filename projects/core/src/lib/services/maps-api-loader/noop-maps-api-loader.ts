@@ -17,7 +17,7 @@ export class NoOpMapsAPILoader extends MapsAPILoader {
     this._window = this._document.defaultView;
   }
 
-  load(): Promise<void> {
+  public load(): Promise<void> {
     return Promise.resolve();
   }
 

@@ -8,7 +8,7 @@ import { NgMapsViewComponent } from './map';
 
 @Injectable()
 class MockElementRef {
-  nativeElement = {};
+  public nativeElement = {};
 }
 
 describe('NgMapsViewComponent', () => {

@@ -71,58 +71,58 @@ export class NgMapsMarkerComponent
   /**
    * The latitude position of the marker.
    */
-  @Input() latitude: number;
+  @Input() public latitude: number;
 
   /**
    * The longitude position of the marker.
    */
-  @Input() longitude: number;
+  @Input() public longitude: number;
 
   /**
    * The title of the marker.
    */
-  @Input() title: string;
+  @Input() public title: string;
 
   /**
    * The label (a single uppercase character) for the marker.
    */
-  @Input() label: string | google.maps.MarkerLabel;
+  @Input() public label: string | google.maps.MarkerLabel;
 
   /**
    * If true, the marker can be dragged. Default value is false.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('markerDraggable') draggable: boolean = false;
+  @Input('markerDraggable') public draggable: boolean = false;
 
   /**
    * Icon (the URL of the image) for the foreground.
    * Can also be a MarkerIcon (google.maps.Icon in Google Maps Javascript api)
    * @see <a href="https://developers.google.com/maps/documentation/javascript/reference/marker#Icon">google.maps.Icon</a>
    */
-  @Input() iconUrl: string | google.maps.Icon;
+  @Input() public iconUrl: string | google.maps.Icon;
 
-  @Input() icon: MarkerIcon;
+  @Input() public icon: MarkerIcon;
 
   /**
    * If true, the marker is visible
    */
-  @Input() visible: boolean = true;
+  @Input() public visible: boolean = true;
 
   /**
    * Whether to automatically open the child info window when the marker is clicked.
    */
-  @Input() openInfoWindow: boolean = true;
+  @Input() public openInfoWindow: boolean = true;
 
   /**
    * The marker's opacity between 0.0 and 1.0.
    */
-  @Input() opacity: number = 1;
+  @Input() public opacity: number = 1;
 
   /**
    * Marker optimize flag. If it is false then it prevent duplicate rendering.
    * Default it is true
    */
-  @Input() optimized: boolean = true;
+  @Input() public optimized: boolean = true;
 
   /**
    * All markers are displayed on the map in order of their zIndex, with higher values displaying in
@@ -130,81 +130,75 @@ export class NgMapsMarkerComponent
    * vertical position on screen, with lower markers appearing in front of markers further up the
    * screen.
    */
-  @Input() zIndex: number = 1;
+  @Input() public zIndex: number = 1;
 
   /**
    * If true, the marker can be clicked. Default value is true.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('markerClickable') clickable: boolean = true;
+  @Input('markerClickable') public clickable: boolean = true;
 
   /**
    * Which animation to play when marker is added to a map.
    * This can be 'BOUNCE' or 'DROP'
    */
-  animation: 'BOUNCE' | 'DROP' | null;
+  public animation: 'BOUNCE' | 'DROP' | null;
 
   /**
    * This event emitter gets emitted when the user clicks on the marker.
    */
-  @Output() markerClick: EventEmitter<NgMapsMarkerComponent> = new EventEmitter<
-    NgMapsMarkerComponent
-  >();
+  @Output()
+  public markerClick: EventEmitter<NgMapsMarkerComponent> = new EventEmitter<NgMapsMarkerComponent>();
 
   /**
    * This event is fired when the user rightclicks on the marker.
    */
-  @Output() markerRightClick: EventEmitter<void> = new EventEmitter<void>();
+  @Output()
+  public markerRightClick: EventEmitter<void> = new EventEmitter<void>();
 
   /**
    * This event is fired when the user starts dragging the marker.
    */
-  @Output() dragStart: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
-    google.maps.MouseEvent
-  >();
+  @Output()
+  public dragStart: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
 
   /**
    * This event is repeatedly fired while the user drags the marker.
    */
-  @Output() drag: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
-    google.maps.MouseEvent
-  >();
+  @Output()
+  public drag: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
 
   /**
    * This event is fired when the user stops dragging the marker.
    */
-  @Output() dragEnd: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
-    google.maps.MouseEvent
-  >();
+  @Output()
+  public dragEnd: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
 
   /**
    * This event is fired when the user mouses over the marker.
    */
-  @Output() mouseOver: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
-    google.maps.MouseEvent
-  >();
+  @Output()
+  public mouseOver: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
 
   /**
    * This event is fired when the user mouses outside the marker.
    */
-  @Output() mouseOut: EventEmitter<google.maps.MouseEvent> = new EventEmitter<
-    google.maps.MouseEvent
-  >();
+  @Output()
+  public mouseOut: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
 
   /**
    * @internal
    */
-  @ContentChildren(NgMapsInfoWindowComponent) infoWindow: QueryList<
-    NgMapsInfoWindowComponent
-  > = new QueryList<NgMapsInfoWindowComponent>();
+  @ContentChildren(NgMapsInfoWindowComponent)
+  public infoWindow: QueryList<NgMapsInfoWindowComponent> = new QueryList<NgMapsInfoWindowComponent>();
 
   private _markerAddedToManger: boolean = false;
   private _id: string;
   private subscription: Subscription = new Subscription();
 
-  protected readonly _fitBoundsDetails$: ReplaySubject<
-    FitBoundsDetails
-  > = new ReplaySubject<FitBoundsDetails>(1);
+  protected readonly _fitBoundsDetails$: ReplaySubject<FitBoundsDetails> = new ReplaySubject<FitBoundsDetails>(
+    1,
+  );
 
   constructor(private markerManager: MarkerManager) {
     this._id = (markerId++).toString();
@@ -213,7 +207,7 @@ export class NgMapsMarkerComponent
   /**
    *  @internal
    */
-  ngAfterContentInit() {
+  public ngAfterContentInit() {
     this.handleInfoWindowUpdate();
     this.infoWindow.changes.subscribe(() => this.handleInfoWindowUpdate());
   }
@@ -230,7 +224,7 @@ export class NgMapsMarkerComponent
   /**
    * @internal
    */
-  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+  public ngOnChanges(changes: { [key: string]: SimpleChange }) {
     if (typeof this.latitude === 'string') {
       this.latitude = Number(this.latitude);
     }
@@ -290,7 +284,7 @@ export class NgMapsMarkerComponent
   /**
    * @internal
    */
-  getFitBoundsDetails$(): Observable<FitBoundsDetails> {
+  public getFitBoundsDetails$(): Observable<FitBoundsDetails> {
     return this._fitBoundsDetails$.asObservable();
   }
 
@@ -363,17 +357,17 @@ export class NgMapsMarkerComponent
   }
 
   /** @internal */
-  id(): string {
+  public id(): string {
     return this._id;
   }
 
   /** @internal */
-  toString(): string {
+  public toString(): string {
     return `NgMapsMarker-${this._id}`;
   }
 
   /** @internal */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.markerManager.deleteMarker(this);
     // unsubscribe all registered observable subscription
     this.subscription.unsubscribe();

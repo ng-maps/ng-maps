@@ -9,9 +9,7 @@ import {
 import { Observable, Observer } from 'rxjs';
 
 @Injectable()
-export class GoogleInfoWindowManager extends InfoWindowManager<
-  google.maps.InfoWindow
-> {
+export class GoogleInfoWindowManager extends InfoWindowManager<google.maps.InfoWindow> {
   constructor(
     _mapsWrapper: MapsApiWrapper,
     _zone: NgZone,
@@ -20,7 +18,9 @@ export class GoogleInfoWindowManager extends InfoWindowManager<
     super(_mapsWrapper, _zone, _markerManager);
   }
 
-  async deleteInfoWindow(infoWindow: NgMapsInfoWindowComponent): Promise<void> {
+  public async deleteInfoWindow(
+    infoWindow: NgMapsInfoWindowComponent,
+  ): Promise<void> {
     const iWindow = await this._infoWindows.get(infoWindow);
     if (iWindow == null) {
       // info window already deleted
@@ -33,7 +33,7 @@ export class GoogleInfoWindowManager extends InfoWindowManager<
     }
   }
 
-  setPosition(infoWindow: NgMapsInfoWindowComponent): void {
+  public setPosition(infoWindow: NgMapsInfoWindowComponent): void {
     const i = this._infoWindows.get(infoWindow);
     i.setPosition({
       lat: infoWindow.latitude,
@@ -41,12 +41,12 @@ export class GoogleInfoWindowManager extends InfoWindowManager<
     });
   }
 
-  setZIndex(infoWindow: NgMapsInfoWindowComponent): void {
+  public setZIndex(infoWindow: NgMapsInfoWindowComponent): void {
     const i = this._infoWindows.get(infoWindow);
     i.setZIndex(infoWindow.zIndex);
   }
 
-  async open(infoWindow: NgMapsInfoWindowComponent): Promise<void> {
+  public async open(infoWindow: NgMapsInfoWindowComponent): Promise<void> {
     const w = this._infoWindows.get(infoWindow);
     const map = await this._mapsWrapper.getNativeMap();
     console.log('open', w);
@@ -60,12 +60,12 @@ export class GoogleInfoWindowManager extends InfoWindowManager<
     }
   }
 
-  close(infoWindow: NgMapsInfoWindowComponent): void {
+  public close(infoWindow: NgMapsInfoWindowComponent): void {
     const w = this._infoWindows.get(infoWindow);
     w.close();
   }
 
-  setOptions(
+  public setOptions(
     infoWindow: NgMapsInfoWindowComponent,
     options: google.maps.InfoWindowOptions,
   ) {
@@ -73,7 +73,7 @@ export class GoogleInfoWindowManager extends InfoWindowManager<
     i.setOptions(options);
   }
 
-  async addInfoWindow(infoWindow: NgMapsInfoWindowComponent) {
+  public async addInfoWindow(infoWindow: NgMapsInfoWindowComponent) {
     const options: google.maps.InfoWindowOptions = {
       content: infoWindow.content.nativeElement,
       maxWidth: infoWindow.maxWidth,
@@ -95,7 +95,7 @@ export class GoogleInfoWindowManager extends InfoWindowManager<
   /**
    * Creates a Google Maps event listener for the given InfoWindow as an Observable
    */
-  createEventObservable<T>(
+  public createEventObservable<T>(
     eventName: string,
     infoWindow: NgMapsInfoWindowComponent,
   ): Observable<T> {

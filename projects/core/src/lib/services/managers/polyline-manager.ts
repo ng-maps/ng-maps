@@ -1,10 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Observable, Observer } from 'rxjs';
+import { Observable } from 'rxjs';
 import { GeoPoint } from '../../interface/geo-point';
 
-import { MapsApiWrapper } from '../maps-api-wrapper';
 import { NgMapsPolyline } from '../../directives/polyline';
 import { NgMapsPolylinePoint } from '../../directives/polyline-point';
+import { MapsApiWrapper } from '../maps-api-wrapper';
 
 @Injectable()
 export abstract class PolylineManager<T = any> {
@@ -27,18 +27,20 @@ export abstract class PolylineManager<T = any> {
     });
   }
 
-  abstract addPolyline(line: NgMapsPolyline);
+  public abstract addPolyline(line: NgMapsPolyline);
 
-  abstract async updatePolylinePoints(line: NgMapsPolyline): Promise<void>;
+  public abstract async updatePolylinePoints(
+    line: NgMapsPolyline,
+  ): Promise<void>;
 
-  abstract async setPolylineOptions(
+  public abstract async setPolylineOptions(
     line: NgMapsPolyline,
     options: { [propName: string]: any },
   ): Promise<void>;
 
-  abstract async deletePolyline(line: NgMapsPolyline): Promise<void>;
+  public abstract async deletePolyline(line: NgMapsPolyline): Promise<void>;
 
-  abstract createEventObservable<E>(
+  public abstract createEventObservable<E>(
     eventName: string,
     line: NgMapsPolyline,
   ): Observable<E>;

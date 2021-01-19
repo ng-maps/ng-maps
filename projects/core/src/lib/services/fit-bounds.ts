@@ -19,7 +19,7 @@ export type BoundsMap = Map<string, GeoPoint>;
  * of AGM.
  */
 export abstract class FitBoundsAccessor {
-  abstract getFitBoundsDetails$(): Observable<FitBoundsDetails>;
+  public abstract getFitBoundsDetails$(): Observable<FitBoundsDetails>;
 }
 
 /**
@@ -50,7 +50,7 @@ export abstract class FitBoundsService {
     includeInBounds: Map<string, GeoPoint>,
   ): BoundsLiteral;
 
-  addToBounds(latLng: GeoPoint) {
+  public addToBounds(latLng: GeoPoint) {
     const id = this._createIdentifier(latLng);
     if (this._includeInBounds$.value.has(id)) {
       return;
@@ -60,17 +60,19 @@ export abstract class FitBoundsService {
     this._includeInBounds$.next(bounds);
   }
 
-  removeFromBounds(latLng: google.maps.LatLng | google.maps.LatLngLiteral) {
+  public removeFromBounds(
+    latLng: google.maps.LatLng | google.maps.LatLngLiteral,
+  ) {
     const bounds = this._includeInBounds$.value;
     bounds.delete(this._createIdentifier(latLng));
     this._includeInBounds$.next(bounds);
   }
 
-  changeFitBoundsChangeSampleTime(timeMs: number) {
+  public changeFitBoundsChangeSampleTime(timeMs: number) {
     this._boundsChangeSampleTime$.next(timeMs);
   }
 
-  getBounds$(): Observable<BoundsLiteral> {
+  public getBounds$(): Observable<BoundsLiteral> {
     return this.bounds$;
   }
 

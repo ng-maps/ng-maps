@@ -3,17 +3,17 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { MapsAPILoader } from '@ng-maps/core';
 import { ReplaySubject } from 'rxjs';
 import {
-  GOOGLE_MAPS_API_CONFIG,
   GoogleMapsScriptProtocol,
   GoogleModuleOptions,
+  GOOGLE_MAPS_API_CONFIG,
 } from './options';
 
 @Injectable()
 export class GoogleMapsScriptLoader extends MapsAPILoader {
   protected _scriptLoadingPromise: Promise<void>;
-  protected _config: ReplaySubject<GoogleModuleOptions> = new ReplaySubject<
-    GoogleModuleOptions
-  >(1);
+  protected _config: ReplaySubject<GoogleModuleOptions> = new ReplaySubject<GoogleModuleOptions>(
+    1,
+  );
   protected _document: Document;
   protected _window: Window;
   protected readonly _SCRIPT_ID: string = 'GoogleMapsApiScript';

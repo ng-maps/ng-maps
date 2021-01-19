@@ -34,164 +34,166 @@ export class NgMapsRectangleDirective
   /**
    * The north position of the rectangle (required).
    */
-  @Input() north: number;
+  @Input() public north: number;
 
   /**
    * The east position of the rectangle (required).
    */
-  @Input() east: number;
+  @Input() public east: number;
 
   /**
    * The south position of the rectangle (required).
    */
-  @Input() south: number;
+  @Input() public south: number;
 
   /**
    * The west position of the rectangle (required).
    */
-  @Input() west: number;
+  @Input() public west: number;
 
   /**
    * Indicates whether this Rectangle handles mouse events. Defaults to true.
    */
-  @Input() clickable: boolean = true;
+  @Input() public clickable: boolean = true;
 
   /**
    * If set to true, the user can drag this rectangle over the map. Defaults to false.
    */
   // tslint:disable-next-line:no-input-rename
-  @Input('rectangleDraggable') draggable: boolean = false;
+  @Input('rectangleDraggable') public draggable: boolean = false;
 
   /**
    * If set to true, the user can edit this rectangle by dragging the control points shown at
    * the center and around the circumference of the rectangle. Defaults to false.
    */
-  @Input() editable: boolean = false;
+  @Input() public editable: boolean = false;
 
   /**
    * The fill color. All CSS3 colors are supported except for extended named colors.
    */
-  @Input() fillColor: string;
+  @Input() public fillColor: string;
 
   /**
    * The fill opacity between 0.0 and 1.0.
    */
-  @Input() fillOpacity: number;
+  @Input() public fillOpacity: number;
 
   /**
    * The stroke color. All CSS3 colors are supported except for extended named colors.
    */
-  @Input() strokeColor: string;
+  @Input() public strokeColor: string;
 
   /**
    * The stroke opacity between 0.0 and 1.0
    */
-  @Input() strokeOpacity: number;
+  @Input() public strokeOpacity: number;
 
   /**
    * The stroke position. Defaults to CENTER.
    * This property is not supported on Internet Explorer 8 and earlier.
    */
-  @Input() strokePosition: 'CENTER' | 'INSIDE' | 'OUTSIDE' = 'CENTER';
+  @Input() public strokePosition: 'CENTER' | 'INSIDE' | 'OUTSIDE' = 'CENTER';
 
   /**
    * The stroke width in pixels.
    */
-  @Input() strokeWeight: number = 0;
+  @Input() public strokeWeight: number = 0;
 
   /**
    * Whether this rectangle is visible on the map. Defaults to true.
    */
-  @Input() visible: boolean = true;
+  @Input() public visible: boolean = true;
 
   /**
    * The zIndex compared to other polys.
    */
-  @Input() zIndex: number;
+  @Input() public zIndex: number;
 
   /**
    * This event is fired when the rectangle's is changed.
    */
   @Output()
-  boundsChange: EventEmitter<
-    google.maps.LatLngBoundsLiteral
-  > = new EventEmitter<google.maps.LatLngBoundsLiteral>();
+  public boundsChange: EventEmitter<google.maps.LatLngBoundsLiteral> = new EventEmitter<google.maps.LatLngBoundsLiteral>();
 
   /**
    * This event emitter gets emitted when the user clicks on the rectangle.
    */
   @Output()
-  rectangleClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public rectangleClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event emitter gets emitted when the user clicks on the rectangle.
    */
   @Output()
-  rectangleDblClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public rectangleDblClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is repeatedly fired while the user drags the rectangle.
    */
-  @Output() drag: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output()
+  public drag: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the user stops dragging the rectangle.
    */
-  @Output() dragEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output()
+  public dragEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the user starts dragging the rectangle.
    */
   @Output()
-  dragStart: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public dragStart: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the DOM mousedown event is fired on the rectangle.
    */
   @Output()
-  mouseDown: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public mouseDown: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the DOM mousemove event is fired on the rectangle.
    */
   @Output()
-  mouseMove: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public mouseMove: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired on rectangle mouseout.
    */
-  @Output() mouseOut: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output()
+  public mouseOut: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired on rectangle mouseover.
    */
   @Output()
-  mouseOver: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public mouseOver: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the DOM mouseup event is fired on the rectangle.
    */
-  @Output() mouseUp: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output()
+  public mouseUp: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the rectangle is right-clicked on.
    */
   @Output()
-  rightClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public rightClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   private _rectangleAddedToManager: boolean = false;
 
   private subscription: Subscription = new Subscription();
 
   /** @internal */
-  ngOnInit() {
+  public ngOnInit() {
     this._manager.addRectangle(this);
     this._rectangleAddedToManager = true;
     this._registerEventListeners();
   }
 
   /** @internal */
-  ngOnChanges(changes: { [key: string]: SimpleChange }) {
+  public ngOnChanges(changes: { [key: string]: SimpleChange }) {
     if (!this._rectangleAddedToManager) {
       return;
     }
@@ -263,7 +265,7 @@ export class NgMapsRectangleDirective
   }
 
   /** @internal */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.subscription.unsubscribe();
     this._manager.removeRectangle(this);
   }
@@ -271,7 +273,7 @@ export class NgMapsRectangleDirective
   /**
    * Gets the LatLngBounds of this Rectangle.
    */
-  getBounds(): Promise<BoundsLiteral> {
+  public getBounds(): Promise<BoundsLiteral> {
     return this._manager.getBounds(this);
   }
 }

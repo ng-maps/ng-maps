@@ -28,7 +28,7 @@ describe('FitBoundsService', () => {
     (window as any).google = {
       maps: {
         LatLngBounds: class LatLngBounds {
-          extend = latLngBoundsExtend;
+          public extend = latLngBoundsExtend;
 
           constructor() {
             latLngBoundsConstructs += 1;
@@ -56,10 +56,7 @@ describe('FitBoundsService', () => {
   it('should emit empty bounds when API finished loaded but the are not entries in the includeInBounds$ map', fakeAsync(() => {
     // @ts-ignore
     const success = jasmine.createSpy();
-    fitBoundsService
-      .getBounds$()
-      .pipe(first())
-      .subscribe(success);
+    fitBoundsService.getBounds$().pipe(first()).subscribe(success);
     tick();
     expect(success).toHaveBeenCalledTimes(1);
     discardPeriodicTasks();

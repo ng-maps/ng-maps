@@ -6,7 +6,6 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
   SimpleChanges,
   ViewChild,
@@ -67,19 +66,19 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
    * The latitude position of the info window (only usefull if you use it ouside of a {@link
    * NgMapsMarkerComponent}).
    */
-  @Input() latitude: number;
+  @Input() public latitude: number;
 
   /**
    * The longitude position of the info window (only usefull if you use it ouside of a {@link
    * NgMapsMarkerComponent}).
    */
-  @Input() longitude: number;
+  @Input() public longitude: number;
 
   /**
    * Disable auto-pan on open. By default, the info window will pan the map so that it is fully
    * visible when it opens.
    */
-  @Input() disableAutoPan: boolean;
+  @Input() public disableAutoPan: boolean;
 
   /**
    * All InfoWindows are displayed on the map in order of their zIndex, with higher values
@@ -87,39 +86,40 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
    * according to their latitude, with InfoWindows of lower latitudes appearing in front of
    * InfoWindows at higher latitudes. InfoWindows are always displayed in front of markers.
    */
-  @Input() zIndex: number;
+  @Input() public zIndex: number;
 
   /**
    * Maximum width of the infowindow, regardless of content's width. This value is only considered
    * if it is set before a call to open. To change the maximum width when changing content, call
    * close, update maxWidth, and then open.
    */
-  @Input() maxWidth: number;
+  @Input() public maxWidth: number;
 
   /**
    * Holds the marker that is the host of the info window (if available)
    */
-  hostMarker: NgMapsMarkerComponent;
+  public hostMarker: NgMapsMarkerComponent;
 
   /**
    * Holds the native element that is used for the info window content.
    */
   @ViewChild('content', { static: true })
-  content: ElementRef;
+  public content: ElementRef;
 
   /**
    * Sets the open state for the InfoWindow. You can also call the open() and close() methods.
    */
-  @Input() isOpen: boolean = false;
+  @Input() public isOpen: boolean = false;
 
   /**
    * Emits an event when the info window is closed.
    */
-  @Output() infoWindowClose: EventEmitter<void> = new EventEmitter<void>();
+  @Output()
+  public infoWindowClose: EventEmitter<void> = new EventEmitter<void>();
   private _infoWindowAddedToManager: boolean = false;
   private _id: string = (infoWindowId++).toString();
 
-  ngOnInit() {
+  public ngOnInit() {
     this._infoWindowManager.addInfoWindow(this).then(() => {
       this._infoWindowAddedToManager = true;
       this._updateOpenState();
@@ -128,7 +128,7 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   }
 
   /** @internal */
-  ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     if (!this._infoWindowAddedToManager) {
       return;
     }
@@ -175,30 +175,30 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   /**
    * Opens the info window.
    */
-  open(event?: any): Promise<void> {
+  public open(event?: any): Promise<void> {
     return this._infoWindowManager.open(this, event);
   }
 
   /**
    * Closes the info window.
    */
-  async close(): Promise<void> {
+  public async close(): Promise<void> {
     await this._infoWindowManager.close(this);
     return this.infoWindowClose.emit();
   }
 
   /** @internal */
-  id(): string {
+  public id(): string {
     return this._id;
   }
 
   /** @internal */
-  toString(): string {
+  public toString(): string {
     return `NgMapsInfoWindowComponent-${this._id.toString()}`;
   }
 
   /** @internal */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this._infoWindowManager.deleteInfoWindow(this);
   }
 }
