@@ -23,46 +23,34 @@ export abstract class CircleManager<T = any> {
   /**
    * Removes the given circle from the map.
    */
-  public abstract async removeCircle(
-    circle: NgMapsCircleDirective,
-  ): Promise<void>;
+  public abstract removeCircle(circle: NgMapsCircleDirective): Promise<void>;
   /**
    * @todo check how to improve type casting
    * @param circle instance of {@link NgMapsCircleDirective}
    * @param options options for the circle
    */
-  public abstract async setOptions(
+  public abstract setOptions(
     circle: NgMapsCircleDirective,
     options: CircleOptions,
   ): Promise<void>;
 
-  public abstract async getBounds(
+  public abstract getBounds(
     circle: NgMapsCircleDirective,
   ): Promise<BoundsLiteral>;
 
-  public abstract async getCenter(
-    circle: NgMapsCircleDirective,
-  ): Promise<GeoPoint>;
+  public abstract getCenter(circle: NgMapsCircleDirective): Promise<GeoPoint>;
 
-  public abstract async getRadius(
-    circle: NgMapsCircleDirective,
-  ): Promise<number>;
+  public abstract getRadius(circle: NgMapsCircleDirective): Promise<number>;
 
-  public abstract async setCenter(circle: NgMapsCircleDirective): Promise<void>;
+  public abstract setCenter(circle: NgMapsCircleDirective): Promise<void>;
 
-  public abstract async setEditable(
-    circle: NgMapsCircleDirective,
-  ): Promise<void>;
+  public abstract setEditable(circle: NgMapsCircleDirective): Promise<void>;
 
-  public abstract async setDraggable(
-    circle: NgMapsCircleDirective,
-  ): Promise<void>;
+  public abstract setDraggable(circle: NgMapsCircleDirective): Promise<void>;
 
-  public abstract async setVisible(
-    circle: NgMapsCircleDirective,
-  ): Promise<void>;
+  public abstract setVisible(circle: NgMapsCircleDirective): Promise<void>;
 
-  public abstract async setRadius(circle: NgMapsCircleDirective): Promise<void>;
+  public abstract setRadius(circle: NgMapsCircleDirective): Promise<void>;
 
   public abstract createEventObservable<E>(
     eventName: string,

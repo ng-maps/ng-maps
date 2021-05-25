@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GeoPoint } from '../interface/geo-point';
-import { PolygonManager } from '../services/managers/polygon-manager';
+import { PolygonManager } from '../services/managers/polygon.manager';
 
 /**
  * NgMapsPolygon renders a polygon on a {@link https://ng-maps.github.io/core/components/NgMapsViewComponent.html|NgMapsView}

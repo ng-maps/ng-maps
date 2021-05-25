@@ -29,16 +29,14 @@ export abstract class PolylineManager<T = any> {
 
   public abstract addPolyline(line: NgMapsPolyline);
 
-  public abstract async updatePolylinePoints(
-    line: NgMapsPolyline,
-  ): Promise<void>;
+  public abstract updatePolylinePoints(line: NgMapsPolyline): Promise<void>;
 
-  public abstract async setPolylineOptions(
+  public abstract setPolylineOptions(
     line: NgMapsPolyline,
     options: { [propName: string]: any },
   ): Promise<void>;
 
-  public abstract async deletePolyline(line: NgMapsPolyline): Promise<void>;
+  public abstract deletePolyline(line: NgMapsPolyline): Promise<void>;
 
   public abstract createEventObservable<E>(
     eventName: string,

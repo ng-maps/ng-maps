@@ -18,32 +18,30 @@ export abstract class RectangleManager<T = any> {
   /**
    * Removes the given rectangle from the map.
    */
-  public abstract async removeRectangle(
+  public abstract removeRectangle(
     rectangle: NgMapsRectangleDirective,
   ): Promise<void>;
 
-  public abstract async setOptions(
+  public abstract setOptions(
     rectangle: NgMapsRectangleDirective,
     options: google.maps.RectangleOptions,
   ): Promise<void>;
 
-  public abstract async getBounds(
+  public abstract getBounds(
     rectangle: NgMapsRectangleDirective,
   ): Promise<BoundsLiteral>;
 
-  public abstract async setBounds(
+  public abstract setBounds(rectangle: NgMapsRectangleDirective): Promise<void>;
+
+  public abstract setEditable(
     rectangle: NgMapsRectangleDirective,
   ): Promise<void>;
 
-  public abstract async setEditable(
+  public abstract setDraggable(
     rectangle: NgMapsRectangleDirective,
   ): Promise<void>;
 
-  public abstract async setDraggable(
-    rectangle: NgMapsRectangleDirective,
-  ): Promise<void>;
-
-  public abstract async setVisible(
+  public abstract setVisible(
     rectangle: NgMapsRectangleDirective,
   ): Promise<void>;
 

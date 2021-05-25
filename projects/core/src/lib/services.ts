@@ -10,6 +10,6 @@ export {
 export { MapsApiWrapper } from './services/maps-api-wrapper';
 export { ScriptLoaderService } from './services/script-loader.service';
 export { CircleManager } from './services/managers/circle-manager';
-export { PolygonManager } from './services/managers/polygon-manager';
+export { PolygonManager } from './services/managers/polygon.manager';
 export { PolylineManager } from './services/managers/polyline-manager';
 export { RectangleManager } from './services/managers/rectangle-manager';

@@ -1,5 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
-import { MapsApiWrapper, NgMapsPolygon, PolygonManager } from '@ng-maps/core';
+import {
+  MapsApiWrapper,
+  NgMapsPolygonDirective,
+  PolygonManager,
+} from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
 
 @Injectable()
@@ -8,7 +12,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     super(_mapsWrapper, _zone);
   }
 
-  public addPolygon(path: NgMapsPolygon) {
+  public addPolygon(path: NgMapsPolygonDirective) {
     const polygonPromise = this._mapsWrapper.createPolygon({
       clickable: path.clickable,
       draggable: path.draggable,
@@ -26,7 +30,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     this._polygons.set(path, polygonPromise);
   }
 
-  public async updatePolygon(polygon: NgMapsPolygon): Promise<void> {
+  public async updatePolygon(polygon: NgMapsPolygonDirective): Promise<void> {
     const item = await this._polygons.get(polygon);
     if (item != null) {
       this._zone.run(() => {
@@ -36,7 +40,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
   }
 
   public setPolygonOptions(
-    path: NgMapsPolygon,
+    path: NgMapsPolygonDirective,
     options: { [propName: string]: any },
   ): Promise<void> {
     return this._polygons.get(path).then((l: google.maps.Polygon) => {
@@ -44,7 +48,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     });
   }
 
-  public deletePolygon(paths: NgMapsPolygon): Promise<void> {
+  public deletePolygon(paths: NgMapsPolygonDirective): Promise<void> {
     const m = this._polygons.get(paths);
     if (m == null) {
       return Promise.resolve();
@@ -59,7 +63,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
 
   public createEventObservable<T>(
     eventName: string,
-    path: NgMapsPolygon,
+    path: NgMapsPolygonDirective,
   ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
       this._polygons.get(path).then((l: google.maps.Polygon) => {
