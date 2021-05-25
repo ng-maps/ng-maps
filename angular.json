@@ -307,7 +307,14 @@
             "styles": [
               "projects/sample/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -582,7 +589,6 @@
             "main": "projects/sample-here/src/main.ts",
             "polyfills": "projects/sample-here/src/polyfills.ts",
             "tsConfig": "projects/sample-here/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/sample-here/src/favicon.ico",
               "projects/sample-here/src/assets"
@@ -590,7 +596,13 @@
             "styles": [
               "projects/sample-here/src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
