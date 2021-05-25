@@ -4,7 +4,7 @@ import { NgMapsFitBoundsDirective } from './directives/fit-bounds';
 import { NgMapsInfoWindowComponent } from './directives/info-window';
 import { NgMapsViewComponent } from './directives/map';
 import { NgMapsMarkerComponent } from './directives/marker';
-import { NgMapsPolygon } from './directives/polygon';
+import { NgMapsPolygonDirective } from './directives/polygon';
 import { NgMapsPolyline } from './directives/polyline';
 import { NgMapsPolylinePoint } from './directives/polyline-point';
 import { NgMapsRectangleDirective } from './directives/rectangle';
@@ -29,7 +29,7 @@ export function coreDirectives() {
     NgMapsInfoWindowComponent,
     NgMapsFitBoundsDirective,
     NgMapsCircleDirective,
-    NgMapsPolygon,
+    NgMapsPolygonDirective,
     NgMapsPolyline,
     NgMapsPolylinePoint,
     NgMapsRectangleDirective,

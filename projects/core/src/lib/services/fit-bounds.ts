@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable, timer } from 'rxjs';
-import { flatMap, map, sample, shareReplay, switchMap } from 'rxjs/operators';
+import {
+  flatMap,
+  map,
+  mergeMap,
+  sample,
+  shareReplay,
+  switchMap,
+} from 'rxjs/operators';
 import { BoundsLiteral } from '../interface/bounds';
 import { GeoPoint } from '../interface/geo-point';
 import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
@@ -37,7 +44,7 @@ export abstract class FitBoundsService {
 
   constructor(loader: MapsAPILoader) {
     this.bounds$ = from(loader.load()).pipe(
-      flatMap(() => this._includeInBounds$),
+      mergeMap(() => this._includeInBounds$),
       sample(
         this._boundsChangeSampleTime$.pipe(switchMap((time) => timer(0, time))),
       ),

@@ -18,8 +18,12 @@ export class GoogleMapsFitBoundsService extends FitBoundsService {
   protected generateBounds(
     includeInBounds: Map<string, GeoPoint>,
   ): BoundsLiteral {
-    const bounds = new google.maps.LatLngBounds();
-    includeInBounds.forEach((b) => bounds.extend(b));
-    return bounds.toJSON();
+    if (includeInBounds.size === 0) {
+      return null;
+    } else {
+      const bounds = new google.maps.LatLngBounds();
+      includeInBounds.forEach((b) => bounds.extend(b));
+      return bounds.toJSON();
+    }
   }
 }

@@ -28,7 +28,7 @@ export class NgMapsAutocompleteDirective
    */
   // tslint:disable-next-line:no-input-rename
   @Input('mapAutocomplete')
-  public config: google.maps.places.AutocompleteOptions;
+  public config: Partial<google.maps.places.AutocompleteOptions>;
 
   /**
    * This event is fired on selection of an element from the autocomplete list.

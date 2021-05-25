@@ -15,8 +15,8 @@
     "places"
   ],
   "peerDependencies": {
-    "@angular/common": "^9.0.0 || ^10.0.0 || ^11.0.0",
-    "@angular/core": "^9.0.0 || ^10.0.0 || ^11.0.0",
+    "@angular/common": "^10.0.0 || ^11.0.0 || ^12.0.0",
+    "@angular/core": "^10.0.0 || ^11.0.0 || ^12.0.0",
     "@ng-maps/core": "^2.0.0"
   },
   "homepage": "https://ng-maps.github.io/places",

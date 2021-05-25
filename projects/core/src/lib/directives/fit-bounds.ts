@@ -7,7 +7,7 @@ import {
   Self,
   SimpleChanges,
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import {
   FitBoundsAccessor,
@@ -31,8 +31,8 @@ export class NgMapsFitBoundsDirective implements OnInit, OnDestroy, OnChanges {
    */
   @Input() public mapFitBounds: boolean = true;
 
-  private _destroyed$: Subject<void> = new Subject<void>();
   private _latestFitBoundsDetails: FitBoundsDetails | null = null;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     @Self() private readonly _fitBoundsAccessor: FitBoundsAccessor,
@@ -50,16 +50,20 @@ export class NgMapsFitBoundsDirective implements OnInit, OnDestroy, OnChanges {
    * @internal
    */
   public ngOnInit() {
-    this._fitBoundsAccessor
-      .getFitBoundsDetails$()
-      .pipe(
-        distinctUntilChanged(
-          (x: FitBoundsDetails, y: FitBoundsDetails) =>
-            x.latLng.lat === y.latLng.lat && x.latLng.lng === y.latLng.lng,
-        ),
-        takeUntil(this._destroyed$),
-      )
-      .subscribe((details) => this._updateBounds(details));
+    this.subscription.add(
+      this._fitBoundsAccessor
+        .getFitBoundsDetails$()
+        .pipe(
+          distinctUntilChanged(
+            (x: FitBoundsDetails, y: FitBoundsDetails) =>
+              x.latLng.lat === y.latLng.lat && x.latLng.lng === y.latLng.lng,
+          ),
+        )
+        .subscribe({
+          next: (details) => this._updateBounds(details),
+          complete: () => this._updateBounds(),
+        }),
+    );
   }
 
   /**
@@ -97,8 +101,7 @@ export class NgMapsFitBoundsDirective implements OnInit, OnDestroy, OnChanges {
    * @internal
    */
   public ngOnDestroy() {
-    this._destroyed$.next();
-    this._destroyed$.complete();
+    this.subscription.unsubscribe();
     if (this._latestFitBoundsDetails !== null) {
       this._fitBoundsService.removeFromBounds(
         this._latestFitBoundsDetails.latLng,
