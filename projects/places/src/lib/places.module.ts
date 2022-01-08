@@ -1,12 +1,16 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { NG_MAPS_PLACES_DEFAULT_CONFIGURATION } from './configuration';
+import {
+  NgMapsPlacesConfiguration,
+  NG_MAPS_PLACES_DEFAULT_CONFIGURATION,
+} from './configuration';
 import { NgMapsAutocompleteDirective } from './directives/autocomplete';
+import { NgMapsSearchBoxDirective } from './directives/search-box';
 
 /**
  * @internal
  */
 export function placesDirectives() {
-  return [NgMapsAutocompleteDirective];
+  return [NgMapsAutocompleteDirective, NgMapsSearchBoxDirective];
 }
 
 @NgModule({
@@ -15,7 +19,7 @@ export function placesDirectives() {
 })
 export class NgMapsPlacesModule {
   public static forRoot(
-    config: Partial<google.maps.places.AutocompleteOptions>,
+    config: NgMapsPlacesConfiguration,
   ): ModuleWithProviders<NgMapsPlacesModule> {
     return {
       ngModule: NgMapsPlacesModule,

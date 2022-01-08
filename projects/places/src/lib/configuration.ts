@@ -1,5 +1,10 @@
 import { InjectionToken } from '@angular/core';
 
-export const NG_MAPS_PLACES_DEFAULT_CONFIGURATION = new InjectionToken<
-  Partial<google.maps.places.AutocompleteOptions>
->('NgMapsPlacesDefaultConfiguration');
+export interface NgMapsPlacesConfiguration {
+  autocomplete?: Partial<google.maps.places.AutocompleteOptions>;
+  searchBox?: google.maps.places.SearchBoxOptions;
+}
+
+export const NG_MAPS_PLACES_DEFAULT_CONFIGURATION = new InjectionToken<NgMapsPlacesConfiguration>(
+  'NgMapsPlacesDefaultConfiguration',
+);
