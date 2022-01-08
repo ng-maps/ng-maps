@@ -2,9 +2,6 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/google",
   "lib": {
-    "entryFile": "src/public-api.ts",
-    "umdModuleIds": {
-      "@ng-maps/core": "ng-maps.core"
-    }
+    "entryFile": "src/public-api.ts"
   }
 }
