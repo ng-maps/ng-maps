@@ -7,13 +7,13 @@ import { NgMapsDrawingLayer } from '../directives/drawing-layer';
   providedIn: NgMapsViewComponent,
 })
 export class DrawingManager {
-  // tslint:disable-next-line:variable-name
+  // eslint-disable-next-line @typescript-eslint/naming-convention,no-underscore-dangle,id-blacklist,id-match
   protected _drawingManagers: Map<
     NgMapsDrawingLayer,
     Promise<google.maps.drawing.DrawingManager>
   > = new Map();
 
-  // tslint:disable-next-line:variable-name
+  // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
   constructor(
     protected _mapsWrapper: MapsApiWrapper,
     protected _zone: NgZone,

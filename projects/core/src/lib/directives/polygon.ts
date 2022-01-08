@@ -50,7 +50,7 @@ export class NgMapsPolygonDirective
    * If set to true, the user can drag this shape over the map. The geodesic
    * property defines the mode of dragging. Defaults to false.
    */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('polyDraggable') public draggable: boolean = false;
 
   /**

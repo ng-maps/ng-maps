@@ -49,7 +49,7 @@ export class ScriptLoaderService {
     return script;
   }
 
-  // tslint:disable-next-line:naming-convention
+  // eslint-disable-next-line
   private createCSSElement(href: string): HTMLLinkElement {
     const style = document.createElement('link');
 
@@ -84,7 +84,7 @@ export class ScriptLoaderService {
    * @returns Observable<UIEvent> Promise that will be resolved once the CSS file has been loaded.
    */
   public loadCSS(href: string): Promise<UIEvent | void> {
-    // tslint:disable-line:naming-convention
+    // eslint-disable-line
     if (this.alreadyLoaded.has(href)) {
       return this.alreadyLoaded.get(href);
     } else {

@@ -31,7 +31,7 @@ export class NgMapsAutocompleteDirective
    * Configuration Input described by the AutocompleteOptions Interface
    * https://developers.google.com/maps/documentation/javascript/reference/3.exp/places-widget#AutocompleteOptions
    */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('mapAutocomplete')
   public config: Partial<google.maps.places.AutocompleteOptions>;
 

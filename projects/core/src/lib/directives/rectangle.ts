@@ -59,7 +59,7 @@ export class NgMapsRectangleDirective
   /**
    * If set to true, the user can drag this rectangle over the map. Defaults to false.
    */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('rectangleDraggable') public draggable: boolean = false;
 
   /**

@@ -30,7 +30,7 @@ export class NgMapsSearchBoxDirective implements OnInit, OnChanges, OnDestroy {
    * Configuration Input described by the AutocompleteOptions Interface
    * https://developers.google.com/maps/documentation/javascript/reference/3.exp/places-widget#AutocompleteOptions
    */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('mapSearchBox')
   public config: google.maps.places.SearchBoxOptions;
 

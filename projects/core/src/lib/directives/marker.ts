@@ -91,7 +91,7 @@ export class NgMapsMarkerComponent
   /**
    * If true, the marker can be dragged. Default value is false.
    */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('markerDraggable') public draggable: boolean = false;
 
   /**
@@ -135,7 +135,7 @@ export class NgMapsMarkerComponent
   /**
    * If true, the marker can be clicked. Default value is true.
    */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('markerClickable') public clickable: boolean = true;
 
   /**

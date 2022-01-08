@@ -3,7 +3,7 @@ package-lock.json
 angular.json
 tsconfig.json
 greenkeeper.json
-tslint.yaml
+tslint.json
 dist
 coverage
 .vscode/*
