@@ -1,25 +1,26 @@
-# Google
+# @ng-maps/core
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.3.
+**@ng-maps/core** is a simple, modular and tree-shakable library for displaying google-maps inside an angular application
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name --project google` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project google`.
+- Npm: `npm install @ng-maps/google`
+- Yarn: `yarn add @ng-maps/google`
 
-> Note: Don't forget to add `--project google` or else it will be added to the default project in your `angular.json` file.
+Then you will need to install typings for google maps as a dev dependency
 
-## Build
+- Npm: `npm install -D @types/googlemaps`
+- Yarn: `yarn add -D @types/googlemaps`
 
-Run `ng build google` to build the project. The build artifacts will be stored in the `dist/` directory.
+Add `NgMapsGoogleModule` to your _AppModule_.
 
-## Publishing
+Provide your API key with the token provider
 
-After building your library with `ng build google`, go to the dist folder `cd dist/google` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test google` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```ts
+{
+  provide: GOOGLE_MAPS_API_CONFIG,
+  useValue: {
+    apiKey: 'YOUR_API_KEY'
+  }
+}
+```

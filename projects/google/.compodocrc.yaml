@@ -1,0 +1,4 @@
+name: '@ng-maps/google'
+tsconfig: tsconfig.lib.json
+disableRoutesGraph: true
+output: ../../docs/google

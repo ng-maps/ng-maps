@@ -12,7 +12,9 @@ Then you will need to install typings for google maps as a dev dependency
 - Npm: `npm install -D @types/googlemaps`
 - Yarn: `yarn add -D @types/googlemaps`
 
-Now you are ready to start. Add `NgMapsCoreModule.forRoot({apiKey: 'YOUR_API_KEY'})` to your _AppModule_. Now you can use map components.
+Add `NgMapsCoreModule` to your _AppModule_.
+
+Additionally you will need to add the `@ng-maps/google` module and follow [the instruction there](https://ng-maps.github.io/google/index.html). As alternative there is a here maps module which isn't ready for production yet.
 
 ### Lazy loading configuration
 

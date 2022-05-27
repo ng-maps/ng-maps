@@ -1,0 +1,4 @@
+name: '@ng-maps/here'
+tsconfig: tsconfig.lib.json
+disableRoutesGraph: true
+output: ../../docs/here
