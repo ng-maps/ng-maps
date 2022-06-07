@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-layers',
@@ -19,7 +19,7 @@ export class LayersComponent implements OnInit {
   layers = [];
   _layers = new Set();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: UntypedFormBuilder) {
     this.layerForm.valueChanges.subscribe({
       next: (values) => {
         Object.entries(values).forEach((entry) => {
