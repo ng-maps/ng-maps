@@ -54,8 +54,6 @@ jobs:
             cache-nx-${{ hashFiles('package-lock.json') }}-
             cache-nx-
 
-      - run: npm run version:build
-
       - name: Build
         run: npx nx affected --target=build --configuration=production
 

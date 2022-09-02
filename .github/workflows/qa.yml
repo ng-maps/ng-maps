@@ -86,8 +86,6 @@ jobs:
             cache-nx-${{ hashFiles('package-lock.json') }}-
             cache-nx-
 
-      - run: npm run version:build
-
       - name: Test
         run: npx nx affected --target=test --ci --code-coverage
 
@@ -122,6 +120,8 @@ jobs:
 
   e2e:
     name: E2E
+    # currently disabled
+    if: false
     runs-on: ubuntu-latest
     env:
       NX_BASE: ${{inputs.base}}
@@ -160,8 +160,6 @@ jobs:
             cache-nx-${{ hashFiles('package-lock.json') }}-${{github.ref_name}}-
             cache-nx-${{ hashFiles('package-lock.json') }}-
             cache-nx-
-
-      - run: npm run version:build
 
       - run: npx nx affected --target=e2e --configuration=ci
         env:
