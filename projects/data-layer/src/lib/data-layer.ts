@@ -216,9 +216,8 @@ export class NgMapsDataLayer implements OnInit, OnDestroy, OnChanges {
   /**
    * This event is fired when a feature in the layer is clicked.
    */
-  @Output() layerClick: EventEmitter<
-    google.maps.Data.MouseEvent
-  > = new EventEmitter<google.maps.Data.MouseEvent>();
+  @Output()
+  layerClick: EventEmitter<google.maps.Data.MouseEvent> = new EventEmitter<google.maps.Data.MouseEvent>();
 
   /**
    * The geoJson to be displayed
@@ -228,7 +227,9 @@ export class NgMapsDataLayer implements OnInit, OnDestroy, OnChanges {
   /**
    * The layer's style function.
    */
-  @Input() style: () => void;
+  @Input() style:
+    | google.maps.Data.StylingFunction
+    | google.maps.Data.StyleOptions;
 
   constructor(private _manager: DataLayerManager) {}
 

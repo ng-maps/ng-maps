@@ -4,8 +4,6 @@
   "keywords": [
     "angular",
     "ng",
-    "angular8",
-    "angular 8",
     "google maps",
     "googlemaps",
     "maps",
@@ -16,9 +14,9 @@
     "agm"
   ],
   "peerDependencies": {
-    "@angular/common": "^8.0.0",
-    "@angular/core": "^8.0.0",
-    "@ng-maps/core": "^1.0.0"
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
+    "@ng-maps/core": "^3.0.0"
   },
   "homepage": "https://ng-maps.github.io/kml-layer",
   "license": "MIT",

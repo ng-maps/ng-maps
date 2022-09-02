@@ -31,4 +31,20 @@ export class NgMapsPlacesModule {
       ],
     };
   }
+
+  public static forRootFactory(
+    factory: (...args: Array<any>) => NgMapsPlacesConfiguration,
+    deps?: Array<any>,
+  ): ModuleWithProviders<NgMapsPlacesModule> {
+    return {
+      ngModule: NgMapsPlacesModule,
+      providers: [
+        {
+          provide: NG_MAPS_PLACES_DEFAULT_CONFIGURATION,
+          useFactory: factory,
+          deps,
+        },
+      ],
+    };
+  }
 }

@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { GoogleMapsAPIWrapper, NgMapsViewComponent } from '@ng-maps/core';
+import { NgMapsViewComponent } from '@ng-maps/core';
+import { GoogleMapsAPIWrapper } from '@ng-maps/google';
 import { Observable, Observer } from 'rxjs';
 import { NgMapsDataLayer } from './data-layer';
 
@@ -10,9 +11,9 @@ import { NgMapsDataLayer } from './data-layer';
   providedIn: NgMapsViewComponent,
 })
 export class DataLayerManager {
-  private _layers: Map<NgMapsDataLayer, Promise<google.maps.Data>> = new Map<
+  private _layers: Map<NgMapsDataLayer, google.maps.Data> = new Map<
     NgMapsDataLayer,
-    Promise<google.maps.Data>
+    google.maps.Data
   >();
 
   constructor(private _wrapper: GoogleMapsAPIWrapper, private _zone: NgZone) {}
@@ -23,20 +24,17 @@ export class DataLayerManager {
   async addDataLayer(layer: NgMapsDataLayer) {
     const d = await this._wrapper.createDataLayer({
       style: layer.style,
-    } as google.maps.Data.DataOptions);
+    });
     if (layer.geoJson) {
-      // @ts-ignore
-      d.features = await this.getDataFeatures(d, layer.geoJson);
+      const features = await this.getDataFeatures(d, layer.geoJson);
     }
-    // @ts-ignore
     this._layers.set(layer, d);
   }
 
   deleteDataLayer(layer: NgMapsDataLayer) {
-    this._layers.get(layer).then((l) => {
-      l.setMap(null);
-      this._layers.delete(layer);
-    });
+    const l = this._layers.get(layer);
+    l.setMap(null);
+    this._layers.delete(layer);
   }
 
   async updateGeoJson(layer: NgMapsDataLayer, geoJson: Object | string) {
@@ -44,14 +42,11 @@ export class DataLayerManager {
     l.forEach((feature: google.maps.Data.Feature) => {
       l.remove(feature);
 
-      // @ts-ignore
       const index = l.features.indexOf(feature, 0);
       if (index > -1) {
-        // @ts-ignore
         l.features.splice(index, 1);
       }
     });
-    // @ts-ignore
     l.features = await this.getDataFeatures(l, geoJson);
   }
 
@@ -91,7 +86,7 @@ export class DataLayerManager {
   getDataFeatures(
     d: google.maps.Data,
     geoJson: Object | string,
-  ): Promise<google.maps.Data.Feature[]> {
+  ): Promise<Array<google.maps.Data.Feature>> {
     return new Promise<google.maps.Data.Feature[]>((resolve, reject) => {
       if (typeof geoJson === 'object') {
         try {

@@ -9,12 +9,16 @@ Components related
 
 Add `NgMapsPlacesModule` to the module you want to use this module in.
 
-Add `places` to libraries of `NgMapsCoreModule.forRoot()`.
+You will also need to load the places library together with google maps. To achieve this you have to add it to the `GOOGLE_MAPS_API_CONFIG` provider.
 
 ```ts
-NgMapsCoreModule.forRoot({
-  libraries: ['places'],
-});
+{
+  provide: GOOGLE_MAPS_API_CONFIG,
+  useValue: {
+    …
+    libraries: ['places']
+  }
+}
 ```
 
 ## Directives
