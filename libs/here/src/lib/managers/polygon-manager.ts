@@ -1,5 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
-import { MapsApiWrapper, NgMapsPolygon, PolygonManager } from '@ng-maps/core';
+import {
+  MapsApiWrapper,
+  NgMapsPolygonDirective,
+  PolygonManager,
+} from '@ng-maps/core';
 import { EMPTY, Observable, Observer } from 'rxjs';
 
 @Injectable()
@@ -8,7 +12,7 @@ export class HerePolygonManager extends PolygonManager<H.map.Polygon> {
     super(_mapsWrapper, _zone);
   }
 
-  addPolygon(path: NgMapsPolygon) {
+  addPolygon(path: NgMapsPolygonDirective) {
     const polygonPromise = this._mapsWrapper.createPolygon({
       clickable: path.clickable,
       draggable: path.draggable,
@@ -26,7 +30,7 @@ export class HerePolygonManager extends PolygonManager<H.map.Polygon> {
     this._polygons.set(path, polygonPromise);
   }
 
-  async updatePolygon(polygon: NgMapsPolygon): Promise<void> {
+  async updatePolygon(polygon: NgMapsPolygonDirective): Promise<void> {
     const item = await this._polygons.get(polygon);
     const lineString = new H.geo.LineString();
     polygon.paths.forEach((path) => {
@@ -37,11 +41,11 @@ export class HerePolygonManager extends PolygonManager<H.map.Polygon> {
   }
 
   async setPolygonOptions(
-    path: NgMapsPolygon,
+    path: NgMapsPolygonDirective,
     options: { [propName: string]: any },
   ): Promise<void> {}
 
-  async deletePolygon(polygon: NgMapsPolygon): Promise<void> {
+  async deletePolygon(polygon: NgMapsPolygonDirective): Promise<void> {
     const p = await this._polygons.get(polygon);
     if (p == null) {
       return Promise.resolve();
@@ -54,7 +58,7 @@ export class HerePolygonManager extends PolygonManager<H.map.Polygon> {
 
   createEventObservable<T>(
     eventName: string,
-    path: NgMapsPolygon,
+    path: NgMapsPolygonDirective,
   ): Observable<T> {
     // return new Observable((observer: Observer<T>) => {
     //   this._polygons.get(path).then((l: google.maps.Polygon) => {

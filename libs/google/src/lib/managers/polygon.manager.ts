@@ -54,10 +54,12 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     if (m == null) {
       return Promise.resolve();
     }
-    return m.then((l: google.maps.Polygon) => this._zone.run(() => {
+    return m.then((l: google.maps.Polygon) =>
+      this._zone.run(() => {
         l.setMap(null);
         this._polygons.delete(paths);
-      }));
+      }),
+    );
   }
 
   public createEventObservable<T>(

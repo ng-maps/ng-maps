@@ -67,12 +67,12 @@ describe('PolygonManager', () => {
         ) => {
           const newPolygon = new NgMapsPolygon(polygonManager);
 
-          const polygonInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
-            'polygonInstance',
-            ['setMap'],
-          );
+          const polygonInstance: Partial<google.maps.Rectangle> =
+            jasmine.createSpyObj('polygonInstance', ['setMap']);
 
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createPolygon.and.returnValue(
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createPolygon.and.returnValue(
             Promise.resolve(polygonInstance as any),
           );
 

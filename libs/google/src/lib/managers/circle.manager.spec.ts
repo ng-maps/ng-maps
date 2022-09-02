@@ -249,10 +249,10 @@ describe('CircleManager', () => {
 
           circleManager.addCircle(newCircle);
 
-          const options = ({
+          const options = {
             strokeWeight: 2,
             strokePosition: 'OUTSIDE',
-          } as any) as Partial<google.maps.CircleOptions>;
+          } as any as Partial<google.maps.CircleOptions>;
 
           circleManager.setOptions(newCircle, options);
           tick();

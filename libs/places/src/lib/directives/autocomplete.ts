@@ -28,7 +28,8 @@ import {
   selector: '[mapAutocomplete]',
 })
 export class NgMapsAutocompleteDirective
-  implements OnInit, OnChanges, OnDestroy {
+  implements OnInit, OnChanges, OnDestroy
+{
   /**
    * Configuration Input described by the AutocompleteOptions Interface
    * https://developers.google.com/maps/documentation/javascript/reference/3.exp/places-widget#AutocompleteOptions

@@ -13,9 +13,8 @@ import {
 @Injectable()
 export class GoogleMapsScriptLoader extends MapsAPILoader {
   protected _scriptLoadingPromise: Promise<void>;
-  protected _config: ReplaySubject<GoogleModuleOptions> = new ReplaySubject<GoogleModuleOptions>(
-    1,
-  );
+  protected _config: ReplaySubject<GoogleModuleOptions> =
+    new ReplaySubject<GoogleModuleOptions>(1);
   protected _document: Document;
   protected _window: Window;
   protected readonly _SCRIPT_ID: string = 'GoogleMapsApiScript';
@@ -125,12 +124,11 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
     };
     const params: string = Object.keys(queryParams)
       .filter((k: string) => queryParams[k] != null)
-      .filter((k: string) => 
-        // remove empty arrays
-         (
+      .filter(
+        (k: string) =>
+          // remove empty arrays
           !Array.isArray(queryParams[k]) ||
-          (Array.isArray(queryParams[k]) && queryParams[k].length > 0)
-        )
+          (Array.isArray(queryParams[k]) && queryParams[k].length > 0),
       )
       .map((k: string) => {
         // join arrays as comma seperated strings
@@ -140,7 +138,10 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
         }
         return { key: k, value: queryParams[k] };
       })
-      .map((entry: { key: string; value: string }) => `${entry.key}=${entry.value}`)
+      .map(
+        (entry: { key: string; value: string }) =>
+          `${entry.key}=${entry.value}`,
+      )
       .join('&');
     return `${protocol}//${hostAndPath}?${params}`;
   }

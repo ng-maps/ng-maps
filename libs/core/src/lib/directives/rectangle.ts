@@ -18,7 +18,8 @@ import { RectangleManager } from '../services/managers/rectangle-manager';
   selector: 'map-rectangle',
 })
 export class NgMapsRectangleDirective
-  implements OnInit, OnChanges, OnDestroy, RectangleOptions {
+  implements OnInit, OnChanges, OnDestroy, RectangleOptions
+{
   constructor(private _manager: RectangleManager) {}
 
   private static _mapOptions: Array<string> = [

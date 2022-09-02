@@ -20,7 +20,8 @@ import { PolygonManager } from '../services/managers/polygon.manager';
   selector: 'map-polygon',
 })
 export class NgMapsPolygonDirective
-  implements OnDestroy, OnChanges, AfterContentInit {
+  implements OnDestroy, OnChanges, AfterContentInit
+{
   constructor(private _polygonManager: PolygonManager) {}
 
   private static _polygonOptionsAttributes: Array<string> = [

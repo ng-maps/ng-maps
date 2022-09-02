@@ -50,7 +50,8 @@ import { MapsApiWrapper } from '../services/maps-api-wrapper';
   `,
 })
 export class NgMapsViewComponent<T>
-  implements OnChanges, OnInit, OnDestroy, MapOptions {
+  implements OnChanges, OnInit, OnDestroy, MapOptions
+{
   constructor(
     protected _mapsWrapper: MapsApiWrapper<T>,
     protected _fitBoundsService: FitBoundsService,
@@ -515,7 +516,7 @@ export class NgMapsViewComponent<T>
             | google.maps.TransitLayer
             | google.maps.BicyclingLayer = new google.maps[layer]();
           // @todo typings
-          i.setMap((map as any) as google.maps.Map);
+          i.setMap(map as any as google.maps.Map);
           this._layerInstance.set(layer, i);
         }
       });

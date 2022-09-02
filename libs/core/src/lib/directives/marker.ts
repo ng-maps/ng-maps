@@ -69,7 +69,8 @@ export class NgMapsMarkerComponent
     OnChanges,
     AfterContentInit,
     FitBoundsAccessor,
-    MarkerOptions {
+    MarkerOptions
+{
   /**
    * The latitude position of the marker.
    */
@@ -199,9 +200,8 @@ export class NgMapsMarkerComponent
   private _id: string;
   private subscription: Subscription = new Subscription();
 
-  protected readonly _fitBoundsDetails$: ReplaySubject<FitBoundsDetails> = new ReplaySubject<FitBoundsDetails>(
-    1,
-  );
+  protected readonly _fitBoundsDetails$: ReplaySubject<FitBoundsDetails> =
+    new ReplaySubject<FitBoundsDetails>(1);
 
   constructor(private markerManager: MarkerManager) {
     this._id = (markerId++).toString();

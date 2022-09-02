@@ -19,7 +19,8 @@ import { CircleManager } from '../services/managers/circle-manager';
   selector: 'map-circle',
 })
 export class NgMapsCircleDirective
-  implements OnInit, OnChanges, OnDestroy, CircleOptions {
+  implements OnInit, OnChanges, OnDestroy, CircleOptions
+{
   constructor(private _manager: CircleManager) {}
 
   private static _mapOptions: Array<string> = [

@@ -95,9 +95,9 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
       map: await this._api,
     };
     if (typeof opt.strokePosition === 'string') {
-      opt.strokePosition = (google.maps.StrokePosition[
+      opt.strokePosition = google.maps.StrokePosition[
         opt.strokePosition
-      ] as any) as google.maps.StrokePosition;
+      ] as any as google.maps.StrokePosition;
     }
     return new google.maps.Circle(opt);
   }
@@ -164,7 +164,7 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
    * @fixme typings
    */
   public subscribeToMapEvent<
-    N extends keyof google.maps.MapHandlerMap<google.maps.Map>
+    N extends keyof google.maps.MapHandlerMap<google.maps.Map>,
   >(eventName: N): Observable<google.maps.MapHandlerMap<google.maps.Map>[N]> {
     return new Observable((observer) => {
       this._api.then((m) =>

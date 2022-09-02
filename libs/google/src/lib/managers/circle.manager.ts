@@ -62,9 +62,9 @@ export class GoogleCircleManager extends CircleManager<google.maps.Circle> {
     const c = await this._circles.get(circle);
 
     if (typeof options.strokePosition === 'string') {
-      options.strokePosition = (google.maps.StrokePosition[
+      options.strokePosition = google.maps.StrokePosition[
         options.strokePosition
-      ] as any) as google.maps.StrokePosition;
+      ] as any as google.maps.StrokePosition;
     }
     return c.setOptions(options);
   }

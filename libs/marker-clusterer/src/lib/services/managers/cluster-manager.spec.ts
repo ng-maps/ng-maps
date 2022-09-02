@@ -67,12 +67,12 @@ describe('ClusterManager', () => {
           newMarker.longitude = 22.3;
           newMarker.label = 'A';
 
-          const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj(
-            'polygonInstance',
-            ['setMap'],
-          );
+          const markerInstance: Partial<google.maps.Marker> =
+            jasmine.createSpyObj('polygonInstance', ['setMap']);
 
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createMarker.and.returnValue(
             Promise.resolve(markerInstance as any),
           );
 
@@ -96,12 +96,12 @@ describe('ClusterManager', () => {
           newMarker.longitude = 22.3;
           newMarker.label = 'A';
 
-          const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj(
-            'polygonInstance',
-            ['setMap', 'setIcon'],
-          );
+          const markerInstance: Partial<google.maps.Marker> =
+            jasmine.createSpyObj('polygonInstance', ['setMap', 'setIcon']);
 
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createMarker.and.returnValue(
             Promise.resolve(markerInstance as any),
           );
 
@@ -140,12 +140,12 @@ describe('ClusterManager', () => {
           newMarker.longitude = 22.3;
           newMarker.label = 'A';
 
-          const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj(
-            'polygonInstance',
-            ['setMap', 'setOpacity'],
-          );
+          const markerInstance: Partial<google.maps.Marker> =
+            jasmine.createSpyObj('polygonInstance', ['setMap', 'setOpacity']);
 
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createMarker.and.returnValue(
             Promise.resolve(markerInstance as any),
           );
 
@@ -185,12 +185,12 @@ describe('ClusterManager', () => {
           newMarker.label = 'A';
           newMarker.visible = false;
 
-          const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj(
-            'markerInstance',
-            ['setMap', 'setVisible'],
-          );
+          const markerInstance: Partial<google.maps.Marker> =
+            jasmine.createSpyObj('markerInstance', ['setMap', 'setVisible']);
 
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createMarker.and.returnValue(
             Promise.resolve(markerInstance as any),
           );
 
@@ -229,12 +229,12 @@ describe('ClusterManager', () => {
           newMarker.label = 'A';
           newMarker.visible = false;
 
-          const markerInstance: Partial<google.maps.Marker> = jasmine.createSpyObj(
-            'markerInstance',
-            ['setMap', 'setZIndex'],
-          );
+          const markerInstance: Partial<google.maps.Marker> =
+            jasmine.createSpyObj('markerInstance', ['setMap', 'setZIndex']);
 
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createMarker.and.returnValue(
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createMarker.and.returnValue(
             Promise.resolve(markerInstance as any),
           );
 

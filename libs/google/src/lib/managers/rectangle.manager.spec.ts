@@ -79,12 +79,12 @@ describe('RectangleManager', () => {
           newRectangle.south = 89.2;
           newRectangle.west = 52.6;
 
-          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
-            'rectangleInstance',
-            ['setMap'],
-          );
+          const rectangleInstance: Partial<google.maps.Rectangle> =
+            jasmine.createSpyObj('rectangleInstance', ['setMap']);
 
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createRectangle.and.returnValue(
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createRectangle.and.returnValue(
             Promise.resolve(rectangleInstance as any),
           );
 
@@ -111,12 +111,12 @@ describe('RectangleManager', () => {
           newRectangle.south = 89.2;
           newRectangle.west = 52.6;
 
-          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
-            'rectangleInstance',
-            ['setMap', 'setBounds'],
-          );
+          const rectangleInstance: Partial<google.maps.Rectangle> =
+            jasmine.createSpyObj('rectangleInstance', ['setMap', 'setBounds']);
 
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createRectangle.and.returnValue(
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createRectangle.and.returnValue(
             Promise.resolve(rectangleInstance as any),
           );
 
@@ -176,12 +176,12 @@ describe('RectangleManager', () => {
           newRectangle.fillOpacity = 0.4;
           newRectangle.strokeOpacity = 0.4;
 
-          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
-            'rectangleInstance',
-            ['setMap', 'setOptions'],
-          );
+          const rectangleInstance: Partial<google.maps.Rectangle> =
+            jasmine.createSpyObj('rectangleInstance', ['setMap', 'setOptions']);
 
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createRectangle.and.returnValue(
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createRectangle.and.returnValue(
             Promise.resolve(rectangleInstance as any),
           );
 
@@ -237,11 +237,11 @@ describe('RectangleManager', () => {
           newRectangle.fillColor = '#FF7F50';
           newRectangle.strokeColor = '#FF7F50';
 
-          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
-            'rectangleInstance',
-            ['setMap', 'setOptions'],
-          );
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createRectangle.and.returnValue(
+          const rectangleInstance: Partial<google.maps.Rectangle> =
+            jasmine.createSpyObj('rectangleInstance', ['setMap', 'setOptions']);
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createRectangle.and.returnValue(
             Promise.resolve(rectangleInstance as any),
           );
 
@@ -296,11 +296,11 @@ describe('RectangleManager', () => {
           newRectangle.west = 52.6;
           newRectangle.visible = false;
 
-          const rectangleInstance: Partial<google.maps.Rectangle> = jasmine.createSpyObj(
-            'rectangleInstance',
-            ['setMap', 'setVisible'],
-          );
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createRectangle.and.returnValue(
+          const rectangleInstance: Partial<google.maps.Rectangle> =
+            jasmine.createSpyObj('rectangleInstance', ['setMap', 'setVisible']);
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createRectangle.and.returnValue(
             Promise.resolve(rectangleInstance as any),
           );
 

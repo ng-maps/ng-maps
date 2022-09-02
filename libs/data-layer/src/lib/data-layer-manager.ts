@@ -6,6 +6,8 @@ import { NgMapsDataLayer } from './data-layer';
 
 /**
  * Manages all Data Layers for a Google Map instance.
+ *
+ * TODO needs to be fixed, look for ts-ignore
  */
 @Injectable({
   providedIn: NgMapsViewComponent,
@@ -42,11 +44,14 @@ export class DataLayerManager {
     l.forEach((feature: google.maps.Data.Feature) => {
       l.remove(feature);
 
+      // @ts-ignore
       const index = l.features.indexOf(feature, 0);
       if (index > -1) {
+        // @ts-ignore
         l.features.splice(index, 1);
       }
     });
+    // @ts-ignore
     l.features = await this.getDataFeatures(l, geoJson);
   }
 
@@ -54,6 +59,7 @@ export class DataLayerManager {
     layer: NgMapsDataLayer,
     options: google.maps.Data.DataOptions,
   ) {
+    // @ts-ignore
     this._layers.get(layer).then((l) => {
       l.setControlPosition(options.controlPosition);
       l.setControls(options.controls);
@@ -70,6 +76,7 @@ export class DataLayerManager {
     layer: NgMapsDataLayer,
   ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
+      // @ts-ignore
       this._layers.get(layer).then((d: google.maps.Data) => {
         d.addListener(eventName, (e: T) =>
           this._zone.run(() => observer.next(e)),

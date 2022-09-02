@@ -42,9 +42,8 @@ export class NgMapsSearchBoxDirective implements OnInit, OnChanges, OnDestroy {
    * https://developers.google.com/maps/documentation/javascript/reference/3.exp/places-service#PlaceResult
    */
   @Output()
-  public placeResult: EventEmitter<
-    Array<google.maps.places.PlaceResult>
-  > = new EventEmitter<Array<google.maps.places.PlaceResult>>();
+  public placeResult: EventEmitter<Array<google.maps.places.PlaceResult>> =
+    new EventEmitter<Array<google.maps.places.PlaceResult>>();
 
   /**
    * This event is fired on selection of an element from the autocomplete list.

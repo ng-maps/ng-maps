@@ -70,7 +70,9 @@ describe('PolylineManager', () => {
         ) => {
           const newPolyline = new NgMapsPolyline(polylineManager);
 
-          (apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>).createPolyline.and.returnValue(
+          (
+            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+          ).createPolyline.and.returnValue(
             Promise.resolve(polylineInstance as any),
           );
 

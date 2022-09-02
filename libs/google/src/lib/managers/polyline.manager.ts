@@ -17,10 +17,13 @@ export class GooglePolylineManager extends PolylineManager<google.maps.Polyline>
   protected _convertPoints(
     line: NgMapsPolyline,
   ): Array<google.maps.LatLngLiteral> {
-    return line._getPoints().map((point: NgMapsPolylinePoint) => ({
-        lat: point.latitude,
-        lng: point.longitude,
-      } as google.maps.LatLngLiteral));
+    return line._getPoints().map(
+      (point: NgMapsPolylinePoint) =>
+        ({
+          lat: point.latitude,
+          lng: point.longitude,
+        } as google.maps.LatLngLiteral),
+    );
   }
 
   public addPolyline(line: NgMapsPolyline) {
@@ -68,10 +71,12 @@ export class GooglePolylineManager extends PolylineManager<google.maps.Polyline>
     if (m == null) {
       return Promise.resolve();
     }
-    return m.then((l: google.maps.Polyline) => this._zone.run(() => {
+    return m.then((l: google.maps.Polyline) =>
+      this._zone.run(() => {
         l.setMap(null);
         this._polylines.delete(line);
-      }));
+      }),
+    );
   }
 
   public createEventObservable<T>(

@@ -30,7 +30,8 @@ import { ClusterManager } from '../services/managers/cluster-manager';
   ],
 })
 export class MarkerClusterComponent
-  implements OnDestroy, OnChanges, OnInit, MarkerClustererOptions {
+  implements OnDestroy, OnChanges, OnInit, MarkerClustererOptions
+{
   /**
    * Whether the center of each cluster should be the average of all markers in the cluster.
    */

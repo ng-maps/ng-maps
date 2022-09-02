@@ -6,7 +6,7 @@
     "target": "es2020",
     "declaration": true,
     "inlineSources": true,
-    "types": ["heremaps"],
+    "types": ["heremaps","googlemaps"],
     "lib": ["dom", "es2018"]
   },
   "angularCompilerOptions": {
