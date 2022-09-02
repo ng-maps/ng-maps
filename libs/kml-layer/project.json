@@ -1,0 +1,43 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/kml-layer/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/kml-layer/tsconfig.lib.json",
+        "project": "libs/kml-layer/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/kml-layer/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/kml-layer/src/test.ts",
+        "tsConfig": "libs/kml-layer/tsconfig.spec.json",
+        "karmaConfig": "libs/kml-layer/karma.conf.js"
+      },
+      "configurations": {
+        "ci": {
+          "browsers": "ChromeCI",
+          "codeCoverage": true,
+          "watch": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/kml-layer/**/*.ts",
+          "libs/kml-layer/**/*.html"
+        ]
+      }
+    }
+  }
+}

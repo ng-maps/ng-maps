@@ -1,0 +1,33 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/google/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/google/tsconfig.lib.json",
+        "project": "libs/google/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/google/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/google/src/test.ts",
+        "tsConfig": "libs/google/tsconfig.spec.json",
+        "karmaConfig": "libs/google/karma.conf.js"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/google/**/*.ts", "libs/google/**/*.html"]
+      }
+    }
+  }
+}

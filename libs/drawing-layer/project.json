@@ -1,0 +1,43 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/drawing-layer/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/drawing-layer/tsconfig.lib.json",
+        "project": "libs/drawing-layer/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/drawing-layer/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/drawing-layer/src/test.ts",
+        "tsConfig": "libs/drawing-layer/tsconfig.spec.json",
+        "karmaConfig": "libs/drawing-layer/karma.conf.js"
+      },
+      "configurations": {
+        "ci": {
+          "browsers": "ChromeCI",
+          "codeCoverage": true,
+          "watch": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/drawing-layer/**/*.ts",
+          "libs/drawing-layer/**/*.html"
+        ]
+      }
+    }
+  }
+}

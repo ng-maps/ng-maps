@@ -1,0 +1,43 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/data-layer/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/data-layer/tsconfig.lib.json",
+        "project": "libs/data-layer/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/data-layer/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/data-layer/src/test.ts",
+        "tsConfig": "libs/data-layer/tsconfig.spec.json",
+        "karmaConfig": "libs/data-layer/karma.conf.js"
+      },
+      "configurations": {
+        "ci": {
+          "browsers": "ChromeCI",
+          "codeCoverage": true,
+          "watch": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/data-layer/**/*.ts",
+          "libs/data-layer/**/*.html"
+        ]
+      }
+    }
+  }
+}

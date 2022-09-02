@@ -1,0 +1,43 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/marker-clusterer/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/marker-clusterer/tsconfig.lib.json",
+        "project": "libs/marker-clusterer/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/marker-clusterer/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/marker-clusterer/src/test.ts",
+        "tsConfig": "libs/marker-clusterer/tsconfig.spec.json",
+        "karmaConfig": "libs/marker-clusterer/karma.conf.js"
+      },
+      "configurations": {
+        "ci": {
+          "browsers": "ChromeCI",
+          "codeCoverage": true,
+          "watch": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/marker-clusterer/**/*.ts",
+          "libs/marker-clusterer/**/*.html"
+        ]
+      }
+    }
+  }
+}

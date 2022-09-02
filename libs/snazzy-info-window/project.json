@@ -1,0 +1,43 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/snazzy-info-window/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/snazzy-info-window/tsconfig.lib.json",
+        "project": "libs/snazzy-info-window/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/snazzy-info-window/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/snazzy-info-window/src/test.ts",
+        "tsConfig": "libs/snazzy-info-window/tsconfig.spec.json",
+        "karmaConfig": "libs/snazzy-info-window/karma.conf.js"
+      },
+      "configurations": {
+        "ci": {
+          "browsers": "ChromeCI",
+          "codeCoverage": true,
+          "watch": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/snazzy-info-window/**/*.ts",
+          "libs/snazzy-info-window/**/*.html"
+        ]
+      }
+    }
+  }
+}

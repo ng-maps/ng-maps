@@ -1,0 +1,33 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/here/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "options": {
+        "tsConfig": "libs/here/tsconfig.lib.json",
+        "project": "libs/here/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/here/tsconfig.lib.prod.json"
+        }
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "libs/here/src/test.ts",
+        "tsConfig": "libs/here/tsconfig.spec.json",
+        "karmaConfig": "libs/here/karma.conf.js"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/here/**/*.ts", "libs/here/**/*.html"]
+      }
+    }
+  }
+}
