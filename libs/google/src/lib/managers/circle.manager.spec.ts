@@ -1,7 +1,10 @@
 import { NgZone } from '@angular/core';
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+
 import { GoogleMapsAPIWrapper } from '@ng-maps/core';
+
 import { NgMapsCircle } from '../directives/circle';
+
 import { GoogleCircleManager } from './circle.manager';
 
 describe('CircleManager', () => {

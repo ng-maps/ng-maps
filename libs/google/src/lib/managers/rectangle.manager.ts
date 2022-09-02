@@ -1,4 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+
 import {
   BoundsLiteral,
   MapsApiWrapper,
@@ -6,7 +8,6 @@ import {
   RectangleManager,
 } from '@ng-maps/core';
 
-import { Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class GoogleRectangleManager extends RectangleManager<google.maps.Rectangle> {
@@ -66,32 +67,24 @@ export class GoogleRectangleManager extends RectangleManager<google.maps.Rectang
   }
 
   public setBounds(rectangle: NgMapsRectangleDirective): Promise<void> {
-    return this._rectangles.get(rectangle).then((r) => {
-      return r.setBounds({
+    return this._rectangles.get(rectangle).then((r) => r.setBounds({
         north: rectangle.north,
         east: rectangle.east,
         south: rectangle.south,
         west: rectangle.west,
-      });
-    });
+      }));
   }
 
   public setEditable(rectangle: NgMapsRectangleDirective): Promise<void> {
-    return this._rectangles.get(rectangle).then((r) => {
-      return r.setEditable(rectangle.editable);
-    });
+    return this._rectangles.get(rectangle).then((r) => r.setEditable(rectangle.editable));
   }
 
   public setDraggable(rectangle: NgMapsRectangleDirective): Promise<void> {
-    return this._rectangles.get(rectangle).then((r) => {
-      return r.setDraggable(rectangle.draggable);
-    });
+    return this._rectangles.get(rectangle).then((r) => r.setDraggable(rectangle.draggable));
   }
 
   public setVisible(rectangle: NgMapsRectangleDirective): Promise<void> {
-    return this._rectangles.get(rectangle).then((r) => {
-      return r.setVisible(rectangle.visible);
-    });
+    return this._rectangles.get(rectangle).then((r) => r.setVisible(rectangle.visible));
   }
 
   public createEventObservable<T>(

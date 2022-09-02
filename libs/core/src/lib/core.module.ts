@@ -1,4 +1,5 @@
 import { InjectionToken, NgModule } from '@angular/core';
+
 import { NgMapsCircleDirective } from './directives/circle';
 import { NgMapsFitBoundsDirective } from './directives/fit-bounds';
 import { NgMapsInfoWindowComponent } from './directives/info-window';

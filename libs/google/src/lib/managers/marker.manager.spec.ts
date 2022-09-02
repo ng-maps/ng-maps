@@ -1,10 +1,11 @@
 import { NgZone } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
-
 import { isEqual } from 'lodash-es';
 
 import { NgMapsMarkerComponent } from '@ng-maps/core';
+
 import { GoogleMapsAPIWrapper } from '../google-maps-api-wrapper';
+
 import { GoogleMapsMarkerManager } from './marker.manager';
 
 xdescribe('MarkerManager', () => {

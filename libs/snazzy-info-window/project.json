@@ -5,15 +5,19 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
+      "outputs": ["dist/snazzy-info-window"],
       "options": {
-        "tsConfig": "libs/snazzy-info-window/tsconfig.lib.json",
         "project": "libs/snazzy-info-window/ng-package.json"
       },
       "configurations": {
+        "development": {
+          "tsConfig": "libs/snazzy-info-window/tsconfig.lib.json"
+        },
         "production": {
           "tsConfig": "libs/snazzy-info-window/tsconfig.lib.prod.json"
         }
-      }
+      },
+      "defaultConfiguration": "production"
     },
     "test": {
       "executor": "@angular-devkit/build-angular:karma",

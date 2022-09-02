@@ -8,8 +8,10 @@ import {
   shareReplay,
   switchMap,
 } from 'rxjs/operators';
+
 import { BoundsLiteral } from '../interface/bounds';
 import { GeoPoint } from '../interface/geo-point';
+
 import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 
 export interface FitBoundsDetails {

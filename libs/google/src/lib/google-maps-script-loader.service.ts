@@ -1,7 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { MapsAPILoader } from '@ng-maps/core';
 import { ReplaySubject } from 'rxjs';
+
+import { MapsAPILoader } from '@ng-maps/core';
+
 import {
   GoogleMapsScriptProtocol,
   GoogleModuleOptions,
@@ -40,6 +42,7 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
   /**
    * If no configuration is provided at load time you can use this function to provide configuration at any time.
    * Loading scripts will be postponed until a configuration is provided
+   *
    * @param config - {@link GoogleModuleOptions} configuration needed for bootstrapping
    */
   public configure(config: GoogleModuleOptions) {
@@ -122,13 +125,13 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
     };
     const params: string = Object.keys(queryParams)
       .filter((k: string) => queryParams[k] != null)
-      .filter((k: string) => {
+      .filter((k: string) => 
         // remove empty arrays
-        return (
+         (
           !Array.isArray(queryParams[k]) ||
           (Array.isArray(queryParams[k]) && queryParams[k].length > 0)
-        );
-      })
+        )
+      )
       .map((k: string) => {
         // join arrays as comma seperated strings
         const i = queryParams[k];
@@ -137,9 +140,7 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
         }
         return { key: k, value: queryParams[k] };
       })
-      .map((entry: { key: string; value: string }) => {
-        return `${entry.key}=${entry.value}`;
-      })
+      .map((entry: { key: string; value: string }) => `${entry.key}=${entry.value}`)
       .join('&');
     return `${protocol}//${hostAndPath}?${params}`;
   }

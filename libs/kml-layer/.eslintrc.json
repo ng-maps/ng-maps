@@ -8,7 +8,6 @@
         "project": ["libs/kml-layer/tsconfig.*?.json"],
         "createDefaultProgram": true
       },
-      "extends": ["prettier", "prettier/@typescript-eslint"],
       "rules": {
         "@angular-eslint/component-selector": [
           "error",

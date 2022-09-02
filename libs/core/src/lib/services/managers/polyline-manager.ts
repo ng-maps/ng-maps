@@ -1,9 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GeoPoint } from '../../interface/geo-point';
+
 
 import { NgMapsPolyline } from '../../directives/polyline';
 import { NgMapsPolylinePoint } from '../../directives/polyline-point';
+import { GeoPoint } from '../../interface/geo-point';
 import { MapsApiWrapper } from '../maps-api-wrapper';
 
 @Injectable()
@@ -19,12 +20,10 @@ export abstract class PolylineManager<T = any> {
   ) {}
 
   protected _convertPoints(line: NgMapsPolyline): Array<GeoPoint> {
-    return line._getPoints().map((point: NgMapsPolylinePoint) => {
-      return {
+    return line._getPoints().map((point: NgMapsPolylinePoint) => ({
         lat: point.latitude,
         lng: point.longitude,
-      } as google.maps.LatLngLiteral;
-    });
+      } as google.maps.LatLngLiteral));
   }
 
   public abstract addPolyline(line: NgMapsPolyline);

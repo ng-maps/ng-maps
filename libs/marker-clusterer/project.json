@@ -5,15 +5,19 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
+      "outputs": ["dist/marker-clusterer"],
       "options": {
-        "tsConfig": "libs/marker-clusterer/tsconfig.lib.json",
         "project": "libs/marker-clusterer/ng-package.json"
       },
       "configurations": {
+        "development": {
+          "tsConfig": "libs/marker-clusterer/tsconfig.lib.json"
+        },
         "production": {
           "tsConfig": "libs/marker-clusterer/tsconfig.lib.prod.json"
         }
-      }
+      },
+      "defaultConfiguration": "production"
     },
     "test": {
       "executor": "@angular-devkit/build-angular:karma",

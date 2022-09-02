@@ -11,7 +11,9 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { PolylineManager } from '../services/managers/polyline-manager';
+
 import { NgMapsPolylinePoint } from './polyline-point';
 
 let polylineId = 0;

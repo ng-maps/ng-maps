@@ -1,3 +1,3 @@
 import { ShapeOptions } from './shape-options';
 
-export interface RectangleOptions extends ShapeOptions {}
+export type RectangleOptions = ShapeOptions

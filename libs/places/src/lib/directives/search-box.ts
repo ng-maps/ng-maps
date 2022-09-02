@@ -11,8 +11,10 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { MapsAPILoader } from '@ng-maps/core';
 import { fromEventPattern, Subscription } from 'rxjs';
+
+import { MapsAPILoader } from '@ng-maps/core';
+
 import {
   NgMapsPlacesConfiguration,
   NG_MAPS_PLACES_DEFAULT_CONFIGURATION,

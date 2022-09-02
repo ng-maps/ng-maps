@@ -9,6 +9,7 @@ import {
   SimpleChange,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { BoundsLiteral } from '../interface/bounds';
 import { CircleOptions } from '../interface/circle-options';
 import { GeoPoint } from '../interface/geo-point';
@@ -86,6 +87,7 @@ export class NgMapsCircleDirective
   /**
    * The stroke position. Defaults to CENTER.
    * This property is not supported on Internet Explorer 8 and earlier.
+   *
    * @fixme
    */
   // @Input() strokePosition: google.maps.StrokePosition =

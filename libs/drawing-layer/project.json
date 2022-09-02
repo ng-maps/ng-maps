@@ -5,15 +5,19 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
+      "outputs": ["dist/drawing-layer"],
       "options": {
-        "tsConfig": "libs/drawing-layer/tsconfig.lib.json",
         "project": "libs/drawing-layer/ng-package.json"
       },
       "configurations": {
+        "development": {
+          "tsConfig": "libs/drawing-layer/tsconfig.lib.json"
+        },
         "production": {
           "tsConfig": "libs/drawing-layer/tsconfig.lib.prod.json"
         }
-      }
+      },
+      "defaultConfiguration": "production"
     },
     "test": {
       "executor": "@angular-devkit/build-angular:karma",

@@ -5,6 +5,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { first } from 'rxjs/operators';
+
 import { FitBoundsService } from './fit-bounds';
 import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 

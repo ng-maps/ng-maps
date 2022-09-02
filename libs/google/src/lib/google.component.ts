@@ -1,4 +1,5 @@
 import { Component, NgZone } from '@angular/core';
+
 import {
   CircleManager,
   FitBoundsService,
@@ -11,6 +12,7 @@ import {
   PolylineManager,
   RectangleManager,
 } from '@ng-maps/core';
+
 import { GoogleMapsAPIWrapper } from './google-maps-api-wrapper';
 import { GoogleMapsFitBoundsService } from './google-maps-fit-bounds.service';
 import { GoogleCircleManager } from './managers/circle.manager';

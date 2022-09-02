@@ -9,6 +9,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { GeoPoint } from '../interface/geo-point';
 import { PolygonManager } from '../services/managers/polygon.manager';
 

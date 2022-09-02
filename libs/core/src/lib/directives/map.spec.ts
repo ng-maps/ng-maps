@@ -2,8 +2,10 @@ import { ElementRef, Injectable, SimpleChange } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { mockProvider } from '@ngneat/spectator';
 import { EMPTY } from 'rxjs';
+
 import { FitBoundsService } from '../services/fit-bounds';
 import { MapsApiWrapper as GoogleMapsAPIWrapper } from '../services/maps-api-wrapper';
+
 import { NgMapsViewComponent } from './map';
 
 @Injectable()

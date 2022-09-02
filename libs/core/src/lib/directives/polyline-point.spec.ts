@@ -1,4 +1,5 @@
 import { SimpleChange, SimpleChanges } from '@angular/core';
+
 import { NgMapsPolylinePoint } from './polyline-point';
 
 describe('PolylinePoint', () => {

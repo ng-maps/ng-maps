@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { NgMapsCircleDirective } from '../../directives/circle';
 import { BoundsLiteral } from '../../interface/bounds';
 import { CircleOptions } from '../../interface/circle-options';

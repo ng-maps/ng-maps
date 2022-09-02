@@ -1,4 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import {
   BoundsLiteral,
   CircleOptions,
@@ -9,7 +11,6 @@ import {
   MarkerOptions,
   RectangleOptions,
 } from '@ng-maps/core';
-import { Observable } from 'rxjs';
 
 /**
  * Wrapper class that handles the communication with the Google Maps Javascript
@@ -81,6 +82,7 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
 
   /**
    * Creates a google.map.Circle for the current map.
+   *
    * @todo check how to improve type casting
    */
   public async createCircle(

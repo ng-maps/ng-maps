@@ -1,4 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+
 import {
   GeoPoint,
   InfoWindowManager,
@@ -6,7 +8,6 @@ import {
   MarkerManager,
   NgMapsInfoWindowComponent,
 } from '@ng-maps/core';
-import { Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class GoogleInfoWindowManager extends InfoWindowManager<google.maps.InfoWindow> {

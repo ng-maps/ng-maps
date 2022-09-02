@@ -2,6 +2,7 @@ import { NgZone } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
 
 import { GoogleMapsAPIWrapper, NgMapsMarkerComponent } from '@ng-maps/core';
+
 import { ClusterManager } from './cluster-manager';
 
 describe('ClusterManager', () => {

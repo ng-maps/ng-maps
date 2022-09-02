@@ -1,4 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
+
 import {
   NgMapsPlacesConfiguration,
   NG_MAPS_PLACES_DEFAULT_CONFIGURATION,

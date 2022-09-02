@@ -5,7 +5,6 @@
     "data-layer": "libs/data-layer",
     "drawing-layer": "libs/drawing-layer",
     "google": "libs/google",
-    "google-maps-loader": "libs/google-maps-loader",
     "here": "libs/here",
     "kml-layer": "libs/kml-layer",
     "marker-clusterer": "libs/marker-clusterer",

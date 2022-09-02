@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { BoundsLiteral } from '../interface/bounds';
 import { CircleOptions } from '../interface/circle-options';
 import { GeoPoint } from '../interface/geo-point';
@@ -7,6 +8,7 @@ import { MapOptions } from '../interface/map-options';
 import { MarkerOptions } from '../interface/marker-options';
 import { Padding } from '../interface/padding';
 import { RectangleOptions } from '../interface/rectangle-options';
+
 import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 
 @Injectable()

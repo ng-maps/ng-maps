@@ -12,6 +12,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { BoundsLiteral } from '../interface/bounds';
 import { GeoPoint } from '../interface/geo-point';
 import { LayerTypes } from '../interface/layers';
@@ -616,9 +617,7 @@ export class NgMapsViewComponent<T>
     this._zone.runOutsideAngular(() => {
       this._fitBoundsSubscription = this._fitBoundsService
         .getBounds$()
-        .subscribe((b) => {
-          return this._zone.run(() => this._updateBounds(b));
-        });
+        .subscribe((b) => this._zone.run(() => this._updateBounds(b)));
     });
   }
 

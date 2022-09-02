@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+
 import {
   FitBoundsAccessor,
   FitBoundsDetails,
@@ -18,6 +19,7 @@ import {
 /**
  * Adds the given directive to the auto fit bounds feature when the value is true.
  * To make it work with you custom AGM component, you also have to implement the {@link FitBoundsAccessor} abstract class.
+ *
  * @example
  * <map-marker [mapFitBounds]="true"></map-marker>
  */

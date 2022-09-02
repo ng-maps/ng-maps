@@ -62,6 +62,7 @@ export class ScriptLoaderService {
 
   /**
    * Dynamically loads the given script
+   *
    * @param src The url of the script to load dynamically
    * @param integrity set integrity check value
    * @returns Observable<UIEvent> Observable that will be resolved once the script has been loaded.
@@ -80,6 +81,7 @@ export class ScriptLoaderService {
 
   /**
    * Dynamically loads the given CSS file
+   *
    * @param href The url of the CSS to load dynamically
    * @returns Observable<UIEvent> Promise that will be resolved once the CSS file has been loaded.
    */

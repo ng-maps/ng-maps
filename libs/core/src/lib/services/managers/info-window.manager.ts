@@ -1,7 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { NgMapsInfoWindowComponent } from '../../directives/info-window';
 import { MapsApiWrapper } from '../maps-api-wrapper';
+
 import { MarkerManager } from './marker.manager';
 
 @Injectable()

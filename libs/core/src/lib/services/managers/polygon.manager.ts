@@ -1,5 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { NgMapsPolygonDirective } from '../../directives/polygon';
 import { MapsApiWrapper } from '../maps-api-wrapper';
 

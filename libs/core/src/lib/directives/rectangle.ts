@@ -9,6 +9,7 @@ import {
   SimpleChange,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { BoundsLiteral } from '../interface/bounds';
 import { RectangleOptions } from '../interface/rectangle-options';
 import { RectangleManager } from '../services/managers/rectangle-manager';

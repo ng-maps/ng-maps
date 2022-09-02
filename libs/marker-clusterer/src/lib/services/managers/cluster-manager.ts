@@ -1,12 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
 import MarkerClusterer from '@google/markerclusterer';
+import { Observable, Observer } from 'rxjs';
+
 import {
   MapsApiWrapper,
   NgMapsMarkerComponent,
   NgMapsViewComponent,
 } from '@ng-maps/core';
 import { GoogleMapsMarkerManager } from '@ng-maps/google';
-import { Observable, Observer } from 'rxjs';
+
 import { MarkerClusterComponent } from '../../directives/marker-cluster';
 
 @Injectable({

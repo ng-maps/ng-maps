@@ -1,10 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+
 import {
   MapsApiWrapper,
   MarkerManager,
   NgMapsMarkerComponent,
 } from '@ng-maps/core';
-import { Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
