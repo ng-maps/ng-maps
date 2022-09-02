@@ -21,6 +21,12 @@
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"]
+    },
+    "version": {
+      "dependsOn": ["^version", "^build"]
+    },
+    "publish": {
+      "dependsOn": ["^build"]
     }
   },
   "cli": {

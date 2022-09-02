@@ -11,9 +11,7 @@
     "marker-clusterer": "libs/marker-clusterer",
     "places": "libs/places",
     "sample": "apps/sample",
-    "sample-e2e": "apps/sample-e2e",
     "sample-here": "apps/sample-here",
-    "sample-here-e2e": "apps/sample-here-e2e",
     "snazzy-info-window": "libs/snazzy-info-window"
   }
 }

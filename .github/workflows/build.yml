@@ -1,0 +1,73 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      head:
+        description: 'HEAD to use instead of NX'
+        required: true
+        type: string
+      base:
+        description: 'Base to use instead of NX'
+        required: true
+        type: string
+    outputs:
+      has_dist:
+        description: 'Is dist created?'
+        value: ${{ jobs.build.outputs.has_dist }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    outputs:
+      has_dist: ${{ steps.check_dist.outputs.files_exists }}
+    env:
+      NX_BASE: ${{inputs.base}}
+      NX_HEAD: ${{inputs.head}}
+    steps:
+      - run: |
+          echo "BASE: ${{ env.NX_BASE }}"
+          echo "HEAD: ${{ env.NX_HEAD }}"
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: npm_cache
+        with:
+          path: node_modules
+          key: cache-node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Dependencies
+        if: steps.npm_cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Cache Nx
+        uses: actions/cache@v3
+        with:
+          path: node_modules/.cache/nx
+          key: cache-nx-${{ hashFiles('package-lock.json') }}-${{github.ref_name}}-${{ github.sha }}
+          restore-keys: |
+            cache-nx-${{ hashFiles('package-lock.json') }}-${{github.ref_name}}-
+            cache-nx-${{ hashFiles('package-lock.json') }}-
+            cache-nx-
+
+      - run: npm run version:build
+
+      - name: Build
+        run: npx nx affected --target=build --configuration=production
+
+      - name: Check dist
+        id: check_dist
+        uses: andstor/file-existence-action@v1
+        with:
+          files: 'dist'
+
+      - name: Upload dist
+        if: steps.check_dist.outputs.files_exists == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist

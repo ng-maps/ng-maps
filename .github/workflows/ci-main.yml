@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# This workflow is triggered on pushes to the repository.
+jobs:
+  tags:
+    name: Tags
+    uses: ./.github/workflows/tags.yml
+    secrets: inherit
+
+  prepare:
+    name: Prepare
+    uses: ./.github/workflows/prepare.yml
+    secrets: inherit
+
+  qa:
+    name: QA
+    uses: ./.github/workflows/qa.yml
+    needs:
+      - prepare
+      - tags
+    secrets: inherit
+    with:
+      base: ${{needs.tags.outputs.base}}
+      head: ${{needs.tags.outputs.head}}
+
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yml
+    needs:
+      - prepare
+      - tags
+    secrets: inherit
+    with:
+      base: ${{needs.tags.outputs.base}}
+      head: ${{needs.tags.outputs.head}}

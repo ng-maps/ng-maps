@@ -1,0 +1,35 @@
+name: Prepare
+
+on:
+  workflow_call:
+
+jobs:
+  prepare:
+    name: Prepare
+    runs-on: ubuntu-latest
+    outputs:
+      cypress-version: ${{ steps.cypress-version.outputs.CYPRESS_VERSION }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache node modules
+        id: npm_cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: cache-node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Cypress Version
+        id: cypress-version
+        run: echo "::set-output name=CYPRESS_VERSION::$(npm pkg get devDependencies.cypress)"
+
+      - name: Cache cypress
+        id: cypress_cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/Cypress
+          key: cache-cypress-${{ steps.cypress-version.outputs.CYPRESS_VERSION }}
+
+      - name: Install Dependencies
+        if: steps.npm_cache.outputs.cache-hit != 'true' || steps.cypress_cache.outputs.cache-hit != 'true'
+        run: npm ci

@@ -1,0 +1,27 @@
+name: Tags
+
+on:
+  workflow_call:
+    outputs:
+      head:
+        description: 'HEAD SHA'
+        value: ${{ jobs.tags.outputs.head }}
+      base:
+        description: 'Base SHA'
+        value: ${{ jobs.tags.outputs.base }}
+
+jobs:
+  tags:
+    name: Tags
+    runs-on: ubuntu-latest
+    outputs:
+      base: ${{ steps.sha.outputs.base }}
+      head: ${{ steps.sha.outputs.head }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: nrwl/nx-set-shas@v2
+        id: sha
+        with:
+          main-branch-name: ${{ github.event.repository.default_branch }}

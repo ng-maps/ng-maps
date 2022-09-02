@@ -1,0 +1,41 @@
+name: Version (automatic)
+concurrency: version
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: Name of the project
+        required: true
+        type: string
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    name: New version for project ${{inputs.project}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: npm_cache
+        with:
+          path: node_modules
+          key: cache-node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Dependencies
+        if: steps.npm_cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Setup Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Version
+        run: npx nx run ${{inputs.project}}:version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
