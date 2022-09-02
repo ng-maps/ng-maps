@@ -18,6 +18,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+
       - name: Cache node modules
         uses: actions/cache@v3
         id: npm_cache
@@ -38,4 +43,5 @@ jobs:
         run: npx nx run ${{inputs.project}}:version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
