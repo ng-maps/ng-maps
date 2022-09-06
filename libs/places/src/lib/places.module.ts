@@ -19,6 +19,10 @@ export function placesDirectives() {
   exports: placesDirectives(),
 })
 export class NgMapsPlacesModule {
+  /**
+   * configure the NgMapsPlacesModule with a value
+   * @param config
+   */
   public static forRoot(
     config: NgMapsPlacesConfiguration,
   ): ModuleWithProviders<NgMapsPlacesModule> {
@@ -33,6 +37,11 @@ export class NgMapsPlacesModule {
     };
   }
 
+  /**
+   * configure the NgMapsPlacesModule with a factory
+   * @param factory
+   * @param deps
+   */
   public static forRootFactory(
     factory: (...args: Array<any>) => NgMapsPlacesConfiguration,
     deps?: Array<any>,
