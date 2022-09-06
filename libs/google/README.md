@@ -1,6 +1,6 @@
-# @ng-maps/core
+# @ng-maps/google
 
-**@ng-maps/core** is a simple, modular and tree-shakable library for displaying google-maps inside an angular application
+**@ng-maps/google** is a simple, modular and tree-shakable library for displaying google-maps inside an angular application
 
 ## Installation
 

@@ -1,4 +1,4 @@
-# Here Maps Module
+# @ng-maps/here
 
 Provider for Here Maps
 

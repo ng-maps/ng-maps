@@ -62,6 +62,7 @@
       "options": {
         "preset": "conventional",
         "push": true,
+        "tagPrefix": "${projectName}/",
         "postTargets": ["data-layer:publish", "data-layer:github"]
       }
     }

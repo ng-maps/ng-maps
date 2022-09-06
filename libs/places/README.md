@@ -1,6 +1,6 @@
 # @ng-maps/places
 
-Components related
+Components related to places library. Currently only an autocomplete directive is implemented that can be attached to an input field to provide places suggestions
 
 ## Installation
 

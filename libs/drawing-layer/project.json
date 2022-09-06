@@ -62,6 +62,7 @@
       "options": {
         "preset": "conventional",
         "push": true,
+        "tagPrefix": "${projectName}/",
         "postTargets": ["drawing-layer:publish", "drawing-layer:github"]
       }
     }

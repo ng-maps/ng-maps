@@ -14,7 +14,7 @@ Then you will need to install typings for google maps as a dev dependency
 
 Add `NgMapsCoreModule` to your _AppModule_.
 
-Additionally you will need to add the `@ng-maps/google` module and follow [the instruction there](https://ng-maps.github.io/google/index.html). As alternative there is a here maps module which isn't ready for production yet.
+Additionally, you will need to add the `@ng-maps/google` module and follow [the instruction there](https://ng-maps.github.io/google/index.html). As alternative there is a here maps module which isn't ready for production yet.
 
 ### Lazy loading configuration
 

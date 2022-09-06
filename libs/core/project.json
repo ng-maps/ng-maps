@@ -59,6 +59,7 @@
       "options": {
         "preset": "conventional",
         "push": true,
+        "tagPrefix": "${projectName}/",
         "postTargets": ["core:publish", "core:github"]
       }
     }
