@@ -18,6 +18,10 @@ import { GOOGLE_MAPS_API_CONFIG, GoogleModuleOptions } from './options';
   ],
 })
 export class NgMapsGoogleModule {
+  /**
+   * configure the NgMapsGoogleModule with a value
+   * @param config
+   */
   public static forRoot(
     config: GoogleModuleOptions,
   ): ModuleWithProviders<NgMapsGoogleModule> {
@@ -32,8 +36,13 @@ export class NgMapsGoogleModule {
     };
   }
 
+  /**
+   * configure the NgMapsGoogleModule with a factory
+   * @param factory
+   */
   public static forRootFactory(
-    factory: () => GoogleModuleOptions | Promise<GoogleModuleOptions>,
+    factory: (...args: Array<any>) => GoogleModuleOptions,
+    deps?: Array<any>,
   ): ModuleWithProviders<NgMapsGoogleModule> {
     return {
       ngModule: NgMapsGoogleModule,
@@ -41,6 +50,7 @@ export class NgMapsGoogleModule {
         {
           provide: GOOGLE_MAPS_API_CONFIG,
           useFactory: factory,
+          deps,
         },
       ],
     };
