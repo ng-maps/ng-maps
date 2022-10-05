@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgMapsCoreModule } from '@ng-maps/core';
 import { GOOGLE_MAPS_API_CONFIG, NgMapsGoogleModule } from '@ng-maps/google';
@@ -37,9 +37,10 @@ import { ClusterWithWindowComponent } from './cluster-with-window/cluster-with-w
     ClusterWithWindowComponent,
   ],
   imports: [
-    BrowserModule,
-    ReactiveFormsModule,
     AppRoutingModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgMapsCoreModule,
     NgMapsGoogleModule,
     NgMapsMarkerClustererModule,
@@ -51,6 +52,7 @@ import { ClusterWithWindowComponent } from './cluster-with-window/cluster-with-w
       provide: GOOGLE_MAPS_API_CONFIG,
       useValue: {
         apiKey: 'AIzaSyAtee0zgzh-_8JgWoRXFf2Lac61vkk0GZc',
+        libraries: ['places'],
       },
     },
     {

@@ -1,6 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { MapsAPILoader, MAP_PROVIDER } from '@ng-maps/core';
+import { NG_MAPS_PLACES_DEFAULT_CONFIGURATION } from '@ng-maps/places';
 
 import { GoogleMapsScriptLoader } from './google-maps-script-loader.service';
 import { GoogleComponent } from './google.component';
@@ -13,6 +14,10 @@ import { GOOGLE_MAPS_API_CONFIG, GoogleModuleOptions } from './options';
     { provide: MapsAPILoader, useClass: GoogleMapsScriptLoader },
     {
       provide: MAP_PROVIDER,
+      useValue: 'GoogleMaps',
+    },
+    {
+      provide: NG_MAPS_PLACES_DEFAULT_CONFIGURATION,
       useValue: 'GoogleMaps',
     },
   ],

@@ -1,1 +1,5 @@
 <p>autocomplete works!</p>
+<map-view [latitude]="lat" [longitude]="lng" [zoom]="8">
+  <map-marker [latitude]="lat" [longitude]="lng"></map-marker>
+</map-view>
+<input [mapAutocomplete] (placeResult)="onPlacesResult($event)" />
