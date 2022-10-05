@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgMapsCoreModule } from '@ng-maps/core';
 import { GOOGLE_MAPS_API_CONFIG, NgMapsGoogleModule } from '@ng-maps/google';
@@ -39,7 +39,6 @@ import { ClusterWithWindowComponent } from './cluster-with-window/cluster-with-w
   imports: [
     AppRoutingModule,
     BrowserModule,
-    FormsModule,
     ReactiveFormsModule,
     NgMapsCoreModule,
     NgMapsGoogleModule,
