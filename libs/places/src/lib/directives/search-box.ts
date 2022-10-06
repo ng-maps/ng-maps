@@ -34,7 +34,7 @@ export class NgMapsSearchBoxDirective implements OnInit, OnChanges, OnDestroy {
    */
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('mapSearchBox')
-  public config: google.maps.places.SearchBoxOptions;
+  public config: google.maps.places.SearchBoxOptions | undefined | null;
 
   /**
    * This event is fired on selection of an element from the autocomplete list.
@@ -67,10 +67,10 @@ export class NgMapsSearchBoxDirective implements OnInit, OnChanges, OnDestroy {
   /** @internal */
   public ngOnInit(): void {
     if (typeof this.config === 'undefined') {
-      this.config = this.defaultConfig.searchBox;
+      this.config = this.defaultConfig?.searchBox;
     } else {
       this.config = {
-        ...this.defaultConfig.searchBox,
+        ...(this.defaultConfig?.searchBox ?? {}),
         ...this.config,
       };
     }

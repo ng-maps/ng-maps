@@ -5,6 +5,8 @@ export interface NgMapsPlacesConfiguration {
   searchBox?: google.maps.places.SearchBoxOptions;
 }
 
-export const NG_MAPS_PLACES_DEFAULT_CONFIGURATION = new InjectionToken<NgMapsPlacesConfiguration>(
-  'NgMapsPlacesDefaultConfiguration',
-);
+export const NG_MAPS_PLACES_DEFAULT_CONFIGURATION =
+  new InjectionToken<NgMapsPlacesConfiguration>(
+    'NgMapsPlacesDefaultConfiguration',
+    { providedIn: 'root', factory: () => ({}) },
+  );

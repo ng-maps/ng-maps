@@ -70,18 +70,12 @@ export class NgMapsAutocompleteDirective
     if (typeof this.config === 'undefined') {
       this.config = {
         types: ['address'],
-      };
-    }
-
-    if (typeof this.config === 'undefined') {
-      this.config = {
-        types: ['address'],
-        ...this.defaultConfig.autocomplete,
+        ...(this.defaultConfig?.autocomplete ?? {}),
       };
     } else {
       this.config = {
         types: ['address'],
-        ...this.defaultConfig.searchBox,
+        ...(this.defaultConfig?.autocomplete ?? {}),
         ...this.config,
       };
     }

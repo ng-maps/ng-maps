@@ -21,6 +21,14 @@ You will also need to load the places library together with google maps. To achi
 }
 ```
 
+### Configuration
+
+There are different possibilities to add a default configuration to the module.
+
+You can use either `NgMapsPlacesModule.forRoot(<ConfigOptions>)` or `NgMapsPlacesModule.forRootFactory(() => <ConfigOptions>, [...depts])`.
+
+Or you can provide a configuration with the `NG_MAPS_PLACES_DEFAULT_CONFIGURATION` injection token.
+
 ## Directives
 
 ### Autocomplete
