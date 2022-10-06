@@ -2,6 +2,8 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [3.0.2](https://github.com/ng-maps/ng-maps/compare/core/3.0.1...core/3.0.2) (2022-10-06)
+
 ## [3.0.1](https://github.com/ng-maps/ng-maps/compare/core-3.0.0...core-3.0.1) (2022-09-02)
 
 
