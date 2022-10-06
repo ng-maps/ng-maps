@@ -5,7 +5,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/marker-clusterer"],
+      "outputs": ["dist/libs/marker-clusterer"],
       "options": {
         "project": "libs/marker-clusterer/ng-package.json"
       },

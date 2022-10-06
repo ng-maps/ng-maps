@@ -5,7 +5,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/snazzy-info-window"],
+      "outputs": ["dist/libs/snazzy-info-window"],
       "options": {
         "project": "libs/snazzy-info-window/ng-package.json"
       },

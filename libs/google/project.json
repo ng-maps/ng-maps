@@ -5,7 +5,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/google"],
+      "outputs": ["dist/libs/google"],
       "options": {
         "project": "libs/google/ng-package.json"
       },
