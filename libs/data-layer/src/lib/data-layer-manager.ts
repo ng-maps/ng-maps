@@ -24,7 +24,9 @@ export class DataLayerManager {
    * Adds a new Data Layer to the map.
    */
   async addDataLayer(layer: NgMapsDataLayer) {
+    const map = await this._wrapper.getNativeMap();
     const d = await this._wrapper.createDataLayer({
+      map,
       style: layer.style,
     });
     if (layer.geoJson) {
