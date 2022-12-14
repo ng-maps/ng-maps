@@ -25,6 +25,9 @@
     },
     "test": {
       "inputs": ["default", "^production", "{workspaceRoot}/karma.conf.js"]
+    },
+    "lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     }
   },
   "cli": {
@@ -37,7 +40,8 @@
       "default",
       "!{projectRoot}/**/*.spec.[jt]s",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/karma.conf.js"
+      "!{projectRoot}/karma.conf.js",
+      "!{projectRoot}/.eslintrc.json"
     ]
   }
 }
