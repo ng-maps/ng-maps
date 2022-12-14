@@ -50,7 +50,6 @@ export class GoogleInfoWindowManager extends InfoWindowManager<google.maps.InfoW
   public async open(infoWindow: NgMapsInfoWindowComponent): Promise<void> {
     const w = this._infoWindows.get(infoWindow);
     const map = await this._mapsWrapper.getNativeMap();
-    console.log('open', w);
     if (infoWindow.hostMarker != null) {
       const marker = await this._markerManager.getNativeMarker(
         infoWindow.hostMarker,
