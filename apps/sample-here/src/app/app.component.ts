@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
     console.log($event);
   }
 
-  mouseOut($event: google.maps.MouseEvent) {
+  mouseOut($event: google.maps.MapMouseEvent) {
     console.log('mouseOut', $event);
   }
 

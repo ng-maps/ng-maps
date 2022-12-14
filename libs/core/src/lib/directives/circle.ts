@@ -119,61 +119,71 @@ export class NgMapsCircleDirective
    * This event emitter gets emitted when the user clicks on the circle.
    */
   @Output()
-  public circleClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public circleClick: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event emitter gets emitted when the user clicks on the circle.
    */
   @Output()
-  public circleDblClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public circleDblClick: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is repeatedly fired while the user drags the circle.
    */
   @Output()
-  public drag: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public drag: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired when the user stops dragging the circle.
    */
   @Output()
-  public dragEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public dragEnd: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired when the user starts dragging the circle.
    */
   @Output()
-  public dragStart: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public dragStart: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired when the DOM mousedown event is fired on the circle.
    */
   @Output()
-  public mouseDown: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public mouseDown: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired when the DOM mousemove event is fired on the circle.
    */
   @Output()
-  public mouseMove: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public mouseMove: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired on circle mouseout.
    */
   @Output()
-  public mouseOut: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public mouseOut: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired on circle mouseover.
    */
   @Output()
-  public mouseOver: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public mouseOver: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired when the DOM mouseup event is fired on the circle.
    */
   @Output()
-  public mouseUp: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public mouseUp: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired when the circle's radius is changed.
@@ -185,7 +195,8 @@ export class NgMapsCircleDirective
    * This event is fired when the circle is right-clicked on.
    */
   @Output()
-  public rightClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public rightClick: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   private _circleAddedToManager: boolean = false;
 
@@ -258,7 +269,7 @@ export class NgMapsCircleDirective
     events.forEach((eventEmitter, eventName) => {
       this.subscription.add(
         this._manager
-          .createEventObservable<google.maps.MouseEvent>(eventName, this)
+          .createEventObservable<google.maps.MapMouseEvent>(eventName, this)
           .subscribe((value) => {
             switch (eventName) {
               case 'radius_changed':

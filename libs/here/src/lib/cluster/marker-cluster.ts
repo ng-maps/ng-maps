@@ -27,7 +27,8 @@ import { Calculator, MarkerClustererOptions } from './cluster-options';
   ],
 })
 export class MarkerClusterComponent
-  implements OnDestroy, OnChanges, OnInit, MarkerClustererOptions {
+  implements OnDestroy, OnChanges, OnInit, MarkerClustererOptions
+{
   /**
    * Whether the center of each cluster should be the average of all markers in the cluster.
    */
@@ -68,7 +69,8 @@ export class MarkerClusterComponent
   @Input() zoomOnClick: boolean;
 
   @Output()
-  clusterClick: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  clusterClick: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   private _observableSubscriptions: Array<Subscription> = [];
 
@@ -117,7 +119,7 @@ export class MarkerClusterComponent
     const handlers = [
       {
         name: 'clusterclick',
-        handler: (ev: google.maps.MouseEvent) => this.clusterClick.emit(ev),
+        handler: (ev: google.maps.MapMouseEvent) => this.clusterClick.emit(ev),
       },
     ];
     handlers.forEach((obj) => {

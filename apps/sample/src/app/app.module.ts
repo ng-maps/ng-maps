@@ -3,10 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgMapsCoreModule } from '@ng-maps/core';
 import { GOOGLE_MAPS_API_CONFIG, NgMapsGoogleModule } from '@ng-maps/google';
-import {
-  MARKER_CLUSTER_CONFIG,
-  NgMapsMarkerClustererModule,
-} from '@ng-maps/marker-clusterer';
+import { NgMapsMarkerClustererModule } from '@ng-maps/marker-clusterer';
 import { NgMapsPlacesModule } from '@ng-maps/places';
 import { NgMapsSnazzyInfoWindowModule } from '@ng-maps/snazzy-info-window';
 import { AppRoutingModule } from './app-routing.module';
@@ -51,12 +48,6 @@ import { ClusterWithWindowComponent } from './cluster-with-window/cluster-with-w
       provide: GOOGLE_MAPS_API_CONFIG,
       useValue: {
         apiKey: 'AIzaSyAtee0zgzh-_8JgWoRXFf2Lac61vkk0GZc',
-      },
-    },
-    {
-      provide: MARKER_CLUSTER_CONFIG,
-      useValue: {
-        imagePath: '/assets/images/m',
       },
     },
   ],

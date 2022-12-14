@@ -20,8 +20,8 @@
     "url": "https://github.com/ng-maps/ng-maps.git"
   },
   "peerDependencies": {
-    "@angular/common": "^14.0.0",
-    "@angular/core": "^14.0.0"
+    "@angular/common": "^14.0.0 || ^15.0.0",
+    "@angular/core": "^14.0.0 || ^15.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

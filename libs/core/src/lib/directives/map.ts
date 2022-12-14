@@ -329,21 +329,24 @@ export class NgMapsViewComponent<T>
    * marker or infoWindow).
    */
   @Output()
-  public mapClick: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  public mapClick: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event emitter gets emitted when the user right-clicks on the map (but not when they click
    * on a marker or infoWindow).
    */
   @Output()
-  public mapRightClick: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  public mapRightClick: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event emitter gets emitted when the user double-clicks on the map (but not when they click
    * on a marker or infoWindow).
    */
   @Output()
-  public mapDblClick: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  public mapDblClick: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event emitter is fired when the map center changes.
@@ -355,13 +358,15 @@ export class NgMapsViewComponent<T>
    * This event is fired when the viewport bounds have changed.
    */
   @Output()
-  public boundsChange: EventEmitter<BoundsLiteral> = new EventEmitter<BoundsLiteral>();
+  public boundsChange: EventEmitter<BoundsLiteral> =
+    new EventEmitter<BoundsLiteral>();
 
   /**
    * This event is fired when the mapTypeId property changes.
    */
   @Output()
-  public mapTypeIdChange: EventEmitter<google.maps.MapTypeId> = new EventEmitter<google.maps.MapTypeId>();
+  public mapTypeIdChange: EventEmitter<google.maps.MapTypeId> =
+    new EventEmitter<google.maps.MapTypeId>();
 
   /**
    * This event is fired when the map becomes idle after panning or zooming.

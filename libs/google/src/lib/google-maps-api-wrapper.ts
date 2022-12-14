@@ -163,13 +163,11 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
   /**
    * @fixme typings
    */
-  public subscribeToMapEvent<
-    N extends keyof google.maps.MapHandlerMap<google.maps.Map>,
-  >(eventName: N): Observable<google.maps.MapHandlerMap<google.maps.Map>[N]> {
+  public subscribeToMapEvent(eventName: string): Observable<any> {
     return new Observable((observer) => {
       this._api.then((m) =>
         m.addListener(eventName, (...evArgs) =>
-          this._zone.run(() => observer.next(evArgs as any)),
+          this._zone.run(() => observer.next(evArgs)),
         ),
       );
     });

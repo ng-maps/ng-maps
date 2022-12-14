@@ -152,7 +152,8 @@ export class NgMapsMarkerComponent
    * This event emitter gets emitted when the user clicks on the marker.
    */
   @Output()
-  public markerClick: EventEmitter<NgMapsMarkerComponent> = new EventEmitter<NgMapsMarkerComponent>();
+  public markerClick: EventEmitter<NgMapsMarkerComponent> =
+    new EventEmitter<NgMapsMarkerComponent>();
 
   /**
    * This event is fired when the user rightclicks on the marker.
@@ -164,37 +165,43 @@ export class NgMapsMarkerComponent
    * This event is fired when the user starts dragging the marker.
    */
   @Output()
-  public dragStart: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  public dragStart: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is repeatedly fired while the user drags the marker.
    */
   @Output()
-  public drag: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  public drag: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired when the user stops dragging the marker.
    */
   @Output()
-  public dragEnd: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  public dragEnd: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired when the user mouses over the marker.
    */
   @Output()
-  public mouseOver: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  public mouseOver: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * This event is fired when the user mouses outside the marker.
    */
   @Output()
-  public mouseOut: EventEmitter<google.maps.MouseEvent> = new EventEmitter<google.maps.MouseEvent>();
+  public mouseOut: EventEmitter<google.maps.MapMouseEvent> =
+    new EventEmitter<google.maps.MapMouseEvent>();
 
   /**
    * @internal
    */
   @ContentChildren(NgMapsInfoWindowComponent)
-  public infoWindow: QueryList<NgMapsInfoWindowComponent> = new QueryList<NgMapsInfoWindowComponent>();
+  public infoWindow: QueryList<NgMapsInfoWindowComponent> =
+    new QueryList<NgMapsInfoWindowComponent>();
 
   private _markerAddedToManger: boolean = false;
   private _id: string;
@@ -318,42 +325,42 @@ export class NgMapsMarkerComponent
     this.subscription.add(rc);
 
     const ds = this.markerManager
-      .createEventObservable<google.maps.MouseEvent>('dragstart', this)
-      .subscribe((e: google.maps.MouseEvent) => {
+      .createEventObservable<google.maps.MapMouseEvent>('dragstart', this)
+      .subscribe((e: google.maps.MapMouseEvent) => {
         this.dragStart.emit(e);
       });
     this.subscription.add(ds);
 
     const d = this.markerManager
-      .createEventObservable<google.maps.MouseEvent>('drag', this)
-      .subscribe((e: google.maps.MouseEvent) => {
+      .createEventObservable<google.maps.MapMouseEvent>('drag', this)
+      .subscribe((e: google.maps.MapMouseEvent) => {
         this.drag.emit(e);
       });
     this.subscription.add(d);
 
     const dragend = this.markerManager
-      .createEventObservable<google.maps.MouseEvent>('dragend', this)
-      .subscribe((e: google.maps.MouseEvent) => {
+      .createEventObservable<google.maps.MapMouseEvent>('dragend', this)
+      .subscribe((e: google.maps.MapMouseEvent) => {
         this.dragEnd.emit(e);
       });
     this.subscription.add(dragend);
 
     const mouseover = this.markerManager
-      .createEventObservable<google.maps.MouseEvent>(
+      .createEventObservable<google.maps.MapMouseEvent>(
         ['mouseover', 'pointerenter'],
         this,
       )
-      .subscribe((e: google.maps.MouseEvent) => {
+      .subscribe((e: google.maps.MapMouseEvent) => {
         this.mouseOver.emit(e);
       });
     this.subscription.add(mouseover);
 
     const mouseout = this.markerManager
-      .createEventObservable<google.maps.MouseEvent>(
+      .createEventObservable<google.maps.MapMouseEvent>(
         ['mouseout', 'pointerleave'],
         this,
       )
-      .subscribe((e: google.maps.MouseEvent) => {
+      .subscribe((e: google.maps.MapMouseEvent) => {
         this.mouseOut.emit(e);
       });
     this.subscription.add(mouseout);

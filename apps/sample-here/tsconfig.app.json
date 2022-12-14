@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["heremaps", "googlemaps"],
+    "types": ["heremaps", "google.maps"],
     "target": "ES2022",
     "useDefineForClassFields": false
   },

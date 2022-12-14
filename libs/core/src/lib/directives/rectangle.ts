@@ -115,19 +115,22 @@ export class NgMapsRectangleDirective
    * This event is fired when the rectangle's is changed.
    */
   @Output()
-  public boundsChange: EventEmitter<google.maps.LatLngBoundsLiteral> = new EventEmitter<google.maps.LatLngBoundsLiteral>();
+  public boundsChange: EventEmitter<google.maps.LatLngBoundsLiteral> =
+    new EventEmitter<google.maps.LatLngBoundsLiteral>();
 
   /**
    * This event emitter gets emitted when the user clicks on the rectangle.
    */
   @Output()
-  public rectangleClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public rectangleClick: EventEmitter<MouseEvent> =
+    new EventEmitter<MouseEvent>();
 
   /**
    * This event emitter gets emitted when the user clicks on the rectangle.
    */
   @Output()
-  public rectangleDblClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public rectangleDblClick: EventEmitter<MouseEvent> =
+    new EventEmitter<MouseEvent>();
 
   /**
    * This event is repeatedly fired while the user drags the rectangle.
@@ -250,7 +253,7 @@ export class NgMapsRectangleDirective
     events.forEach((eventEmitter, eventName) => {
       this.subscription.add(
         this._manager
-          .createEventObservable<google.maps.MouseEvent>(eventName, this)
+          .createEventObservable<google.maps.MapMouseEvent>(eventName, this)
           .subscribe((value) => {
             switch (eventName) {
               case 'bounds_changed':
