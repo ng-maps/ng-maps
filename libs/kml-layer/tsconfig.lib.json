@@ -3,11 +3,12 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "declarationMap": true,
-    "target": "es2020",
+    "target": "ES2022",
     "declaration": true,
     "inlineSources": true,
     "types": ["googlemaps"],
-    "lib": ["dom", "es2018"]
+    "lib": ["dom", "es2018"],
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
