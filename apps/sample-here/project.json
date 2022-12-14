@@ -1,4 +1,5 @@
 {
+  "name": "sample-here",
   "projectType": "application",
   "generators": {},
   "sourceRoot": "apps/sample-here/src",

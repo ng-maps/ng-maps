@@ -1,11 +1,12 @@
 {
+  "name": "drawing-layer",
   "projectType": "library",
   "sourceRoot": "libs/drawing-layer/src",
   "prefix": "lib",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/drawing-layer"],
+      "outputs": ["{workspaceRoot}/dist/drawing-layer"],
       "options": {
         "project": "libs/drawing-layer/ng-package.json"
       },

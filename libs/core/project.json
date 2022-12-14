@@ -1,11 +1,12 @@
 {
+  "name": "core",
   "projectType": "library",
   "sourceRoot": "libs/core/src",
   "prefix": "lib",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/core"],
+      "outputs": ["{workspaceRoot}/dist/libs/core"],
       "options": {
         "project": "libs/core/ng-package.json"
       },

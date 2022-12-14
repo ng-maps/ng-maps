@@ -1,11 +1,12 @@
 {
+  "name": "places",
   "projectType": "library",
   "sourceRoot": "libs/places/src",
   "prefix": "lib",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/places"],
+      "outputs": ["{workspaceRoot}/dist/libs/places"],
       "options": {
         "project": "libs/places/ng-package.json"
       },

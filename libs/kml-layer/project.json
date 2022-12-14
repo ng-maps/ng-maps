@@ -1,4 +1,5 @@
 {
+  "name": "kml-layer",
   "projectType": "library",
   "sourceRoot": "libs/kml-layer/src",
   "prefix": "lib",

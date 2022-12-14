@@ -1,4 +1,5 @@
 {
+  "name": "sample",
   "projectType": "application",
   "generators": {},
   "sourceRoot": "apps/sample/src",

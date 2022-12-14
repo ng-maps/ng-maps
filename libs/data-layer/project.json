@@ -1,11 +1,12 @@
 {
+  "name": "data-layer",
   "projectType": "library",
   "sourceRoot": "libs/data-layer/src",
   "prefix": "lib",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/data-layer"],
+      "outputs": ["{workspaceRoot}/dist/data-layer"],
       "options": {
         "project": "libs/data-layer/ng-package.json"
       },

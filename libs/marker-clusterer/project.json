@@ -1,11 +1,12 @@
 {
+  "name": "marker-clusterer",
   "projectType": "library",
   "sourceRoot": "libs/marker-clusterer/src",
   "prefix": "lib",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/marker-clusterer"],
+      "outputs": ["{workspaceRoot}/dist/libs/marker-clusterer"],
       "options": {
         "project": "libs/marker-clusterer/ng-package.json"
       },

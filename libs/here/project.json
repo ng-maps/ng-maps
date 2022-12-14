@@ -1,4 +1,5 @@
 {
+  "name": "here",
   "projectType": "library",
   "sourceRoot": "libs/here/src",
   "prefix": "lib",
