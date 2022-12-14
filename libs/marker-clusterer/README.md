@@ -1,15 +1,13 @@
 # @ng-maps/marker-clusterer
 
-**@ng-maps/marker-clusterer** is a wrapper around [MarkerClusterer](https://github.com/googlemaps/v3-utility-library/tree/master/markerclusterer)
+**@ng-maps/marker-clusterer** is a wrapper around [MarkerClusterer](https://github.com/googlemaps/js-markerclusterer)
 
 ## Installation
 
 - Npm: `npm install @ng-maps/marker-clusterer`
 - Yarn: `yarn add @ng-maps/marker-clusterer`
 
-Add `NgMapsMarkerClustererModule.forRoot({imagePath: '/assets/images/m'})` to your _AppModule_
-
-You need to download images for clusters from https://github.com/googlemaps/v3-utility-library/tree/master/markerclusterer/images or provide your own. The path you placed the images to can be specified globally through configuration like mentioned above or by setting `imagePath` attribute on the component.
+Add `NgMapsMarkerClustererModule` to your _AppModule_
 
 ## Usage
 
@@ -24,6 +22,10 @@ Add marker clusterer component around markers
   </map-marker-cluster>
 </map-view>
 ```
+
+### MarkerClustererOptions
+
+The only options that can be passed to the marker clusterer are the renderer and algorithm. You might want to check their documentation: https://googlemaps.github.io/js-markerclusterer/
 
 ## Additional features
 

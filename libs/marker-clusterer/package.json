@@ -15,12 +15,11 @@
     "agm"
   ],
   "peerDependencies": {
-    "@angular/common": "^14.0.0",
-    "@angular/core": "^14.0.0",
+    "@angular/common": "^14.0.0 || ^15.0.0",
+    "@angular/core": "^14.0.0 || ^15.0.0",
     "@ng-maps/core": "^3.0.0",
     "@ng-maps/google": "^3.0.0",
-    "@google/markerclusterer": "^2.0.0",
-    "@types/markerclustererplus": "^2.1.0"
+    "@googlemaps/markerclusterer": "^2.0.0"
   },
   "homepage": "https://ng-maps.github.io/marker-clusterer",
   "license": "MIT",
