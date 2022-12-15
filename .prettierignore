@@ -13,3 +13,4 @@ out-tsc/*
 LICENSE
 documentation
 docs
+**/CHANGELOG.md

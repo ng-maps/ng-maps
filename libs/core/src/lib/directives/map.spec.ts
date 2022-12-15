@@ -14,8 +14,8 @@ class MockElementRef {
 }
 
 describe('NgMapsViewComponent', () => {
-  let fixture: ComponentFixture<NgMapsViewComponent>;
-  let component: NgMapsViewComponent;
+  let fixture: ComponentFixture<NgMapsViewComponent<any>>;
+  let component: NgMapsViewComponent<any>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -52,8 +52,10 @@ describe('NgMapsViewComponent', () => {
       GoogleMapsAPIWrapper,
     ) as jasmine.SpyObj<GoogleMapsAPIWrapper>;
     expect(
+      // @ts-expect-error
       mockApiWrapper.createMap.calls.first().args[1].streetViewControl,
     ).not.toBe(true);
+    // @ts-expect-error
     expect(mockApiWrapper.createMap.calls.first().args[1].zoomControl).not.toBe(
       true,
     );

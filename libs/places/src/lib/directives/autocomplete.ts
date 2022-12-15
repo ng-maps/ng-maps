@@ -44,7 +44,8 @@ export class NgMapsAutocompleteDirective
    * https://developers.google.com/maps/documentation/javascript/reference/3.exp/places-service#PlaceResult
    */
   @Output()
-  public placeResult: EventEmitter<google.maps.places.PlaceResult> = new EventEmitter<google.maps.places.PlaceResult>();
+  public placeResult: EventEmitter<google.maps.places.PlaceResult> =
+    new EventEmitter<google.maps.places.PlaceResult>();
 
   /**
    * This event is fired on selection of an element from the autocomplete list.
@@ -52,7 +53,8 @@ export class NgMapsAutocompleteDirective
    * https://developers.google.com/maps/documentation/javascript/reference/3.exp/coordinates#LatLngBounds
    */
   @Output()
-  public bounds: EventEmitter<google.maps.LatLngBounds> = new EventEmitter<google.maps.LatLngBounds>();
+  public bounds: EventEmitter<google.maps.LatLngBounds> =
+    new EventEmitter<google.maps.LatLngBounds>();
 
   private autocomplete: google.maps.places.Autocomplete;
   private readonly subscription: Subscription = new Subscription();

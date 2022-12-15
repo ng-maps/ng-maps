@@ -1,7 +1,7 @@
 import { NgZone } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
 
-import { GoogleMapsAPIWrapper } from '@ng-maps/core';
+import { MapsApiWrapper } from '@ng-maps/core';
 import { NgMapsDrawingLayer } from '../directives/drawing-layer';
 import { DrawingManager } from './drawing-manager';
 
@@ -15,7 +15,7 @@ describe('DrawingManager', () => {
         },
         DrawingManager,
         {
-          provide: GoogleMapsAPIWrapper,
+          provide: MapsApiWrapper,
           useValue: jasmine.createSpyObj('GoogleMapsAPIWrapper', [
             'createDrawingManager',
           ]),
@@ -26,11 +26,8 @@ describe('DrawingManager', () => {
 
   describe('Create a new drawing manager', () => {
     it('should call the mapsApiWrapper when creating a new drawing manager', inject(
-      [DrawingManager, GoogleMapsAPIWrapper],
-      (
-        drawingManagerManager: DrawingManager,
-        apiWrapper: GoogleMapsAPIWrapper,
-      ) => {
+      [DrawingManager, MapsApiWrapper],
+      (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
         const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
         // @ts-ignore
         newDrawingManager.drawingMode = 'circle';
@@ -54,11 +51,8 @@ describe('DrawingManager', () => {
 
   describe('Delete a drawing manager', () => {
     it('should set the map to null when deleting a existing drawing manager', inject(
-      [DrawingManager, GoogleMapsAPIWrapper],
-      (
-        drawingManagerManager: DrawingManager,
-        apiWrapper: GoogleMapsAPIWrapper,
-      ) => {
+      [DrawingManager, MapsApiWrapper],
+      (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
         const newDrawingManager = new NgMapsDrawingLayer(drawingManagerManager);
 
         const drawingManagerInstance: DrawingManager = jasmine.createSpyObj(
@@ -83,11 +77,8 @@ describe('DrawingManager', () => {
   describe('set drawing manager drawing mode', () => {
     it('should update drawing manager via setDrawingMode method when the drawingMode changes', async(
       inject(
-        [DrawingManager, GoogleMapsAPIWrapper],
-        (
-          drawingManagerManager: DrawingManager,
-          apiWrapper: GoogleMapsAPIWrapper,
-        ) => {
+        [DrawingManager, MapsApiWrapper],
+        (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
           const newDrawingManager = new NgMapsDrawingLayer(
             drawingManagerManager,
           );
@@ -131,11 +122,8 @@ describe('DrawingManager', () => {
   describe('set drawing manager drawing control', () => {
     it('should update drawing manager via setDrawingControl method when the drawingControl changes', async(
       inject(
-        [DrawingManager, GoogleMapsAPIWrapper],
-        (
-          drawingManagerManager: DrawingManager,
-          apiWrapper: GoogleMapsAPIWrapper,
-        ) => {
+        [DrawingManager, MapsApiWrapper],
+        (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
           const newDrawingManager = new NgMapsDrawingLayer(
             drawingManagerManager,
           );
@@ -178,11 +166,8 @@ describe('DrawingManager', () => {
   describe('set drawing manager drawing control options', () => {
     it('should update drawing manager via setDrawingControlOptions method when the drawingControlOptions changes', async(
       inject(
-        [DrawingManager, GoogleMapsAPIWrapper],
-        (
-          drawingManagerManager: DrawingManager,
-          apiWrapper: GoogleMapsAPIWrapper,
-        ) => {
+        [DrawingManager, MapsApiWrapper],
+        (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
           const newDrawingManager = new NgMapsDrawingLayer(
             drawingManagerManager,
           );
@@ -228,11 +213,8 @@ describe('DrawingManager', () => {
   describe('set drawing manager circle options', () => {
     it('should update drawing manager via setCircleOptions method when the circleOptions changes', async(
       inject(
-        [DrawingManager, GoogleMapsAPIWrapper],
-        (
-          drawingManagerManager: DrawingManager,
-          apiWrapper: GoogleMapsAPIWrapper,
-        ) => {
+        [DrawingManager, MapsApiWrapper],
+        (drawingManagerManager, apiWrapper) => {
           const newDrawingManager = new NgMapsDrawingLayer(
             drawingManagerManager,
           );
@@ -275,11 +257,8 @@ describe('DrawingManager', () => {
   describe('set drawing manager marker options', () => {
     it('should update drawing manager via setCircleOptions method when the markerOptions changes', async(
       inject(
-        [DrawingManager, GoogleMapsAPIWrapper],
-        (
-          drawingManagerManager: DrawingManager,
-          apiWrapper: GoogleMapsAPIWrapper,
-        ) => {
+        [DrawingManager, MapsApiWrapper],
+        (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
           const newDrawingManager = new NgMapsDrawingLayer(
             drawingManagerManager,
           );
@@ -325,11 +304,8 @@ describe('DrawingManager', () => {
   describe('set drawing manager polyline options', () => {
     it('should update drawing manager via setPolylineOptions method when the polylineOptions changes', async(
       inject(
-        [DrawingManager, GoogleMapsAPIWrapper],
-        (
-          drawingManagerManager: DrawingManager,
-          apiWrapper: GoogleMapsAPIWrapper,
-        ) => {
+        [DrawingManager, MapsApiWrapper],
+        (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
           const newDrawingManager = new NgMapsDrawingLayer(
             drawingManagerManager,
           );
@@ -372,11 +348,8 @@ describe('DrawingManager', () => {
   describe('set drawing manager polygon options', () => {
     it('should update drawing manager via setPolygonOptions method when the polygonOptions changes', async(
       inject(
-        [DrawingManager, GoogleMapsAPIWrapper],
-        (
-          drawingManagerManager: DrawingManager,
-          apiWrapper: GoogleMapsAPIWrapper,
-        ) => {
+        [DrawingManager, MapsApiWrapper],
+        (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
           const newDrawingManager = new NgMapsDrawingLayer(
             drawingManagerManager,
           );
@@ -419,11 +392,8 @@ describe('DrawingManager', () => {
   describe('set drawing manager rectangle options', () => {
     it('should update drawing manager via setRectangleOptions method when the rectangleOptions changes', async(
       inject(
-        [DrawingManager, GoogleMapsAPIWrapper],
-        (
-          drawingManagerManager: DrawingManager,
-          apiWrapper: GoogleMapsAPIWrapper,
-        ) => {
+        [DrawingManager, MapsApiWrapper],
+        (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
           const newDrawingManager = new NgMapsDrawingLayer(
             drawingManagerManager,
           );

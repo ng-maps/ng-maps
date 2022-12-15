@@ -36,6 +36,7 @@ describe('PolylinePoint', () => {
 
       expect(polylinePoint.positionChanged.emit).toHaveBeenCalledWith({
         lat: 50,
+        // @ts-expect-error
         lng: 'newLng',
       });
     });
@@ -53,7 +54,9 @@ describe('PolylinePoint', () => {
       polylinePoint.ngOnChanges(positionChanges);
 
       expect(polylinePoint.positionChanged.emit).toHaveBeenCalledWith({
+        // @ts-expect-error
         lat: 'newLat',
+        // @ts-expect-error
         lng: 'newLng',
       });
     });

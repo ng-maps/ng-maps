@@ -51,7 +51,8 @@ export class NgMapsSearchBoxDirective implements OnInit, OnChanges, OnDestroy {
    * https://developers.google.com/maps/documentation/javascript/reference/3.exp/coordinates#LatLngBounds
    */
   @Output()
-  public bounds: EventEmitter<google.maps.LatLngBounds> = new EventEmitter<google.maps.LatLngBounds>();
+  public bounds: EventEmitter<google.maps.LatLngBounds> =
+    new EventEmitter<google.maps.LatLngBounds>();
 
   private searchBox: google.maps.places.SearchBox;
   private readonly subscription: Subscription = new Subscription();
