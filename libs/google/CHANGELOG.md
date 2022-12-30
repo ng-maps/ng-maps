@@ -2,6 +2,22 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [4.0.0](https://github.com/ng-maps/ng-maps/compare/google/3.0.1...google/4.0.0) (2022-12-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* Updated google.maps types which might change API
+
+### Bug Fixes
+
+* **google:** remove console.log ([a7fb44a](https://github.com/ng-maps/ng-maps/commit/a7fb44a08d000784ec8629f4b40ec5a4afc82073))
+
+
+### Code Refactoring
+
+* update dependencies and adjust types usage ([8d70d41](https://github.com/ng-maps/ng-maps/commit/8d70d416cb2ac77be5a7fbd50512d8e21bfbcb48))
+
 ## [3.0.1](https://github.com/ng-maps/ng-maps/compare/google/3.0.0...google/3.0.1) (2022-10-06)
 
 ### Bug Fixes
