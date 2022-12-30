@@ -31,7 +31,8 @@ declare var require: any;
     '<div #outerWrapper><div #viewContainer></div></div><ng-content></ng-content>',
 })
 export class NgMapsSnazzyInfoWindowComponent
-  implements AfterViewInit, OnDestroy, OnChanges {
+  implements AfterViewInit, OnDestroy, OnChanges
+{
   /**
    * The latitude and longitude where the info window is anchored.
    * The offset will default to 0px when using this option. Only required/used if you are not using a agm-marker.
@@ -222,10 +223,8 @@ export class NgMapsSnazzyInfoWindowComponent
         : null;
     this._snazzyInfoWindowInitialized = this._loader
       .load()
-      .then(() => require('snazzy-info-window'))
-      .then((module: any) =>
-        Promise.all([module, m, this._wrapper.getNativeMap()]),
-      )
+      .then(() => import('snazzy-info-window'))
+      .then((module) => Promise.all([module, m, this._wrapper.getNativeMap()]))
       .then((elems) => {
         const options: any = {
           map: elems[2],
