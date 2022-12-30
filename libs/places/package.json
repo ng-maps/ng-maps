@@ -18,7 +18,7 @@
     "@angular/common": "^14.0.0 || ^15.0.0",
     "@angular/core": "^14.0.0 || ^15.0.0",
     "@ng-maps/core": "^3.0.0",
-    "@ng-maps/google": "^3.0.0"
+    "@ng-maps/google": "^3.0.0 || ^4.0.0"
   },
   "homepage": "https://ng-maps.github.io/places",
   "license": "MIT",
