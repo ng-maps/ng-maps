@@ -66,6 +66,7 @@
         "no-extra-semi": "off",
         "no-irregular-whitespace": "off",
         "no-trailing-spaces": "off",
+        "no-underscore-dangle": "off",
         "react/jsx-curly-spacing": "off",
         "react/jsx-equals-spacing": "off",
         "react/jsx-tag-spacing": [
