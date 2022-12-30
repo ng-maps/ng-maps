@@ -100,7 +100,7 @@
     "@commitlint/config-nx-scopes": "^17.2.0",
     "@compodoc/compodoc": "^1.1.11",
     "@jscutlery/semver": "^2.29.2",
-    "@ngneat/spectator": "^12.2.1",
+    "@ngneat/spectator": "^13.0.0",
     "@nrwl/eslint-plugin-nx": "15.4.2",
     "@nrwl/linter": "15.4.2",
     "@nrwl/nx-cloud": "15.0.2",
