@@ -2,7 +2,7 @@ export interface MarkerIcon {
   url?: string;
   fillColor?: string;
   fillOpacity?: number;
-  path?: string;
+  path: string | undefined;
   rotation?: number;
   scale?: number;
   strokeColor?: string;

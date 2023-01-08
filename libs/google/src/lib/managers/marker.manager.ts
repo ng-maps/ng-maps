@@ -101,6 +101,9 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
   }
 
   public updateIcon(marker: NgMapsMarkerComponent): void {
-    throw new Error('Method not implemented.');
+    const m = this._markers.get(marker);
+    if (marker.icon.path) {
+      m.setIcon(marker.icon);
+    }
   }
 }
