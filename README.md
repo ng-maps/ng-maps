@@ -1,6 +1,7 @@
 # NgMaps
 
 [![codecov.io](https://codecov.io/github/ng-maps/ng-maps/coverage.svg?branch=master)](https://codecov.io/github/ng-maps/ng-maps?branch=master)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fng-maps%2Fng-maps.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fng-maps%2Fng-maps?ref=badge_shield)
 
 ## Installation
 
@@ -24,3 +25,7 @@ This project is a mono repo and hosts multiple packages:
 | @ng-maps/drawing-layer      | [![@ng-maps/drawing-layer](https://img.shields.io/npm/v/@ng-maps/drawing-layer.svg)](https://www.npmjs.com/package/@ng-maps/drawing-layer)                | [Docs](https://ng-maps.github.io/drawing-layer/index.html)    | google                    |
 
 ---
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fng-maps%2Fng-maps.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fng-maps%2Fng-maps?ref=badge_large)
