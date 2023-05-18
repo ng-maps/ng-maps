@@ -1,11 +1,12 @@
 {
   "name": "here",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/here/src",
   "prefix": "lib",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:package",
       "options": {
         "tsConfig": "libs/here/tsconfig.lib.json",
         "project": "libs/here/ng-package.json"
@@ -25,7 +26,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/here/**/*.ts", "libs/here/**/*.html"]
       }

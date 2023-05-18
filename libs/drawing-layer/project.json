@@ -1,11 +1,12 @@
 {
   "name": "drawing-layer",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/drawing-layer/src",
   "prefix": "lib",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/drawing-layer"],
       "options": {
         "project": "libs/drawing-layer/ng-package.json"
@@ -36,7 +37,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": [
           "libs/drawing-layer/**/*.ts",

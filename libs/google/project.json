@@ -1,11 +1,12 @@
 {
   "name": "google",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/google/src",
   "prefix": "lib",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/google"],
       "options": {
         "project": "libs/google/ng-package.json"
@@ -29,7 +30,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "options": {
         "lintFilePatterns": ["libs/google/**/*.ts", "libs/google/**/*.html"]
       }
