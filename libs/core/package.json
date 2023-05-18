@@ -20,9 +20,9 @@
     "url": "https://github.com/ng-maps/ng-maps.git"
   },
   "peerDependencies": {
-    "@angular/common": "^14.0.0 || ^15.0.0",
-    "@angular/core": "^14.0.0 || ^15.0.0",
-    "@angular/platform-browser-dynamic": "^14.0.0 || ^15.0.0",
+    "@angular/common": "^14.0.0 || ^15.0.0 || ^16.0.0",
+    "@angular/core": "^14.0.0 || ^15.0.0 || ^16.0.0",
+    "@angular/platform-browser-dynamic": "^14.0.0 || ^15.0.0 || ^16.0.0",
     "rxjs": "^7.0.0",
     "zone.js": "~0.11.4 || ~0.12.0"
   },

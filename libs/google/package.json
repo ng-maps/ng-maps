@@ -23,8 +23,8 @@
     "url": "https://github.com/ng-maps/ng-maps.git"
   },
   "peerDependencies": {
-    "@angular/common": "^14.0.0  || ^15.0.0",
-    "@angular/core": "^14.0.0  || ^15.0.0",
+    "@angular/common": "^14.0.0  || ^15.0.0 || ^16.0.0",
+    "@angular/core": "^14.0.0  || ^15.0.0 || ^16.0.0",
     "@types/google.maps": "~3.51.0",
     "@ng-maps/core": "^4.0.0"
   },
