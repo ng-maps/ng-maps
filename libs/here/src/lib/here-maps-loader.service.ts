@@ -1,5 +1,7 @@
 import { Inject, Injectable, Optional } from '@angular/core';
+
 import { MapsAPILoader, ScriptLoaderService } from '@ng-maps/core';
+
 import {
   HereMapsLibraries,
   HereModuleOptions,

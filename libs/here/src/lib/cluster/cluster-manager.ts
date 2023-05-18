@@ -1,12 +1,14 @@
 import { Injectable, NgZone } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
 
 import {
   MapsApiWrapper,
   NgMapsMarkerComponent,
   NgMapsViewComponent,
 } from '@ng-maps/core';
-import { Observable, Observer } from 'rxjs';
+
 import { HereMapsMarkerManager } from '../here-maps-marker.manager';
+
 import { MarkerClusterComponent } from './marker-cluster';
 
 @Injectable({

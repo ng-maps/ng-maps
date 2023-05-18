@@ -6,6 +6,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { from } from 'rxjs';
+import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
+
 import {
   CircleManager,
   FitBoundsService,
@@ -17,8 +20,7 @@ import {
   PolylineManager,
   RectangleManager,
 } from '@ng-maps/core';
-import { from } from 'rxjs';
-import { distinctUntilChanged, mergeMap } from 'rxjs/operators';
+
 import { HereMapsFitBoundsService } from './here-maps-fit-bounds.service';
 import { HereMapsMarkerManager } from './here-maps-marker.manager';
 import { HereMapsWrapperService } from './here-maps-wrapper.service';

@@ -2,7 +2,9 @@ import { NgZone } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
 
 import { MapsApiWrapper } from '@ng-maps/core';
+
 import { NgMapsDrawingLayer } from '../directives/drawing-layer';
+
 import { DrawingManager } from './drawing-manager';
 
 describe('DrawingManager', () => {

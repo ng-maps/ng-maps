@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+
 import { NgMapsCoreModule } from '@ng-maps/core';
+
 import { NgMapsDataLayer } from './data-layer';
 
 @NgModule({

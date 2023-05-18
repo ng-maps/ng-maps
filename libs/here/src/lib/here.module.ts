@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
+
 import { MapsAPILoader, MAP_PROVIDER } from '@ng-maps/core';
+
 import { MarkerClusterComponent } from './cluster/marker-cluster';
 import { HereMapsLoaderService } from './here-maps-loader.service';
 import { HereMapsPlatformProvider } from './here-maps-platform.provider';

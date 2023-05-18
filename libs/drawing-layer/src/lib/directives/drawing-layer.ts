@@ -8,6 +8,7 @@ import {
   SimpleChange,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { DrawingManager } from '../services/drawing-manager';
 
 let drawingManagerId = 0;
@@ -107,41 +108,47 @@ export class NgMapsDrawingLayer implements OnDestroy, OnChanges {
    * This event emitter gets emitted when the user finishes drawing any overlay.
    */
   @Output()
-  overlayComplete: EventEmitter<google.maps.drawing.OverlayCompleteEvent> = new EventEmitter<google.maps.drawing.OverlayCompleteEvent>();
+  overlayComplete: EventEmitter<google.maps.drawing.OverlayCompleteEvent> =
+    new EventEmitter<google.maps.drawing.OverlayCompleteEvent>();
 
   /**
    * This event emitter gets emitted when the user finishes drawing a circle.
    */
   @Output()
-  circleComplete: EventEmitter<google.maps.Circle> = new EventEmitter<google.maps.Circle>();
+  circleComplete: EventEmitter<google.maps.Circle> =
+    new EventEmitter<google.maps.Circle>();
 
   /**
    * This event emitter gets emitted when the user finishes drawing a marker.
    */
   @Output()
-  markerComplete: EventEmitter<google.maps.Marker> = new EventEmitter<google.maps.Marker>();
+  markerComplete: EventEmitter<google.maps.Marker> =
+    new EventEmitter<google.maps.Marker>();
 
   /**
    * This event emitter gets emitted when the user finishes drawing a polyline.
    */
   @Output()
-  polylineComplete: EventEmitter<google.maps.Polyline> = new EventEmitter<google.maps.Polyline>();
+  polylineComplete: EventEmitter<google.maps.Polyline> =
+    new EventEmitter<google.maps.Polyline>();
 
   /**
    * This event emitter gets emitted when the user finishes drawing a polygon.
    */
   @Output()
-  polygonComplete: EventEmitter<google.maps.Polygon> = new EventEmitter<google.maps.Polygon>();
+  polygonComplete: EventEmitter<google.maps.Polygon> =
+    new EventEmitter<google.maps.Polygon>();
 
   /**
    * This event emitter gets emitted when the user finishes drawing a rectangle.
    */
   @Output()
-  rectangleComplete: EventEmitter<google.maps.Rectangle> = new EventEmitter<google.maps.Rectangle>();
+  rectangleComplete: EventEmitter<google.maps.Rectangle> =
+    new EventEmitter<google.maps.Rectangle>();
 
   private _drawingManagerAddedToManager: boolean = false;
   private _id: string;
-  private _observableSubscriptions: Subscription[] = [];
+  private _observableSubscriptions: Array<Subscription> = [];
 
   constructor(private _drawingManagerManager: DrawingManager) {
     this._id = (drawingManagerId++).toString();

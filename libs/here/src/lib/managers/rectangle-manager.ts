@@ -1,4 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
+import { EMPTY, Observable, Observer } from 'rxjs';
+
 import {
   BoundsLiteral,
   MapsApiWrapper,
@@ -6,7 +8,6 @@ import {
   RectangleManager,
 } from '@ng-maps/core';
 
-import { EMPTY, Observable, Observer } from 'rxjs';
 import { boundsFromRect, rectFromBounds } from '../convert';
 
 @Injectable()

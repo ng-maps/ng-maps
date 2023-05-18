@@ -1,6 +1,8 @@
 import { Injectable, NgZone } from '@angular/core';
-import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
 import { Observable, Observer } from 'rxjs';
+
+import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
+
 import { NgMapsDrawingLayer } from '../directives/drawing-layer';
 
 @Injectable({

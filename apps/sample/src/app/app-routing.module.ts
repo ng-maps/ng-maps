@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { BoundsPaddingComponent } from './bounds-padding/bounds-padding.component';
 import { ClusterWithWindowComponent } from './cluster-with-window/cluster-with-window.component';
 import { ClusterComponent } from './cluster/cluster.component';

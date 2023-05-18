@@ -43,5 +43,6 @@
       "!{projectRoot}/karma.conf.js",
       "!{projectRoot}/.eslintrc.json"
     ]
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json"
 }

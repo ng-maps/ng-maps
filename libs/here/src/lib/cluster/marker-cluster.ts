@@ -10,8 +10,10 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
 import { Subscription } from 'rxjs';
+
+import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
+
 import { MarkerClusterConfig, MARKER_CLUSTER_CONFIG } from './cluster-config';
 import { ClusterManager } from './cluster-manager';
 import { Calculator, MarkerClustererOptions } from './cluster-options';

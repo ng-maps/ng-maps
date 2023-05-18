@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { BoundsLiteral, GeoPoint, NgMapsMarkerComponent } from '@ng-maps/core';
+
 import { MARKERS } from '../../../sample/src/app/shapes/markers';
 
 @Component({

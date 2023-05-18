@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
+
 import {
   BoundsLiteral,
   FitBoundsService,
   GeoPoint,
   MapsAPILoader,
 } from '@ng-maps/core';
+
 import { boundsFromRect } from './convert';
 
 @Injectable()

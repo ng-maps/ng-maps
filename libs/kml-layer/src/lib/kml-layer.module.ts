@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { NgMapsKmlLayer } from './kml-layer';
 
 @NgModule({

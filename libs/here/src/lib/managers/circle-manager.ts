@@ -1,4 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
+import { EMPTY, Observable, Observer } from 'rxjs';
+
 import {
   BoundsLiteral,
   CircleManager,
@@ -6,7 +8,7 @@ import {
   MapsApiWrapper,
   NgMapsCircleDirective,
 } from '@ng-maps/core';
-import { EMPTY, Observable, Observer } from 'rxjs';
+
 import { boundsFromRect } from '../convert';
 
 @Injectable()
@@ -63,9 +65,9 @@ export class HereCircleManager extends CircleManager<H.map.Circle> {
     const c = await this._circles.get(circle);
 
     if (typeof options.strokePosition === 'string') {
-      options.strokePosition = (google.maps.StrokePosition[
+      options.strokePosition = google.maps.StrokePosition[
         options.strokePosition
-      ] as any) as google.maps.StrokePosition;
+      ] as any as google.maps.StrokePosition;
     }
     // return c.setOptions(options);
   }

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { NgMapsDrawingLayer } from './directives/drawing-layer';
 
 @NgModule({

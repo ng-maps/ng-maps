@@ -1,11 +1,13 @@
 import { Injectable, NgZone } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+
 import {
   InfoWindowManager,
   MapsApiWrapper,
   MarkerManager,
   NgMapsInfoWindowComponent,
 } from '@ng-maps/core';
-import { Observable, Observer } from 'rxjs';
+
 import { HereMapsWrapperService } from '../here-maps-wrapper.service';
 
 @Injectable()

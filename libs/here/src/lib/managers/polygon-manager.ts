@@ -1,10 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
+import { EMPTY, Observable, Observer } from 'rxjs';
+
 import {
   MapsApiWrapper,
   NgMapsPolygonDirective,
   PolygonManager,
 } from '@ng-maps/core';
-import { EMPTY, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class HerePolygonManager extends PolygonManager<H.map.Polygon> {

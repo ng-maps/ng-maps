@@ -1,7 +1,9 @@
 import { Injectable, NgZone } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+
 import { NgMapsViewComponent } from '@ng-maps/core';
 import { GoogleMapsAPIWrapper } from '@ng-maps/google';
-import { Observable, Observer } from 'rxjs';
+
 import { NgMapsDataLayer } from './data-layer';
 
 /**
@@ -96,7 +98,7 @@ export class DataLayerManager {
     d: google.maps.Data,
     geoJson: Object | string,
   ): Promise<Array<google.maps.Data.Feature>> {
-    return new Promise<google.maps.Data.Feature[]>((resolve, reject) => {
+    return new Promise<Array<google.maps.Data.Feature>>((resolve, reject) => {
       if (typeof geoJson === 'object') {
         try {
           const features = d.addGeoJson(geoJson);

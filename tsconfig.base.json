@@ -1,16 +1,22 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".",
+    "rootDir": ".",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
     "importHelpers": true,
     "target": "es2020",
+    "module": "esnext",
     "lib": ["es2018", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
     "paths": {
       "@ng-maps/core": ["libs/core/src/public-api.ts"],
       "@ng-maps/data-layer": ["libs/data-layer/src/public-api.ts"],
@@ -24,8 +30,7 @@
       "@ng-maps/snazzy-info-window": [
         "libs/snazzy-info-window/src/public-api.ts"
       ]
-    },
-    "rootDir": "."
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

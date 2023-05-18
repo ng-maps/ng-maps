@@ -9,8 +9,8 @@
         "createDefaultProgram": true
       },
       "extends": [
-        "plugin:@angular-eslint/ng-cli-compat",
-        "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+        "plugin:@nx/angular",
+        "plugin:@nx/typescript",
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:import/recommended"
       ],
@@ -105,7 +105,7 @@
     },
     {
       "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "extends": ["plugin:@nx/angular-template"],
       "rules": {}
     },
     {

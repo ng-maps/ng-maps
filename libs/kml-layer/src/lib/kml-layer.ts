@@ -9,6 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { KmlLayerManager } from './kml-layer-manager';
 
 let layerId = 0;
@@ -18,7 +19,7 @@ let layerId = 0;
 })
 export class NgMapsKmlLayer implements OnInit, OnDestroy, OnChanges {
   constructor(private _manager: KmlLayerManager) {}
-  private static _kmlLayerOptions: string[] = [
+  private static _kmlLayerOptions: Array<string> = [
     'clickable',
     'preserveViewport',
     'screenOverlays',
@@ -28,7 +29,7 @@ export class NgMapsKmlLayer implements OnInit, OnDestroy, OnChanges {
   ];
   private _addedToManager: boolean = false;
   private _id: string = (layerId++).toString();
-  private _subscriptions: Subscription[] = [];
+  private _subscriptions: Array<Subscription> = [];
 
   /**
    * If true, the layer receives mouse events. Default value is true.
@@ -67,7 +68,8 @@ export class NgMapsKmlLayer implements OnInit, OnDestroy, OnChanges {
    * This event is fired when a feature in the layer is clicked.
    */
   @Output()
-  layerClick: EventEmitter<google.maps.KmlMouseEvent> = new EventEmitter<google.maps.KmlMouseEvent>();
+  layerClick: EventEmitter<google.maps.KmlMouseEvent> =
+    new EventEmitter<google.maps.KmlMouseEvent>();
 
   /**
    * This event is fired when the KML layers default viewport has changed.

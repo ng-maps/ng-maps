@@ -1,10 +1,11 @@
 import { Injectable, NgZone } from '@angular/core';
+import { EMPTY, Observable, Observer } from 'rxjs';
+
 import {
   MapsApiWrapper,
   MarkerManager,
   NgMapsMarkerComponent,
 } from '@ng-maps/core';
-import { EMPTY, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class HereMapsMarkerManager extends MarkerManager<H.map.Marker> {
@@ -27,7 +28,7 @@ export class HereMapsMarkerManager extends MarkerManager<H.map.Marker> {
       eventName.forEach((event) => {
         m.addEventListener(event, (e: Event) => {
           // @todo fix typings
-          return this._zone.run(() => observer.next((e as any) as E));
+          return this._zone.run(() => observer.next(e as any as E));
         });
       });
     });

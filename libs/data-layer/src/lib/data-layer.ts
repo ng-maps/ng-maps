@@ -9,6 +9,7 @@ import {
   Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { DataLayerManager } from './data-layer-manager';
 
 let layerId = 0;
@@ -211,7 +212,7 @@ export class NgMapsDataLayer implements OnInit, OnDestroy, OnChanges {
 
   private _addedToManager: boolean = false;
   private _id: string = (layerId++).toString();
-  private _subscriptions: Subscription[] = [];
+  private _subscriptions: Array<Subscription> = [];
 
   /**
    * This event is fired when a feature in the layer is clicked.

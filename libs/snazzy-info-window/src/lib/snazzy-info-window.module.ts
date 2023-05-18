@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { NgMapsSnazzyInfoWindowComponent } from './snazzy-info-window.component';
 
 @NgModule({

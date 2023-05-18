@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { NgMapsCoreModule } from '@ng-maps/core';
 import {
   HereMapsLibraries,
   HERE_MAPS_MODULE_OPTIONS,
   NgMapsHereModule,
 } from '@ng-maps/here';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 

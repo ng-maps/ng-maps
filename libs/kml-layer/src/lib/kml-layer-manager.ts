@@ -1,8 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
+
 import { NgMapsViewComponent } from '@ng-maps/core';
-import { NgMapsKmlLayer } from './kml-layer';
 import { GoogleMapsAPIWrapper } from '@ng-maps/google';
+
+import { NgMapsKmlLayer } from './kml-layer';
 
 /**
  * Manages all KML Layers for a Google Map instance.

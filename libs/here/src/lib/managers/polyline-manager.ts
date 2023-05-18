@@ -1,4 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
+import { EMPTY, Observable, Observer } from 'rxjs';
+
 import {
   GeoPoint,
   MapsApiWrapper,
@@ -6,7 +8,6 @@ import {
   NgMapsPolylinePoint,
   PolylineManager,
 } from '@ng-maps/core';
-import { EMPTY, Observable, Observer } from 'rxjs';
 
 @Injectable()
 export class HerePolylineManager extends PolylineManager<H.map.Polyline> {

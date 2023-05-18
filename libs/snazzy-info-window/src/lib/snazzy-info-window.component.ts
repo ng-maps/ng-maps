@@ -16,14 +16,14 @@ import {
   ViewChild,
   ContentChild,
 } from '@angular/core';
+import SnazzyInfoWindow from 'snazzy-info-window';
+
 import {
   NgMapsMarkerComponent,
   MapsApiWrapper,
   MarkerManager,
   MapsAPILoader,
 } from '@ng-maps/core';
-
-import SnazzyInfoWindow from 'snazzy-info-window';
 
 @Component({
   selector: 'map-snazzy-info-window',

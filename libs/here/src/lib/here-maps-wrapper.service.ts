@@ -1,4 +1,7 @@
 import { Inject, Injectable, NgZone } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
+
 import {
   BoundsLiteral,
   CircleOptions,
@@ -10,8 +13,7 @@ import {
   Padding,
   RectangleOptions,
 } from '@ng-maps/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+
 import { boundsFromRect, rectFromBounds } from './convert';
 import { HereMapsPlatformProvider } from './here-maps-platform.provider';
 import {

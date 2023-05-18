@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { MARKERS } from '../cluster/markers';
 
 @Component({
