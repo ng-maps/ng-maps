@@ -14,7 +14,10 @@
         "polyfills": "apps/sample/src/polyfills.ts",
         "tsConfig": "apps/sample/tsconfig.app.json",
         "assets": ["apps/sample/src/favicon.ico", "apps/sample/src/assets"],
-        "styles": ["apps/sample/src/styles.css"],
+        "styles": [
+          "apps/sample/src/styles.css",
+          "node_modules/snazzy-info-window/dist/snazzy-info-window.css"
+        ],
         "scripts": [],
         "aot": false,
         "vendorChunk": true,

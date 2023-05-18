@@ -8,7 +8,9 @@
     "inlineSources": true,
     "types": ["google.maps"],
     "lib": ["dom", "es2018"],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,

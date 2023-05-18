@@ -23,7 +23,7 @@ import {
   MapsAPILoader,
 } from '@ng-maps/core';
 
-declare var require: any;
+import SnazzyInfoWindow from 'snazzy-info-window';
 
 @Component({
   selector: 'map-snazzy-info-window',
@@ -217,67 +217,67 @@ export class NgMapsSnazzyInfoWindowComponent
    * @internal
    */
   ngAfterViewInit() {
-    const m =
+    this._snazzyInfoWindowInitialized = this.init();
+  }
+
+  protected async init() {
+    const marker =
       this._manager != null
         ? this._manager.getNativeMarker(this._marker)
         : null;
-    this._snazzyInfoWindowInitialized = this._loader
-      .load()
-      .then(() => import('snazzy-info-window'))
-      .then((module) => Promise.all([module, m, this._wrapper.getNativeMap()]))
-      .then((elems) => {
-        const options: any = {
-          map: elems[2],
-          content: '',
-          placement: this.placement,
-          maxWidth: this.maxWidth,
-          maxHeight: this.maxHeight,
-          backgroundColor: this.backgroundColor,
-          padding: this.padding,
-          border: this.border,
-          borderRadius: this.borderRadius,
-          fontColor: this.fontColor,
-          pointer: this.pointer,
-          shadow: this.shadow,
-          closeOnMapClick: this.closeOnMapClick,
-          openOnMarkerClick: this.openOnMarkerClick,
-          closeWhenOthersOpen: this.closeWhenOthersOpen,
-          showCloseButton: this.showCloseButton,
-          panOnOpen: this.panOnOpen,
-          wrapperClass: this.wrapperClass,
-          callbacks: {
-            beforeOpen: () => {
-              this._createViewContent();
-              this.beforeOpen.emit();
-            },
-            afterOpen: () => {
-              this.isOpenChange.emit(this.openStatus());
-            },
-            afterClose: () => {
-              this.afterClose.emit();
-              this.isOpenChange.emit(this.openStatus());
-            },
-          },
-        };
-        if (elems[1] != null) {
-          options.marker = elems[1];
-        } else {
-          options.position = {
-            lat: this.latitude,
-            lng: this.longitude,
-          };
-        }
-        this._nativeSnazzyInfoWindow = new elems[0](options);
-      });
-    this._snazzyInfoWindowInitialized.then(() => {
-      if (this.isOpen) {
-        this._openInfoWindow();
-      }
-    });
+    await this._loader.load();
+    const map = await this._wrapper.getNativeMap();
+    const options: any = {
+      map,
+      content: '',
+      placement: this.placement,
+      maxWidth: this.maxWidth,
+      maxHeight: this.maxHeight,
+      backgroundColor: this.backgroundColor,
+      padding: this.padding,
+      border: this.border,
+      borderRadius: this.borderRadius,
+      fontColor: this.fontColor,
+      pointer: this.pointer,
+      shadow: this.shadow,
+      closeOnMapClick: this.closeOnMapClick,
+      openOnMarkerClick: this.openOnMarkerClick,
+      closeWhenOthersOpen: this.closeWhenOthersOpen,
+      showCloseButton: this.showCloseButton,
+      panOnOpen: this.panOnOpen,
+      wrapperClass: this.wrapperClass,
+      callbacks: {
+        beforeOpen: () => {
+          this._createViewContent();
+          this.beforeOpen.emit();
+        },
+        afterOpen: () => {
+          this.isOpenChange.emit(this.openStatus());
+        },
+        afterClose: () => {
+          this.afterClose.emit();
+          this.isOpenChange.emit(this.openStatus());
+        },
+      },
+    };
+    if (marker != null) {
+      options.marker = marker;
+    } else {
+      options.position = {
+        lat: this.latitude,
+        lng: this.longitude,
+      };
+    }
+    this._nativeSnazzyInfoWindow = new SnazzyInfoWindow(options);
+
+    if (this.isOpen) {
+      this._openInfoWindow();
+    }
   }
 
   protected _openInfoWindow() {
     this._snazzyInfoWindowInitialized.then(() => {
+      console.log(this._nativeSnazzyInfoWindow);
       this._createViewContent();
       this._nativeSnazzyInfoWindow.open();
     });

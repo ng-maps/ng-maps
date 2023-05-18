@@ -1,1 +1,10 @@
-<p>snazzy-info-window works!</p>
+<map-view [latitude]="lat" [longitude]="lng">
+  <map-snazzy-info-window
+    [isOpen]="true"
+    [latitude]="lat"
+    [longitude]="lng"
+    [closeWhenOthersOpen]="true"
+  >
+    <ng-template> My first Snazzy Info Window! </ng-template>
+  </map-snazzy-info-window>
+</map-view>
