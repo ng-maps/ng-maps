@@ -105,7 +105,7 @@
     "@nx/eslint-plugin": "16.2.1",
     "@nx/linter": "16.2.1",
     "@nx/workspace": "16.2.1",
-    "@schematics/angular": "15.2.8",
+    "@schematics/angular": "16.0.2",
     "@twittwer/compodoc": "1.9.0",
     "@types/google.maps": "~3.53.0",
     "@types/heremaps": "github:ng-maps/heremaps-typings",
