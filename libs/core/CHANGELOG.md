@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [4.0.2](https://github.com/ng-maps/ng-maps/compare/core/4.0.1...core/4.0.2) (2023-05-18)
+
+
+### Bug Fixes
+
+* **core:** export all interfaces ([8c27283](https://github.com/ng-maps/ng-maps/commit/8c27283f4f8ab0a6ea7e2a814f77ca1af6105361))
+* marker icon implementation ([14b3c93](https://github.com/ng-maps/ng-maps/commit/14b3c93a6991a4c454cf18d28b3e6feb8d093ce3))
+
 ## [4.0.1](https://github.com/ng-maps/ng-maps/compare/core/4.0.0...core/4.0.1) (2022-12-30)
 
 ## [4.0.0](https://github.com/ng-maps/ng-maps/compare/core/3.0.2...core/4.0.0) (2022-12-30)
