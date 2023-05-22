@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.0.0](https://github.com/ng-maps/ng-maps/compare/places/4.0.1...places/5.0.0) (2023-05-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* update to strict typechecking
+
+### Code Refactoring
+
+* update to strict typechecking ([69d7cbc](https://github.com/ng-maps/ng-maps/commit/69d7cbcf75659a1ca7daa37844163f1a5932c097))
+
 ## [4.0.1](https://github.com/ng-maps/ng-maps/compare/places/4.0.0...places/4.0.1) (2023-05-18)
 
 ## [4.0.0](https://github.com/ng-maps/ng-maps/compare/places/3.0.1...places/4.0.0) (2022-12-30)
