@@ -37,12 +37,12 @@ export class NgMapsCircleDirective
   /**
    * The latitude position of the circle (required).
    */
-  @Input() public latitude: number;
+  @Input() public latitude?: number;
 
   /**
    * The clickable position of the circle (required).
    */
-  @Input() public longitude: number;
+  @Input() public longitude?: number;
 
   /**
    * Indicates whether this Circle handles mouse events. Defaults to true.
@@ -63,12 +63,12 @@ export class NgMapsCircleDirective
   /**
    * The fill color. All CSS3 colors are supported except for extended named colors.
    */
-  @Input() public fillColor: string;
+  @Input() public fillColor?: string;
 
   /**
    * The fill opacity between 0.0 and 1.0.
    */
-  @Input() public fillOpacity: number;
+  @Input() public fillOpacity?: number;
 
   /**
    * The radius in meters on the Earth's surface.
@@ -78,12 +78,12 @@ export class NgMapsCircleDirective
   /**
    * The stroke color. All CSS3 colors are supported except for extended named colors.
    */
-  @Input() public strokeColor: string;
+  @Input() public strokeColor?: string;
 
   /**
    * The stroke opacity between 0.0 and 1.0
    */
-  @Input() public strokeOpacity: number;
+  @Input() public strokeOpacity?: number;
 
   /**
    * The stroke position. Defaults to CENTER.
@@ -107,7 +107,7 @@ export class NgMapsCircleDirective
   /**
    * The zIndex compared to other polys.
    */
-  @Input() public zIndex: number;
+  @Input() public zIndex?: number;
 
   /**
    * This event is fired when the circle's center is changed.
@@ -301,11 +301,11 @@ export class NgMapsCircleDirective
   /**
    * Gets the LatLngBounds of this Circle.
    */
-  public getBounds(): Promise<BoundsLiteral> {
+  public async getBounds(): Promise<BoundsLiteral | null> {
     return this._manager.getBounds(this);
   }
 
-  public getCenter(): Promise<GeoPoint> {
+  public async getCenter(): Promise<GeoPoint | null> {
     return this._manager.getCenter(this);
   }
 }

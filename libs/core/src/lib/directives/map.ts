@@ -110,13 +110,13 @@ export class NgMapsViewComponent<T>
    * The minimal zoom level of the map allowed. When not provided, no restrictions to the zoom level
    * are enforced.
    */
-  @Input() public minZoom: number;
+  @Input() public minZoom?: number;
 
   /**
    * The maximal zoom level of the map allowed. When not provided, no restrictions to the zoom level
    * are enforced.
    */
-  @Input() public maxZoom: number;
+  @Input() public maxZoom?: number;
 
   /**
    * Enables/disables if map is draggable.
@@ -143,7 +143,7 @@ export class NgMapsViewComponent<T>
    * Color used for the background of the Map div. This color will be visible when tiles have not
    * yet loaded as the user pans. This option can only be set when the map is initialized.
    */
-  @Input() public backgroundColor: string;
+  @Input() public backgroundColor?: string;
 
   /**
    * The name or url of the cursor to display when mousing over a draggable map. This property uses
@@ -151,7 +151,7 @@ export class NgMapsViewComponent<T>
    * least one fallback cursor that is not a URL. For example:
    * [draggableCursor]="'url(http://www.example.com/icon.png), auto;'"
    */
-  @Input() public draggableCursor: string;
+  @Input() public draggableCursor?: string;
 
   /**
    * The name or url of the cursor to display when the map is being dragged. This property uses the
@@ -159,7 +159,7 @@ export class NgMapsViewComponent<T>
    * one fallback cursor that is not a URL. For example:
    * [draggingCursor]="'url(http://www.example.com/icon.png), auto;'"
    */
-  @Input() public draggingCursor: string;
+  @Input() public draggingCursor?: string;
 
   /**
    * If false, prevents the map from being controlled by the keyboard. Keyboard shortcuts are
@@ -175,7 +175,7 @@ export class NgMapsViewComponent<T>
   /**
    * Options for the Zoom control.
    */
-  @Input() public zoomControlOptions: google.maps.ZoomControlOptions;
+  @Input() public zoomControlOptions?: google.maps.ZoomControlOptions;
 
   /**
    * Styles to apply to each of the default map types. Note that for Satellite/Hybrid and Terrain
@@ -195,13 +195,13 @@ export class NgMapsViewComponent<T>
    * This control is part of the default UI, and should be set to false when displaying a map type
    * on which the Street View road overlay should not appear (e.g. a non-Earth map type).
    */
-  @Input() public streetViewControl: boolean;
+  @Input() public streetViewControl?: boolean;
 
   /**
    * Options for the Street View control.
    */
   @Input()
-  public streetViewControlOptions: google.maps.StreetViewControlOptions;
+  public streetViewControlOptions?: google.maps.StreetViewControlOptions;
 
   /**
    * Sets the viewport to contain the given bounds.
@@ -212,7 +212,7 @@ export class NgMapsViewComponent<T>
   /**
    * Padding amount for bounds. This optional parameter is undefined by default.
    */
-  @Input() public boundsPadding: number | Padding;
+  @Input() public boundsPadding?: number | Padding;
 
   /**
    * The initial enabled/disabled state of the Scale control. This is disabled by default.
@@ -222,7 +222,7 @@ export class NgMapsViewComponent<T>
   /**
    * Options for the scale control.
    */
-  @Input() public scaleControlOptions: google.maps.ScaleControlOptions;
+  @Input() public scaleControlOptions?: google.maps.ScaleControlOptions;
 
   /**
    * The initial enabled/disabled state of the Map type control.
@@ -232,7 +232,7 @@ export class NgMapsViewComponent<T>
   /**
    * Options for the Map type control.
    */
-  @Input() public mapTypeControlOptions: google.maps.MapTypeControlOptions;
+  @Input() public mapTypeControlOptions?: google.maps.MapTypeControlOptions;
 
   /**
    * The initial enabled/disabled state of the Pan control.
@@ -242,7 +242,7 @@ export class NgMapsViewComponent<T>
   /**
    * Options for the Pan control.
    */
-  @Input() public panControlOptions: google.maps.PanControlOptions;
+  @Input() public panControlOptions?: google.maps.PanControlOptions;
 
   /**
    * The initial enabled/disabled state of the Rotate control.
@@ -252,7 +252,7 @@ export class NgMapsViewComponent<T>
   /**
    * Options for the Rotate control.
    */
-  @Input() public rotateControlOptions: google.maps.RotateControlOptions;
+  @Input() public rotateControlOptions?: google.maps.RotateControlOptions;
 
   /**
    * The initial enabled/disabled state of the Fullscreen control.
@@ -263,7 +263,7 @@ export class NgMapsViewComponent<T>
    * Options for the Fullscreen control.
    */
   @Input()
-  public fullscreenControlOptions: google.maps.FullscreenControlOptions;
+  public fullscreenControlOptions?: google.maps.FullscreenControlOptions;
 
   /**
    * The map mapTypeId. Defaults to 'roadmap'.
@@ -279,7 +279,7 @@ export class NgMapsViewComponent<T>
   /**
    * Add layers https://developers.google.com/maps/documentation/javascript/trafficlayer to map
    */
-  @Input() public layers: Array<LayerTypes> | LayerTypes;
+  @Input() public layers?: Array<LayerTypes> | LayerTypes;
 
   private _layerInstance: Map<
     LayerTypes,
@@ -322,7 +322,7 @@ export class NgMapsViewComponent<T>
   @Input() public tilt: number = 0;
 
   protected subscription: Subscription = new Subscription();
-  protected _fitBoundsSubscription: Subscription;
+  protected _fitBoundsSubscription?: Subscription;
 
   /**
    * This event emitter gets emitted when the user clicks on the map (but not when they click on a
@@ -365,8 +365,8 @@ export class NgMapsViewComponent<T>
    * This event is fired when the mapTypeId property changes.
    */
   @Output()
-  public mapTypeIdChange: EventEmitter<google.maps.MapTypeId> =
-    new EventEmitter<google.maps.MapTypeId>();
+  public mapTypeIdChange: EventEmitter<google.maps.MapTypeId | string> =
+    new EventEmitter<google.maps.MapTypeId | string>();
 
   /**
    * This event is fired when the map becomes idle after panning or zooming.
@@ -390,11 +390,11 @@ export class NgMapsViewComponent<T>
    */
   @Output() public tilesLoaded: EventEmitter<void> = new EventEmitter<void>();
 
-  @ViewChild('container', { static: true }) public container: ElementRef;
+  @ViewChild('container', { static: true }) public container?: ElementRef;
 
   /** @internal */
   public ngOnInit() {
-    this._initMapInstance(this.container.nativeElement);
+    this._initMapInstance(this.container?.nativeElement);
   }
 
   protected async _initMapInstance(el: HTMLElement) {
@@ -515,7 +515,7 @@ export class NgMapsViewComponent<T>
       const map = await this._mapsWrapper.getNativeMap();
       const layers = Array.isArray(this.layers) ? this.layers : [this.layers];
       layers.forEach((layer) => {
-        if (!this._layerInstance.has(layer)) {
+        if (layer && !this._layerInstance.has(layer)) {
           const i:
             | google.maps.TrafficLayer
             | google.maps.TransitLayer
@@ -528,7 +528,7 @@ export class NgMapsViewComponent<T>
       Array.from(this._layerInstance.keys()).forEach((layer) => {
         if (!layers.includes(layer)) {
           const i = this._layerInstance.get(layer);
-          i.setMap(null);
+          i?.setMap(null);
           this._layerInstance.delete(layer);
         }
       });
@@ -581,8 +581,8 @@ export class NgMapsViewComponent<T>
       !(
         typeof this.latitude !== 'number' || typeof this.longitude !== 'number'
       ) &&
-      this.latitude !== center.lat &&
-      this.longitude !== center.lng
+      this.latitude !== center?.lat &&
+      this.longitude !== center?.lng
     ) {
       await this._setCenter();
       return;
@@ -601,7 +601,7 @@ export class NgMapsViewComponent<T>
     }
   }
 
-  protected _fitBounds() {
+  protected async _fitBounds() {
     switch (this.fitBounds) {
       case true:
         this._subscribeToFitBoundsUpdates();

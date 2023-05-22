@@ -65,12 +65,12 @@ export class NgMapsPolygonDirective
    * The fill color. All CSS3 colors are supported except for extended
    * named colors.
    */
-  @Input() public fillColor: string;
+  @Input() public fillColor?: string;
 
   /**
    * The fill opacity between 0.0 and 1.0
    */
-  @Input() public fillOpacity: number;
+  @Input() public fillOpacity?: number;
 
   /**
    * When true, edges of the polygon are interpreted as geodesic and will
@@ -98,39 +98,41 @@ export class NgMapsPolygonDirective
    * The stroke color. All CSS3 colors are supported except for extended
    * named colors.
    */
-  @Input() public strokeColor: string;
+  @Input() public strokeColor?: string;
 
   /**
    * The stroke opacity between 0.0 and 1.0
    */
-  @Input() public strokeOpacity: number;
+  @Input() public strokeOpacity?: number;
 
   /**
    * The stroke width in pixels.
    */
-  @Input() public strokeWeight: number;
+  @Input() public strokeWeight?: number;
 
   /**
    * Whether this polygon is visible on the map. Defaults to true.
    */
-  @Input() public visible: boolean;
+  @Input() public visible?: boolean;
 
   /**
    * The zIndex compared to other polys.
    */
-  @Input() public zIndex: number;
+  @Input() public zIndex?: number;
 
   /**
    * This event is fired when the DOM click event is fired on the Polygon.
    */
   @Output()
-  public polyClick: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  public polyClick: EventEmitter<google.maps.PolyMouseEvent> =
+    new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired when the DOM dblclick event is fired on the Polygon.
    */
   @Output()
-  public polyDblClick: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  public polyDblClick: EventEmitter<google.maps.PolyMouseEvent> =
+    new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is repeatedly fired while the user drags the polygon.
@@ -148,45 +150,52 @@ export class NgMapsPolygonDirective
    * This event is fired when the user starts dragging the polygon.
    */
   @Output()
-  public polyDragStart: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  public polyDragStart: EventEmitter<MouseEvent> =
+    new EventEmitter<MouseEvent>();
 
   /**
    * This event is fired when the DOM mousedown event is fired on the Polygon.
    */
   @Output()
-  public polyMouseDown: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  public polyMouseDown: EventEmitter<google.maps.PolyMouseEvent> =
+    new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired when the DOM mousemove event is fired on the Polygon.
    */
   @Output()
-  public polyMouseMove: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  public polyMouseMove: EventEmitter<google.maps.PolyMouseEvent> =
+    new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired on Polygon mouseout.
    */
   @Output()
-  public polyMouseOut: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  public polyMouseOut: EventEmitter<google.maps.PolyMouseEvent> =
+    new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired on Polygon mouseover.
    */
   @Output()
-  public polyMouseOver: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  public polyMouseOver: EventEmitter<google.maps.PolyMouseEvent> =
+    new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This event is fired whe the DOM mouseup event is fired on the Polygon
    */
   @Output()
-  public polyMouseUp: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  public polyMouseUp: EventEmitter<google.maps.PolyMouseEvent> =
+    new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
    * This even is fired when the Polygon is right-clicked on.
    */
   @Output()
-  public polyRightClick: EventEmitter<google.maps.PolyMouseEvent> = new EventEmitter<google.maps.PolyMouseEvent>();
+  public polyRightClick: EventEmitter<google.maps.PolyMouseEvent> =
+    new EventEmitter<google.maps.PolyMouseEvent>();
 
-  private _id: string;
+  private _id?: string;
   private _polygonAddedToManager: boolean = false;
   private subscription: Subscription = new Subscription();
 
@@ -266,6 +275,8 @@ export class NgMapsPolygonDirective
     handlers.forEach((obj) => {
       const os = this._polygonManager
         .createEventObservable(obj.name, this)
+        // FIXME
+        // @ts-ignore
         .subscribe(obj.handler);
       this.subscription.add(os);
     });
@@ -286,7 +297,7 @@ export class NgMapsPolygonDirective
   }
 
   /** @internal */
-  public id(): string {
+  public id(): string | undefined {
     return this._id;
   }
 

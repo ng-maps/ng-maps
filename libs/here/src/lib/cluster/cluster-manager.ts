@@ -57,7 +57,7 @@ export class ClusterManager extends HereMapsMarkerManager {
     this._markers.set(marker, markers);
   }
 
-  deleteMarker(marker: NgMapsMarkerComponent): Promise<void> {
+  async deleteMarker(marker: NgMapsMarkerComponent): Promise<void> {
     const m: H.map.Marker = this._markers.get(marker);
     if (m == null) {
       // marker already deleted

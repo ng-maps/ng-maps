@@ -26,8 +26,8 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
     super(_loader, _zone);
   }
 
-  protected _api: Promise<google.maps.Map>;
-  protected _mapResolver: (value?: google.maps.Map) => void;
+  protected override _api?: Promise<google.maps.Map>;
+  protected override _mapResolver?: (value: google.maps.Map) => void;
 
   public createMap(
     el: HTMLElement,
@@ -36,14 +36,16 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
   ): Promise<void> {
     return this._zone.runOutsideAngular(async () => {
       await this._loader.load();
-      this._mapResolver(new google.maps.Map(el, { center, ...options }));
+      if (this._mapResolver) {
+        this._mapResolver(new google.maps.Map(el, { center, ...options }));
+      }
       return;
     });
   }
 
   public async setMapOptions(options: google.maps.MapOptions) {
     const map = await this._api;
-    map.setOptions(options);
+    map?.setOptions(options);
   }
 
   /**
@@ -117,12 +119,14 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
     });
   }
 
-  public createPolyline(
+  public async createPolyline(
     options: google.maps.PolylineOptions,
   ): Promise<google.maps.Polyline> {
-    return this.getNativeMap().then((map: google.maps.Map) => {
+    return this.getNativeMap().then((map) => {
       const line = new google.maps.Polyline(options);
-      line.setMap(map);
+      if (map) {
+        line.setMap(map);
+      }
       return line;
     });
   }
@@ -130,9 +134,11 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
   public createPolygon(
     options: google.maps.PolygonOptions,
   ): Promise<google.maps.Polygon> {
-    return this.getNativeMap().then((map: google.maps.Map) => {
+    return this.getNativeMap().then((map) => {
       const polygon = new google.maps.Polygon(options);
-      polygon.setMap(map);
+      if (map) {
+        polygon.setMap(map);
+      }
       return polygon;
     });
   }
@@ -140,10 +146,10 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
   /**
    * Creates a new google.map.Data layer for the current map
    */
-  public createDataLayer(
+  public async createDataLayer(
     options?: google.maps.Data.DataOptions,
-  ): Promise<google.maps.Data> {
-    return this._api.then((m) => {
+  ): Promise<google.maps.Data | undefined> {
+    return this._api?.then((m) => {
       const data = new google.maps.Data(options);
       data.setMap(m);
       return data;
@@ -165,8 +171,8 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
    */
   public subscribeToMapEvent(eventName: string): Observable<any> {
     return new Observable((observer) => {
-      this._api.then((m) =>
-        m.addListener(eventName, (...evArgs) =>
+      this._api?.then((m) =>
+        m.addListener(eventName, (...evArgs: Array<any>) =>
           this._zone.run(() => observer.next(evArgs)),
         ),
       );
@@ -174,45 +180,48 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
   }
 
   public clearInstanceListeners() {
-    this._api.then((map: google.maps.Map) => {
+    this._api?.then((map: google.maps.Map) => {
       google.maps.event.clearInstanceListeners(map);
     });
   }
 
-  public setCenter(latLng: google.maps.LatLngLiteral): Promise<void> {
-    return this._api.then((map: google.maps.Map) => map.setCenter(latLng));
+  public async setCenter(latLng: google.maps.LatLngLiteral): Promise<void> {
+    return this._api?.then((map: google.maps.Map) => map.setCenter(latLng));
   }
 
-  public getZoom(): Promise<number> {
-    return this._api.then((map: google.maps.Map) => map.getZoom());
-  }
-
-  public async getBounds(): Promise<BoundsLiteral> {
+  public async getZoom(): Promise<number | undefined> {
     const map = await this._api;
-    return map.getBounds()?.toJSON();
+    return map?.getZoom();
   }
 
-  public getMapTypeId(): Promise<google.maps.MapTypeId | string> {
-    return this._api.then((map: google.maps.Map) => map.getMapTypeId());
-  }
-
-  public setZoom(zoom: number): Promise<void> {
-    return this._api.then((map: google.maps.Map) => map.setZoom(zoom));
-  }
-
-  public async getCenter(): Promise<GeoPoint> {
+  public async getBounds(): Promise<BoundsLiteral | undefined> {
     const map = await this._api;
-    return map.getCenter().toJSON();
+    return map?.getBounds()?.toJSON();
   }
 
-  public panTo(
+  public async getMapTypeId(): Promise<
+    google.maps.MapTypeId | string | undefined
+  > {
+    return this._api?.then((map) => map.getMapTypeId());
+  }
+
+  public async setZoom(zoom: number): Promise<void> {
+    this._api?.then((map) => map.setZoom(zoom));
+  }
+
+  public async getCenter(): Promise<GeoPoint | undefined> {
+    const map = await this._api;
+    return map?.getCenter()?.toJSON();
+  }
+
+  public async panTo(
     latLng: google.maps.LatLng | google.maps.LatLngLiteral,
   ): Promise<void> {
-    return this._api.then((map) => map.panTo(latLng));
+    this._api?.then((map) => map.panTo(latLng));
   }
 
-  public panBy(x: number, y: number): Promise<void> {
-    return this._api.then((map) => map.panBy(x, y));
+  public async panBy(x: number, y: number): Promise<void> {
+    this._api?.then((map) => map.panBy(x, y));
   }
 
   public async fitBounds(
@@ -220,7 +229,7 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
     padding?: number | google.maps.Padding,
   ): Promise<void> {
     const map = await this._api;
-    return map.fitBounds(latLng, padding);
+    map?.fitBounds(latLng, padding);
   }
 
   public async panToBounds(
@@ -228,14 +237,17 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
     padding?: number | google.maps.Padding,
   ): Promise<void> {
     const map = await this._api;
-    return map.panToBounds(latLng, padding);
+    return map?.panToBounds(latLng, padding);
   }
 
   /**
    * Triggers the given event name on the map instance.
    */
-  public triggerMapEvent(eventName: string): Promise<void> {
-    return this._api.then((m) => google.maps.event.trigger(m, eventName));
+  public async triggerMapEvent(eventName: string): Promise<void> {
+    const map = await this._api;
+    if (map) {
+      google.maps.event.trigger(map, eventName);
+    }
   }
 
   protected _isLatLngBoundsLiteral(

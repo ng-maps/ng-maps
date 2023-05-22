@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
   SimpleChange,
+  SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -36,22 +37,22 @@ export class NgMapsRectangleDirective
   /**
    * The north position of the rectangle (required).
    */
-  @Input() public north: number;
+  @Input() public north?: number;
 
   /**
    * The east position of the rectangle (required).
    */
-  @Input() public east: number;
+  @Input() public east?: number;
 
   /**
    * The south position of the rectangle (required).
    */
-  @Input() public south: number;
+  @Input() public south?: number;
 
   /**
    * The west position of the rectangle (required).
    */
-  @Input() public west: number;
+  @Input() public west?: number;
 
   /**
    * Indicates whether this Rectangle handles mouse events. Defaults to true.
@@ -73,22 +74,22 @@ export class NgMapsRectangleDirective
   /**
    * The fill color. All CSS3 colors are supported except for extended named colors.
    */
-  @Input() public fillColor: string;
+  @Input() public fillColor?: string;
 
   /**
    * The fill opacity between 0.0 and 1.0.
    */
-  @Input() public fillOpacity: number;
+  @Input() public fillOpacity?: number;
 
   /**
    * The stroke color. All CSS3 colors are supported except for extended named colors.
    */
-  @Input() public strokeColor: string;
+  @Input() public strokeColor?: string;
 
   /**
    * The stroke opacity between 0.0 and 1.0
    */
-  @Input() public strokeOpacity: number;
+  @Input() public strokeOpacity?: number;
 
   /**
    * The stroke position. Defaults to CENTER.
@@ -109,7 +110,7 @@ export class NgMapsRectangleDirective
   /**
    * The zIndex compared to other polys.
    */
-  @Input() public zIndex: number;
+  @Input() public zIndex?: number;
 
   /**
    * This event is fired when the rectangle's is changed.
@@ -198,7 +199,7 @@ export class NgMapsRectangleDirective
   }
 
   /** @internal */
-  public ngOnChanges(changes: { [key: string]: SimpleChange }) {
+  public ngOnChanges(changes: SimpleChanges) {
     if (!this._rectangleAddedToManager) {
       return;
     }
@@ -278,7 +279,7 @@ export class NgMapsRectangleDirective
   /**
    * Gets the LatLngBounds of this Rectangle.
    */
-  public getBounds(): Promise<BoundsLiteral> {
+  public getBounds(): Promise<BoundsLiteral | null> {
     return this._manager.getBounds(this);
   }
 }

@@ -30,7 +30,7 @@ export abstract class RectangleManager<T = any> {
 
   public abstract getBounds(
     rectangle: NgMapsRectangleDirective,
-  ): Promise<BoundsLiteral>;
+  ): Promise<BoundsLiteral | null>;
 
   public abstract setBounds(rectangle: NgMapsRectangleDirective): Promise<void>;
 

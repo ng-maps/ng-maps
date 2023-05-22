@@ -28,7 +28,7 @@ export abstract class PolylineManager<T = any> {
     );
   }
 
-  public abstract addPolyline(line: NgMapsPolyline);
+  public abstract addPolyline(line: NgMapsPolyline): Promise<void> | void;
 
   public abstract updatePolylinePoints(line: NgMapsPolyline): Promise<void>;
 

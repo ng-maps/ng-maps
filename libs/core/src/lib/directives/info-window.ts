@@ -66,19 +66,19 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
    * The latitude position of the info window (only usefull if you use it ouside of a {@link
    * NgMapsMarkerComponent}).
    */
-  @Input() public latitude: number;
+  @Input() public latitude?: number;
 
   /**
    * The longitude position of the info window (only usefull if you use it ouside of a {@link
    * NgMapsMarkerComponent}).
    */
-  @Input() public longitude: number;
+  @Input() public longitude?: number;
 
   /**
    * Disable auto-pan on open. By default, the info window will pan the map so that it is fully
    * visible when it opens.
    */
-  @Input() public disableAutoPan: boolean;
+  @Input() public disableAutoPan?: boolean;
 
   /**
    * All InfoWindows are displayed on the map in order of their zIndex, with higher values
@@ -86,25 +86,25 @@ export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
    * according to their latitude, with InfoWindows of lower latitudes appearing in front of
    * InfoWindows at higher latitudes. InfoWindows are always displayed in front of markers.
    */
-  @Input() public zIndex: number;
+  @Input() public zIndex?: number;
 
   /**
    * Maximum width of the infowindow, regardless of content's width. This value is only considered
    * if it is set before a call to open. To change the maximum width when changing content, call
    * close, update maxWidth, and then open.
    */
-  @Input() public maxWidth: number;
+  @Input() public maxWidth?: number;
 
   /**
    * Holds the marker that is the host of the info window (if available)
    */
-  public hostMarker: NgMapsMarkerComponent;
+  public hostMarker?: NgMapsMarkerComponent;
 
   /**
    * Holds the native element that is used for the info window content.
    */
   @ViewChild('content', { static: true })
-  public content: ElementRef;
+  public content?: ElementRef;
 
   /**
    * Sets the open state for the InfoWindow. You can also call the open() and close() methods.

@@ -19,7 +19,7 @@ import { MarkerClusterComponent } from '../../directives/marker-cluster';
 })
 export class ClusterManager extends GoogleMapsMarkerManager {
   private _clustererInstance: Promise<MarkerClusterer>;
-  private _resolver: (value?: any) => void;
+  private _resolver?: (value?: any) => void;
   constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
     super(_mapsWrapper, _zone);
     this._clustererInstance = new Promise<MarkerClusterer>((resolver) => {
@@ -29,20 +29,28 @@ export class ClusterManager extends GoogleMapsMarkerManager {
 
   public async createCluster(options: MarkerClustererOptions): Promise<void> {
     const map = await this._mapsWrapper.getNativeMap();
-    this._resolver(
-      new MarkerClusterer({
-        map,
-        markers: [...this._markers.values()],
-        ...options,
-      }),
-    );
+    if (this._resolver) {
+      this._resolver(
+        new MarkerClusterer({
+          map,
+          markers: [...this._markers.values()],
+          ...options,
+        }),
+      );
+    }
   }
 
   /**
    * @todo fix commented options
    * @param marker
    */
-  public async addMarker(marker: NgMapsMarkerComponent): Promise<void> {
+  public override async addMarker(
+    marker: NgMapsMarkerComponent,
+  ): Promise<void> {
+    if (!marker.latitude || !marker.longitude) {
+      return;
+    }
+
     const cluster: MarkerClusterer = await this._clustererInstance;
     const markers = await this._mapsWrapper.createMarker(
       {
@@ -65,7 +73,9 @@ export class ClusterManager extends GoogleMapsMarkerManager {
     this._markers.set(marker, markers);
   }
 
-  public deleteMarker(marker: NgMapsMarkerComponent): Promise<void> {
+  public override async deleteMarker(
+    marker: NgMapsMarkerComponent,
+  ): Promise<void> {
     const m = this._markers.get(marker);
     if (m == null) {
       // marker already deleted

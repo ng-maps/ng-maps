@@ -9,10 +9,8 @@ import {
 
 @Injectable()
 export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
-  protected _markers: Map<NgMapsMarkerComponent, google.maps.Marker> = new Map<
-    NgMapsMarkerComponent,
-    google.maps.Marker
-  >();
+  protected override _markers: Map<NgMapsMarkerComponent, google.maps.Marker> =
+    new Map<NgMapsMarkerComponent, google.maps.Marker>();
 
   constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
     super(_mapsWrapper, _zone);
@@ -32,56 +30,59 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
   }
 
   public updateMarkerPosition(marker: NgMapsMarkerComponent): void {
+    if (!marker.latitude || !marker.longitude) {
+      return;
+    }
     const m = this._markers.get(marker);
-    m.setPosition({ lat: marker.latitude, lng: marker.longitude });
+    m?.setPosition({ lat: marker.latitude, lng: marker.longitude });
   }
 
   public updateTitle(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    m.setTitle(marker.title);
+    m?.setTitle(marker.title);
   }
 
   public updateLabel(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    m.setLabel(marker.label);
+    m?.setLabel(marker.label);
   }
 
   public updateDraggable(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    m.setDraggable(marker.draggable);
+    m?.setDraggable(marker.draggable);
   }
 
   public updateIconLegacy(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    m.setIcon(marker.iconUrl);
+    m?.setIcon(marker.iconUrl);
   }
 
   public updateOpacity(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    m.setOpacity(marker.opacity);
+    m?.setOpacity(marker.opacity);
   }
 
   public updateVisible(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    m.setVisible(marker.visible);
+    m?.setVisible(marker.visible);
   }
 
   public updateZIndex(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    m.setZIndex(marker.zIndex);
+    m?.setZIndex(marker.zIndex);
   }
 
   public updateClickable(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    m.setClickable(marker.clickable);
+    m?.setClickable(marker.clickable);
   }
 
   public updateAnimation(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
     if (typeof marker.animation === 'string') {
-      m.setAnimation(google.maps.Animation[marker.animation]);
+      m?.setAnimation(google.maps.Animation[marker.animation]);
     } else {
-      m.setAnimation(marker.animation);
+      m?.setAnimation(marker.animation);
     }
   }
 
@@ -95,14 +96,16 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
         eventName = [eventName];
       }
       eventName.forEach((event) => {
-        m.addListener(event, (e: T) => this._zone.run(() => observer.next(e)));
+        m?.addListener(event, (e: T) => this._zone.run(() => observer.next(e)));
       });
     });
   }
 
   public updateIcon(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    if (marker.icon.path) {
+    if (m && marker.icon?.path) {
+      // TODO correct typings
+      // @ts-ignore
       m.setIcon(marker.icon);
     }
   }

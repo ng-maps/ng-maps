@@ -74,22 +74,22 @@ export class NgMapsMarkerComponent
   /**
    * The latitude position of the marker.
    */
-  @Input() public latitude: number;
+  @Input() public latitude?: number;
 
   /**
    * The longitude position of the marker.
    */
-  @Input() public longitude: number;
+  @Input() public longitude?: number;
 
   /**
    * The title of the marker.
    */
-  @Input() public title: string;
+  @Input() public title?: string;
 
   /**
    * The label (a single uppercase character) for the marker.
    */
-  @Input() public label: string | google.maps.MarkerLabel;
+  @Input() public label?: string | google.maps.MarkerLabel;
 
   /**
    * If true, the marker can be dragged. Default value is false.
@@ -103,9 +103,9 @@ export class NgMapsMarkerComponent
    *
    * @see <a href="https://developers.google.com/maps/documentation/javascript/reference/marker#Icon">google.maps.Icon</a>
    */
-  @Input() public iconUrl: string | google.maps.Icon;
+  @Input() public iconUrl?: string | google.maps.Icon;
 
-  @Input() public icon: MarkerIcon;
+  @Input() public icon?: MarkerIcon;
 
   /**
    * If true, the marker is visible
@@ -146,7 +146,7 @@ export class NgMapsMarkerComponent
    * Which animation to play when marker is added to a map.
    * This can be 'BOUNCE' or 'DROP'
    */
-  public animation: 'BOUNCE' | 'DROP' | null;
+  public animation?: 'BOUNCE' | 'DROP' | null;
 
   /**
    * This event emitter gets emitted when the user clicks on the marker.
@@ -299,9 +299,11 @@ export class NgMapsMarkerComponent
   }
 
   protected _updateFitBoundsDetails() {
-    this._fitBoundsDetails$.next({
-      latLng: { lat: this.latitude, lng: this.longitude },
-    });
+    if (this.latitude && this.longitude) {
+      this._fitBoundsDetails$.next({
+        latLng: { lat: this.latitude, lng: this.longitude },
+      });
+    }
   }
 
   protected _addEventListeners() {
@@ -320,7 +322,7 @@ export class NgMapsMarkerComponent
     const rc = this.markerManager
       .createEventObservable('rightclick', this)
       .subscribe(() => {
-        this.markerRightClick.emit(null);
+        this.markerRightClick.emit();
       });
     this.subscription.add(rc);
 

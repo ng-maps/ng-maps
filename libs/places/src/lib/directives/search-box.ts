@@ -54,7 +54,7 @@ export class NgMapsSearchBoxDirective implements OnInit, OnChanges, OnDestroy {
   public bounds: EventEmitter<google.maps.LatLngBounds> =
     new EventEmitter<google.maps.LatLngBounds>();
 
-  private searchBox: google.maps.places.SearchBox;
+  private searchBox?: google.maps.places.SearchBox;
   private readonly subscription: Subscription = new Subscription();
 
   constructor(
@@ -96,8 +96,8 @@ export class NgMapsSearchBoxDirective implements OnInit, OnChanges, OnDestroy {
         () => this.removeHandler(),
       ).subscribe({
         next: () => {
-          this.placeResult.emit(this.searchBox.getPlaces());
-          this.bounds.emit(this.searchBox.getBounds());
+          this.placeResult.emit(this.searchBox!.getPlaces());
+          this.bounds.emit(this.searchBox!.getBounds());
         },
       }),
     );
@@ -108,7 +108,7 @@ export class NgMapsSearchBoxDirective implements OnInit, OnChanges, OnDestroy {
     if (typeof changes.config !== 'undefined' && !changes.config.firstChange) {
       const config = changes.config
         .currentValue as google.maps.places.SearchBoxOptions;
-      if (typeof config.bounds !== 'undefined') {
+      if (typeof config.bounds !== 'undefined' && this.searchBox) {
         this.searchBox.setBounds(config.bounds);
       }
     }
@@ -121,13 +121,13 @@ export class NgMapsSearchBoxDirective implements OnInit, OnChanges, OnDestroy {
 
   /** @internal */
   private addHandler(handler: (...args: Array<any>) => void) {
-    return this.searchBox.addListener('places_changed', () =>
+    return this.searchBox?.addListener('places_changed', () =>
       this._zone.run(handler),
     );
   }
 
   /** @internal */
   private removeHandler() {
-    this.searchBox.unbindAll();
+    this.searchBox?.unbindAll();
   }
 }

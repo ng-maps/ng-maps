@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { firstValueFrom, ReplaySubject } from 'rxjs';
 
 import { MapsAPILoader } from '@ng-maps/core';
 
@@ -12,11 +12,9 @@ import {
 
 @Injectable()
 export class GoogleMapsScriptLoader extends MapsAPILoader {
-  protected _scriptLoadingPromise: Promise<void>;
+  protected _scriptLoadingPromise?: Promise<void>;
   protected _config: ReplaySubject<GoogleModuleOptions> =
     new ReplaySubject<GoogleModuleOptions>(1);
-  protected _document: Document;
-  protected _window: Window;
   protected readonly _SCRIPT_ID: string = 'GoogleMapsApiScript';
   protected readonly callbackName: string = `LazyMapsAPILoader`;
 
@@ -62,7 +60,7 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
   }
 
   protected async checkScriptElement(): Promise<void> {
-    let scriptElement: HTMLScriptElement = this._document.getElementById(
+    let scriptElement: HTMLScriptElement = this._document?.getElementById(
       this._SCRIPT_ID,
     ) as HTMLScriptElement;
     if (scriptElement == null) {
@@ -74,15 +72,22 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
   protected assignScriptLoadingPromise(
     scriptElement: HTMLScriptElement,
   ): Promise<void> {
-    this._document.body.appendChild(scriptElement);
+    this._document?.body.appendChild(scriptElement);
     return new Promise((resolve, reject) => {
+      // FIXME
+      // @ts-ignore
       this._window[this.callbackName] = () => resolve();
 
+      // FIXME
+      // @ts-ignore
       scriptElement.onerror = (error: Event) => reject(error);
     });
   }
 
   protected async createScriptElement() {
+    if (!this._document) {
+      throw new Error('Document is not defined');
+    }
     const script = this._document.createElement('script');
     script.type = 'text/javascript';
     script.async = true;
@@ -93,7 +98,10 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
   }
 
   protected async _getScriptSrc(callbackName: string): Promise<string> {
-    const config = await this._config.toPromise();
+    const config = await firstValueFrom(this._config);
+    if (!config) {
+      throw new Error('No configuration provided');
+    }
     const protocolType: GoogleMapsScriptProtocol =
       (config && config.protocol) || GoogleMapsScriptProtocol.HTTPS;
     let protocol: string;
@@ -115,13 +123,14 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
     const queryParams: { [key: string]: string | Array<string> } = {
       v: config.apiVersion || 'quarterly',
       callback: callbackName,
-      key: config.apiKey,
-      client: config.clientId,
-      channel: config.channel,
-      libraries: config.libraries,
-      region: config.region,
-      language: config.language,
+      key: config.apiKey!,
+      client: config.clientId!,
+      channel: config.channel!,
+      libraries: config.libraries!,
+      region: config.region!,
+      language: config.language!,
     };
+
     const params: string = Object.keys(queryParams)
       .filter((k: string) => queryParams[k] != null)
       .filter(
@@ -139,6 +148,8 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
         return { key: k, value: queryParams[k] };
       })
       .map(
+        // FIXME
+        // @ts-ignore
         (entry: { key: string; value: string }) =>
           `${entry.key}=${entry.value}`,
       )

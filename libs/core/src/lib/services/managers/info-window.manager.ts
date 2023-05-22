@@ -34,7 +34,7 @@ export abstract class InfoWindowManager<T> {
   public abstract setOptions(
     infoWindow: NgMapsInfoWindowComponent,
     options: google.maps.InfoWindowOptions,
-  );
+  ): Promise<void> | void;
 
   public abstract addInfoWindow(
     infoWindow: NgMapsInfoWindowComponent,

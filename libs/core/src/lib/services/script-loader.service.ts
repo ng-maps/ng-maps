@@ -34,8 +34,11 @@ export class ScriptLoaderService {
         reject(event);
       }
 
+      // @ts-ignore
       element.addEventListener('readystatechange', successHandler);
+      // @ts-ignore
       element.addEventListener('load', successHandler);
+      // @ts-ignore
       element.addEventListener('error', errorHandler);
     });
   }
@@ -69,7 +72,7 @@ export class ScriptLoaderService {
    */
   public loadScript(src: string, integrity?: string): Promise<UIEvent | void> {
     if (this.alreadyLoaded.has(src)) {
-      return this.alreadyLoaded.get(src);
+      return this.alreadyLoaded.get(src)!;
     } else {
       const script = this.createScriptElement(src);
       const promise = this.observeLoad(script);
@@ -88,7 +91,7 @@ export class ScriptLoaderService {
   public loadCSS(href: string): Promise<UIEvent | void> {
     // eslint-disable-line
     if (this.alreadyLoaded.has(href)) {
-      return this.alreadyLoaded.get(href);
+      return this.alreadyLoaded.get(href)!;
     } else {
       const style = this.createCSSElement(href);
       const promise = this.observeLoad(style);

@@ -13,8 +13,8 @@ import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
 
 @Injectable()
 export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
-  protected _api: Promise<T>;
-  protected _mapResolver: (value?: T) => void;
+  protected _api?: Promise<T>;
+  protected _mapResolver?: (value: T) => void;
 
   constructor(protected _loader: MapsAPILoader, protected _zone: NgZone) {
     this._api = new Promise<T>((resolve) => {
@@ -26,9 +26,9 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
     el: HTMLElement,
     center: GeoPoint,
     options: MapOptions,
-  );
+  ): void | Promise<void>;
 
-  public abstract setMapOptions(options: MapOptions);
+  public abstract setMapOptions(options: MapOptions): void | Promise<void>;
 
   public abstract createMarker(
     position: GeoPoint,
@@ -38,13 +38,13 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
 
   public abstract clearInstanceListeners(): void;
 
-  public async getNativeMap(): Promise<T> {
+  public async getNativeMap(): Promise<T | undefined> {
     return this._api;
   }
 
   public abstract triggerMapEvent(eventName: string): Promise<void>;
 
-  public abstract getCenter(): Promise<GeoPoint>;
+  public abstract getCenter(): Promise<GeoPoint | undefined>;
 
   public abstract setCenter(newCenter: GeoPoint): Promise<void>;
 
@@ -53,26 +53,32 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
   public abstract panToBounds(
     bounds: BoundsLiteral,
     boundsPadding?: number | Padding,
-  );
+  ): void | Promise<void>;
 
   public abstract fitBounds(
     bounds: BoundsLiteral,
     boundsPadding?: number | Padding,
-  );
+  ): void | Promise<void>;
 
-  public abstract getBounds(): Promise<BoundsLiteral>;
+  public abstract getBounds(): Promise<BoundsLiteral | undefined>;
 
-  public abstract getZoom(): Promise<number>;
+  public abstract getZoom(): Promise<number | undefined>;
 
   public abstract setZoom(zoom: number): Promise<any>;
 
-  public abstract getMapTypeId(): Promise<google.maps.MapTypeId | string>;
+  public abstract getMapTypeId(): Promise<
+    google.maps.MapTypeId | string | undefined
+  >;
 
   public abstract subscribeToMapEvent(eventName: string): Observable<any>;
 
   public abstract createInfoWindow(center: GeoPoint, options: any): Promise<I>;
 
-  public abstract createDrawingManager(param: any, addToMap?: boolean);
+  // TODO typings
+  public abstract createDrawingManager(
+    param: any,
+    addToMap?: boolean,
+  ): Promise<any>;
 
   public abstract createCircle(
     center: GeoPoint,

@@ -20,7 +20,7 @@ export class GoogleMapsFitBoundsService extends FitBoundsService {
     includeInBounds: Map<string, GeoPoint>,
   ): BoundsLiteral {
     if (includeInBounds.size === 0) {
-      return null;
+      return new google.maps.LatLngBounds().toJSON();
     } else {
       const bounds = new google.maps.LatLngBounds();
       includeInBounds.forEach((b) => bounds.extend(b));

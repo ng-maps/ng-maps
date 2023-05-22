@@ -15,6 +15,15 @@ export class GoogleRectangleManager extends RectangleManager<google.maps.Rectang
   }
 
   public addRectangle(rectangle: NgMapsRectangleDirective) {
+    if (
+      !rectangle.north ||
+      !rectangle.east ||
+      !rectangle.south ||
+      !rectangle.west
+    ) {
+      return;
+    }
+
     this._rectangles.set(
       rectangle,
       this._apiWrapper.createRectangle(
@@ -44,54 +53,66 @@ export class GoogleRectangleManager extends RectangleManager<google.maps.Rectang
   /**
    * Removes the given rectangle from the map.
    */
-  public removeRectangle(rectangle: NgMapsRectangleDirective): Promise<void> {
-    return this._rectangles.get(rectangle).then((r) => {
+  public async removeRectangle(
+    rectangle: NgMapsRectangleDirective,
+  ): Promise<void> {
+    return this._rectangles.get(rectangle)?.then((r) => {
       r.setMap(null);
       this._rectangles.delete(rectangle);
     });
   }
 
-  public setOptions(
+  public async setOptions(
     rectangle: NgMapsRectangleDirective,
     options: google.maps.RectangleOptions,
   ): Promise<void> {
-    return this._rectangles.get(rectangle).then((r) => r.setOptions(options));
+    return this._rectangles.get(rectangle)?.then((r) => r.setOptions(options));
   }
 
   public async getBounds(
     rectangle: NgMapsRectangleDirective,
-  ): Promise<BoundsLiteral> {
+  ): Promise<BoundsLiteral | null> {
     const r = await this._rectangles.get(rectangle);
-    return r.getBounds().toJSON();
+    const bounds = r?.getBounds();
+    return bounds ? bounds.toJSON() : null;
   }
 
-  public setBounds(rectangle: NgMapsRectangleDirective): Promise<void> {
-    return this._rectangles.get(rectangle).then((r) =>
-      r.setBounds({
-        north: rectangle.north,
-        east: rectangle.east,
-        south: rectangle.south,
-        west: rectangle.west,
-      }),
-    );
+  public async setBounds(rectangle: NgMapsRectangleDirective): Promise<void> {
+    if (
+      !rectangle.north ||
+      !rectangle.east ||
+      !rectangle.south ||
+      !rectangle.west
+    ) {
+      return;
+    }
+    const r = await this._rectangles.get(rectangle);
+    r?.setBounds({
+      north: rectangle.north,
+      east: rectangle.east,
+      south: rectangle.south,
+      west: rectangle.west,
+    });
   }
 
-  public setEditable(rectangle: NgMapsRectangleDirective): Promise<void> {
+  public async setEditable(rectangle: NgMapsRectangleDirective): Promise<void> {
     return this._rectangles
       .get(rectangle)
-      .then((r) => r.setEditable(rectangle.editable));
+      ?.then((r) => r.setEditable(rectangle.editable));
   }
 
-  public setDraggable(rectangle: NgMapsRectangleDirective): Promise<void> {
+  public async setDraggable(
+    rectangle: NgMapsRectangleDirective,
+  ): Promise<void> {
     return this._rectangles
       .get(rectangle)
-      .then((r) => r.setDraggable(rectangle.draggable));
+      ?.then((r) => r.setDraggable(rectangle.draggable));
   }
 
-  public setVisible(rectangle: NgMapsRectangleDirective): Promise<void> {
+  public async setVisible(rectangle: NgMapsRectangleDirective): Promise<void> {
     return this._rectangles
       .get(rectangle)
-      .then((r) => r.setVisible(rectangle.visible));
+      ?.then((r) => r.setVisible(rectangle.visible));
   }
 
   public createEventObservable<T>(
@@ -99,8 +120,8 @@ export class GoogleRectangleManager extends RectangleManager<google.maps.Rectang
     rectangle: NgMapsRectangleDirective,
   ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
-      let listener: google.maps.MapsEventListener = null;
-      this._rectangles.get(rectangle).then((r) => {
+      let listener: google.maps.MapsEventListener | null = null;
+      this._rectangles.get(rectangle)?.then((r) => {
         listener = r.addListener(eventName, (e: T) =>
           this._zone.run(() => observer.next(e)),
         );

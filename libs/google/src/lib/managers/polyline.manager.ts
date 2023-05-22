@@ -14,7 +14,7 @@ export class GooglePolylineManager extends PolylineManager<google.maps.Polyline>
     super(_mapsWrapper, _zone);
   }
 
-  protected _convertPoints(
+  protected override _convertPoints(
     line: NgMapsPolyline,
   ): Array<google.maps.LatLngLiteral> {
     return line._getPoints().map(
@@ -57,13 +57,12 @@ export class GooglePolylineManager extends PolylineManager<google.maps.Polyline>
     );
   }
 
-  public setPolylineOptions(
+  public async setPolylineOptions(
     line: NgMapsPolyline,
     options: { [propName: string]: any },
   ): Promise<void> {
-    return this._polylines.get(line).then((l: google.maps.Polyline) => {
-      l.setOptions(options);
-    });
+    const l = await this._polylines.get(line);
+    l?.setOptions(options);
   }
 
   public deletePolyline(line: NgMapsPolyline): Promise<void> {
@@ -84,7 +83,7 @@ export class GooglePolylineManager extends PolylineManager<google.maps.Polyline>
     line: NgMapsPolyline,
   ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
-      this._polylines.get(line).then((l: google.maps.Polyline) => {
+      this._polylines.get(line)?.then((l: google.maps.Polyline) => {
         l.addListener(eventName, (e: T) =>
           this._zone.run(() => observer.next(e)),
         );

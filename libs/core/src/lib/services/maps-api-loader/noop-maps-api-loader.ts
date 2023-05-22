@@ -9,9 +9,6 @@ import { MapsAPILoader } from './maps-api-loader';
  * It's important that the Google Maps API script gets loaded first on the page.
  */
 export class NoOpMapsAPILoader extends MapsAPILoader {
-  protected _window: Window;
-  protected _document: Document;
-
   constructor(@Inject(DOCUMENT) document: any) {
     super();
     this._document = document as Document;

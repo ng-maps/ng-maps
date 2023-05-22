@@ -19,7 +19,9 @@ export abstract class CircleManager<T = any> {
   /**
    * @param circle
    */
-  public abstract addCircle(circle: NgMapsCircleDirective);
+  public abstract addCircle(
+    circle: NgMapsCircleDirective,
+  ): Promise<void> | void;
 
   /**
    * Removes the given circle from the map.
@@ -37,11 +39,15 @@ export abstract class CircleManager<T = any> {
 
   public abstract getBounds(
     circle: NgMapsCircleDirective,
-  ): Promise<BoundsLiteral>;
+  ): Promise<BoundsLiteral | null>;
 
-  public abstract getCenter(circle: NgMapsCircleDirective): Promise<GeoPoint>;
+  public abstract getCenter(
+    circle: NgMapsCircleDirective,
+  ): Promise<GeoPoint | null>;
 
-  public abstract getRadius(circle: NgMapsCircleDirective): Promise<number>;
+  public abstract getRadius(
+    circle: NgMapsCircleDirective,
+  ): Promise<number | null>;
 
   public abstract setCenter(circle: NgMapsCircleDirective): Promise<void>;
 

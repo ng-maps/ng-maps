@@ -16,7 +16,9 @@ export abstract class PolygonManager<T = any> {
     protected _zone: NgZone,
   ) {}
 
-  public abstract addPolygon(path: NgMapsPolygonDirective);
+  public abstract addPolygon(
+    path: NgMapsPolygonDirective,
+  ): Promise<void> | void;
 
   public abstract updatePolygon(polygon: NgMapsPolygonDirective): Promise<void>;
 

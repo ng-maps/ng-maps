@@ -36,7 +36,7 @@ export class NgMapsAutocompleteDirective
    */
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('mapAutocomplete')
-  public config: Partial<google.maps.places.AutocompleteOptions>;
+  public config?: Partial<google.maps.places.AutocompleteOptions>;
 
   /**
    * This event is fired on selection of an element from the autocomplete list.
@@ -56,7 +56,7 @@ export class NgMapsAutocompleteDirective
   public bounds: EventEmitter<google.maps.LatLngBounds> =
     new EventEmitter<google.maps.LatLngBounds>();
 
-  private autocomplete: google.maps.places.Autocomplete;
+  private autocomplete?: google.maps.places.Autocomplete;
   private readonly subscription: Subscription = new Subscription();
 
   constructor(
@@ -102,8 +102,8 @@ export class NgMapsAutocompleteDirective
         () => this.removeHandler(),
       ).subscribe({
         next: () => {
-          this.placeResult.emit(this.autocomplete.getPlace());
-          this.bounds.emit(this.autocomplete.getBounds());
+          this.placeResult.emit(this.autocomplete!.getPlace());
+          this.bounds.emit(this.autocomplete!.getBounds());
         },
       }),
     );
@@ -115,15 +115,15 @@ export class NgMapsAutocompleteDirective
       const config = changes.config
         .currentValue as google.maps.places.AutocompleteOptions;
       if (typeof config.bounds !== 'undefined') {
-        this.autocomplete.setBounds(config.bounds);
+        this.autocomplete?.setBounds(config.bounds);
       }
       if (typeof config.componentRestrictions !== 'undefined') {
-        this.autocomplete.setComponentRestrictions(
+        this.autocomplete?.setComponentRestrictions(
           config.componentRestrictions,
         );
       }
       if (typeof config.types !== 'undefined') {
-        this.autocomplete.setTypes(config.types);
+        this.autocomplete?.setTypes(config.types);
       }
     }
   }
@@ -135,13 +135,13 @@ export class NgMapsAutocompleteDirective
 
   /** @internal */
   private addHandler(handler: (...args: Array<any>) => void) {
-    return this.autocomplete.addListener('place_changed', () =>
+    return this.autocomplete?.addListener('place_changed', () =>
       this._zone.run(handler),
     );
   }
 
   /** @internal */
   private removeHandler() {
-    this.autocomplete.unbindAll();
+    this.autocomplete?.unbindAll();
   }
 }

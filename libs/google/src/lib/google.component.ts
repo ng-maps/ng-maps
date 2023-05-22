@@ -3,7 +3,6 @@ import { Component, NgZone } from '@angular/core';
 import {
   CircleManager,
   FitBoundsService,
-  GeoPoint,
   InfoWindowManager,
   MapsApiWrapper,
   MarkerManager,
@@ -62,23 +61,25 @@ export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
     super(_mapsWrapper, _fitBoundsService, _zone);
   }
 
-  protected async _handleMapCenterChange() {
+  protected override async _handleMapCenterChange() {
     const s = this._mapsWrapper
       .subscribeToMapEvent('center_changed')
       .subscribe(() => {
-        this._mapsWrapper.getCenter().then((center: GeoPoint) => {
-          this.latitude = center.lat;
-          this.longitude = center.lng;
-          this.centerChange.emit({
-            lat: this.latitude,
-            lng: this.longitude,
-          } as google.maps.LatLngLiteral);
+        this._mapsWrapper.getCenter().then((center) => {
+          if (center) {
+            this.latitude = center.lat;
+            this.longitude = center.lng;
+            this.centerChange.emit({
+              lat: this.latitude,
+              lng: this.longitude,
+            } as google.maps.LatLngLiteral);
+          }
         });
       });
     this.subscription.add(s);
   }
 
-  protected _handleBoundsChange() {
+  protected override _handleBoundsChange() {
     const s = this._mapsWrapper
       .subscribeToMapEvent('bounds_changed')
       .subscribe(() => {
@@ -89,46 +90,44 @@ export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
     this.subscription.add(s);
   }
 
-  protected _handleMapTypeIdChange() {
+  protected override async _handleMapTypeIdChange() {
     const s = this._mapsWrapper
       .subscribeToMapEvent('maptypeid_changed')
       .subscribe(() => {
-        this._mapsWrapper
-          .getMapTypeId()
-          .then((mapTypeId: google.maps.MapTypeId) => {
-            this.mapTypeIdChange.emit(mapTypeId);
-          });
+        this._mapsWrapper.getMapTypeId().then((mapTypeId) => {
+          this.mapTypeIdChange.emit(mapTypeId);
+        });
       });
     this.subscription.add(s);
   }
 
-  protected _handleMapZoomChange() {
+  protected override _handleMapZoomChange() {
     const s = this._mapsWrapper
       .subscribeToMapEvent('zoom_changed')
       .subscribe(() => {
-        this._mapsWrapper.getZoom().then((z: number) => {
-          this.zoom = z;
+        this._mapsWrapper.getZoom().then((z) => {
+          this.zoom = z ?? 8;
           this.zoomChange.emit(z);
         });
       });
     this.subscription.add(s);
   }
 
-  protected _handleIdleEvent() {
+  protected override _handleIdleEvent() {
     const s = this._mapsWrapper.subscribeToMapEvent('idle').subscribe(() => {
       this.idle.emit(void 0);
     });
     this.subscription.add(s);
   }
 
-  protected _handleTilesLoadedEvent() {
+  protected override _handleTilesLoadedEvent() {
     const s = this._mapsWrapper
       .subscribeToMapEvent('tilesloaded')
       .subscribe(() => this.tilesLoaded.emit(void 0));
     this.subscription.add(s);
   }
 
-  protected _handleMapMouseEvents() {
+  protected override _handleMapMouseEvents() {
     interface Emitter {
       emit(value: any): void;
     }

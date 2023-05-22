@@ -40,13 +40,12 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     }
   }
 
-  public setPolygonOptions(
+  public async setPolygonOptions(
     path: NgMapsPolygonDirective,
     options: { [propName: string]: any },
   ): Promise<void> {
-    return this._polygons.get(path).then((l: google.maps.Polygon) => {
-      l.setOptions(options);
-    });
+    const l = await this._polygons.get(path);
+    l?.setOptions(options);
   }
 
   public deletePolygon(paths: NgMapsPolygonDirective): Promise<void> {
@@ -67,7 +66,7 @@ export class GooglePolygonManager extends PolygonManager<google.maps.Polygon> {
     path: NgMapsPolygonDirective,
   ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
-      this._polygons.get(path).then((l: google.maps.Polygon) => {
+      this._polygons.get(path)?.then((l: google.maps.Polygon) => {
         l.addListener(eventName, (e: T) =>
           this._zone.run(() => observer.next(e)),
         );
