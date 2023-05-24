@@ -101,7 +101,7 @@
     "@commitlint/config-nx-scopes": "17.6.4",
     "@compodoc/compodoc": "^1.1.11",
     "@jscutlery/semver": "3.0.0",
-    "@ngneat/spectator": "^12.2.1",
+    "@ngneat/spectator": "^15.0.0",
     "@nx/eslint-plugin": "16.2.1",
     "@nx/linter": "16.2.1",
     "@nx/workspace": "16.2.1",
