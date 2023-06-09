@@ -19,6 +19,7 @@
     "paths": {
       "@ng-maps/core": ["libs/core/src/public-api.ts"],
       "@ng-maps/data-layer": ["libs/data-layer/src/public-api.ts"],
+      "@ng-maps/direction": ["libs/direction/src/public-api.ts"],
       "@ng-maps/drawing-layer": ["libs/drawing-layer/src/public-api.ts"],
       "@ng-maps/google": ["libs/google/src/public-api.ts"],
       "@ng-maps/here": ["libs/here/src/public-api.ts"],

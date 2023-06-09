@@ -1,27 +1,31 @@
 {
-  "root": true,
-  "ignorePatterns": ["**/*"],
-  "plugins": ["@nx", "prettier", "import"],
+  "extends": "../../.eslintrc.json",
+  "ignorePatterns": ["!**/*"],
   "overrides": [
     {
       "files": ["*.ts"],
       "parserOptions": {
+        "project": ["libs/direction/tsconfig.*?.json"],
         "createDefaultProgram": true
-      },
-      "extends": [
-        "plugin:@nx/angular",
-        "plugin:@nx/typescript",
-        "plugin:@angular-eslint/template/process-inline-templates",
-        "plugin:import/recommended"
-      ],
-      "settings": {
-        "import/internal-regex": "^@ng-maps/",
-        "import/parsers": {
-          "@typescript-eslint/parser": [".ts", ".tsx"]
-        }
       },
       "plugins": ["eslint-plugin-react"],
       "rules": {
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "map",
+            "style": "kebab-case"
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "map",
+            "style": "camelCase"
+          }
+        ],
         "@typescript-eslint/array-type": [
           "error",
           {
@@ -33,7 +37,7 @@
           {
             "accessibility": "explicit",
             "overrides": {
-              "accessors": "explicit",
+              "accessors": "off",
               "constructors": "no-public",
               "methods": "explicit",
               "properties": "explicit",
@@ -73,7 +77,6 @@
         "no-extra-semi": "off",
         "no-irregular-whitespace": "off",
         "no-trailing-spaces": "off",
-        "no-underscore-dangle": "off",
         "react/jsx-curly-spacing": "off",
         "react/jsx-equals-spacing": "off",
         "react/jsx-tag-spacing": [
@@ -85,53 +88,12 @@
         ],
         "react/jsx-wrap-multilines": "off",
         "space-before-function-paren": "off",
-        "space-in-parens": ["off", "never"],
-        "import/namespace": "off",
-        "import/no-unresolved": "off",
-        "import/no-default-export": "error",
-        "import/order": [
-          "error",
-          {
-            "groups": [
-              "builtin",
-              "external",
-              "internal",
-              "parent",
-              "sibling",
-              "index",
-              "object"
-            ],
-            "newlines-between": "always",
-            "alphabetize": {
-              "order": "asc",
-              "caseInsensitive": true
-            }
-          }
-        ]
+        "space-in-parens": ["off", "never"]
       }
     },
     {
       "files": ["*.html"],
-      "extends": ["plugin:@nx/angular-template"],
       "rules": {}
-    },
-    {
-      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {
-        "@nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBuildableLibDependency": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
-            ]
-          }
-        ]
-      }
     }
   ]
 }

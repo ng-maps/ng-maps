@@ -13,7 +13,7 @@ For further steps please see the Docs of respective package.
 This project is a mono repo and hosts multiple packages:
 
 | Package                     | Version                                                                                                                                                   | Docs                                                          | Compatibility             |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------- |
+|-----------------------------| --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------- |
 | @ng-maps/core               | [![@ng-maps/core](https://img.shields.io/npm/v/@ng-maps/core.svg)](https://www.npmjs.com/package/@ng-maps/core)                                           | [Docs](https://ng-maps.github.io/core/index.html)             |
 | @ng-maps/google             | [![@ng-maps/google](https://img.shields.io/npm/v/@ng-maps/google.svg)](https://www.npmjs.com/package/@ng-maps/google)                                     | [Docs](https://ng-maps.github.io/google/index.html)           |
 | @ng-maps/here               | [![@ng-maps/here](https://img.shields.io/npm/v/@ng-maps/here.svg)](https://www.npmjs.com/package/@ng-maps/here)                                           | [Docs](https://ng-maps.github.io/here/index.html)             |
@@ -23,6 +23,7 @@ This project is a mono repo and hosts multiple packages:
 | @ng-maps/data-layer         | [![@ng-maps/data-layer](https://img.shields.io/npm/v/@ng-maps/data-layer.svg)](https://www.npmjs.com/package/@ng-maps/data-layer)                         |
 | @ng-maps/kml-layer          | [![@ng-maps/kml-layer](https://img.shields.io/npm/v/@ng-maps/kml-layer.svg)](https://www.npmjs.com/package/@ng-maps/kml-layer)                            |
 | @ng-maps/drawing-layer      | [![@ng-maps/drawing-layer](https://img.shields.io/npm/v/@ng-maps/drawing-layer.svg)](https://www.npmjs.com/package/@ng-maps/drawing-layer)                | [Docs](https://ng-maps.github.io/drawing-layer/index.html)    | google                    |
+| @ng-maps/direction          | [![@ng-maps/direction](https://img.shields.io/npm/v/@ng-maps/direction.svg)](https://www.npmjs.com/package/@ng-maps/direction)                | [Docs](https://ng-maps.github.io/drawing-layer/index.html)    | google                    |
 
 ---
 
