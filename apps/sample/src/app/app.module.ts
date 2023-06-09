@@ -23,7 +23,6 @@ import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
 import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-window.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,17 +38,17 @@ import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-wind
     ClusterWithWindowComponent,
     DirectionComponent,
   ],
-    imports: [
-        BrowserModule,
-        ReactiveFormsModule,
-        AppRoutingModule,
-        NgMapsCoreModule,
-        NgMapsGoogleModule,
-        NgMapsMarkerClustererModule,
-        NgMapsPlacesModule,
-        NgMapsSnazzyInfoWindowModule,
-        NgMapsDirectionModule,
-    ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    NgMapsCoreModule,
+    NgMapsGoogleModule,
+    NgMapsMarkerClustererModule,
+    NgMapsPlacesModule,
+    NgMapsSnazzyInfoWindowModule,
+    NgMapsDirectionModule,
+  ],
   providers: [
     {
       provide: GOOGLE_MAPS_API_CONFIG,

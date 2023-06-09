@@ -5,12 +5,12 @@
 - Angular
 - Google Map API
 
-
 ![@ng-maps/direction](https://i.imgur.com/DCIoXqS.jpg)
 
 ## Credit
 
 #### [SebastianM/angular-google-maps](https://github.com/SebastianM/angular-google-maps) - [Directions service #495](https://github.com/SebastianM/angular-google-maps/issues/495)
+
 #### [explooosion/Agm-Direction](https://github.com/explooosion/Agm-Direction)
 
 ## Installation
@@ -33,12 +33,10 @@ import { AppComponent } from './app.component';
 
 import { NgMapsCoreModule } from '@ng-maps/core';
 import { NgMapsGoogleModule } from '@ng-maps/google';
-import { NgMapsDirectionModule } from '@ng-maps/direction'; 
+import { NgMapsDirectionModule } from '@ng-maps/direction';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     NgMapsCoreModule, //@ng-maps/core
@@ -49,13 +47,13 @@ import { NgMapsDirectionModule } from '@ng-maps/direction';
     {
       provide: GOOGLE_MAPS_API_CONFIG,
       useValue: {
-        apiKey: 'YOUR_API_KEY'
-      }
-    }
+        apiKey: 'YOUR_API_KEY',
+      },
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 ```
 
 ## Usage
@@ -64,11 +62,7 @@ HTML
 
 ```html
 <map-view [latitude]="lat" [longitude]="lng">
-  <map-direction 
-    [origin]="origin" 
-    [destination]="destination"
-  >
-  </map-direction>
+  <map-direction [origin]="origin" [destination]="destination"> </map-direction>
 </map-view>
 ```
 
@@ -76,7 +70,7 @@ CSS
 
 ```css
 map-view {
-    height: 400px;
+  height: 400px;
 }
 ```
 
@@ -104,6 +98,7 @@ getDirection() {
 ```
 
 ## Document
+
 - Document [ng-maps-Docs](https://github.com/ng-maps/ng-maps#packages)
 
 ## License
