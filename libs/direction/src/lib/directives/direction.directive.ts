@@ -116,7 +116,7 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
     @Inject(MAP_PROVIDER) @SkipSelf() private mapProvider: string,
     private mapsApiWrapper: MapsApiWrapper,
     private mapsAPILoader: MapsAPILoader,
-    protected zone: NgZone
+    protected zone: NgZone,
   ) {}
 
   ngOnInit(): void {
@@ -179,13 +179,13 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
 
     if (this.waypoints.length !== this.markerOptions.waypoints.length) {
       throw new Error(
-        'waypoints.length does not match markerOptions.waypoints.length'
+        'waypoints.length does not match markerOptions.waypoints.length',
       );
     }
 
     if (typeof this.directionsRenderer === 'undefined') {
       this.directionsRenderer = new google.maps.DirectionsRenderer(
-        this.renderOptions
+        this.renderOptions,
       );
       this.directionsRenderer.setMap(this.map);
       this.directionsRenderer.addListener('directions_changed', () => {
@@ -251,9 +251,7 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
 
                 try {
                   if (_route.legs.length === 0) {
-                    console.warn(
-                      'The route has no legs.'
-                    );
+                    console.warn('The route has no legs.');
                     return;
                   }
 
@@ -266,7 +264,7 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
                       this.map,
                       this.originMarker,
                       this.markerOptions.origin,
-                      _route.legs[0].start_address
+                      _route.legs[0].start_address,
                     );
 
                     if (this.markerOptions.origin.draggable) {
@@ -287,7 +285,7 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
                       this.map,
                       this.destinationMarker,
                       this.markerOptions.destination,
-                      _route.legs[_route.legs.length - 1].end_address
+                      _route.legs[_route.legs.length - 1].end_address,
                     );
                     if (this.markerOptions.destination.draggable) {
                       this.destinationMarker.addListener('dragend', () => {
@@ -320,7 +318,7 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
                               this.map,
                               this.waypoints[addedWaypointIndex],
                               this.markerOptions.waypoints[addedWaypointIndex],
-                              null
+                              null,
                             );
                           addedWaypointIndex++;
                         }
@@ -336,7 +334,7 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
                             this.map,
                             this.waypoints[addedWaypointIndex],
                             this.markerOptions.waypoints[addedWaypointIndex],
-                            leg.start_address
+                            leg.start_address,
                           );
                         addedWaypointIndex++;
                       }
@@ -351,14 +349,14 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
 
             case google.maps.DirectionsStatus.OVER_QUERY_LIMIT:
               console.warn(
-                'The webpage has sent too many requests within the allowed time period.'
+                'The webpage has sent too many requests within the allowed time period.',
               );
               break;
             default:
               // console.warn(status);
               break;
           } // End switch
-        }
+        },
       );
     }
   }
@@ -375,7 +373,7 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
     map: google.maps.Map,
     marker: google.maps.Marker | google.maps.DirectionsWaypoint,
     markerOpts: any,
-    content: google.maps.LatLng | string
+    content: google.maps.LatLng | string,
   ): google.maps.Marker {
     if (typeof this.infoWindow === 'undefined') {
       this.infoWindow = new google.maps.InfoWindow();

@@ -13,7 +13,7 @@ For further steps please see the Docs of respective package.
 This project is a mono repo and hosts multiple packages:
 
 | Package                     | Version                                                                                                                                                   | Docs                                                          | Compatibility             |
-| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |---------------------------------------------------------------| ------------------------- |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------------------- |
 | @ng-maps/core               | [![@ng-maps/core](https://img.shields.io/npm/v/@ng-maps/core.svg)](https://www.npmjs.com/package/@ng-maps/core)                                           | [Docs](https://ng-maps.github.io/core/index.html)             |
 | @ng-maps/google             | [![@ng-maps/google](https://img.shields.io/npm/v/@ng-maps/google.svg)](https://www.npmjs.com/package/@ng-maps/google)                                     | [Docs](https://ng-maps.github.io/google/index.html)           |
 | @ng-maps/here               | [![@ng-maps/here](https://img.shields.io/npm/v/@ng-maps/here.svg)](https://www.npmjs.com/package/@ng-maps/here)                                           | [Docs](https://ng-maps.github.io/here/index.html)             |
