@@ -53,7 +53,7 @@ import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-wind
     {
       provide: GOOGLE_MAPS_API_CONFIG,
       useValue: {
-        apiKey: 'AIzaSyAwI1_erYGzomOhYdOj4jYAKM6LMqQklFM',
+        apiKey: 'AIzaSyAtee0zgzh-_8JgWoRXFf2Lac61vkk0GZc',
       },
     },
   ],

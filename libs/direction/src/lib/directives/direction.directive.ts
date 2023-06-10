@@ -249,12 +249,10 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
                 // Set custom markers
                 const _route = response.routes[0];
 
-                console.log(_route);
-
                 try {
                   if (_route.legs.length === 0) {
                     console.warn(
-                      'The webpage has sent too many requests within the allowed time period.'
+                      'The route has no legs.'
                     );
                     return;
                   }
