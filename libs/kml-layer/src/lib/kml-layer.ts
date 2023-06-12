@@ -15,9 +15,10 @@ import { KmlLayerManager } from './kml-layer-manager';
 let layerId = 0;
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'map-kml-layer',
 })
-export class NgMapsKmlLayer implements OnInit, OnDestroy, OnChanges {
+export class NgMapsKmlLayerDirective implements OnInit, OnDestroy, OnChanges {
   constructor(private _manager: KmlLayerManager) {}
   private static _kmlLayerOptions: Array<string> = [
     'clickable',
@@ -102,7 +103,7 @@ export class NgMapsKmlLayer implements OnInit, OnDestroy, OnChanges {
 
   private _updatePolygonOptions(changes: SimpleChanges) {
     const options = Object.keys(changes)
-      .filter((k) => NgMapsKmlLayer._kmlLayerOptions.indexOf(k) !== -1)
+      .filter((k) => NgMapsKmlLayerDirective._kmlLayerOptions.indexOf(k) !== -1)
       .reduce((obj: any, k: string) => {
         obj[k] = changes[k].currentValue;
         return obj;

@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-fit-bounds',
   templateUrl: './fit-bounds.component.html',
   styleUrls: ['./fit-bounds.component.css'],
 })
-export class FitBoundsComponent implements OnInit {
-  boundaries = {
+export class FitBoundsComponent {
+  public boundaries = {
     east: 2.344366,
     north: 41.367178,
     south: 35.95133,
     west: -9.715647,
   };
 
-  points = [
+  public points = [
     { lat: 41.146291, lon: -8.651419 },
     { lat: 41.142552, lon: -9.000486 },
     { lat: 39.069963, lon: -9.678067 },
@@ -34,8 +34,4 @@ export class FitBoundsComponent implements OnInit {
     { lat: 41.191464, lon: 2.344366 },
     { lat: 41.367178, lon: 2.185217 },
   ];
-
-  constructor() {}
-
-  ngOnInit() {}
 }

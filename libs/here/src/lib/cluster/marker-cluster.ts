@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { InfoWindowManager, MarkerManager } from '@ng-maps/core';
+import { MarkerManager } from '@ng-maps/core';
 
 import { MarkerClusterConfig, MARKER_CLUSTER_CONFIG } from './cluster-config';
 import { ClusterManager } from './cluster-manager';
@@ -22,12 +22,14 @@ import { Calculator, MarkerClustererOptions } from './cluster-options';
  * MarkerClusterComponent clusters map marker if they are near together
  */
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'map-marker-cluster',
   providers: [
     ClusterManager,
     { provide: MarkerManager, useExisting: ClusterManager },
   ],
 })
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class MarkerClusterComponent
   implements OnDestroy, OnChanges, OnInit, MarkerClustererOptions
 {
@@ -128,6 +130,7 @@ export class MarkerClusterComponent
       const os = this._clusterManager
         .createClusterEventObservable(obj.name, this)
         // @fixme
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         .subscribe(obj.handler);
       this._observableSubscriptions.push(os);

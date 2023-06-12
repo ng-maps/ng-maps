@@ -34,10 +34,13 @@ export class ScriptLoaderService {
         reject(event);
       }
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       element.addEventListener('readystatechange', successHandler);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       element.addEventListener('load', successHandler);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       element.addEventListener('error', errorHandler);
     });

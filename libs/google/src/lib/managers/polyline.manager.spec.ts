@@ -1,14 +1,12 @@
 import { NgZone } from '@angular/core';
 import { fakeAsync, inject, TestBed } from '@angular/core/testing';
 
-import { GoogleMapsAPIWrapper } from '@ng-maps/core';
-
-import { NgMapsPolyline } from '../directives/polyline';
+import { MapsApiWrapper, NgMapsPolyline } from '@ng-maps/core';
 
 import { GooglePolylineManager } from './polyline.manager';
 
 describe('PolylineManager', () => {
-  let apiWrapperMock: jasmine.SpyObj<GoogleMapsAPIWrapper>;
+  let apiWrapperMock: jasmine.SpyObj<MapsApiWrapper>;
   beforeEach(() => {
     apiWrapperMock = jasmine.createSpyObj('GoogleMapsAPIWrapper', [
       'createPolyline',
@@ -21,7 +19,7 @@ describe('PolylineManager', () => {
         },
         GooglePolylineManager,
         {
-          provide: GoogleMapsAPIWrapper,
+          provide: MapsApiWrapper,
           useValue: apiWrapperMock,
         },
       ],
@@ -30,11 +28,8 @@ describe('PolylineManager', () => {
 
   describe('Create a new polyline', () => {
     it('should call the mapsApiWrapper when creating a new polyline', inject(
-      [GooglePolylineManager, GoogleMapsAPIWrapper],
-      (
-        polylineManager: GooglePolylineManager,
-        apiWrapper: GoogleMapsAPIWrapper,
-      ) => {
+      [GooglePolylineManager, MapsApiWrapper],
+      (polylineManager: GooglePolylineManager, apiWrapper: MapsApiWrapper) => {
         const newPolyline = new NgMapsPolyline(polylineManager);
         polylineManager.addPolyline(newPolyline);
 
@@ -63,15 +58,15 @@ describe('PolylineManager', () => {
 
     it('should set the map to null when deleting a existing polyline', fakeAsync(
       inject(
-        [GooglePolylineManager, GoogleMapsAPIWrapper],
+        [GooglePolylineManager, MapsApiWrapper],
         (
           polylineManager: GooglePolylineManager,
-          apiWrapper: GoogleMapsAPIWrapper,
+          apiWrapper: MapsApiWrapper,
         ) => {
           const newPolyline = new NgMapsPolyline(polylineManager);
 
           (
-            apiWrapper as jasmine.SpyObj<GoogleMapsAPIWrapper>
+            apiWrapper as jasmine.SpyObj<MapsApiWrapper>
           ).createPolyline.and.returnValue(
             Promise.resolve(polylineInstance as any),
           );

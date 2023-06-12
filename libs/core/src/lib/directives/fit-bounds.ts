@@ -7,8 +7,8 @@ import {
   Self,
   SimpleChanges,
 } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
-import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 import {
   FitBoundsAccessor,

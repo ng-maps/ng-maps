@@ -3,7 +3,7 @@ import {
   MarkerClusterer,
   MarkerClustererOptions,
 } from '@googlemaps/markerclusterer';
-import { Observable, Observer, ReplaySubject } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 import {
   MapsApiWrapper,

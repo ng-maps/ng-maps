@@ -43,7 +43,9 @@ let drawingManagerId = 0;
  * ```
  */
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'map-drawing-layer',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [
     'drawingMode',
     'drawingControl',
@@ -54,6 +56,7 @@ let drawingManagerId = 0;
     'polygonOptions',
     'rectangleOptions',
   ],
+  // eslint-disable-next-line @angular-eslint/no-outputs-metadata-property
   outputs: [
     'overlayComplete',
     'circleComplete',
@@ -63,6 +66,7 @@ let drawingManagerId = 0;
     'rectangleComplete',
   ],
 })
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class NgMapsDrawingLayer implements OnDestroy, OnChanges {
   /**
    * The drawing mode of the drawing manager.

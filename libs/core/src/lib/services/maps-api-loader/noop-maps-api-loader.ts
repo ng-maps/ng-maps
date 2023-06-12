@@ -19,5 +19,6 @@ export class NoOpMapsAPILoader extends MapsAPILoader {
     return Promise.resolve();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   public configure(config: any): void {}
 }

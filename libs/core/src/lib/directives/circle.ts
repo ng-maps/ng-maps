@@ -16,6 +16,7 @@ import { GeoPoint } from '../interface/geo-point';
 import { CircleManager } from '../services/managers/circle-manager';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'map-circle',
 })
 export class NgMapsCircleDirective
@@ -133,6 +134,7 @@ export class NgMapsCircleDirective
    * This event is repeatedly fired while the user drags the circle.
    */
   @Output()
+  // eslint-disable-next-line @angular-eslint/no-output-native
   public drag: EventEmitter<google.maps.MapMouseEvent> =
     new EventEmitter<google.maps.MapMouseEvent>();
 

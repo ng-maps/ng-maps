@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { BoundsLiteral, GeoPoint, NgMapsMarkerComponent } from '@ng-maps/core';
 
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { MARKERS } from '../../../sample/src/app/shapes/markers';
 
 @Component({

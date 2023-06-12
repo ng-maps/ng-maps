@@ -12,8 +12,10 @@ import {
  * NgMapsPolyline}
  */
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'map-polyline-point',
 })
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class NgMapsPolylinePoint implements OnChanges {
   /**
    * The latitude position of the point.
@@ -31,8 +33,6 @@ export class NgMapsPolylinePoint implements OnChanges {
   @Output()
   public positionChanged: EventEmitter<google.maps.LatLngLiteral> =
     new EventEmitter<google.maps.LatLngLiteral>();
-
-  constructor() {}
 
   public ngOnChanges(changes: SimpleChanges): any {
     if (changes.latitude || changes.longitude) {

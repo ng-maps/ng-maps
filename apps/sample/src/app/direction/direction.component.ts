@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-direction',
   templateUrl: './direction.component.html',
   styleUrls: ['./direction.component.css'],
 })
-export class DirectionComponent implements OnInit {
+export class DirectionComponent {
   public lat: number = 51.678418;
   public lng: number = 7.809007;
 
@@ -56,8 +56,4 @@ export class DirectionComponent implements OnInit {
     suppressMarkers: true, //for custom-icons
     suppressPolylines: false,
   };
-
-  constructor() {}
-
-  ngOnInit() {}
 }

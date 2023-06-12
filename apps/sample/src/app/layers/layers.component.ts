@@ -1,23 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, FormControl } from '@angular/forms';
+import { Component } from '@angular/core';
+import { UntypedFormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-layers',
   templateUrl: './layers.component.html',
   styleUrls: ['./layers.component.css'],
 })
-export class LayersComponent implements OnInit {
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+export class LayersComponent {
+  public lat: number = 51.678418;
+  public lng: number = 7.809007;
 
-  layerForm = this.fb.group({
+  public layerForm = this.fb.group({
     TrafficLayer: [false],
     TransitLayer: [false],
     BicyclingLayer: [false],
   });
 
-  layers = [];
-  _layers = new Set();
+  public layers = [];
+  public _layers = new Set();
 
   constructor(private fb: UntypedFormBuilder) {
     this.layerForm.valueChanges.subscribe({
@@ -34,6 +34,4 @@ export class LayersComponent implements OnInit {
       },
     });
   }
-
-  ngOnInit() {}
 }

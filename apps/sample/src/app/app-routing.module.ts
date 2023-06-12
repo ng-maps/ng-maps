@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BoundsPaddingComponent } from './bounds-padding/bounds-padding.component';
 import { ClusterWithWindowComponent } from './cluster-with-window/cluster-with-window.component';
 import { ClusterComponent } from './cluster/cluster.component';
+import { DirectionComponent } from './direction/direction.component';
 import { FitBoundsComponent } from './fit-bounds/fit-bounds.component';
 import { InfoWindowComponent } from './info-window/info-window.component';
 import { LayersComponent } from './layers/layers.component';

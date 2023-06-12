@@ -24,7 +24,8 @@
             "prefix": "map",
             "style": "camelCase"
           }
-        ]
+        ],
+        "@typescript-eslint/no-empty-function": "warn"
       }
     },
     {

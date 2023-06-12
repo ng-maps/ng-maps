@@ -6,9 +6,19 @@
     "angular",
     "google-maps-direction",
     "agm-direction",
-    "direction"
+    "direction",
+    "google",
+    "maps",
+    "ng",
+    "google maps",
+    "googlemaps",
+    "map",
+    "google",
+    "ng2",
+    "angular2",
+    "agm"
   ],
-  "homepage": "https://ng-maps.github.io/core",
+  "homepage": "https://ng-maps.github.io/direction",
   "bugs": {
     "url": "https://github.com/ng-maps/ng-maps/issues"
   },
@@ -18,9 +28,10 @@
     "url": "https://github.com/ng-maps/ng-maps.git"
   },
   "peerDependencies": {
-    "@angular/common": "^8.0.0 || ^9.0.0 || ^10.0.0 || ^16.0.0",
-    "@angular/core": "^8.0.0 || ^9.0.0 || ^10.0.0 || ^16.0.0",
-    "@ng-maps/core": "^2.0.0-alpha.7 || ^4.0.0 || ^5.0.0"
+    "@angular/common": "^14.0.0 || ^15.0.0 || ^16.0.0",
+    "@angular/core": "^14.0.0 || ^15.0.0 || ^16.0.0",
+    "@ng-maps/core": "^4.0.0 || ^5.0.0",
+    "@ng-maps/google": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

@@ -1,4 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
+// eslint-disable-next-line import/named
 import { Observable, Observer } from 'rxjs';
 
 import { MapsApiWrapper, NgMapsViewComponent } from '@ng-maps/core';
@@ -49,6 +50,7 @@ export class DrawingManager {
 
   async updateDrawingMode(drawingManager: NgMapsDrawingLayer): Promise<void> {
     const dm = await this._drawingManagers.get(drawingManager);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     dm.setOptions({ drawingMode: drawingManager.drawingMode });
   }

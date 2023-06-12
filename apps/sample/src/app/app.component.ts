@@ -8,7 +8,7 @@ import { MapsAPILoader } from '@ng-maps/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'sample';
+  public title = 'sample';
   constructor(private mapsLoader: MapsAPILoader) {
     this.mapsLoader.configure({
       apiKey: 'AIzaSyAtee0zgzh-_8JgWoRXFf2Lac61vkk0GZc',

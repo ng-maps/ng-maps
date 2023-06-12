@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 
 import { NgMapsCoreModule } from '@ng-maps/core';
 
-import { NgMapsDataLayer } from './data-layer';
+import { NgMapsDataLayerDirective } from './data-layer';
 
 @NgModule({
-  declarations: [NgMapsDataLayer],
+  declarations: [NgMapsDataLayerDirective],
   imports: [NgMapsCoreModule],
-  exports: [NgMapsDataLayer],
+  exports: [NgMapsDataLayerDirective],
   providers: [],
 })
 export class NgMapsDataLayerModule {}

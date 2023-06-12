@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { MARKERS } from '../cluster/markers';
 
@@ -7,9 +7,6 @@ import { MARKERS } from '../cluster/markers';
   templateUrl: './cluster-with-window.component.html',
   styleUrls: ['./cluster-with-window.component.scss'],
 })
-export class ClusterWithWindowComponent implements OnInit {
+export class ClusterWithWindowComponent {
   public markers = MARKERS;
-  constructor() {}
-
-  ngOnInit(): void {}
 }

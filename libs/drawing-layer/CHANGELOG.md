@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [1.0.1](https://github.com/ng-maps/ng-maps/compare/drawing-layer/1.0.0...drawing-layer/1.0.1) (2023-06-12)
+
+
+### Bug Fixes
+
+* **deps:** update peer deps to v5 ([e52e6e2](https://github.com/ng-maps/ng-maps/commit/e52e6e26da00f1fee8001c61e9bda0d5980695c4))
+
 ## 1.0.0 (2023-05-18)
 
 

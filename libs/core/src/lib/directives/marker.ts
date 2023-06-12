@@ -38,11 +38,13 @@ let markerId = 0;
       useExisting: forwardRef(() => NgMapsMarkerComponent),
     },
   ],
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: [
     'latitude',
     'longitude',
     'title',
     'label',
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     'draggable: markerDraggable',
     'iconUrl',
     'icon',
@@ -53,9 +55,11 @@ let markerId = 0;
     'zIndex',
     'animation',
   ],
+  // eslint-disable-next-line @angular-eslint/no-outputs-metadata-property
   outputs: [
     'markerClick',
     'dragStart',
+    // eslint-disable-next-line @angular-eslint/no-output-native
     'drag',
     'dragEnd',
     'mouseOver',
@@ -172,6 +176,7 @@ export class NgMapsMarkerComponent
    * This event is repeatedly fired while the user drags the marker.
    */
   @Output()
+  // eslint-disable-next-line @angular-eslint/no-output-native
   public drag: EventEmitter<google.maps.MapMouseEvent> =
     new EventEmitter<google.maps.MapMouseEvent>();
 

@@ -36,12 +36,12 @@ describe('ClusterManager', () => {
           newMarker.label = 'A';
           clusterManager.addMarker(newMarker).then(() => {
             expect(apiWrapper.createMarker).toHaveBeenCalledWith(
+              { lat: 34.4, lng: 22.3 },
               {
-                position: { lat: 34.4, lng: 22.3 },
                 label: 'A',
-                draggable: false,
-                icon: undefined,
-                opacity: 1,
+                // draggable: false,
+                // icon: undefined,
+                // opacity: 1,
                 visible: true,
                 zIndex: 1,
                 title: undefined,
@@ -105,12 +105,12 @@ describe('ClusterManager', () => {
 
           markerManager.addMarker(newMarker).then(() => {
             expect(apiWrapper.createMarker).toHaveBeenCalledWith(
+              { lat: 34.4, lng: 22.3 },
               {
-                position: { lat: 34.4, lng: 22.3 },
                 label: 'A',
-                draggable: false,
-                icon: undefined,
-                opacity: 1,
+                // draggable: false,
+                // icon: undefined,
+                // opacity: 1,
                 visible: true,
                 zIndex: 1,
                 title: undefined,
@@ -149,13 +149,13 @@ describe('ClusterManager', () => {
 
           markerManager.addMarker(newMarker).then(() => {
             expect(apiWrapper.createMarker).toHaveBeenCalledWith(
+              { lat: 34.4, lng: 22.3 },
               {
-                position: { lat: 34.4, lng: 22.3 },
                 label: 'A',
-                draggable: false,
-                icon: undefined,
+                // draggable: false,
+                // icon: undefined,
                 visible: true,
-                opacity: 1,
+                // opacity: 1,
                 zIndex: 1,
                 title: undefined,
                 clickable: true,
@@ -194,13 +194,13 @@ describe('ClusterManager', () => {
 
           markerManager.addMarker(newMarker).then(() => {
             expect(apiWrapper.createMarker).toHaveBeenCalledWith(
+              { lat: 34.4, lng: 22.3 },
               {
-                position: { lat: 34.4, lng: 22.3 },
                 label: 'A',
-                draggable: false,
-                icon: undefined,
+                // draggable: false,
+                // icon: undefined,
                 visible: false,
-                opacity: 1,
+                // opacity: 1,
                 zIndex: 1,
                 title: undefined,
                 clickable: true,
@@ -238,13 +238,13 @@ describe('ClusterManager', () => {
 
           markerManager.addMarker(newMarker).then(() => {
             expect(apiWrapper.createMarker).toHaveBeenCalledWith(
+              { lat: 34.4, lng: 22.3 },
               {
-                position: { lat: 34.4, lng: 22.3 },
                 label: 'A',
-                draggable: false,
-                icon: undefined,
+                // draggable: false,
+                // icon: undefined,
                 visible: false,
-                opacity: 1,
+                // opacity: 1,
                 zIndex: 1,
                 title: undefined,
                 clickable: true,
