@@ -8,22 +8,20 @@ import { MARKERS } from './markers';
   styleUrls: ['./shapes.component.css'],
 })
 export class ShapesComponent implements OnInit {
-  latA: number;
-  lngA: number;
+  public latA: number;
+  public lngA: number;
 
-  latB: number;
-  lngB: number;
+  public latB: number;
+  public lngB: number;
 
-  paths: Array<{ lat: number; lng: number }>;
+  public paths: Array<{ lat: number; lng: number }>;
 
-  north: number;
-  east: number;
-  west: number;
-  south: number;
+  public north: number;
+  public east: number;
+  public west: number;
+  public south: number;
 
-  constructor() {}
-
-  ngOnInit() {
+  public ngOnInit() {
     const pointA = getRandomMarker();
     this.latA = parseFloat(pointA.latitude);
     this.lngA = parseFloat(pointA.longitude);

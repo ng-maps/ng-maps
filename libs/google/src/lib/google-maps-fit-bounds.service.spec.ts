@@ -7,6 +7,7 @@ import {
 import { first } from 'rxjs/operators';
 
 import { MapsAPILoader } from '@ng-maps/core';
+
 import { GoogleMapsFitBoundsService } from './google-maps-fit-bounds.service';
 
 describe('GoogleMapsFitBoundsService', () => {

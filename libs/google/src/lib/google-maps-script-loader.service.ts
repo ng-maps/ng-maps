@@ -75,10 +75,12 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
     this._document?.body.appendChild(scriptElement);
     return new Promise((resolve, reject) => {
       // FIXME
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this._window[this.callbackName] = () => resolve();
 
       // FIXME
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       scriptElement.onerror = (error: Event) => reject(error);
     });
@@ -149,6 +151,7 @@ export class GoogleMapsScriptLoader extends MapsAPILoader {
       })
       .map(
         // FIXME
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         (entry: { key: string; value: string }) =>
           `${entry.key}=${entry.value}`,

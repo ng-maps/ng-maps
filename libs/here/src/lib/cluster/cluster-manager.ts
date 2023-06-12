@@ -16,6 +16,7 @@ import { MarkerClusterComponent } from './marker-cluster';
 })
 export class ClusterManager extends HereMapsMarkerManager {
   private _clustererInstance: Promise<H.clustering.Provider>;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   private _resolver: Function;
 
   constructor(protected _mapsWrapper: MapsApiWrapper, protected _zone: NgZone) {

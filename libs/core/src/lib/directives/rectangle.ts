@@ -16,6 +16,7 @@ import { RectangleOptions } from '../interface/rectangle-options';
 import { RectangleManager } from '../services/managers/rectangle-manager';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'map-rectangle',
 })
 export class NgMapsRectangleDirective
@@ -137,6 +138,7 @@ export class NgMapsRectangleDirective
    * This event is repeatedly fired while the user drags the rectangle.
    */
   @Output()
+  // eslint-disable-next-line @angular-eslint/no-output-native
   public drag: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
   /**

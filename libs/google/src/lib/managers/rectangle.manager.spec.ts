@@ -1,6 +1,8 @@
 import { NgZone } from '@angular/core';
 import { async, fakeAsync, inject, TestBed } from '@angular/core/testing';
+
 import { MapsApiWrapper, NgMapsRectangleDirective } from '@ng-maps/core';
+
 import { GoogleMapsAPIWrapper } from '../google-maps-api-wrapper';
 
 import { GoogleRectangleManager } from './rectangle.manager';

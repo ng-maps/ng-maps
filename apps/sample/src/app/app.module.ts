@@ -3,8 +3,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { NgMapsCoreModule } from '@ng-maps/core';
-import { GOOGLE_MAPS_API_CONFIG, NgMapsGoogleModule } from '@ng-maps/google';
 import { NgMapsDirectionModule } from '@ng-maps/direction';
+import { GOOGLE_MAPS_API_CONFIG, NgMapsGoogleModule } from '@ng-maps/google';
 import { NgMapsMarkerClustererModule } from '@ng-maps/marker-clusterer';
 import { NgMapsPlacesModule } from '@ng-maps/places';
 import { NgMapsSnazzyInfoWindowModule } from '@ng-maps/snazzy-info-window';

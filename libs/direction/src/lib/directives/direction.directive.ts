@@ -1,29 +1,21 @@
 import {
   Directive,
   EventEmitter,
-  Host,
   Inject,
   Input,
   NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
   SimpleChanges,
   SkipSelf,
 } from '@angular/core';
 
-import {
-  MAP_PROVIDER,
-  MapsAPILoader,
-  MapsApiWrapper,
-  MarkerManager,
-  NgMapsMarkerComponent,
-  NgMapsViewComponent,
-} from '@ng-maps/core';
+import { MAP_PROVIDER, MapsAPILoader, MapsApiWrapper } from '@ng-maps/core';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'map-direction',
 })
 export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
@@ -119,13 +111,13 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
     protected zone: NgZone,
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (this.mapProvider !== 'GoogleMaps') {
       throw new Error('<map-direction> only support google-maps provider yet');
     }
   }
 
-  ngOnChanges(obj: SimpleChanges): void {
+  public ngOnChanges(obj: SimpleChanges): void {
     /**
      * When visible is false then remove the direction layer
      */
@@ -161,7 +153,7 @@ export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this.destroyMarkers();
     this.removeDirections();
   }

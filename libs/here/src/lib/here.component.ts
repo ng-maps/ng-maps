@@ -111,10 +111,13 @@ export class HereComponent extends NgMapsViewComponent<H.Map> {
     this.subscription.add(s);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected _handleIdleEvent() {}
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected _handleTilesLoadedEvent() {}
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected _handleMapTypeIdChange() {}
 
   protected _handleBoundsChange() {
@@ -136,5 +139,6 @@ export class HereComponent extends NgMapsViewComponent<H.Map> {
     this.subscription.add(s);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected _handleMapMouseEvents() {}
 }

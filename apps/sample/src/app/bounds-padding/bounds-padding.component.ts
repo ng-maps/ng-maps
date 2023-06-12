@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-bounds-padding',
   templateUrl: './bounds-padding.component.html',
   styleUrls: ['./bounds-padding.component.css'],
 })
-export class BoundsPaddingComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class BoundsPaddingComponent {}

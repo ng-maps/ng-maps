@@ -19,6 +19,7 @@ import { ClusterManager } from '../services/managers/cluster-manager';
  * MarkerClusterComponent clusters map marker if they are near together
  */
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'map-marker-cluster',
   providers: [
     ClusterManager,
@@ -26,6 +27,7 @@ import { ClusterManager } from '../services/managers/cluster-manager';
     { provide: InfoWindowManager, useClass: GoogleInfoWindowManager },
   ],
 })
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit {
   /**
    * see {@link https://googlemaps.github.io/js-markerclusterer/interfaces/Algorithm.html}

@@ -105,6 +105,7 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
     const m = this._markers.get(marker);
     if (m && marker.icon?.path) {
       // TODO correct typings
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       m.setIcon(marker.icon);
     }

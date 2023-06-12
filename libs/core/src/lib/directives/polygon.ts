@@ -17,6 +17,7 @@ import { PolygonManager } from '../services/managers/polygon.manager';
  * NgMapsPolygon renders a polygon on a {@link https://ng-maps.github.io/core/components/NgMapsViewComponent.html|NgMapsView}
  */
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'map-polygon',
 })
 export class NgMapsPolygonDirective
@@ -276,6 +277,7 @@ export class NgMapsPolygonDirective
       const os = this._polygonManager
         .createEventObservable(obj.name, this)
         // FIXME
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         .subscribe(obj.handler);
       this.subscription.add(os);

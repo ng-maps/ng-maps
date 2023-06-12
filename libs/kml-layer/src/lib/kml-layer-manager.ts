@@ -4,7 +4,7 @@ import { Observable, Observer } from 'rxjs';
 import { NgMapsViewComponent } from '@ng-maps/core';
 import { GoogleMapsAPIWrapper } from '@ng-maps/google';
 
-import { NgMapsKmlLayer } from './kml-layer';
+import { NgMapsKmlLayerDirective } from './kml-layer';
 
 /**
  * Manages all KML Layers for a Google Map instance.
@@ -13,17 +13,15 @@ import { NgMapsKmlLayer } from './kml-layer';
   providedIn: NgMapsViewComponent,
 })
 export class KmlLayerManager {
-  private _layers: Map<NgMapsKmlLayer, Promise<google.maps.KmlLayer>> = new Map<
-    NgMapsKmlLayer,
-    Promise<google.maps.KmlLayer>
-  >();
+  private _layers: Map<NgMapsKmlLayerDirective, Promise<google.maps.KmlLayer>> =
+    new Map<NgMapsKmlLayerDirective, Promise<google.maps.KmlLayer>>();
 
   constructor(private _wrapper: GoogleMapsAPIWrapper, private _zone: NgZone) {}
 
   /**
    * Adds a new KML Layer to the map.
    */
-  addKmlLayer(layer: NgMapsKmlLayer) {
+  addKmlLayer(layer: NgMapsKmlLayerDirective) {
     const newLayer = this._wrapper.getNativeMap().then((m) => {
       return new google.maps.KmlLayer({
         clickable: layer.clickable,
@@ -38,11 +36,14 @@ export class KmlLayerManager {
     this._layers.set(layer, newLayer);
   }
 
-  setOptions(layer: NgMapsKmlLayer, options: google.maps.KmlLayerOptions) {
+  setOptions(
+    layer: NgMapsKmlLayerDirective,
+    options: google.maps.KmlLayerOptions,
+  ) {
     this._layers.get(layer).then((l) => l.setOptions(options));
   }
 
-  deleteKmlLayer(layer: NgMapsKmlLayer) {
+  deleteKmlLayer(layer: NgMapsKmlLayerDirective) {
     this._layers.get(layer).then((l) => {
       l.setMap(null);
       this._layers.delete(layer);
@@ -54,7 +55,7 @@ export class KmlLayerManager {
    */
   createEventObservable<T>(
     eventName: string,
-    layer: NgMapsKmlLayer,
+    layer: NgMapsKmlLayerDirective,
   ): Observable<T> {
     return new Observable((observer: Observer<T>) => {
       this._layers.get(layer).then((m: google.maps.KmlLayer) => {

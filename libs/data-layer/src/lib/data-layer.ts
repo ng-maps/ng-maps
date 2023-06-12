@@ -205,9 +205,10 @@ let layerId = 0;
  * ```
  */
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'map-data-layer',
 })
-export class NgMapsDataLayer implements OnInit, OnDestroy, OnChanges {
+export class NgMapsDataLayerDirective implements OnInit, OnDestroy, OnChanges {
   private static _dataOptionsAttributes: Array<string> = ['style'];
 
   private _addedToManager: boolean = false;
@@ -218,24 +219,24 @@ export class NgMapsDataLayer implements OnInit, OnDestroy, OnChanges {
    * This event is fired when a feature in the layer is clicked.
    */
   @Output()
-  layerClick: EventEmitter<google.maps.Data.MouseEvent> =
+  public layerClick: EventEmitter<google.maps.Data.MouseEvent> =
     new EventEmitter<google.maps.Data.MouseEvent>();
 
   /**
    * The geoJson to be displayed
    */
-  @Input() geoJson: Object | string | null = null;
+  @Input() public geoJson: NonNullable<unknown> | string | null = null;
 
   /**
    * The layer's style function.
    */
-  @Input() style:
+  @Input() public style:
     | google.maps.Data.StylingFunction
     | google.maps.Data.StyleOptions;
 
   constructor(private _manager: DataLayerManager) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     if (this._addedToManager) {
       return;
     }
@@ -260,24 +261,24 @@ export class NgMapsDataLayer implements OnInit, OnDestroy, OnChanges {
   }
 
   /** @internal */
-  id(): string {
+  public id(): string {
     return this._id;
   }
 
   /** @internal */
-  toString(): string {
+  public toString(): string {
     return `NgMapsDataLayer-${this._id.toString()}`;
   }
 
   /** @internal */
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this._manager.deleteDataLayer(this);
     // unsubscribe all registered observable subscriptions
     this._subscriptions.forEach((s) => s.unsubscribe());
   }
 
   /** @internal */
-  ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     if (!this._addedToManager) {
       return;
     }
@@ -287,11 +288,13 @@ export class NgMapsDataLayer implements OnInit, OnDestroy, OnChanges {
       this._manager.updateGeoJson(this, geoJsonChange.currentValue);
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const dataOptions: google.maps.Data.DataOptions = {};
 
-    NgMapsDataLayer._dataOptionsAttributes.forEach(
+    NgMapsDataLayerDirective._dataOptionsAttributes.forEach(
       (k) =>
+        // eslint-disable-next-line no-prototype-builtins
         ((dataOptions as any)[k] = changes.hasOwnProperty(k)
           ? changes[k].currentValue
           : (this as any)[k]),
