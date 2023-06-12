@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [2.0.1](https://github.com/ng-maps/ng-maps/compare/snazzy-info-window/2.0.0...snazzy-info-window/2.0.1) (2023-06-12)
+
+
+### Bug Fixes
+
+* adjust snazzy info window, add allowSyntheticDefaultImports ([9b45b93](https://github.com/ng-maps/ng-maps/commit/9b45b93c3bf19105d7eb6ddd9a316b3182d4c15d))
+* **deps:** update peer deps to v5 ([e52e6e2](https://github.com/ng-maps/ng-maps/commit/e52e6e26da00f1fee8001c61e9bda0d5980695c4))
+
 ## [2.0.0](https://github.com/ng-maps/ng-maps/compare/snazzy-info-window/1.0.0...snazzy-info-window/2.0.0) (2022-12-30)
 
 
