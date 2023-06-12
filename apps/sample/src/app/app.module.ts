@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { NgMapsCoreModule } from '@ng-maps/core';
 import { GOOGLE_MAPS_API_CONFIG, NgMapsGoogleModule } from '@ng-maps/google';
+import { NgMapsDirectionModule } from '@ng-maps/direction';
 import { NgMapsMarkerClustererModule } from '@ng-maps/marker-clusterer';
 import { NgMapsPlacesModule } from '@ng-maps/places';
 import { NgMapsSnazzyInfoWindowModule } from '@ng-maps/snazzy-info-window';
@@ -14,6 +15,7 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { BoundsPaddingComponent } from './bounds-padding/bounds-padding.component';
 import { ClusterWithWindowComponent } from './cluster-with-window/cluster-with-window.component';
 import { ClusterComponent } from './cluster/cluster.component';
+import { DirectionComponent } from './direction/direction.component';
 import { FitBoundsComponent } from './fit-bounds/fit-bounds.component';
 import { InfoWindowComponent } from './info-window/info-window.component';
 import { LayersComponent } from './layers/layers.component';
@@ -34,6 +36,7 @@ import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-wind
     SnazzyInfoWindowComponent,
     BoundsPaddingComponent,
     ClusterWithWindowComponent,
+    DirectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-wind
     NgMapsMarkerClustererModule,
     NgMapsPlacesModule,
     NgMapsSnazzyInfoWindowModule,
+    NgMapsDirectionModule,
   ],
   providers: [
     {

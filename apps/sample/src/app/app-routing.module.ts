@@ -10,6 +10,7 @@ import { LayersComponent } from './layers/layers.component';
 import { ShapesComponent } from './shapes/shapes.component';
 import { SimpleMapComponent } from './simple-map/simple-map.component';
 import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-window.component';
+import { DirectionComponent } from './direction/direction.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'bounds-padding',
     component: BoundsPaddingComponent,
+  },
+  {
+    path: 'direction',
+    component: DirectionComponent,
   },
 ];
 

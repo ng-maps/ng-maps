@@ -23,9 +23,10 @@ This project is a mono repo and hosts multiple packages:
 | @ng-maps/data-layer         | [![@ng-maps/data-layer](https://img.shields.io/npm/v/@ng-maps/data-layer.svg)](https://www.npmjs.com/package/@ng-maps/data-layer)                         |
 | @ng-maps/kml-layer          | [![@ng-maps/kml-layer](https://img.shields.io/npm/v/@ng-maps/kml-layer.svg)](https://www.npmjs.com/package/@ng-maps/kml-layer)                            |
 | @ng-maps/drawing-layer      | [![@ng-maps/drawing-layer](https://img.shields.io/npm/v/@ng-maps/drawing-layer.svg)](https://www.npmjs.com/package/@ng-maps/drawing-layer)                | [Docs](https://ng-maps.github.io/drawing-layer/index.html)    | google                    |
+| @ng-maps/direction          | [![@ng-maps/direction](https://img.shields.io/npm/v/@ng-maps/direction.svg)](https://www.npmjs.com/package/@ng-maps/direction)                            | [Docs](https://ng-maps.github.io/direction/index.html)        | google                    |
 
 ---
 
-
 ## License
+
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fng-maps%2Fng-maps.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fng-maps%2Fng-maps?ref=badge_large)
