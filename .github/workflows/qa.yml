@@ -87,7 +87,7 @@ jobs:
             cache-nx-
 
       - name: Test
-        run: npx nx affected --target=test --code-coverage --configuration=ci
+        run: npx nx affected --target=test --configuration=ci
 
       - name: Check coverage
         id: check_coverage

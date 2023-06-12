@@ -18,10 +18,10 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
+    "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["heremaps"]
+    "types": ["google.maps"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

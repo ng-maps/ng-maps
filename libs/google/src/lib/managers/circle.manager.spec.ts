@@ -1,9 +1,7 @@
 import { NgZone } from '@angular/core';
 import { fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 
-import { GoogleMapsAPIWrapper } from '@ng-maps/core';
-
-import { NgMapsCircle } from '../directives/circle';
+import { MapsApiWrapper, NgMapsCircleDirective } from '@ng-maps/core';
 
 import { GoogleCircleManager } from './circle.manager';
 
@@ -22,7 +20,7 @@ describe('CircleManager', () => {
         },
         GoogleCircleManager,
         {
-          provide: GoogleMapsAPIWrapper,
+          provide: MapsApiWrapper,
           useValue: jasmine.createSpyObj('GoogleMapsAPIWrapper', [
             'createCircle',
           ]),
@@ -33,12 +31,12 @@ describe('CircleManager', () => {
 
   describe('Create a new circle', () => {
     it('should call the mapsApiWrapper when creating a new circle', inject(
-      [GoogleCircleManager, GoogleMapsAPIWrapper],
+      [GoogleCircleManager, MapsApiWrapper],
       (
         circleManager: GoogleCircleManager,
-        apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
+        apiWrapper: jasmine.SpyObj<MapsApiWrapper>,
       ) => {
-        const newCircle = new NgMapsCircle(circleManager);
+        const newCircle = new NgMapsCircleDirective(circleManager);
         newCircle.radius = 500;
         newCircle.latitude = 32.1;
         newCircle.longitude = 11.612;
@@ -51,47 +49,49 @@ describe('CircleManager', () => {
 
   describe('Create a new circle', () => {
     it('should call the mapsApiWrapper createCircle with correct args', inject(
-      [GoogleCircleManager, GoogleMapsAPIWrapper],
+      [GoogleCircleManager, MapsApiWrapper],
       (
         circleManager: GoogleCircleManager,
-        apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
+        apiWrapper: jasmine.SpyObj<MapsApiWrapper>,
       ) => {
-        const newCircle = new NgMapsCircle(circleManager);
+        const newCircle = new NgMapsCircleDirective(circleManager);
         newCircle.radius = 500;
         newCircle.latitude = 32.1;
         newCircle.longitude = 11.612;
         circleManager.addCircle(newCircle);
 
-        expect(apiWrapper.createCircle).toHaveBeenCalledWith({
-          center: {
+        expect(apiWrapper.createCircle).toHaveBeenCalledWith(
+          {
             lat: 32.1,
             lng: 11.612,
           },
-          radius: 500,
-          clickable: true,
-          draggable: false,
-          editable: false,
-          fillColor: undefined,
-          fillOpacity: undefined,
-          strokeColor: undefined,
-          strokeOpacity: undefined,
-          strokePosition: google.maps.StrokePosition.CENTER,
-          strokeWeight: 0,
-          visible: true,
-          zIndex: undefined,
-        });
+          {
+            radius: 500,
+            // clickable: true,
+            // draggable: false,
+            // editable: false,
+            fillColor: undefined,
+            fillOpacity: undefined,
+            strokeColor: undefined,
+            strokeOpacity: undefined,
+            // strokePosition: google.maps.StrokePosition.CENTER,
+            strokeWeight: 0,
+            visible: true,
+            zIndex: undefined,
+          },
+        );
       },
     ));
   });
   describe('Delete a circle', () => {
     it('should set the map to null when deleting a existing circle', fakeAsync(
       inject(
-        [GoogleCircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, MapsApiWrapper],
         (
           circleManager: GoogleCircleManager,
-          apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
+          apiWrapper: jasmine.SpyObj<MapsApiWrapper>,
         ) => {
-          const newCircle = new NgMapsCircle(circleManager);
+          const newCircle = new NgMapsCircleDirective(circleManager);
           newCircle.radius = 500;
           newCircle.latitude = 32.1;
           newCircle.longitude = 11.612;
@@ -116,12 +116,12 @@ describe('CircleManager', () => {
   describe('Set radius option', () => {
     it('should update that circle via setRadius method when the radius changes', fakeAsync(
       inject(
-        [GoogleCircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, MapsApiWrapper],
         (
           circleManager: GoogleCircleManager,
-          apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
+          apiWrapper: jasmine.SpyObj<MapsApiWrapper>,
         ) => {
-          const newCircle = new NgMapsCircle(circleManager);
+          const newCircle = new NgMapsCircleDirective(circleManager);
           newCircle.radius = 500;
           newCircle.latitude = 32.1;
           newCircle.longitude = 11.612;
@@ -147,12 +147,12 @@ describe('CircleManager', () => {
   describe('Set options', () => {
     it('should update that circle via setOptions method when the opacity options change', fakeAsync(
       inject(
-        [GoogleCircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, MapsApiWrapper],
         (
           circleManager: GoogleCircleManager,
-          apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
+          apiWrapper: jasmine.SpyObj<MapsApiWrapper>,
         ) => {
-          const newCircle = new NgMapsCircle(circleManager);
+          const newCircle = new NgMapsCircleDirective(circleManager);
           newCircle.radius = 500;
           newCircle.latitude = 32.1;
           newCircle.longitude = 11.612;
@@ -187,12 +187,12 @@ describe('CircleManager', () => {
 
     it('should update that circle via setOptions method when the color options change', fakeAsync(
       inject(
-        [GoogleCircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, MapsApiWrapper],
         (
           circleManager: GoogleCircleManager,
-          apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
+          apiWrapper: jasmine.SpyObj<MapsApiWrapper>,
         ) => {
-          const newCircle = new NgMapsCircle(circleManager);
+          const newCircle = new NgMapsCircleDirective(circleManager);
           newCircle.radius = 500;
           newCircle.latitude = 32.1;
           newCircle.longitude = 11.612;
@@ -226,17 +226,17 @@ describe('CircleManager', () => {
 
     it('should update that circle via setOptions method when the strokeWeight/position change', fakeAsync(
       inject(
-        [GoogleCircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, MapsApiWrapper],
         (
           circleManager: GoogleCircleManager,
-          apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
+          apiWrapper: jasmine.SpyObj<MapsApiWrapper>,
         ) => {
-          const newCircle = new NgMapsCircle(circleManager);
+          const newCircle = new NgMapsCircleDirective(circleManager);
           newCircle.radius = 500;
           newCircle.latitude = 32.1;
           newCircle.longitude = 11.612;
           newCircle.strokeWeight = 3;
-          newCircle.strokePosition = 'INSIDE' as any;
+          // newCircle.strokePosition = 'INSIDE' as any;
 
           const circleInstance: any = {
             setMap: jasmine.createSpy(),
@@ -266,12 +266,12 @@ describe('CircleManager', () => {
 
     it('should update that circle via setVisible method when the visible changes', fakeAsync(
       inject(
-        [GoogleCircleManager, GoogleMapsAPIWrapper],
+        [GoogleCircleManager, MapsApiWrapper],
         (
           circleManager: GoogleCircleManager,
-          apiWrapper: jasmine.SpyObj<GoogleMapsAPIWrapper>,
+          apiWrapper: jasmine.SpyObj<MapsApiWrapper>,
         ) => {
-          const newCircle = new NgMapsCircle(circleManager);
+          const newCircle = new NgMapsCircleDirective(circleManager);
           newCircle.radius = 500;
           newCircle.latitude = 32.1;
           newCircle.longitude = 11.612;

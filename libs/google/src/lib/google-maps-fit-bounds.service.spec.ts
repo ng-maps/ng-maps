@@ -6,14 +6,13 @@ import {
 } from '@angular/core/testing';
 import { first } from 'rxjs/operators';
 
-import { FitBoundsService } from './fit-bounds';
-import { MapsAPILoader } from './maps-api-loader/maps-api-loader';
+import { MapsAPILoader } from '@ng-maps/core';
+import { GoogleMapsFitBoundsService } from './google-maps-fit-bounds.service';
 
-describe('FitBoundsService', () => {
+describe('GoogleMapsFitBoundsService', () => {
   let loader: MapsAPILoader;
-  let fitBoundsService: FitBoundsService;
+  let fitBoundsService: GoogleMapsFitBoundsService;
   let latLngBoundsConstructs: number;
-  // @ts-ignore
   let latLngBoundsExtend: jasmine.Spy;
 
   beforeEach(fakeAsync(() => {
@@ -34,6 +33,10 @@ describe('FitBoundsService', () => {
           constructor() {
             latLngBoundsConstructs += 1;
           }
+
+          toJSON() {
+            return '';
+          }
         },
       },
     };
@@ -41,11 +44,11 @@ describe('FitBoundsService', () => {
     TestBed.configureTestingModule({
       providers: [
         { provide: MapsAPILoader, useValue: loader },
-        FitBoundsService,
+        GoogleMapsFitBoundsService,
       ],
     });
 
-    fitBoundsService = TestBed.get(FitBoundsService);
+    fitBoundsService = TestBed.inject(GoogleMapsFitBoundsService);
     tick();
   }));
 
@@ -55,7 +58,6 @@ describe('FitBoundsService', () => {
   });
 
   it('should emit empty bounds when API finished loaded but the are not entries in the includeInBounds$ map', fakeAsync(() => {
-    // @ts-ignore
     const success = jasmine.createSpy();
     fitBoundsService.getBounds$().pipe(first()).subscribe(success);
     tick();
@@ -64,7 +66,6 @@ describe('FitBoundsService', () => {
   }));
 
   it('should emit the new bounds every 200ms by default', fakeAsync(() => {
-    // @ts-ignore
     const success = jasmine.createSpy();
     fitBoundsService.getBounds$().subscribe(success);
     tick(1);
@@ -80,7 +81,6 @@ describe('FitBoundsService', () => {
   }));
 
   it('should provide all latLng to the bounds', fakeAsync(() => {
-    // @ts-ignore
     const success = jasmine.createSpy();
     fitBoundsService.getBounds$().subscribe(success);
     tick(1);
@@ -102,14 +102,12 @@ describe('FitBoundsService', () => {
   }));
 
   it('should remove latlng from bounds and emit the new bounds after the sample time', fakeAsync(() => {
-    // @ts-ignore
     const success = jasmine.createSpy();
     fitBoundsService.getBounds$().subscribe(success);
     tick(1);
     fitBoundsService.addToBounds({ lat: 2, lng: 2 });
     fitBoundsService.addToBounds({ lat: 3, lng: 3 });
     tick(200);
-    // @ts-ignore
     latLngBoundsExtend.calls.reset();
 
     fitBoundsService.removeFromBounds({ lat: 2, lng: 2 });
@@ -123,7 +121,6 @@ describe('FitBoundsService', () => {
   }));
 
   it('should use the new _boundsChangeSampleTime$ for all next bounds', fakeAsync(() => {
-    // @ts-ignore
     const success = jasmine.createSpy();
     fitBoundsService.getBounds$().subscribe(success);
     tick(1);

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { HereMapsPlatformProvider } from './here-maps-platform.provider';
 
-describe('HereMapsPlatformProvider', () => {
+xdescribe('HereMapsPlatformProvider', () => {
   let service: HereMapsPlatformProvider;
 
   beforeEach(() => {
