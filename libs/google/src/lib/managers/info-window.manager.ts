@@ -94,13 +94,13 @@ export class GoogleInfoWindowManager extends InfoWindowManager<google.maps.InfoW
             lng: infoWindow.longitude,
           }
         : null;
-    if (center) {
-      const instance = await this._mapsWrapper.createInfoWindow(
-        center,
-        options,
-      );
-      this._infoWindows.set(infoWindow, instance);
-    }
+
+    const instance = await this._mapsWrapper.createInfoWindow(
+      center,
+      options,
+    );
+    this._infoWindows.set(infoWindow, instance);
+
   }
 
   /**

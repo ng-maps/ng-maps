@@ -75,11 +75,15 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
   }
 
   public async createInfoWindow(
-    center: GeoPoint,
+    position: GeoPoint | null,
     options?: google.maps.InfoWindowOptions,
   ): Promise<google.maps.InfoWindow> {
     await this._api;
-    return new google.maps.InfoWindow({ position: center, ...options });
+    if(position === null) {
+      return new google.maps.InfoWindow( { ...options });
+    }else {
+      return new google.maps.InfoWindow({ position: position, ...options });
+    }
   }
 
   /**
