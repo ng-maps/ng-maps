@@ -95,12 +95,8 @@ export class GoogleInfoWindowManager extends InfoWindowManager<google.maps.InfoW
           }
         : null;
 
-    const instance = await this._mapsWrapper.createInfoWindow(
-      center,
-      options,
-    );
+    const instance = await this._mapsWrapper.createInfoWindow(center, options);
     this._infoWindows.set(infoWindow, instance);
-
   }
 
   /**

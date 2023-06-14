@@ -79,9 +79,9 @@ export class GoogleMapsAPIWrapper extends MapsApiWrapper<
     options?: google.maps.InfoWindowOptions,
   ): Promise<google.maps.InfoWindow> {
     await this._api;
-    if(position === null) {
-      return new google.maps.InfoWindow( { ...options });
-    }else {
+    if (position === null) {
+      return new google.maps.InfoWindow({ ...options });
+    } else {
       return new google.maps.InfoWindow({ position: position, ...options });
     }
   }
