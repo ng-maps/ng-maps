@@ -1,27 +1,17 @@
-name: Version (automatic)
-concurrency: version-auto
+name: Release
+concurrency: release
 
 on:
   workflow_dispatch:
-    inputs:
-      project:
-        description: Name of the project
-        required: true
-        type: string
 
 jobs:
   version:
     runs-on: ubuntu-latest
-    name: New version for project ${{inputs.project}}
+    name: Release
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-          registry-url: 'https://registry.npmjs.org'
 
       - name: Cache node modules
         uses: actions/cache@v3
@@ -40,8 +30,7 @@ jobs:
           git config user.email github-actions@github.com
 
       - name: Version
-        run: npx nx run ${{inputs.project}}:version --parallel=1
+        run: npx nx run-many --target=version --parallel=1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

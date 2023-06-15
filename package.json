@@ -44,7 +44,8 @@
     "doc:places": "cd libs/places && npx compodoc",
     "doc:direction": "cd libs/direction && npx compodoc",
     "doc:all": "npm run doc:core && npm run doc:google && npm run doc:here && npm run doc:drawing-layer && npm run doc:marker-clusterer && npm run doc:places && npm run doc:direction",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "nx run-many --target=version --parallel=1"
   },
   "husky": {
     "hooks": {
