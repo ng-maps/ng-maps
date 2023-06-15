@@ -40,7 +40,7 @@ export abstract class MarkerManager<T = any> {
   public abstract updateAnimation(marker: NgMapsMarkerComponent): void;
 
   public async addMarker(marker: NgMapsMarkerComponent): Promise<void> {
-    if (!marker.latitude || !marker.longitude) {
+    if(typeof marker.latitude !== 'number' || typeof marker.longitude !== 'number') {
       return;
     }
     const m = await this._mapsWrapper.createMarker(
