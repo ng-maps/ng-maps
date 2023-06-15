@@ -30,7 +30,10 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
   }
 
   public updateMarkerPosition(marker: NgMapsMarkerComponent): void {
-    if(typeof marker.latitude !== 'number' || typeof marker.longitude !== 'number') {
+    if (
+      typeof marker.latitude !== 'number' ||
+      typeof marker.longitude !== 'number'
+    ) {
       return;
     }
     const m = this._markers.get(marker);

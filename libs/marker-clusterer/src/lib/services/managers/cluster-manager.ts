@@ -47,7 +47,10 @@ export class ClusterManager extends GoogleMapsMarkerManager {
   public override async addMarker(
     marker: NgMapsMarkerComponent,
   ): Promise<void> {
-    if(typeof marker.latitude !== 'number' || typeof marker.longitude !== 'number') {
+    if (
+      typeof marker.latitude !== 'number' ||
+      typeof marker.longitude !== 'number'
+    ) {
       return;
     }
 

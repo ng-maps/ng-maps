@@ -72,7 +72,10 @@ export abstract class MapsApiWrapper<T = any, C = any, R = any, I = any> {
 
   public abstract subscribeToMapEvent(eventName: string): Observable<any>;
 
-  public abstract createInfoWindow(center: GeoPoint | null, options: any): Promise<I>;
+  public abstract createInfoWindow(
+    center: GeoPoint | null,
+    options: any,
+  ): Promise<I>;
 
   // TODO typings
   public abstract createDrawingManager(
