@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.0.2](https://github.com/ng-maps/ng-maps/compare/core/5.0.1...core/5.0.2) (2023-06-17)
+
+
+### Bug Fixes
+
+* not possible to add marker at lat/lng 0.0/0.0 ([#156](https://github.com/ng-maps/ng-maps/issues/156)) ([8b35991](https://github.com/ng-maps/ng-maps/commit/8b359917cf4cc8f082a32dd2f5beb2a8337619c6))
+
 ## [5.0.1](https://github.com/ng-maps/ng-maps/compare/core/5.0.0...core/5.0.1) (2023-06-12)
 
 ## [5.0.0](https://github.com/ng-maps/ng-maps/compare/core/4.0.3...core/5.0.0) (2023-05-22)
