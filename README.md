@@ -3,7 +3,7 @@
 [![codecov.io](https://codecov.io/github/ng-maps/ng-maps/coverage.svg?branch=master)](https://codecov.io/github/ng-maps/ng-maps?branch=master)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fng-maps%2Fng-maps.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fng-maps%2Fng-maps?ref=badge_shield)
 
-Contributions or questions? Joins us on [discord](https://discord.gg/HvfaYM9b).
+Contributions or questions? Joins us on [discord](https://discord.gg/ckCAAFNbf9).
 
 ## Installation
 
