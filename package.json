@@ -143,7 +143,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "^1.5.4",
-    "lint-staged": "^9.2.1",
+    "lint-staged": "^13.0.0",
     "ng-lint-staged": "^12.0.0",
     "ng-mocks": "14.10.1",
     "ng-packagr": "16.0.1",
