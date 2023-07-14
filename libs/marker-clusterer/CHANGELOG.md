@@ -2,6 +2,14 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.0.2](https://github.com/ng-maps/ng-maps/compare/marker-clusterer/5.0.1...marker-clusterer/5.0.2) (2023-07-14)
+
+
+### Bug Fixes
+
+* adjust icon handling and issues with marker icons [#158](https://github.com/ng-maps/ng-maps/issues/158) ([efd74b5](https://github.com/ng-maps/ng-maps/commit/efd74b52dfb384af2c2f5ea79f8e529c97a7db4d))
+* not possible to add marker at lat/lng 0.0/0.0 ([#156](https://github.com/ng-maps/ng-maps/issues/156)) ([8b35991](https://github.com/ng-maps/ng-maps/commit/8b359917cf4cc8f082a32dd2f5beb2a8337619c6))
+
 ## [5.0.1](https://github.com/ng-maps/ng-maps/compare/marker-clusterer/5.0.0...marker-clusterer/5.0.1) (2023-05-24)
 
 
