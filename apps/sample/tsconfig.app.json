@@ -1,14 +1,8 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["google.maps"],
-    "target": "ES2022",
-    "useDefineForClassFields": false,
-    "allowSyntheticDefaultImports": true
-  },
-  "angularCompilerOptions": {
-    "enableIvy": false
+    "types": []
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
   "include": ["src/**/*.d.ts"]
