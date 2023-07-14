@@ -2,6 +2,13 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [5.0.4](https://github.com/ng-maps/ng-maps/compare/google/5.0.3...google/5.0.4) (2023-07-14)
+
+
+### Bug Fixes
+
+* adjust icon handling and issues with marker icons [#158](https://github.com/ng-maps/ng-maps/issues/158) ([efd74b5](https://github.com/ng-maps/ng-maps/commit/efd74b52dfb384af2c2f5ea79f8e529c97a7db4d))
+
 ## [5.0.3](https://github.com/ng-maps/ng-maps/compare/google/5.0.2...google/5.0.3) (2023-06-17)
 
 
