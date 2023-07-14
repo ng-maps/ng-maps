@@ -60,16 +60,17 @@ export class ClusterManager extends GoogleMapsMarkerManager {
         lat: marker.latitude,
         lng: marker.longitude,
       },
+      // TODO typings
       {
         label: marker.label,
-        // draggable: marker.draggable,
-        // icon: marker.iconUrl,
-        // opacity: marker.opacity,
+        draggable: marker.draggable,
+        icon: marker.icon ?? marker.iconUrl,
+        opacity: marker.opacity,
         visible: marker.visible,
         zIndex: marker.zIndex,
         title: marker.title,
         clickable: marker.clickable,
-      },
+      } as any,
       false,
     );
     cluster.addMarker(markers);

@@ -7,6 +7,8 @@ import {
   NgMapsMarkerComponent,
 } from '@ng-maps/core';
 
+import { isValidMarkerIcon } from '../util/is-valid-marker-icon';
+
 @Injectable()
 export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
   protected override _markers: Map<NgMapsMarkerComponent, google.maps.Marker> =
@@ -106,10 +108,7 @@ export class GoogleMapsMarkerManager extends MarkerManager<google.maps.Marker> {
 
   public updateIcon(marker: NgMapsMarkerComponent): void {
     const m = this._markers.get(marker);
-    if (m && marker.icon?.path) {
-      // TODO correct typings
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+    if (m && isValidMarkerIcon(marker.icon)) {
       m.setIcon(marker.icon);
     }
   }

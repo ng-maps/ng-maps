@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { BoundsPaddingComponent } from './bounds-padding/bounds-padding.component';
+import { CustomClusterComponent } from './cluster-custom/cluster.component';
 import { ClusterWithWindowComponent } from './cluster-with-window/cluster-with-window.component';
 import { ClusterComponent } from './cluster/cluster.component';
 import { DirectionComponent } from './direction/direction.component';
@@ -36,6 +37,7 @@ import { SnazzyInfoWindowComponent } from './snazzy-info-window/snazzy-info-wind
     SnazzyInfoWindowComponent,
     BoundsPaddingComponent,
     ClusterWithWindowComponent,
+    CustomClusterComponent,
     DirectionComponent,
   ],
   imports: [

@@ -48,10 +48,11 @@ export abstract class MarkerManager<T = any> {
     }
     const m = await this._mapsWrapper.createMarker(
       { lat: marker.latitude, lng: marker.longitude },
+      // TODO typings
       {
         label: marker.label,
         draggable: marker.draggable,
-        icon: marker.iconUrl,
+        icon: marker.icon ?? marker.iconUrl,
         opacity: marker.opacity,
         optimized: marker.optimized,
         visible: marker.visible,

@@ -109,7 +109,13 @@ export class NgMapsMarkerComponent
    */
   @Input() public iconUrl?: string | google.maps.Icon;
 
-  @Input() public icon?: MarkerIcon;
+  @Input() public icon:
+    | MarkerIcon
+    | string
+    | google.maps.Icon
+    | null
+    | undefined
+    | google.maps.Symbol = null;
 
   /**
    * If true, the marker is visible

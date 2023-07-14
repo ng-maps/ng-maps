@@ -12,3 +12,4 @@ export * from './lib/managers/info-window.manager';
 export * from './lib/google.component';
 export * from './lib/google.module';
 export * from './lib/options';
+export { isValidMarkerIcon } from './lib/util/is-valid-marker-icon';

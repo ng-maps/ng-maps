@@ -9,14 +9,14 @@ import {
 
 @Injectable()
 export class HereMapsMarkerManager extends MarkerManager<H.map.Marker> {
-  updateIconLegacy(marker: NgMapsMarkerComponent): void {
+  public updateIconLegacy(marker: NgMapsMarkerComponent): void {
     throw new Error('Method not implemented.');
   }
   constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
     super(_mapsWrapper, _zone);
   }
 
-  createEventObservable<E>(
+  public createEventObservable<E>(
     eventName: string | Array<string>,
     marker: NgMapsMarkerComponent,
   ): Observable<E> {
@@ -28,40 +28,43 @@ export class HereMapsMarkerManager extends MarkerManager<H.map.Marker> {
       eventName.forEach((event) => {
         m.addEventListener(event, (e: Event) => {
           // @todo fix typings
-          return this._zone.run(() => observer.next(e as any as E));
+          return this._zone.run(() => observer.next(e as unknown as E));
         });
       });
     });
   }
 
-  deleteMarker(marker: NgMapsMarkerComponent): void {}
+  public deleteMarker(marker: NgMapsMarkerComponent): void {}
 
-  updateAnimation(marker: NgMapsMarkerComponent): void {}
+  public updateAnimation(marker: NgMapsMarkerComponent): void {}
 
-  updateClickable(marker: NgMapsMarkerComponent): void {}
+  public updateClickable(marker: NgMapsMarkerComponent): void {}
 
-  updateDraggable(marker: NgMapsMarkerComponent): void {}
+  public updateDraggable(marker: NgMapsMarkerComponent): void {}
 
-  updateIcon(marker: NgMapsMarkerComponent): void {}
+  public updateIcon(marker: NgMapsMarkerComponent): void {
+    const m: H.map.Marker = this._markers.get(marker);
+    m.setIcon(marker.icon);
+  }
 
-  updateLabel(marker: NgMapsMarkerComponent): void {}
+  public updateLabel(marker: NgMapsMarkerComponent): void {}
 
-  updateMarkerPosition(marker: NgMapsMarkerComponent): void {
+  public updateMarkerPosition(marker: NgMapsMarkerComponent): void {
     const m: H.map.Marker = this._markers.get(marker);
     const { latitude, longitude } = marker;
     m.setGeometry({ lat: latitude, lng: longitude });
   }
 
-  updateOpacity(marker: NgMapsMarkerComponent): void {}
+  public updateOpacity(marker: NgMapsMarkerComponent): void {}
 
-  updateTitle(marker: NgMapsMarkerComponent): void {}
+  public updateTitle(marker: NgMapsMarkerComponent): void {}
 
-  updateVisible(marker: NgMapsMarkerComponent): void {
+  public updateVisible(marker: NgMapsMarkerComponent): void {
     const m: H.map.Marker = this._markers.get(marker);
     m.setVisibility(marker.visible);
   }
 
-  updateZIndex(marker: NgMapsMarkerComponent): void {
+  public updateZIndex(marker: NgMapsMarkerComponent): void {
     const m: H.map.Marker = this._markers.get(marker);
     m.setZIndex(marker.zIndex);
   }
