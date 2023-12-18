@@ -9,8 +9,8 @@
 
 Then you will need to install typings for google maps as a dev dependency
 
-- Npm: `npm install -D @types/googlemaps`
-- Yarn: `yarn add -D @types/googlemaps`
+- Npm: `npm install -D @types/google.maps`
+- Yarn: `yarn add -D @types/google.maps`
 
 Add `NgMapsCoreModule` to your _AppModule_.
 
