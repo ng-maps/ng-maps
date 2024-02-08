@@ -2,6 +2,23 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.0](https://github.com/ng-maps/ng-maps/compare/marker-clusterer/5.0.2...marker-clusterer/6.0.0) (2024-02-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **marker-clusterer:** move to version 6.0.0
+* update NX and Angular
+
+### Features
+
+* update NX and Angular ([a4f7776](https://github.com/ng-maps/ng-maps/commit/a4f7776bcd43e39e665bfd62962b89b0edbcfa85))
+
+
+### Miscellaneous Chores
+
+* **marker-clusterer:** move to version 6.0.0 ([681aa84](https://github.com/ng-maps/ng-maps/commit/681aa84be75505786e2a6071eb2fd4d07fc0a7b3))
+
 ## [5.0.2](https://github.com/ng-maps/ng-maps/compare/marker-clusterer/5.0.1...marker-clusterer/5.0.2) (2023-07-14)
 
 
