@@ -46,7 +46,11 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": ["google:publish", "google:github"]
+        "postTargets": [
+          "google:build:production",
+          "google:publish",
+          "google:github"
+        ]
       }
     },
     "pre-publish-build-production": {
