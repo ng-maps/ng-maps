@@ -30,8 +30,8 @@
   "peerDependencies": {
     "@angular/common": "^17.0.0",
     "@angular/core": "^17.0.0",
-    "@ng-maps/core": "^4.0.0 || ^5.0.0",
-    "@ng-maps/google": "^4.0.0 || ^5.0.0"
+    "@ng-maps/core": "^6.0.0",
+    "@ng-maps/google": "^6.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
