@@ -43,4 +43,8 @@ export abstract class PolylineManager<T = any> {
     eventName: string,
     line: NgMapsPolyline,
   ): Observable<E>;
+
+  public abstract createPathEventObservable(
+    line: NgMapsPolyline,
+  ): Promise<Observable<any>>;
 }

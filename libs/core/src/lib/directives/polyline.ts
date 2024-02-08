@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
+import { MVCEvent } from '../interface/mvc-event';
 import { PolylineManager } from '../services/managers/polyline-manager';
 
 import { NgMapsPolylinePoint } from './polyline-point';
@@ -175,6 +176,11 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
     new EventEmitter<google.maps.PolyMouseEvent>();
 
   /**
+   * This event is fired after Polyline's path changes.
+   */
+  @Output() polyPathChange = new EventEmitter<MVCEvent<google.maps.LatLng>>();
+
+  /**
    * @internal
    */
   @ContentChildren(NgMapsPolylinePoint)
@@ -280,6 +286,13 @@ export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         .subscribe(obj.handler);
+      this.subscription.add(os);
+    });
+
+    this._polylineManager.createPathEventObservable(this).then((ob$) => {
+      const os = ob$.subscribe((pathEvent) =>
+        this.polyPathChange.emit(pathEvent),
+      );
       this.subscription.add(os);
     });
   }
