@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/marker-clusterer"],
       "options": {
-        "project": "libs/marker-clusterer/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/marker-clusterer/ng-package.json"
       },
       "configurations": {
         "development": {

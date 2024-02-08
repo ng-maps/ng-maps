@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/snazzy-info-window"],
       "options": {
-        "project": "libs/snazzy-info-window/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/snazzy-info-window/ng-package.json"
       },
       "configurations": {
         "development": {

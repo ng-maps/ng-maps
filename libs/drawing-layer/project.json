@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/drawing-layer"],
       "options": {
-        "project": "libs/drawing-layer/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/drawing-layer/ng-package.json"
       },
       "configurations": {
         "development": {

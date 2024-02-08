@@ -9,8 +9,7 @@
       "executor": "@nx/angular:package",
       "options": {
         "tsConfig": "libs/kml-layer/tsconfig.lib.json",
-        "project": "libs/kml-layer/ng-package.json",
-        "updateBuildableProjectDepsInPackageJson": true
+        "project": "libs/kml-layer/ng-package.json"
       },
       "configurations": {
         "production": {
