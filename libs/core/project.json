@@ -53,7 +53,7 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": ["core:publish", "core:github"]
+        "postTargets": ["core:build:production", "core:publish", "core:github"]
       }
     },
     "pre-publish-build-production": {
