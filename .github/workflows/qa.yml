@@ -49,7 +49,6 @@ jobs:
             cache-nx-${{ hashFiles('package-lock.json') }}-
             cache-nx-
 
-      - run: npx nx workspace-lint
       - run: npx nx format:check
       - run: npx nx affected --target=lint
       - run: npx nx affected --target=stylelint
