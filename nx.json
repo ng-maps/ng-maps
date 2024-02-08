@@ -26,6 +26,19 @@
     "@nx/eslint:lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
       "cache": true
+    },
+    "@jscutlery/semver:github": {
+      "options": {
+        "tag": "{tag}",
+        "notes": "{notes}"
+      }
+    },
+    "@jscutlery/semver:version": {
+      "options": {
+        "preset": "conventional",
+        "push": true,
+        "tagPrefix": "{projectName}/"
+      }
     }
   },
   "cli": {

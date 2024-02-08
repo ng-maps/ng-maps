@@ -49,18 +49,11 @@
       "dependsOn": ["pre-publish-build-production"]
     },
     "github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "tag": "${tag}",
-        "notes": "${notes}"
-      }
+      "executor": "@jscutlery/semver:github"
     },
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "preset": "conventional",
-        "push": true,
-        "tagPrefix": "${projectName}/",
         "postTargets": ["marker-clusterer:publish", "marker-clusterer:github"]
       }
     },
