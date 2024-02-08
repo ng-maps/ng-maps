@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [6.0.0](https://github.com/ng-maps/ng-maps/compare/core/5.0.3...core/6.0.0) (2024-02-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* update NX and Angular
+
+### Features
+
+* update NX and Angular ([a4f7776](https://github.com/ng-maps/ng-maps/commit/a4f7776bcd43e39e665bfd62962b89b0edbcfa85))
+
 ## [5.0.3](https://github.com/ng-maps/ng-maps/compare/core/5.0.2...core/5.0.3) (2023-07-14)
 
 
