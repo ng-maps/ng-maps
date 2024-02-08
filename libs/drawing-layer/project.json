@@ -53,7 +53,11 @@
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {
-        "postTargets": ["drawing-layer:publish", "drawing-layer:github"]
+        "postTargets": [
+          "drawing-layer:build:production",
+          "drawing-layer:publish",
+          "drawing-layer:github"
+        ]
       }
     },
     "pre-publish-build-production": {
