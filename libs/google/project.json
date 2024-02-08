@@ -9,7 +9,8 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/libs/google"],
       "options": {
-        "project": "libs/google/ng-package.json"
+        "project": "libs/google/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "development": {
@@ -30,17 +31,15 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/google/**/*.ts", "libs/google/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "publish": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
         "access": "public",
-        "buildTarget": "production"
-      }
+        "distFolderPath": "dist/libs/google"
+      },
+      "dependsOn": ["pre-publish-build-production"]
     },
     "github": {
       "executor": "@jscutlery/semver:github",
@@ -56,6 +55,12 @@
         "push": true,
         "tagPrefix": "${projectName}/",
         "postTargets": ["google:publish", "google:github"]
+      }
+    },
+    "pre-publish-build-production": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run google:build:production"
       }
     }
   }

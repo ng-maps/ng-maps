@@ -37,17 +37,15 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/core/**/*.ts", "libs/core/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "publish": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
         "access": "public",
-        "buildTarget": "production"
-      }
+        "distFolderPath": "dist/libs/core"
+      },
+      "dependsOn": ["pre-publish-build-production"]
     },
     "github": {
       "executor": "@jscutlery/semver:github",
@@ -63,6 +61,12 @@
         "push": true,
         "tagPrefix": "${projectName}/",
         "postTargets": ["core:publish", "core:github"]
+      }
+    },
+    "pre-publish-build-production": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run core:build:production"
       }
     }
   }

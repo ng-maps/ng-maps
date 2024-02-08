@@ -9,7 +9,8 @@
       "executor": "@nx/angular:package",
       "options": {
         "tsConfig": "libs/here/tsconfig.lib.json",
-        "project": "libs/here/ng-package.json"
+        "project": "libs/here/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
@@ -26,10 +27,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["libs/here/**/*.ts", "libs/here/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }

@@ -1,21 +1,12 @@
 {
-  "npmScope": "ng-maps",
   "affected": {
     "defaultBase": "main"
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "ZTJiNTUxMzctNDY2Ny00NTAxLTgzNDAtYzFiMWJhZTMwNWVhfHJlYWQtd3JpdGU="
-      }
-    }
   },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "cache": true
     },
     "version": {
       "dependsOn": ["^version", "^build"]
@@ -29,10 +20,12 @@
         "^production",
         "{workspaceRoot}/karma.conf.js",
         "{workspaceRoot}/jest.preset.js"
-      ]
+      ],
+      "cache": true
     },
-    "lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    "@nx/eslint:lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"],
+      "cache": true
     }
   },
   "cli": {
@@ -66,5 +59,6 @@
     "@nx/angular:component": {
       "style": "css"
     }
-  }
+  },
+  "nxCloudAccessToken": "ZTJiNTUxMzctNDY2Ny00NTAxLTgzNDAtYzFiMWJhZTMwNWVhfHJlYWQtd3JpdGU="
 }

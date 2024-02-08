@@ -9,7 +9,8 @@
       "executor": "@nx/angular:package",
       "outputs": ["{workspaceRoot}/dist/data-layer"],
       "options": {
-        "project": "libs/data-layer/ng-package.json"
+        "project": "libs/data-layer/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "development": {
@@ -37,20 +38,15 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/data-layer/**/*.ts",
-          "libs/data-layer/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "publish": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
         "access": "public",
-        "buildTarget": "production"
-      }
+        "distFolderPath": "dist/libs/data-layer"
+      },
+      "dependsOn": ["pre-publish-build-production"]
     },
     "github": {
       "executor": "@jscutlery/semver:github",
@@ -66,6 +62,12 @@
         "push": true,
         "tagPrefix": "${projectName}/",
         "postTargets": ["data-layer:publish", "data-layer:github"]
+      }
+    },
+    "pre-publish-build-production": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run data-layer:build:production"
       }
     }
   }

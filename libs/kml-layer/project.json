@@ -9,7 +9,8 @@
       "executor": "@nx/angular:package",
       "options": {
         "tsConfig": "libs/kml-layer/tsconfig.lib.json",
-        "project": "libs/kml-layer/ng-package.json"
+        "project": "libs/kml-layer/ng-package.json",
+        "updateBuildableProjectDepsInPackageJson": true
       },
       "configurations": {
         "production": {
@@ -33,13 +34,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "options": {
-        "lintFilePatterns": [
-          "libs/kml-layer/**/*.ts",
-          "libs/kml-layer/**/*.html"
-        ]
-      }
+      "executor": "@nx/eslint:lint"
     }
   }
 }
