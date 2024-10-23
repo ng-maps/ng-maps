@@ -1,7 +1,4 @@
 {
-  "affected": {
-    "defaultBase": "main"
-  },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
@@ -73,5 +70,8 @@
       "style": "css"
     }
   },
-  "nxCloudAccessToken": "ZTJiNTUxMzctNDY2Ny00NTAxLTgzNDAtYzFiMWJhZTMwNWVhfHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "ZTJiNTUxMzctNDY2Ny00NTAxLTgzNDAtYzFiMWJhZTMwNWVhfHJlYWQtd3JpdGU=",
+  "useInferencePlugins": false,
+  "defaultBase": "main",
+  "useLegacyCache": true
 }
