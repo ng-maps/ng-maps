@@ -1,2 +1,5 @@
 node_modules
 **/test.ts
+karma.conf.js
+environment.ts
+environment.*.ts
