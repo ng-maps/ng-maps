@@ -2,6 +2,17 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+## [7.0.0](https://github.com/ng-maps/ng-maps/compare/core/6.0.1...core/7.0.0) (2024-11-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* move peerDependencies to angular 18
+
+### Miscellaneous Chores
+
+* move peerDependencies to angular 18 ([496bc12](https://github.com/ng-maps/ng-maps/commit/496bc12c25ba9f9bf5b9bae53ee8cd57a977a274))
+
 ## [6.0.1](https://github.com/ng-maps/ng-maps/compare/core/6.0.0...core/6.0.1) (2024-02-08)
 
 ## [6.0.0](https://github.com/ng-maps/ng-maps/compare/core/5.0.3...core/6.0.0) (2024-02-08)
