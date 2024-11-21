@@ -59,7 +59,7 @@ jobs:
 
       - name: Check dist
         id: check_dist
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: 'dist'
 

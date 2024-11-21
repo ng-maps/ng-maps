@@ -90,7 +90,7 @@ jobs:
 
       - name: Check coverage
         id: check_coverage
-        uses: andstor/file-existence-action@v2
+        uses: andstor/file-existence-action@v3
         with:
           files: 'coverage'
 
