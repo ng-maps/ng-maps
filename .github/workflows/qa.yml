@@ -100,7 +100,7 @@ jobs:
 
       - name: Publish code coverage
         if: steps.check_coverage.outputs.files_exists == 'true'
-        uses: paambaati/codeclimate-action@v4.0.0
+        uses: paambaati/codeclimate-action@v9.0.0
         continue-on-error: true
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CODE_CLIMATE_REPORTER_ID}}
