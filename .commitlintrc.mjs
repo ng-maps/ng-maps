@@ -5,7 +5,7 @@ export default {
     'scope-enum': (ctx) => [
       2,
       'always',
-      ['deps', 'deps-dev', ...(nxScopes.utils.getProjects(ctx))],
+      ['deps', 'deps-dev', ...nxScopes.utils.getProjects(ctx)],
     ],
   },
 };
