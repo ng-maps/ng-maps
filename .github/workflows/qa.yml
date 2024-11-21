@@ -29,7 +29,7 @@ jobs:
           fetch-depth: 0
 
       - name: Cache node modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: npm_cache
         with:
           path: node_modules
@@ -40,7 +40,7 @@ jobs:
         run: npm ci
 
       - name: Cache Nx
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules/.cache/nx
           key: cache-nx-${{ hashFiles('package-lock.json') }}-${{github.ref_name}}-${{ github.sha }}
@@ -65,7 +65,7 @@ jobs:
           fetch-depth: 0
 
       - name: Cache node modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: npm_cache
         with:
           path: node_modules
@@ -76,7 +76,7 @@ jobs:
         run: npm ci
 
       - name: Cache Nx
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules/.cache/nx
           key: cache-nx-${{ hashFiles('package-lock.json') }}-${{github.ref_name}}-${{ github.sha }}
@@ -131,14 +131,14 @@ jobs:
           fetch-depth: 0
 
       - name: Cache node modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: npm_cache
         with:
           path: node_modules
           key: cache-node-modules-${{ hashFiles('package-lock.json') }}
 
       - name: Cache cypress
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cypress_cache
         with:
           path: ~/.cache/Cypress
@@ -151,7 +151,7 @@ jobs:
         run: npm ci
 
       - name: Cache Nx
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules/.cache/nx
           key: cache-nx-${{ hashFiles('package-lock.json') }}-${{github.ref_name}}-${{ github.sha }}
