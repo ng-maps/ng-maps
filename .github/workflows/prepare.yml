@@ -10,7 +10,7 @@ jobs:
     outputs:
       cypress-version: ${{ steps.cypress-version.outputs.CYPRESS_VERSION }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache node modules
         id: npm_cache
