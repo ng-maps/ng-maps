@@ -1,5 +1,5 @@
 import { NgZone } from '@angular/core';
-import { async, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, inject, TestBed } from '@angular/core/testing';
 import { isEqual } from 'lodash-es';
 
 import { NgMapsMarkerComponent } from '@ng-maps/core';
@@ -31,7 +31,7 @@ xdescribe('MarkerManager', () => {
   });
 
   describe('Create a new marker', () => {
-    it('should call the mapsApiWrapper when creating a new marker', async(
+    it('should call the mapsApiWrapper when creating a new marker', waitForAsync(
       inject(
         // @ts-ignore
         [MarkerManager, GoogleMapsAPIWrapper],
@@ -65,7 +65,7 @@ xdescribe('MarkerManager', () => {
   });
 
   describe('Delete a marker', () => {
-    it('should set the map to null when deleting a existing marker', async(
+    it('should set the map to null when deleting a existing marker', waitForAsync(
       inject(
         [GoogleMapsMarkerManager, GoogleMapsAPIWrapper],
         (
@@ -96,7 +96,7 @@ xdescribe('MarkerManager', () => {
   });
 
   describe('set marker icon', () => {
-    it('should update that marker via setIcon method when the markerUrl changes', async(
+    it('should update that marker via setIcon method when the markerUrl changes', waitForAsync(
       inject(
         [GoogleMapsMarkerManager, GoogleMapsAPIWrapper],
         (
@@ -144,7 +144,7 @@ xdescribe('MarkerManager', () => {
   });
 
   describe('set marker opacity', () => {
-    it('should update that marker via setOpacity method when the markerOpacity changes', async(
+    it('should update that marker via setOpacity method when the markerOpacity changes', waitForAsync(
       inject(
         [GoogleMapsMarkerManager, GoogleMapsAPIWrapper],
         (
@@ -192,7 +192,7 @@ xdescribe('MarkerManager', () => {
   });
 
   describe('set visible option', () => {
-    it('should update that marker via setVisible method when the visible changes', async(
+    it('should update that marker via setVisible method when the visible changes', waitForAsync(
       inject(
         [GoogleMapsMarkerManager, GoogleMapsAPIWrapper],
         (
@@ -240,7 +240,7 @@ xdescribe('MarkerManager', () => {
   });
 
   describe('set zIndex option', () => {
-    it('should update that marker via setZIndex method when the zIndex changes', async(
+    it('should update that marker via setZIndex method when the zIndex changes', waitForAsync(
       inject(
         [GoogleMapsMarkerManager, GoogleMapsAPIWrapper],
         (

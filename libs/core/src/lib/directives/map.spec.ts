@@ -1,5 +1,5 @@
 import { ElementRef, Injectable, SimpleChange } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { mockProvider } from '@ngneat/spectator';
 import { EMPTY } from 'rxjs';
 
@@ -17,7 +17,7 @@ xdescribe('NgMapsViewComponent', () => {
   let fixture: ComponentFixture<NgMapsViewComponent<any>>;
   let component: NgMapsViewComponent<any>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [NgMapsViewComponent],
     })

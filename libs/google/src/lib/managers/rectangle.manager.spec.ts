@@ -1,5 +1,5 @@
 import { NgZone } from '@angular/core';
-import { async, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, fakeAsync, inject, TestBed } from '@angular/core/testing';
 
 import { MapsApiWrapper, NgMapsRectangleDirective } from '@ng-maps/core';
 
@@ -100,7 +100,7 @@ describe('RectangleManager', () => {
   });
 
   describe('Set bounds option', () => {
-    it('should update that rectangle via setBounds method when the bounds changes', async(
+    it('should update that rectangle via setBounds method when the bounds changes', waitForAsync(
       inject(
         [GoogleRectangleManager, MapsApiWrapper],
         (
@@ -165,7 +165,7 @@ describe('RectangleManager', () => {
   });
 
   describe('Set fill/stroke opacity option', () => {
-    it('should update that rectangle via setOptions method when the options changes', async(
+    it('should update that rectangle via setOptions method when the options changes', waitForAsync(
       inject(
         [GoogleRectangleManager, MapsApiWrapper],
         (
@@ -228,7 +228,7 @@ describe('RectangleManager', () => {
   });
 
   describe('Set fill/stroke color option', () => {
-    it('should update that rectangle via setOptions method when the options changes', async(
+    it('should update that rectangle via setOptions method when the options changes', waitForAsync(
       inject(
         [GoogleRectangleManager, MapsApiWrapper],
         (
@@ -290,7 +290,7 @@ describe('RectangleManager', () => {
   });
 
   describe('Set visible option', () => {
-    it('should update that rectangle via setVisible method when the visible changes', async(
+    it('should update that rectangle via setVisible method when the visible changes', waitForAsync(
       inject(
         [GoogleRectangleManager, MapsApiWrapper],
         (

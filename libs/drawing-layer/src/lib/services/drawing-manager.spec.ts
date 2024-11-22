@@ -1,5 +1,5 @@
 import { NgZone } from '@angular/core';
-import { async, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, inject, TestBed } from '@angular/core/testing';
 
 import { MapsApiWrapper } from '@ng-maps/core';
 
@@ -77,7 +77,7 @@ describe('DrawingManager', () => {
   });
 
   describe('set drawing manager drawing mode', () => {
-    it('should update drawing manager via setDrawingMode method when the drawingMode changes', async(
+    it('should update drawing manager via setDrawingMode method when the drawingMode changes', waitForAsync(
       inject(
         [DrawingManager, MapsApiWrapper],
         (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
@@ -122,7 +122,7 @@ describe('DrawingManager', () => {
   });
 
   describe('set drawing manager drawing control', () => {
-    it('should update drawing manager via setDrawingControl method when the drawingControl changes', async(
+    it('should update drawing manager via setDrawingControl method when the drawingControl changes', waitForAsync(
       inject(
         [DrawingManager, MapsApiWrapper],
         (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
@@ -166,7 +166,7 @@ describe('DrawingManager', () => {
   });
 
   describe('set drawing manager drawing control options', () => {
-    it('should update drawing manager via setDrawingControlOptions method when the drawingControlOptions changes', async(
+    it('should update drawing manager via setDrawingControlOptions method when the drawingControlOptions changes', waitForAsync(
       inject(
         [DrawingManager, MapsApiWrapper],
         (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
@@ -213,7 +213,7 @@ describe('DrawingManager', () => {
   });
 
   describe('set drawing manager circle options', () => {
-    it('should update drawing manager via setCircleOptions method when the circleOptions changes', async(
+    it('should update drawing manager via setCircleOptions method when the circleOptions changes', waitForAsync(
       inject(
         [DrawingManager, MapsApiWrapper],
         (drawingManagerManager, apiWrapper) => {
@@ -257,7 +257,7 @@ describe('DrawingManager', () => {
   });
 
   describe('set drawing manager marker options', () => {
-    it('should update drawing manager via setCircleOptions method when the markerOptions changes', async(
+    it('should update drawing manager via setCircleOptions method when the markerOptions changes', waitForAsync(
       inject(
         [DrawingManager, MapsApiWrapper],
         (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
@@ -304,7 +304,7 @@ describe('DrawingManager', () => {
   });
 
   describe('set drawing manager polyline options', () => {
-    it('should update drawing manager via setPolylineOptions method when the polylineOptions changes', async(
+    it('should update drawing manager via setPolylineOptions method when the polylineOptions changes', waitForAsync(
       inject(
         [DrawingManager, MapsApiWrapper],
         (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
@@ -348,7 +348,7 @@ describe('DrawingManager', () => {
   });
 
   describe('set drawing manager polygon options', () => {
-    it('should update drawing manager via setPolygonOptions method when the polygonOptions changes', async(
+    it('should update drawing manager via setPolygonOptions method when the polygonOptions changes', waitForAsync(
       inject(
         [DrawingManager, MapsApiWrapper],
         (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
@@ -392,7 +392,7 @@ describe('DrawingManager', () => {
   });
 
   describe('set drawing manager rectangle options', () => {
-    it('should update drawing manager via setRectangleOptions method when the rectangleOptions changes', async(
+    it('should update drawing manager via setRectangleOptions method when the rectangleOptions changes', waitForAsync(
       inject(
         [DrawingManager, MapsApiWrapper],
         (drawingManagerManager: DrawingManager, apiWrapper: MapsApiWrapper) => {
