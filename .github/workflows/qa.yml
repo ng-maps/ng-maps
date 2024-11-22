@@ -108,7 +108,7 @@ jobs:
           coverageLocations: |
             coverage/**/lcov.info:lcov
 
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v5
 
       - name: Upload coverage
         if: steps.check_coverage.outputs.files_exists == 'true'
