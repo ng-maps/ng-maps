@@ -16,8 +16,9 @@ import { RectangleOptions } from '../interface/rectangle-options';
 import { RectangleManager } from '../services/managers/rectangle-manager';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'map-rectangle',
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: 'map-rectangle',
+    standalone: false
 })
 export class NgMapsRectangleDirective
   implements OnInit, OnChanges, OnDestroy, RectangleOptions

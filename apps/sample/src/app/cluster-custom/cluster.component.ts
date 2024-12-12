@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { Renderer } from '@googlemaps/markerclusterer';
 
 @Component({
-  templateUrl: './cluster.component.html',
-  styleUrls: ['./cluster.component.css'],
+    templateUrl: './cluster.component.html',
+    styleUrls: ['./cluster.component.css'],
+    standalone: false
 })
 export class CustomClusterComponent {
   public mockLocations = [

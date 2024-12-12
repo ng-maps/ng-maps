@@ -25,7 +25,8 @@ import {
  * <input [mapAutocomplete]='options' (placeResult)='onPlacesResult($event)' />
  */
 @Directive({
-  selector: '[mapAutocomplete]',
+    selector: '[mapAutocomplete]',
+    standalone: false
 })
 export class NgMapsAutocompleteDirective
   implements OnInit, OnChanges, OnDestroy

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-direction',
-  templateUrl: './direction.component.html',
-  styleUrls: ['./direction.component.css'],
+    selector: 'app-direction',
+    templateUrl: './direction.component.html',
+    styleUrls: ['./direction.component.css'],
+    standalone: false
 })
 export class DirectionComponent {
   public lat: number = 51.678418;

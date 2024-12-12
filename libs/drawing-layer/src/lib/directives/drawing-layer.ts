@@ -43,28 +43,29 @@ let drawingManagerId = 0;
  * ```
  */
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'map-drawing-layer',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: [
-    'drawingMode',
-    'drawingControl',
-    'drawingControlOptions',
-    'circleOptions',
-    'markerOptions',
-    'polylineOptions',
-    'polygonOptions',
-    'rectangleOptions',
-  ],
-  // eslint-disable-next-line @angular-eslint/no-outputs-metadata-property
-  outputs: [
-    'overlayComplete',
-    'circleComplete',
-    'markerComplete',
-    'polylineComplete',
-    'polygonComplete',
-    'rectangleComplete',
-  ],
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: 'map-drawing-layer',
+    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+    inputs: [
+        'drawingMode',
+        'drawingControl',
+        'drawingControlOptions',
+        'circleOptions',
+        'markerOptions',
+        'polylineOptions',
+        'polygonOptions',
+        'rectangleOptions',
+    ],
+    // eslint-disable-next-line @angular-eslint/no-outputs-metadata-property
+    outputs: [
+        'overlayComplete',
+        'circleComplete',
+        'markerComplete',
+        'polylineComplete',
+        'polygonComplete',
+        'rectangleComplete',
+    ],
+    standalone: false
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class NgMapsDrawingLayer implements OnDestroy, OnChanges {

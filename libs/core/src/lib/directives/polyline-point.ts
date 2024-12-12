@@ -12,8 +12,9 @@ import {
  * NgMapsPolyline}
  */
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'map-polyline-point',
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: 'map-polyline-point',
+    standalone: false
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class NgMapsPolylinePoint implements OnChanges {

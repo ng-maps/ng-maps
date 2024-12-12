@@ -26,9 +26,9 @@ import {
 } from '@ng-maps/core';
 
 @Component({
-  selector: 'map-snazzy-info-window',
-  template:
-    '<div #outerWrapper><div #viewContainer></div></div><ng-content></ng-content>',
+    selector: 'map-snazzy-info-window',
+    template: '<div #outerWrapper><div #viewContainer></div></div><ng-content></ng-content>',
+    standalone: false
 })
 export class NgMapsSnazzyInfoWindowComponent
   implements AfterViewInit, OnDestroy, OnChanges

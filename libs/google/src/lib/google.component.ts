@@ -22,19 +22,19 @@ import { GooglePolylineManager } from './managers/polyline.manager';
 import { GoogleRectangleManager } from './managers/rectangle.manager';
 
 @Component({
-  selector: 'map-view',
-  providers: [
-    { provide: MapsApiWrapper, useClass: GoogleMapsAPIWrapper },
-    { provide: FitBoundsService, useClass: GoogleMapsFitBoundsService },
-    { provide: MarkerManager, useClass: GoogleMapsMarkerManager },
-    { provide: CircleManager, useClass: GoogleCircleManager },
-    { provide: PolygonManager, useClass: GooglePolygonManager },
-    { provide: PolylineManager, useClass: GooglePolylineManager },
-    { provide: RectangleManager, useClass: GoogleRectangleManager },
-    { provide: InfoWindowManager, useClass: GoogleInfoWindowManager },
-  ],
-  styles: [
-    `
+    selector: 'map-view',
+    providers: [
+        { provide: MapsApiWrapper, useClass: GoogleMapsAPIWrapper },
+        { provide: FitBoundsService, useClass: GoogleMapsFitBoundsService },
+        { provide: MarkerManager, useClass: GoogleMapsMarkerManager },
+        { provide: CircleManager, useClass: GoogleCircleManager },
+        { provide: PolygonManager, useClass: GooglePolygonManager },
+        { provide: PolylineManager, useClass: GooglePolylineManager },
+        { provide: RectangleManager, useClass: GoogleRectangleManager },
+        { provide: InfoWindowManager, useClass: GoogleInfoWindowManager },
+    ],
+    styles: [
+        `
       .map-container-inner {
         width: inherit;
         height: inherit;
@@ -44,13 +44,14 @@ import { GoogleRectangleManager } from './managers/rectangle.manager';
         display: none;
       }
     `,
-  ],
-  template: `
+    ],
+    template: `
     <div class="map-container-inner" #container></div>
     <div class="map-content">
       <ng-content></ng-content>
     </div>
   `,
+    standalone: false
 })
 export class GoogleComponent extends NgMapsViewComponent<google.maps.Map> {
   constructor(

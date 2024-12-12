@@ -24,7 +24,8 @@
             "prefix": "map",
             "style": "camelCase"
           }
-        ]
+        ],
+        "@angular-eslint/prefer-standalone": "off"
       }
     },
     {

@@ -44,12 +44,13 @@ let infoWindowId = 0;
  * ```
  */
 @Component({
-  selector: 'map-info-window',
-  template: `
+    selector: 'map-info-window',
+    template: `
     <div class="info-window-content" #content>
       <ng-content></ng-content>
     </div>
   `,
+    standalone: false
 })
 export class NgMapsInfoWindowComponent implements OnDestroy, OnChanges, OnInit {
   // @todo how to add correct typings?

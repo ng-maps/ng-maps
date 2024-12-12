@@ -6,9 +6,10 @@ import { BoundsLiteral, GeoPoint, NgMapsMarkerComponent } from '@ng-maps/core';
 import { MARKERS } from '../../../sample/src/app/shapes/markers';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   latA: number;

@@ -24,7 +24,8 @@
             "prefix": "lib",
             "style": "camelCase"
           }
-        ]
+        ],
+        "@angular-eslint/prefer-standalone": "off"
       }
     },
     {

@@ -31,19 +31,19 @@ import { HerePolylineManager } from './managers/polyline-manager';
 import { HereRectangleManager } from './managers/rectangle-manager';
 
 @Component({
-  selector: 'map-view',
-  providers: [
-    { provide: MapsApiWrapper, useClass: HereMapsWrapperService },
-    { provide: FitBoundsService, useClass: HereMapsFitBoundsService },
-    { provide: MarkerManager, useClass: HereMapsMarkerManager },
-    { provide: CircleManager, useClass: HereCircleManager },
-    { provide: PolygonManager, useClass: HerePolygonManager },
-    { provide: PolylineManager, useClass: HerePolylineManager },
-    { provide: RectangleManager, useClass: HereRectangleManager },
-    { provide: InfoWindowManager, useClass: HereMapsInfoWindowManager },
-  ],
-  styles: [
-    `
+    selector: 'map-view',
+    providers: [
+        { provide: MapsApiWrapper, useClass: HereMapsWrapperService },
+        { provide: FitBoundsService, useClass: HereMapsFitBoundsService },
+        { provide: MarkerManager, useClass: HereMapsMarkerManager },
+        { provide: CircleManager, useClass: HereCircleManager },
+        { provide: PolygonManager, useClass: HerePolygonManager },
+        { provide: PolylineManager, useClass: HerePolylineManager },
+        { provide: RectangleManager, useClass: HereRectangleManager },
+        { provide: InfoWindowManager, useClass: HereMapsInfoWindowManager },
+    ],
+    styles: [
+        `
       .map-container-inner {
         width: inherit;
         height: inherit;
@@ -53,13 +53,14 @@ import { HereRectangleManager } from './managers/rectangle-manager';
         display: none;
       }
     `,
-  ],
-  template: `
+    ],
+    template: `
     <div class="map-container-inner" #container></div>
     <div class="map-content">
       <ng-content></ng-content>
     </div>
   `,
+    standalone: false
 })
 export class HereComponent extends NgMapsViewComponent<H.Map> {
   @HostListener('window:resize')

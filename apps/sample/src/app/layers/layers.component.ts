@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-layers',
-  templateUrl: './layers.component.html',
-  styleUrls: ['./layers.component.css'],
+    selector: 'app-layers',
+    templateUrl: './layers.component.html',
+    styleUrls: ['./layers.component.css'],
+    standalone: false
 })
 export class LayersComponent {
   public lat: number = 51.678418;

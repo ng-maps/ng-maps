@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-simple-map',
-  templateUrl: './simple-map.component.html',
-  styleUrls: ['./simple-map.component.css'],
+    selector: 'app-simple-map',
+    templateUrl: './simple-map.component.html',
+    styleUrls: ['./simple-map.component.css'],
+    standalone: false
 })
 export class SimpleMapComponent {
   public lat: number = 51.678418;

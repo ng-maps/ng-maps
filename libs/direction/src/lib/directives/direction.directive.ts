@@ -15,8 +15,9 @@ import {
 import { MAP_PROVIDER, MapsAPILoader, MapsApiWrapper } from '@ng-maps/core';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'map-direction',
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: 'map-direction',
+    standalone: false
 })
 export class NgMapsDirectionDirective implements OnChanges, OnInit, OnDestroy {
   @Input() public origin?:
