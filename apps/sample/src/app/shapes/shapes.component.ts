@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { MARKERS } from './markers';
 
 @Component({
-    selector: 'app-shapes',
-    templateUrl: './shapes.component.html',
-    styleUrls: ['./shapes.component.css'],
-    standalone: false
+  selector: 'app-shapes',
+  templateUrl: './shapes.component.html',
+  styleUrls: ['./shapes.component.css'],
+  standalone: false,
 })
 export class ShapesComponent implements OnInit {
   public latA: number;

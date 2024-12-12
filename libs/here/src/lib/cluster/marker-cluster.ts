@@ -22,13 +22,13 @@ import { Calculator, MarkerClustererOptions } from './cluster-options';
  * MarkerClusterComponent clusters map marker if they are near together
  */
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'map-marker-cluster',
-    providers: [
-        ClusterManager,
-        { provide: MarkerManager, useExisting: ClusterManager },
-    ],
-    standalone: false
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'map-marker-cluster',
+  providers: [
+    ClusterManager,
+    { provide: MarkerManager, useExisting: ClusterManager },
+  ],
+  standalone: false,
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class MarkerClusterComponent

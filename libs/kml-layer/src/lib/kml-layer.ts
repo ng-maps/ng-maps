@@ -15,9 +15,9 @@ import { KmlLayerManager } from './kml-layer-manager';
 let layerId = 0;
 
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'map-kml-layer',
-    standalone: false
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'map-kml-layer',
+  standalone: false,
 })
 export class NgMapsKmlLayerDirective implements OnInit, OnDestroy, OnChanges {
   constructor(private _manager: KmlLayerManager) {}

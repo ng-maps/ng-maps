@@ -17,9 +17,9 @@ import { PolygonManager } from '../services/managers/polygon.manager';
  * NgMapsPolygon renders a polygon on a {@link https://ng-maps.github.io/core/components/NgMapsViewComponent.html|NgMapsView}
  */
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'map-polygon',
-    standalone: false
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'map-polygon',
+  standalone: false,
 })
 export class NgMapsPolygonDirective
   implements OnDestroy, OnChanges, AfterContentInit

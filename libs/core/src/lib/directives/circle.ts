@@ -16,9 +16,9 @@ import { GeoPoint } from '../interface/geo-point';
 import { CircleManager } from '../services/managers/circle-manager';
 
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'map-circle',
-    standalone: false
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'map-circle',
+  standalone: false,
 })
 export class NgMapsCircleDirective
   implements OnInit, OnChanges, OnDestroy, CircleOptions

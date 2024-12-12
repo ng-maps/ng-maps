@@ -30,8 +30,8 @@ import { MapsApiWrapper } from '../services/maps-api-wrapper';
  * <map-view [latitude]="lat" [longitude]="lng" [zoom]="zoom"></map-view>
  */
 @Component({
-    styles: [
-        `
+  styles: [
+    `
       .map-container-inner {
         width: inherit;
         height: inherit;
@@ -41,14 +41,14 @@ import { MapsApiWrapper } from '../services/maps-api-wrapper';
         display: none;
       }
     `,
-    ],
-    template: `
+  ],
+  template: `
     <div class="map-container-inner" #container></div>
     <div class="map-content">
       <ng-content></ng-content>
     </div>
   `,
-    standalone: false
+  standalone: false,
 })
 export class NgMapsViewComponent<T>
   implements OnChanges, OnInit, OnDestroy, MapOptions

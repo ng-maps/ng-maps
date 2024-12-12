@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-fit-bounds',
-    templateUrl: './fit-bounds.component.html',
-    styleUrls: ['./fit-bounds.component.css'],
-    standalone: false
+  selector: 'app-fit-bounds',
+  templateUrl: './fit-bounds.component.html',
+  styleUrls: ['./fit-bounds.component.css'],
+  standalone: false,
 })
 export class FitBoundsComponent {
   public boundaries = {

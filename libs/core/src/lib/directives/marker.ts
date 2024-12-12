@@ -31,42 +31,42 @@ let markerId = 0;
  * </agm-map>
  */
 @Component({
-    selector: 'map-marker',
-    providers: [
-        {
-            provide: FitBoundsAccessor,
-            useExisting: forwardRef(() => NgMapsMarkerComponent),
-        },
-    ],
-    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-    inputs: [
-        'latitude',
-        'longitude',
-        'title',
-        'label',
-        // eslint-disable-next-line @angular-eslint/no-input-rename
-        'draggable: markerDraggable',
-        'iconUrl',
-        'icon',
-        'openInfoWindow',
-        'opacity',
-        'optimized',
-        'visible',
-        'zIndex',
-        'animation',
-    ],
-    // eslint-disable-next-line @angular-eslint/no-outputs-metadata-property
-    outputs: [
-        'markerClick',
-        'dragStart',
-        // eslint-disable-next-line @angular-eslint/no-output-native
-        'drag',
-        'dragEnd',
-        'mouseOver',
-        'mouseOut',
-    ],
-    template: '<ng-content></ng-content>',
-    standalone: false
+  selector: 'map-marker',
+  providers: [
+    {
+      provide: FitBoundsAccessor,
+      useExisting: forwardRef(() => NgMapsMarkerComponent),
+    },
+  ],
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: [
+    'latitude',
+    'longitude',
+    'title',
+    'label',
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    'draggable: markerDraggable',
+    'iconUrl',
+    'icon',
+    'openInfoWindow',
+    'opacity',
+    'optimized',
+    'visible',
+    'zIndex',
+    'animation',
+  ],
+  // eslint-disable-next-line @angular-eslint/no-outputs-metadata-property
+  outputs: [
+    'markerClick',
+    'dragStart',
+    // eslint-disable-next-line @angular-eslint/no-output-native
+    'drag',
+    'dragEnd',
+    'mouseOver',
+    'mouseOut',
+  ],
+  template: '<ng-content></ng-content>',
+  standalone: false,
 })
 export class NgMapsMarkerComponent
   implements

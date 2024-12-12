@@ -19,14 +19,14 @@ import { ClusterManager } from '../services/managers/cluster-manager';
  * MarkerClusterComponent clusters map marker if they are near together
  */
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'map-marker-cluster',
-    providers: [
-        ClusterManager,
-        { provide: MarkerManager, useExisting: ClusterManager },
-        { provide: InfoWindowManager, useClass: GoogleInfoWindowManager },
-    ],
-    standalone: false
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'map-marker-cluster',
+  providers: [
+    ClusterManager,
+    { provide: MarkerManager, useExisting: ClusterManager },
+    { provide: InfoWindowManager, useClass: GoogleInfoWindowManager },
+  ],
+  standalone: false,
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class MarkerClusterComponent implements OnDestroy, OnChanges, OnInit {

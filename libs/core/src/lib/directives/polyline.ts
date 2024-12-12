@@ -22,9 +22,9 @@ let polylineId = 0;
  * NgMapsPolyline renders a polyline on a {@link https://ng-maps.github.io/core/components/NgMapsViewComponent.html|NgMapsView}
  */
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'map-polyline',
-    standalone: false
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'map-polyline',
+  standalone: false,
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class NgMapsPolyline implements OnDestroy, OnChanges, AfterContentInit {

@@ -25,8 +25,8 @@ import {
  * <input [mapAutocomplete]='options' (placeResult)='onPlacesResult($event)' />
  */
 @Directive({
-    selector: '[mapSearchBox]',
-    standalone: false
+  selector: '[mapSearchBox]',
+  standalone: false,
 })
 export class NgMapsSearchBoxDirective implements OnInit, OnChanges, OnDestroy {
   /**

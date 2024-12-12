@@ -205,9 +205,9 @@ let layerId = 0;
  * ```
  */
 @Directive({
-    // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'map-data-layer',
-    standalone: false
+  // eslint-disable-next-line @angular-eslint/directive-selector
+  selector: 'map-data-layer',
+  standalone: false,
 })
 export class NgMapsDataLayerDirective implements OnInit, OnDestroy, OnChanges {
   private static _dataOptionsAttributes: Array<string> = ['style'];
