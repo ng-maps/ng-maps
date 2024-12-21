@@ -109,7 +109,7 @@
     "@commitlint/cli": "19.6.0",
     "@commitlint/config-conventional": "19.6.0",
     "@commitlint/config-nx-scopes": "19.5.0",
-    "@compodoc/compodoc": "^1.1.11",
+    "@compodoc/compodoc": "^1.1.26",
     "@jscutlery/semver": "5.5.1",
     "@ngneat/spectator": "^19.0.0",
     "@nx/eslint": "20.2.2",
