@@ -1,9 +1,10 @@
 # NgMaps
 
-[![codecov.io](https://codecov.io/github/ng-maps/ng-maps/coverage.svg?branch=master)](https://codecov.io/github/ng-maps/ng-maps?branch=master)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fng-maps%2Fng-maps.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fng-maps%2Fng-maps?ref=badge_shield)
+**There will be not updates anymore**
 
-Contributions or questions? Joins us on [discord](https://discord.gg/ckCAAFNbf9).
+1. There is declining demand for this library
+2. Angular team has it's own well maintained library for maps: [Angular Components / google-maps](https://github.com/angular/components/blob/main/src/google-maps/README.md)
+3. There is very little contribution
 
 ## Installation
 
