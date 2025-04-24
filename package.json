@@ -89,7 +89,7 @@
     "@angular/platform-browser-dynamic": "19.0.5",
     "@angular/router": "19.0.5",
     "@googlemaps/markerclusterer": "^2.0.0",
-    "@nx/angular": "20.2.2",
+    "@nx/angular": "20.4.2",
     "lodash-es": "^4.17.21",
     "rxjs": "^7.6.0",
     "snazzy-info-window": "^1.1.1",
