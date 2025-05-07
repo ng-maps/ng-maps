@@ -8,6 +8,8 @@ import {
   PolylineManager,
 } from '@ng-maps/core';
 
+import { createMVCEventObservable, MVCEvent } from '../util/mvcarray';
+
 @Injectable()
 export class GooglePolylineManager extends PolylineManager<google.maps.Polyline> {
   constructor(_mapsWrapper: MapsApiWrapper, _zone: NgZone) {
@@ -89,5 +91,23 @@ export class GooglePolylineManager extends PolylineManager<google.maps.Polyline>
         );
       });
     });
+  }
+
+  public async createPathEventObservable(
+    line: NgMapsPolyline,
+  ): Promise<Observable<MVCEvent<google.maps.LatLng>>> {
+    const mvcPath = await this.getMVCPath(line);
+    return createMVCEventObservable(mvcPath);
+  }
+
+  private async getMVCPath(
+    agmPolyline: NgMapsPolyline,
+  ): Promise<google.maps.MVCArray<google.maps.LatLng>> {
+    const polyline = await this._polylines.get(agmPolyline);
+    if (!polyline) {
+      // TODO why???
+      return [] as any as google.maps.MVCArray<google.maps.LatLng>;
+    }
+    return polyline?.getPath();
   }
 }
