@@ -149,7 +149,7 @@
     "ng-mocks": "14.13.1",
     "ng-packagr": "19.0.1",
     "ngx-deploy-npm": "8.4.0",
-    "nx": "20.2.2",
+    "nx": "22.7.2",
     "postcss": "^8.4.20",
     "postcss-import": "~15.1.0",
     "postcss-preset-env": "~8.4.0",
